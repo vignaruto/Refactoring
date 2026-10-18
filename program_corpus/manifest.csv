@@ -149,3 +149,53 @@ P0147,P0147.py,Data Aggregation and Statistics,Aggregate urban traffic noise pol
 P0148,P0148.py,Scheduling and Resource Allocation,Multi-tier microservices container placement across Kubernetes worker pools,All three target issues,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED
 P0149,P0149.py,Small Simulation and Rule-based Systems,Simulate electrical distribution substation transformer thermal stress overload,All three target issues,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED
 P0150,P0150.py,Inventory and Record Management,Audit retail distribution supply chain shelf replenishment and shrinkage risk,All three target issues,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED
+P0151,P0151.py,Numerical Computation,Square root approximation using Newton-Raphson iteration,None,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED
+P0152,P0152.py,"Lists, Tuples, Dictionaries, and Sets",Merge two sorted integer sequences into a single sorted list,None,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED
+P0153,P0153.py,String Processing & Text Analysis,Compress repetitive string characters using basic run-length format,None,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED
+P0154,P0154.py,Searching and Sorting,Interpolation search over uniformly distributed sorted integer array,None,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED
+P0155,P0155.py,Matrix & Grid Operations,Compute diagonal trace sum and anti-diagonal trace difference,None,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED
+P0156,P0156.py,Data Aggregation and Statistics,Compute single-pass rolling variance using Welford's algorithm,None,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED
+P0157,P0157.py,Inventory and Record Management,Calculate gross margin return on inventory investment (GMROII),None,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED
+P0158,P0158.py,Scheduling and Resource Allocation,Compute cumulative completion lateness for sequential scheduled tasks,None,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED
+P0159,P0159.py,Numerical Computation,Compute thermal dissipation and radiative loss through multi-layer barrier,Long statement only,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED
+P0160,P0160.py,"Lists, Tuples, Dictionaries, and Sets",Calculate multi-asset capital asset pricing model expected returns,Long statement only,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED
+P0161,P0161.py,String Processing & Text Analysis,Calculate automated readability index (ARI) for linguistic analysis,Long statement only,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED
+P0162,P0162.py,Data Aggregation and Statistics,Compute penalized least-squares regression cost with elastic net regularizers,Long statement only,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED
+P0163,P0163.py,Inventory and Record Management,Calculate pharmaceutical inventory holding depreciation and shelf loss,Long statement only,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED
+P0164,P0164.py,Small Simulation and Rule-based Systems,Simulate hydraulic pipeline friction head loss using Darcy-Weisbach equation,Long statement only,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED
+P0165,P0165.py,Numerical Computation,Cholesky matrix decomposition for positive-definite symmetric matrices,Nested loop only,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED
+P0166,P0166.py,Searching and Sorting,Cocktail shaker bi-directional bubble sort algorithm,Nested loop only,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED
+P0167,P0167.py,Matrix & Grid Operations,Check if a 9x9 grid satisfies valid Sudoku placement constraints,Nested loop only,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED
+P0168,P0168.py,String Processing & Text Analysis,Count all palindromic contiguous substrings across token lists,Nested loop only,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED
+P0169,P0169.py,Graph or Tree Traversal,Find all simple cycles of length three in undirected adjacency matrix,Nested loop only,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED
+P0170,P0170.py,Small Simulation and Rule-based Systems,Simulate cellular wildfire spread propagation on forested grid,Nested loop only,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED
+P0171,P0171.py,Numerical Computation,Validate numerical Runge-Kutta adaptive step convergence criteria,Complex conditional only,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED
+P0172,P0172.py,"Lists, Tuples, Dictionaries, and Sets",Evaluate enterprise firewall incoming packet security state,Complex conditional only,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED
+P0173,P0173.py,String Processing & Text Analysis,Classify international IBAN account format checksum and routing compliance,Complex conditional only,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED
+P0174,P0174.py,Data Aggregation and Statistics,Authorize medical emergency telemetry dispatch protocol,Complex conditional only,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED
+P0175,P0175.py,Inventory and Record Management,Audit customs tariff exemption for agricultural exports,Complex conditional only,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED
+P0176,P0176.py,Scheduling and Resource Allocation,Evaluate commercial airline flight crew duty time limits,Complex conditional only,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED
+P0177,P0177.py,Numerical Computation,Evaluate multi-frequency spatial wave superposition interference grid,Long statement and nested loop,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED
+P0178,P0178.py,Searching and Sorting,Compute all-pairs spatial density gradients with polynomial smoothing,Long statement and nested loop,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED
+P0179,P0179.py,Matrix & Grid Operations,Apply adaptive Gaussian unsharp masking matrix transformation,Long statement and nested loop,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED
+P0180,P0180.py,Data Aggregation and Statistics,Compute double-indexed cross correlation matrix between data series,Long statement and nested loop,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED
+P0181,P0181.py,Inventory and Record Management,Aggregate multi-supplier consignment landed costs across regional ports,Long statement and nested loop,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED
+P0182,P0182.py,Small Simulation and Rule-based Systems,Simulate gravitational orbital perturbations in planar multi-satellite cluster,Long statement and nested loop,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED
+P0183,P0183.py,Numerical Computation,Calculate supersonic shockwave compression angle and thermodynamic pressure ratio,Long statement and complex conditional,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED
+P0184,P0184.py,"Lists, Tuples, Dictionaries, and Sets",Compute mortgage refinance underwriting approval index,Long statement and complex conditional,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED
+P0185,P0185.py,String Processing & Text Analysis,Evaluate DNS resource record compliance and domain certificate rank,Long statement and complex conditional,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED
+P0186,P0186.py,Data Aggregation and Statistics,Calculate corporate environmental sustainability ESG index,Long statement and complex conditional,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED
+P0187,P0187.py,Inventory and Record Management,Calculate automotive warranty claims liability reserve,Long statement and complex conditional,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED
+P0188,P0188.py,Small Simulation and Rule-based Systems,Simulate centrifugal pump cavitational Net Positive Suction Head (NPSH),Long statement and complex conditional,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED
+P0189,P0189.py,Numerical Computation,Search coupled dynamical system parameter space for Hopf bifurcation,Nested loop and complex conditional,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED
+P0190,P0190.py,Searching and Sorting,Filter warehouse pallet allocations against hazardous chemical segregation rules,Nested loop and complex conditional,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED
+P0191,P0191.py,Matrix & Grid Operations,Identify coastal wetland estuary grid zones from multispectral sensors,Nested loop and complex conditional,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED
+P0192,P0192.py,String Processing & Text Analysis,Collate anagrammatical token clusters satisfying semantic constraints,Nested loop and complex conditional,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED
+P0193,P0193.py,Graph or Tree Traversal,Validate microservice service-mesh mutual TLS communication rules,Nested loop and complex conditional,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED
+P0194,P0194.py,Scheduling and Resource Allocation,Allocate airport gate arrival slots under turnaround time restrictions,Nested loop and complex conditional,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED
+P0195,P0195.py,Numerical Computation,N-body galactic tidal interaction simulation with relativistic correction,All three target issues,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED
+P0196,P0196.py,Matrix & Grid Operations,Multi-spectral thermal drone search for localized forest embers,All three target issues,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED
+P0197,P0197.py,Data Aggregation and Statistics,Audit regional power grid transmission node congestion and blackout hazard,All three target issues,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED
+P0198,P0198.py,Scheduling and Resource Allocation,Allocate distributed edge compute tasks with thermal throttling constraints,All three target issues,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED
+P0199,P0199.py,Small Simulation and Rule-based Systems,Simulate multi-reservoir watershed cascading overflow spillway gates,All three target issues,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED
+P0200,P0200.py,Inventory and Record Management,Audit pharmaceutical temperature-controlled cold-chain shipping consignments,All three target issues,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED
