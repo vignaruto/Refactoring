@@ -4,51 +4,51 @@ P0002,P0002.py,Matrix Operations,Matrix flattening and scaling,Nested loop only,
 P0003,P0003.py,String Processing,Username structural validation,Complex conditional only,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED
 P0004,P0004.py,Data Aggregation,Portfolio composite risk,Long statement only,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED
 P0005,P0005.py,Inventory Management,Cross warehouse bundle search,Long statement and nested loop,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED
-P0006,P0006.py,Searching and Sorting,Binary search,None,gemini-2.5-pro,v1.0,Batch 2,True,ACCEPTED
-P0007,P0007.py,Graph/Tree Traversal,Bipartite graph coloring,Nested loop only,gemini-2.5-pro,v1.0,Batch 2,True,ACCEPTED
-P0008,P0008.py,Small Simulation,Transaction risk scoring,Complex conditional only,gemini-2.5-pro,v1.0,Batch 2,True,ACCEPTED
-P0009,P0009.py,Lists/Tuples/Dicts,Cylinder 3D surface area,Long statement only,gemini-2.5-pro,v1.0,Batch 2,True,ACCEPTED
-P0010,P0010.py,Scheduling/Allocation,3D worker roster search,Nested loop only,gemini-2.5-pro,v1.0,Batch 2,True,ACCEPTED
-P0011,P0011.py,String Processing,Word frequency counter,None,gemini-2.5-pro,v1.0,Batch 3,True,ACCEPTED
-P0012,P0012.py,Numerical Computation,Pearson correlation coefficient,None,gemini-2.5-pro,v1.0,Batch 3,True,ACCEPTED
-P0013,P0013.py,Inventory Management,Health insurance claim check,Complex conditional only,gemini-2.5-pro,v1.0,Batch 3,True,ACCEPTED
-P0014,P0014.py,Matrix Operations,Pairwise distance matrix,Nested loop only,gemini-2.5-pro,v1.0,Batch 3,True,ACCEPTED
-P0015,P0015.py,Data Aggregation,Creditworthiness score index,Long statement only,gemini-2.5-pro,v1.0,Batch 3,True,ACCEPTED
-P0016,P0016.py,Graph/Tree Traversal,DFS path finding,None,gemini-2.5-pro,v1.0,Batch 4,True,ACCEPTED
-P0017,P0017.py,Scheduling/Allocation,Cloud worker SLA audit,Complex conditional only,gemini-2.5-pro,v1.0,Batch 4,True,ACCEPTED
-P0018,P0018.py,Matrix Operations,3D Matrix multiplication,Nested loop only,gemini-2.5-pro,v1.0,Batch 4,True,ACCEPTED
-P0019,P0019.py,Searching and Sorting,Bubble sort,Nested loop only,gemini-2.5-pro,v1.0,Batch 4,True,ACCEPTED
-P0020,P0020.py,Small Simulation,2D particle step simulation,Long statement only,gemini-2.5-pro,v1.0,Batch 4,True,ACCEPTED
-P0021,P0021.py,Lists/Tuples/Dicts,Even and odd partition,None,gemini-2.5-pro,v1.0,Batch 5,True,ACCEPTED
-P0022,P0022.py,String Processing,Email address validation,Complex conditional only,gemini-2.5-pro,v1.0,Batch 5,True,ACCEPTED
-P0023,P0023.py,Numerical Computation,Sieve of Eratosthenes,Nested loop only,gemini-2.5-pro,v1.0,Batch 5,True,ACCEPTED
-P0024,P0024.py,Inventory Management,Identify catalog duplicates,Nested loop only,gemini-2.5-pro,v1.0,Batch 5,True,ACCEPTED
-P0025,P0025.py,Data Aggregation,Cart promo discount rules,Complex conditional only,gemini-2.5-pro,v1.0,Batch 5,True,ACCEPTED
-P0026,P0026.py,Searching and Sorting,Three-way array intersection,Nested loop only,gemini-2.5-pro,v1.0,Batch 6,True,ACCEPTED
-P0027,P0027.py,Scheduling/Allocation,Worker shift compliance,Complex conditional only,gemini-2.5-pro,v1.0,Batch 6,True,ACCEPTED
-P0028,P0028.py,Matrix Operations,Image pixel neighborhood aggregate,Long statement and nested loop,gemini-2.5-pro,v1.0,Batch 6,True,ACCEPTED
-P0029,P0029.py,Numerical Computation,Horner's polynomial evaluation,None,gemini-2.5-pro,v1.0,Batch 6,True,ACCEPTED
-P0030,P0030.py,Lists/Tuples/Dicts,Demographic market score,Long statement only,gemini-2.5-pro,v1.0,Batch 6,True,ACCEPTED
-P0031,P0031.py,String Processing,Balanced brackets validator,None,gemini-2.5-pro,v1.0,Batch 7,True,ACCEPTED
-P0032,P0032.py,Graph/Tree Traversal,Cyclic triangles counter,Nested loop only,gemini-2.5-pro,v1.0,Batch 7,True,ACCEPTED
-P0033,P0033.py,Data Aggregation,Honor student qualification,Complex conditional only,gemini-2.5-pro,v1.0,Batch 7,True,ACCEPTED
-P0034,P0034.py,Small Simulation,2D heat diffusion,Nested loop only,gemini-2.5-pro,v1.0,Batch 7,True,ACCEPTED
-P0035,P0035.py,Inventory Management,Supplier payable calculation,Long statement only,gemini-2.5-pro,v1.0,Batch 7,True,ACCEPTED
-P0036,P0036.py,Numerical Computation,Euclidean GCD,None,gemini-2.5-pro,v1.0,Batch 8,True,ACCEPTED
-P0037,P0037.py,Lists/Tuples/Dicts,Secure door access audit,Long statement and complex conditional,gemini-2.5-pro,v1.0,Batch 8,True,ACCEPTED
-P0038,P0038.py,Scheduling/Allocation,Cluster job allocator,Nested loop and complex conditional,gemini-2.5-pro,v1.0,Batch 8,True,ACCEPTED
-P0039,P0039.py,String Processing,Key-value tag parser,None,gemini-2.5-pro,v1.0,Batch 8,True,ACCEPTED
-P0040,P0040.py,Data Aggregation,Customer lifetime value,Long statement only,gemini-2.5-pro,v1.0,Batch 8,True,ACCEPTED
-P0041,P0041.py,Searching and Sorting,Selection sort,Nested loop only,gemini-2.5-pro,v1.0,Batch 9,True,ACCEPTED
-P0042,P0042.py,Graph/Tree Traversal,Flight route booking check,Complex conditional only,gemini-2.5-pro,v1.0,Batch 9,True,ACCEPTED
-P0043,P0043.py,Matrix Operations,Grid peak feature detector,Nested loop and complex conditional,gemini-2.5-pro,v1.0,Batch 9,True,ACCEPTED
-P0044,P0044.py,Small Simulation,Packet buffer queue simulation,None,gemini-2.5-pro,v1.0,Batch 9,True,ACCEPTED
-P0045,P0045.py,Inventory Management,Warehouse reorder estimator,All three target issues,gemini-2.5-pro,v1.0,Batch 9,True,ACCEPTED
-P0046,P0046.py,Numerical Computation,Compound balance schedule,Long statement and complex conditional,gemini-2.5-pro,v1.0,Batch 10,True,ACCEPTED
-P0047,P0047.py,Lists/Tuples/Dicts,Customer tier registry audit,All three target issues,gemini-2.5-pro,v1.0,Batch 10,True,ACCEPTED
-P0048,P0048.py,Matrix Operations,3D Voxel raycast hit test,All three target issues,gemini-2.5-pro,v1.0,Batch 10,True,ACCEPTED
-P0049,P0049.py,String Processing,Markdown table extractor,None,gemini-2.5-pro,v1.0,Batch 10,True,ACCEPTED
-P0050,P0050.py,Small Simulation,Traffic signal grid simulation,All three target issues,gemini-2.5-pro,v1.0,Batch 10,True,ACCEPTED
+P0006,P0006.py,Searching and Sorting,Binary search,None,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED
+P0007,P0007.py,Graph/Tree Traversal,Bipartite graph coloring,Nested loop only,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED
+P0008,P0008.py,Small Simulation,Transaction risk scoring,Complex conditional only,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED
+P0009,P0009.py,Lists/Tuples/Dicts,Cylinder 3D surface area,Long statement only,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED
+P0010,P0010.py,Scheduling/Allocation,3D worker roster search,Nested loop only,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED
+P0011,P0011.py,String Processing,Word frequency counter,None,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED
+P0012,P0012.py,Numerical Computation,Pearson correlation coefficient,None,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED
+P0013,P0013.py,Inventory Management,Health insurance claim check,Complex conditional only,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED
+P0014,P0014.py,Matrix Operations,Pairwise distance matrix,Nested loop only,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED
+P0015,P0015.py,Data Aggregation,Creditworthiness score index,Long statement only,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED
+P0016,P0016.py,Graph/Tree Traversal,DFS path finding,None,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED
+P0017,P0017.py,Scheduling/Allocation,Cloud worker SLA audit,Complex conditional only,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED
+P0018,P0018.py,Matrix Operations,3D Matrix multiplication,Nested loop only,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED
+P0019,P0019.py,Searching and Sorting,Bubble sort,Nested loop only,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED
+P0020,P0020.py,Small Simulation,2D particle step simulation,Long statement only,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED
+P0021,P0021.py,Lists/Tuples/Dicts,Even and odd partition,None,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED
+P0022,P0022.py,String Processing,Email address validation,Complex conditional only,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED
+P0023,P0023.py,Numerical Computation,Sieve of Eratosthenes,Nested loop only,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED
+P0024,P0024.py,Inventory Management,Identify catalog duplicates,Nested loop only,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED
+P0025,P0025.py,Data Aggregation,Cart promo discount rules,Complex conditional only,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED
+P0026,P0026.py,Searching and Sorting,Three-way array intersection,Nested loop only,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED
+P0027,P0027.py,Scheduling/Allocation,Worker shift compliance,Complex conditional only,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED
+P0028,P0028.py,Matrix Operations,Image pixel neighborhood aggregate,Long statement and nested loop,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED
+P0029,P0029.py,Numerical Computation,Horner's polynomial evaluation,None,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED
+P0030,P0030.py,Lists/Tuples/Dicts,Demographic market score,Long statement only,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED
+P0031,P0031.py,String Processing,Balanced brackets validator,None,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED
+P0032,P0032.py,Graph/Tree Traversal,Cyclic triangles counter,Nested loop only,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED
+P0033,P0033.py,Data Aggregation,Honor student qualification,Complex conditional only,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED
+P0034,P0034.py,Small Simulation,2D heat diffusion,Nested loop only,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED
+P0035,P0035.py,Inventory Management,Supplier payable calculation,Long statement only,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED
+P0036,P0036.py,Numerical Computation,Euclidean GCD,None,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED
+P0037,P0037.py,Lists/Tuples/Dicts,Secure door access audit,Long statement and complex conditional,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED
+P0038,P0038.py,Scheduling/Allocation,Cluster job allocator,Nested loop and complex conditional,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED
+P0039,P0039.py,String Processing,Key-value tag parser,None,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED
+P0040,P0040.py,Data Aggregation,Customer lifetime value,Long statement only,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED
+P0041,P0041.py,Searching and Sorting,Selection sort,Nested loop only,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED
+P0042,P0042.py,Graph/Tree Traversal,Flight route booking check,Complex conditional only,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED
+P0043,P0043.py,Matrix Operations,Grid peak feature detector,Nested loop and complex conditional,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED
+P0044,P0044.py,Small Simulation,Packet buffer queue simulation,None,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED
+P0045,P0045.py,Inventory Management,Warehouse reorder estimator,All three target issues,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED
+P0046,P0046.py,Numerical Computation,Compound balance schedule,Long statement and complex conditional,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED
+P0047,P0047.py,Lists/Tuples/Dicts,Customer tier registry audit,All three target issues,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED
+P0048,P0048.py,Matrix Operations,3D Voxel raycast hit test,All three target issues,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED
+P0049,P0049.py,String Processing,Markdown table extractor,None,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED
+P0050,P0050.py,Small Simulation,Traffic signal grid simulation,All three target issues,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED
 P0051,P0051.py,Numerical Computation,Extended Euclidean Algorithm for modular inverse,None,gemini-2.5-pro,v2.0-expansion,Batch 2,True,ACCEPTED
 P0052,P0052.py,"Lists, Tuples, Dictionaries, and Sets",Run-length encoding of sequential items,None,gemini-2.5-pro,v2.0-expansion,Batch 2,True,ACCEPTED
 P0053,P0053.py,String Processing & Text Analysis,Convert snake_case string to camelCase,None,gemini-2.5-pro,v2.0-expansion,Batch 2,True,ACCEPTED
