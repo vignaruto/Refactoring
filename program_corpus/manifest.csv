@@ -99,3 +99,53 @@ P0097,P0097.py,Data Aggregation and Statistics,Aggregate regional healthcare epi
 P0098,P0098.py,Scheduling and Resource Allocation,Optimize multi-datacenter server virtual machine placements with thermal caps,All three target issues,gemini-2.5-pro,v2.0-expansion,Batch 2,True,ACCEPTED
 P0099,P0099.py,Small Simulation and Rule-based Systems,Simulate industrial multi-chamber chemical pipeline flow and pressure alarms,All three target issues,gemini-2.5-pro,v2.0-expansion,Batch 2,True,ACCEPTED
 P0100,P0100.py,Inventory and Record Management,Audit multi-tiered automated logistics fulfilment routing and customs compliance,All three target issues,gemini-2.5-pro,v2.0-expansion,Batch 2,True,ACCEPTED
+P0101,P0101.py,Numerical Computation,Collatz conjecture sequence length and max value generator,None,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED
+P0102,P0102.py,"Lists, Tuples, Dictionaries, and Sets",In-place deduplication of a sorted list preserving order,None,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED
+P0103,P0103.py,String Processing & Text Analysis,Word wrap text to fixed column width with clean word breaks,None,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED
+P0104,P0104.py,Searching and Sorting,Dutch national flag three-way partitioning of color codes,None,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED
+P0105,P0105.py,Matrix & Grid Operations,Check if a 2D square matrix is symmetric along main diagonal,None,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED
+P0106,P0106.py,Data Aggregation and Statistics,Compute weighted harmonic mean of positive observations,None,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED
+P0107,P0107.py,Inventory and Record Management,Apply FIFO queue consumption for inventory batch deduction,None,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED
+P0108,P0108.py,Scheduling and Resource Allocation,Greedy non-overlapping interval scheduling selection,None,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED
+P0109,P0109.py,Numerical Computation,Black-Scholes analytical option pricing formula approximation,Long statement only,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED
+P0110,P0110.py,"Lists, Tuples, Dictionaries, and Sets",Aggregate customer loyalty score with decaying temporal activity,Long statement only,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED
+P0111,P0111.py,String Processing & Text Analysis,Compute Flesch-Kincaid readability ease index from corpus metrics,Long statement only,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED
+P0112,P0112.py,Data Aggregation and Statistics,Calculate weighted Gini coefficient of income distribution,Long statement only,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED
+P0113,P0113.py,Inventory and Record Management,Economic Order Quantity (EOQ) with quantity price break penalties,Long statement only,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED
+P0114,P0114.py,Small Simulation and Rule-based Systems,Simulate rocket stage burnout velocity with atmospheric drag,Long statement only,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED
+P0115,P0115.py,Numerical Computation,Gaussian elimination forward reduction on augmented matrix,Nested loop only,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED
+P0116,P0116.py,Searching and Sorting,Counting inversions in an array using nested scanning,Nested loop only,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED
+P0117,P0117.py,Matrix & Grid Operations,Rotate a square 2D matrix 90 degrees clockwise in-place,Nested loop only,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED
+P0118,P0118.py,String Processing & Text Analysis,Longest common substring search between two strings,Nested loop only,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED
+P0119,P0119.py,Graph or Tree Traversal,Compute shortest path transitive closure matrix of directed graph,Nested loop only,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED
+P0120,P0120.py,Small Simulation and Rule-based Systems,Conway's Game of Life discrete grid single step update,Nested loop only,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED
+P0121,P0121.py,Numerical Computation,Check boundary condition stability for finite element mesh element,Complex conditional only,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED
+P0122,P0122.py,"Lists, Tuples, Dictionaries, and Sets",Filter authorized OAuth token grant requests,Complex conditional only,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED
+P0123,P0123.py,String Processing & Text Analysis,Classify credit card PAN validity and issuer pattern constraints,Complex conditional only,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED
+P0124,P0124.py,Data Aggregation and Statistics,Evaluate commercial loan applicant debt tolerance tier,Complex conditional only,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED
+P0125,P0125.py,Inventory and Record Management,Approve warehouse purchase order variance threshold,Complex conditional only,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED
+P0126,P0126.py,Scheduling and Resource Allocation,Authorize hospital intensive care unit (ICU) priority transfer,Complex conditional only,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED
+P0127,P0127.py,Numerical Computation,2D discrete Fourier transform real matrix component aggregation,Long statement and nested loop,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED
+P0128,P0128.py,Searching and Sorting,Find all pairs with k-nearest Mahalanobis metric projection,Long statement and nested loop,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED
+P0129,P0129.py,Matrix & Grid Operations,Compute image gradient magnitudes using Sobel convolution operator,Long statement and nested loop,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED
+P0130,P0130.py,Data Aggregation and Statistics,Compute double-weighted moving variance table across matrices,Long statement and nested loop,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED
+P0131,P0131.py,Inventory and Record Management,Compute multi-warehouse freight distance and inventory surcharge,Long statement and nested loop,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED
+P0132,P0132.py,Small Simulation and Rule-based Systems,Simulate electrostatic coulomb energy interactions in particle lattice,Long statement and nested loop,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED
+P0133,P0133.py,Numerical Computation,Evaluate orbital transfer trajectory delta-v with contingency checks,Long statement and complex conditional,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED
+P0134,P0134.py,"Lists, Tuples, Dictionaries, and Sets",Compute adjusted property appraisal valuation and tax exemption,Long statement and complex conditional,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED
+P0135,P0135.py,String Processing & Text Analysis,Verify cryptographic JWT header parameters and calculate security score,Long statement and complex conditional,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED
+P0136,P0136.py,Data Aggregation and Statistics,Calculate commercial wind farm energy yield with curtailed tariff,Long statement and complex conditional,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED
+P0137,P0137.py,Inventory and Record Management,Calculate pharmaceutical cold-chain vaccine insurance compensation,Long statement and complex conditional,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED
+P0138,P0138.py,Small Simulation and Rule-based Systems,Simulate hydraulic dam floodgate spillway discharge and flood warning,Long statement and complex conditional,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED
+P0139,P0139.py,Numerical Computation,Search parameter bounds for stable non-linear limit cycles,Nested loop and complex conditional,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED
+P0140,P0140.py,Searching and Sorting,Match job bids to vendor requests across budget and safety constraints,Nested loop and complex conditional,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED
+P0141,P0141.py,Matrix & Grid Operations,Filter terrain elevation digital map for hazardous cliff drops,Nested loop and complex conditional,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED
+P0142,P0142.py,String Processing & Text Analysis,Collate paired entity co-mentions in categorized document lists,Nested loop and complex conditional,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED
+P0143,P0143.py,Graph or Tree Traversal,Filter authorized peer-to-peer relay nodes across subnet overlays,Nested loop and complex conditional,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED
+P0144,P0144.py,Scheduling and Resource Allocation,Assign emergency response medical crews to dispatched triage events,Nested loop and complex conditional,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED
+P0145,P0145.py,Numerical Computation,Multi-agent flocking Reynolds simulation velocity updates with safety margins,All three target issues,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED
+P0146,P0146.py,Matrix & Grid Operations,Filter hyperspectral geological scan for rare mineral seam signatures,All three target issues,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED
+P0147,P0147.py,Data Aggregation and Statistics,Aggregate urban traffic noise pollution sensors with municipal code violations,All three target issues,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED
+P0148,P0148.py,Scheduling and Resource Allocation,Multi-tier microservices container placement across Kubernetes worker pools,All three target issues,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED
+P0149,P0149.py,Small Simulation and Rule-based Systems,Simulate electrical distribution substation transformer thermal stress overload,All three target issues,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED
+P0150,P0150.py,Inventory and Record Management,Audit retail distribution supply chain shelf replenishment and shrinkage risk,All three target issues,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED

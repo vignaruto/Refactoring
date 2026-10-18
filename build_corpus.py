@@ -1,1134 +1,1083 @@
 """
-expand_corpus_batch2.py
-Automated script to generate P0051-P0100 and update program_corpus/manifest.csv
+expand_corpus_batch3.py
+Automated script to generate P0101-P0150 and update program_corpus/manifest.csv
 """
 
 import os
 import ast
 import csv
-import hashlib
 
 BASE_DIR = "program_corpus"
 PROGRAMS_DIR = os.path.join(BASE_DIR, "programs")
 MANIFEST_PATH = os.path.join(BASE_DIR, "manifest.csv")
 
 MODEL_ID = "gemini-2.5-pro"
-PROMPT_VER = "v2.0-expansion"
-BATCH_ID = "Batch 2"
+PROMPT_VER = "v3.0-expansion"
+BATCH_ID = "Batch 3"
 
-# ---------------------------------------------------------------------------
-# Program Definitions (P0051 - P0100)
-# ---------------------------------------------------------------------------
 PROGRAMS_DATA = {
-    # 1. NONE (8 programs: P0051 - P0058)
-    "P0051": {
+    # 1. NONE (8 programs: P0101 - P0108)
+    "P0101": {
         "domain": "Numerical Computation",
-        "task": "Extended Euclidean Algorithm for modular inverse",
+        "task": "Collatz conjecture sequence length and max value generator",
         "category": "None",
-        "code": '''import typing
-
-def extended_gcd(a: int, b: int) -> tuple[int, int, int]:
-    if a == 0:
-        return b, 0, 1
-    gcd, x1, y1 = extended_gcd(b % a, a)
-    x = y1 - (b // a) * x1
-    y = x1
-    return gcd, x, y
-
-def modular_inverse(base: int, modulus: int) -> typing.Optional[int]:
-    gcd, x, _ = extended_gcd(base, modulus)
-    if gcd != 1:
-        return None
-    return (x % modulus + modulus) % modulus
+        "code": '''def collatz_metrics(start_val: int) -> dict[str, int]:
+    if start_val <= 0:
+        raise ValueError("Start value must be positive")
+    curr = start_val
+    steps = 0
+    max_val = curr
+    while curr != 1:
+        if curr % 2 == 0:
+            curr = curr // 2
+        else:
+            curr = 3 * curr + 1
+        if curr > max_val:
+            max_val = curr
+        steps += 1
+    return {"steps": steps, "max_val": max_val}
 
 if __name__ == "__main__":
-    assert modular_inverse(3, 11) == 4
+    res = collatz_metrics(6)
+    assert res["steps"] == 8
 '''
     },
-    "P0052": {
+    "P0102": {
         "domain": "Lists, Tuples, Dictionaries, and Sets",
-        "task": "Run-length encoding of sequential items",
+        "task": "In-place deduplication of a sorted list preserving order",
         "category": "None",
-        "code": '''from typing import List, Tuple, Any
-
-def run_length_encode(sequence: List[Any]) -> List[Tuple[Any, int]]:
-    if not sequence:
-        return []
-    result = []
-    current_val = sequence[0]
-    count = 1
-    for item in sequence[1:]:
-        if item == current_val:
-            count += 1
-        else:
-            result.append((current_val, count))
-            current_val = item
-            count = 1
-    result.append((current_val, count))
-    return result
-
-if __name__ == "__main__":
-    assert run_length_encode(["a", "a", "b"]) == [("a", 2), ("b", 1)]
-'''
-    },
-    "P0053": {
-        "domain": "String Processing & Text Analysis",
-        "task": "Convert snake_case string to camelCase",
-        "category": "None",
-        "code": '''def snake_to_camel(identifier: str) -> str:
-    tokens = identifier.strip().split("_")
-    filtered = [token for token in tokens if token]
-    if not filtered:
-        return ""
-    lead = filtered[0].lower()
-    tail = [word.capitalize() for word in filtered[1:]]
-    return lead + "".join(tail)
-
-if __name__ == "__main__":
-    assert snake_to_camel("order_unit_cost") == "orderUnitCost"
-'''
-    },
-    "P0054": {
-        "domain": "Searching and Sorting",
-        "task": "Find peak element in 1D array using binary search",
-        "category": "None",
-        "code": '''from typing import List
-
-def find_peak_element(nums: List[int]) -> int:
-    left = 0
-    right = len(nums) - 1
-    while left < right:
-        mid = (left + right) // 2
-        if nums[mid] > nums[mid + 1]:
-            right = mid
-        else:
-            left = mid + 1
-    return left
-
-if __name__ == "__main__":
-    assert find_peak_element([1, 2, 3, 1]) == 2
-'''
-    },
-    "P0055": {
-        "domain": "Data Aggregation and Statistics",
-        "task": "Compute exponential moving average of series",
-        "category": "None",
-        "code": '''from typing import List
-
-def exponential_moving_average(series: List[float], alpha: float) -> List[float]:
-    if not series:
-        return []
-    ema = [series[0]]
-    for val in series[1:]:
-        updated = alpha * val + (1.0 - alpha) * ema[-1]
-        ema.append(round(updated, 4))
-    return ema
-
-if __name__ == "__main__":
-    prices = [10.0, 11.0, 12.0, 11.5]
-    res = exponential_moving_average(prices, 0.5)
-    assert len(res) == 4
-'''
-    },
-    "P0056": {
-        "domain": "Inventory and Record Management",
-        "task": "Calculate inventory reorder point using lead time demand",
-        "category": "None",
-        "code": '''from typing import Dict
-
-def compute_reorder_level(item: Dict[str, float], safety_stock_ratio: float) -> float:
-    daily_sales = item.get("avg_daily_sales", 0.0)
-    lead_days = item.get("lead_time_days", 0.0)
-    demand_during_lead = daily_sales * lead_days
-    safety_buffer = demand_during_lead * safety_stock_ratio
-    return demand_during_lead + safety_buffer
-
-if __name__ == "__main__":
-    prod = {"avg_daily_sales": 15.0, "lead_time_days": 10.0}
-    assert compute_reorder_level(prod, 0.2) == 180.0
-'''
-    },
-    "P0057": {
-        "domain": "Graph or Tree Traversal",
-        "task": "Count total leaf nodes in a binary tree representation",
-        "category": "None",
-        "code": '''from typing import Optional, Dict, Any
-
-def count_leaf_nodes(node: Optional[Dict[str, Any]]) -> int:
-    if node is None:
+        "code": '''def remove_duplicates_sorted(arr: list[int]) -> int:
+    if not arr:
         return 0
-    left_child = node.get("left")
-    right_child = node.get("right")
-    if left_child is None and right_child is None:
-        return 1
-    return count_leaf_nodes(left_child) + count_leaf_nodes(right_child)
+    write_idx = 1
+    for read_idx in range(1, len(arr)):
+        if arr[read_idx] != arr[write_idx - 1]:
+            arr[write_idx] = arr[read_idx]
+            write_idx += 1
+    return write_idx
 
 if __name__ == "__main__":
-    tree = {"left": {"left": None, "right": None}, "right": None}
-    assert count_leaf_nodes(tree) == 1
+    nums = [1, 1, 2, 2, 3]
+    length = remove_duplicates_sorted(nums)
+    assert length == 3
+    assert nums[:3] == [1, 2, 3]
 '''
     },
-    "P0058": {
-        "domain": "Small Simulation and Rule-based Systems",
-        "task": "Simulate simple token bucket rate limiter single event",
+    "P0103": {
+        "domain": "String Processing & Text Analysis",
+        "task": "Word wrap text to fixed column width with clean word breaks",
         "category": "None",
-        "code": '''from typing import Tuple
-
-def consume_token(
-    capacity: float, current_tokens: float,
-    refill_rate: float, elapsed_sec: float
-) -> Tuple[bool, float]:
-    refilled = current_tokens + (elapsed_sec * refill_rate)
-    pool = min(capacity, refilled)
-    if pool >= 1.0:
-        return True, pool - 1.0
-    return False, pool
-
-if __name__ == "__main__":
-    allowed, tokens = consume_token(10.0, 0.5, 2.0, 1.0)
-    assert allowed is True
-    assert tokens == 1.5
-'''
-    },
-
-    # 2. LONG STATEMENT ONLY (6 programs: P0059 - P0064)
-    "P0059": {
-        "domain": "Numerical Computation",
-        "task": "Calculate geometric sphere cap volume and total surface area",
-        "category": "Long statement only",
-        "code": '''import math
-
-def compute_spherical_cap_geometry(radius: float, cap_height: float, density: float) -> float:
-    cap_mass = density * ((math.pi * (cap_height ** 2) / 3.0) * (3.0 * radius - cap_height)) + (2.0 * math.pi * radius * cap_height * 0.05)
-    return cap_mass
+        "code": '''def wrap_text_lines(text: str, line_width: int) -> list[str]:
+    words = text.split()
+    if not words:
+        return []
+    lines = []
+    current_line = [words[0]]
+    current_len = len(words[0])
+    for w in words[1:]:
+        if current_len + 1 + len(w) <= line_width:
+            current_line.append(w)
+            current_len += 1 + len(w)
+        else:
+            lines.append(" ".join(current_line))
+            current_line = [w]
+            current_len = len(w)
+    lines.append(" ".join(current_line))
+    return lines
 
 if __name__ == "__main__":
-    assert compute_spherical_cap_geometry(10.0, 2.0, 1.5) > 0.0
+    wrapped = wrap_text_lines("The quick brown fox jumps", 10)
+    assert len(wrapped) == 3
 '''
     },
-    "P0060": {
-        "domain": "Lists, Tuples, Dictionaries, and Sets",
-        "task": "Compute weighted asset allocation variance across portfolios",
-        "category": "Long statement only",
-        "code": '''from typing import Dict
-
-def evaluate_multi_asset_portfolio_yield(equity: Dict[str, float], fixed_income: Dict[str, float], cash: Dict[str, float], base_tax: float) -> float:
-    composite_return = (equity["yield"] * equity["weight"] * (1.0 - base_tax * 0.8)) + (fixed_income["yield"] * fixed_income["weight"] * (1.0 - base_tax)) + (cash["yield"] * cash["weight"] * (1.0 - base_tax * 0.5))
-    return composite_return
-
-if __name__ == "__main__":
-    eq = {"yield": 0.12, "weight": 0.5}
-    fi = {"yield": 0.06, "weight": 0.3}
-    ca = {"yield": 0.03, "weight": 0.2}
-    assert evaluate_multi_asset_portfolio_yield(eq, fi, ca, 0.15) > 0
-'''
-    },
-    "P0061": {
-        "domain": "Data Aggregation and Statistics",
-        "task": "Calculate student composite academic honor score",
-        "category": "Long statement only",
-        "code": '''from typing import Dict
-
-def compute_composite_honor_index(student: Dict[str, float], department_weight: float) -> float:
-    honor_index = ((student["gpa"] * 25.0 * department_weight) + (student["research_units"] * 4.5) + (student["service_hours"] * 0.75) - (student["disciplinary_demerits"] * 12.0)) / (student["credits_completed"] * 0.1 + 1.0)
-    return honor_index
-
-if __name__ == "__main__":
-    stu = {"gpa": 3.8, "research_units": 6.0, "service_hours": 40.0, "disciplinary_demerits": 0.0, "credits_completed": 90.0}
-    assert compute_composite_honor_index(stu, 1.1) > 0.0
-'''
-    },
-    "P0062": {
-        "domain": "Inventory and Record Management",
-        "task": "Compute corporate freight shipping tariff and insurance",
-        "category": "Long statement only",
-        "code": '''from typing import Dict
-
-def calculate_freight_consignment_cost(parcel: Dict[str, float], distance_km: float, fuel_surcharge_rate: float) -> float:
-    total_freight_charge = (parcel["weight_kg"] * 1.85 * (1.0 + fuel_surcharge_rate)) + (parcel["volume_cbm"] * 45.0) + (distance_km * 0.082) + (parcel["declared_value"] * 0.0075) + 25.0
-    return total_freight_charge
-
-if __name__ == "__main__":
-    p = {"weight_kg": 50.0, "volume_cbm": 0.5, "declared_value": 1200.0}
-    assert calculate_freight_consignment_cost(p, 300.0, 0.12) > 0.0
-'''
-    },
-    "P0063": {
-        "domain": "Scheduling and Resource Allocation",
-        "task": "Compute server datacenter power usage effectiveness overhead",
-        "category": "Long statement only",
-        "code": '''from typing import Dict
-
-def compute_server_pue_overhead(telemetry: Dict[str, float], ambient_temp_c: float) -> float:
-    adjusted_overhead_kw = (telemetry["cooling_kw"] * (1.0 + 0.02 * max(0.0, ambient_temp_c - 22.0))) + (telemetry["ups_loss_kw"] * 1.05) + (telemetry["lighting_kw"] * 0.95) + (telemetry["switchgear_loss_kw"] * 1.02)
-    return adjusted_overhead_kw
-
-if __name__ == "__main__":
-    t = {"cooling_kw": 120.0, "ups_loss_kw": 15.0, "lighting_kw": 8.0, "switchgear_loss_kw": 5.0}
-    assert compute_server_pue_overhead(t, 28.0) > 0.0
-'''
-    },
-    "P0064": {
-        "domain": "Small Simulation and Rule-based Systems",
-        "task": "Calculate aerodynamic drag and terminal settling velocity of aerosol",
-        "category": "Long statement only",
-        "code": '''import math
-from typing import Dict
-
-def aerosol_settling_terminal_velocity(particle: Dict[str, float], medium_viscosity: float, gravity: float = 9.80665) -> float:
-    return ((2.0 * (particle["radius_m"] ** 2) * (particle["density_kg_m3"] - particle["medium_density_kg_m3"]) * gravity) / (9.0 * medium_viscosity)) * (1.0 + (1.257 * 68e-9 / particle["radius_m"]))
-
-if __name__ == "__main__":
-    part = {"radius_m": 2.5e-6, "density_kg_m3": 1200.0, "medium_density_kg_m3": 1.2}
-    assert aerosol_settling_terminal_velocity(part, 1.81e-5) > 0.0
-'''
-    },
-
-    # 3. NESTED LOOP ONLY (6 programs: P0065 - P0070)
-    "P0065": {
-        "domain": "Numerical Computation",
-        "task": "Compute pairwise Minkowski distance matrix between vector collections",
-        "category": "Nested loop only",
-        "code": '''from typing import List
-
-def pairwise_minkowski_distances(
-    vecs_a: List[List[float]],
-    vecs_b: List[List[float]],
-    p: int
-) -> List[List[float]]:
-    dist_matrix = []
-    for u in vecs_a:
-        row = []
-        for v in vecs_b:
-            diff_sum = 0.0
-            for k in range(len(u)):
-                diff_sum += abs(u[k] - v[k]) ** p
-            row.append(diff_sum ** (1.0 / p))
-        dist_matrix.append(row)
-    return dist_matrix
-
-if __name__ == "__main__":
-    a = [[1.0, 2.0]]
-    b = [[4.0, 6.0]]
-    assert len(pairwise_minkowski_distances(a, b, 2)) == 1
-'''
-    },
-    "P0066": {
+    "P0104": {
         "domain": "Searching and Sorting",
-        "task": "Perform shell sort with custom interval sequences",
-        "category": "Nested loop only",
-        "code": '''from typing import List
-
-def shell_sort_integers(items: List[int]) -> List[int]:
-    arr = list(items)
-    n = len(arr)
-    gap = n // 2
-    while gap > 0:
-        for i in range(gap, n):
-            temp = arr[i]
-            j = i
-            while j >= gap and arr[j - gap] > temp:
-                arr[j] = arr[j - gap]
-                j -= gap
-            arr[j] = temp
-        gap //= 2
-    return arr
+        "task": "Dutch national flag three-way partitioning of color codes",
+        "category": "None",
+        "code": '''def sort_colors_three_way(colors: list[int]) -> list[int]:
+    low = 0
+    mid = 0
+    high = len(colors) - 1
+    while mid <= high:
+        if colors[mid] == 0:
+            colors[low], colors[mid] = colors[mid], colors[low]
+            low += 1
+            mid += 1
+        elif colors[mid] == 1:
+            mid += 1
+        else:
+            colors[mid], colors[high] = colors[high], colors[mid]
+            high -= 1
+    return colors
 
 if __name__ == "__main__":
-    assert shell_sort_integers([9, 8, 3, 7, 5, 6, 4, 1]) == [1, 3, 4, 5, 6, 7, 8, 9]
+    assert sort_colors_three_way([2, 0, 1, 2, 0]) == [0, 0, 1, 2, 2]
 '''
     },
-    "P0067": {
+    "P0105": {
         "domain": "Matrix & Grid Operations",
-        "task": "Transposing a block partitioned 2D matrix",
-        "category": "Nested loop only",
-        "code": '''from typing import List
-
-def transpose_matrix(matrix: List[List[float]]) -> List[List[float]]:
-    rows = len(matrix)
-    cols = len(matrix[0])
-    transposed = []
-    for c in range(cols):
-        new_row = []
-        for r in range(rows):
-            val = matrix[r][c]
-            new_row.append(val)
-        transposed.append(new_row)
-    return transposed
+        "task": "Check if a 2D square matrix is symmetric along main diagonal",
+        "category": "None",
+        "code": '''def is_matrix_symmetric(matrix: list[list[float]]) -> bool:
+    n = len(matrix)
+    flat_len = n * n
+    for k in range(flat_len):
+        r = k // n
+        c = k % n
+        if matrix[r][c] != matrix[c][r]:
+            return False
+    return True
 
 if __name__ == "__main__":
-    m = [[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]]
-    t = transpose_matrix(m)
-    assert len(t) == 3
-    assert len(t[0]) == 2
+    mat = [[1.0, 2.0], [2.0, 1.0]]
+    assert is_matrix_symmetric(mat) is True
 '''
     },
-    "P0068": {
-        "domain": "String Processing & Text Analysis",
-        "task": "Find all common substrings between two word lists",
-        "category": "Nested loop only",
-        "code": '''from typing import List, Set
-
-def find_common_word_ngrams(words_a: List[str], words_b: List[str]) -> Set[str]:
-    common = set()
-    for word_1 in words_a:
-        for word_2 in words_b:
-            len_min = min(len(word_1), len(word_2))
-            for k in range(3, len_min + 1):
-                sub = word_1[:k]
-                if sub in word_2:
-                    common.add(sub)
-    return common
-
-if __name__ == "__main__":
-    res = find_common_word_ngrams(["transformation", "reform"], ["transfer", "formation"])
-    assert "trans" in res or "form" in res
-'''
-    },
-    "P0069": {
-        "domain": "Graph or Tree Traversal",
-        "task": "Floyd-Warshall all-pairs shortest paths algorithm",
-        "category": "Nested loop only",
-        "code": '''from typing import List
-
-def floyd_warshall(weights: List[List[float]]) -> List[List[float]]:
-    n = len(weights)
-    dist = [row[:] for row in weights]
-    for k in range(n):
-        for i in range(n):
-            for j in range(n):
-                cand = dist[i][k] + dist[k][j]
-                if cand < dist[i][j]:
-                    dist[i][j] = cand
-    return dist
-
-if __name__ == "__main__":
-    inf = float("inf")
-    w = [[0.0, 5.0, inf], [inf, 0.0, 2.0], [inf, inf, 0.0]]
-    d = floyd_warshall(w)
-    assert d[0][2] == 7.0
-'''
-    },
-    "P0070": {
-        "domain": "Inventory and Record Management",
-        "task": "Count co-occurring items across customer transaction baskets",
-        "category": "Nested loop only",
-        "code": '''from typing import List, Dict, Tuple
-
-def generate_item_pair_frequencies(baskets: List[List[str]]) -> Dict[Tuple[str, str], int]:
-    pair_counts = {}
-    for basket in baskets:
-        sorted_items = sorted(basket)
-        for i in range(len(sorted_items)):
-            for j in range(i + 1, len(sorted_items)):
-                pair = (sorted_items[i], sorted_items[j])
-                current = pair_counts.get(pair, 0)
-                pair_counts[pair] = current + 1
-    return pair_counts
-
-if __name__ == "__main__":
-    sample = [["milk", "bread", "eggs"], ["milk", "bread"]]
-    counts = generate_item_pair_frequencies(sample)
-    assert counts[("bread", "milk")] == 2
-'''
-    },
-
-    # 4. COMPLEX CONDITIONAL ONLY (6 programs: P0071 - P0076)
-    "P0071": {
-        "domain": "Numerical Computation",
-        "task": "Validate parameters for numerical integration stability",
-        "category": "Complex conditional only",
-        "code": '''def is_solver_step_valid(step_size: float, tolerance: float, stiffness_ratio: float, order: int) -> bool:
-    cond1 = step_size > 0.0 and step_size < 0.5 and tolerance <= 1e-4
-    cond2 = stiffness_ratio > 100.0 and order >= 2 and tolerance > 1e-7
-    cond3 = order == 1 and step_size <= 0.01 and not stiffness_ratio > 500.0
-    if (cond1 or cond2) and not cond3 and (stiffness_ratio < 1000.0 or order > 3):
-        return True
-    return False
-
-if __name__ == "__main__":
-    assert is_solver_step_valid(0.05, 1e-5, 150.0, 3) is True
-'''
-    },
-    "P0072": {
-        "domain": "Lists, Tuples, Dictionaries, and Sets",
-        "task": "Filter authorized network sessions based on security posture",
-        "category": "Complex conditional only",
-        "code": '''from typing import Dict
-
-def is_network_session_authorized(
-    session: Dict[str, any], client: Dict[str, any], gateway_secure: bool
-) -> bool:
-    is_tls = session.get("tls_version", 0.0) >= 1.3
-    cert_ok = client.get("cert_valid") is True
-    ip_white = client.get("whitelisted_ip") is True
-    mfa_done = session.get("mfa_verified") is True
-    revoked = client.get("cert_revoked") is True
-    if (is_tls and cert_ok and ip_white) or (
-        mfa_done and gateway_secure and not revoked
-    ):
-        return True
-    return False
-
-if __name__ == "__main__":
-    s = {"tls_version": 1.3, "mfa_verified": False}
-    c = {"cert_valid": True, "whitelisted_ip": True, "cert_revoked": False}
-    assert is_network_session_authorized(s, c, True) is True
-'''
-    },
-    "P0073": {
-        "domain": "String Processing & Text Analysis",
-        "task": "Validate complex password policy conformance",
-        "category": "Complex conditional only",
-        "code": '''def evaluate_password_policy(pwd: str, has_special: bool, entropy_bits: float) -> bool:
-    has_len = len(pwd) >= 12 and len(pwd) <= 64
-    has_upper = any(c.isupper() for c in pwd)
-    has_digit = any(c.isdigit() for c in pwd)
-    if (has_len and has_upper and has_digit and has_special) or (
-        len(pwd) >= 20 and entropy_bits >= 75.0 and not " " in pwd
-    ):
-        return True
-    return False
-
-if __name__ == "__main__":
-    assert evaluate_password_policy("SecureP@ssword123", True, 60.0) is True
-'''
-    },
-    "P0074": {
+    "P0106": {
         "domain": "Data Aggregation and Statistics",
-        "task": "Classify clinical trial participant eligibility",
-        "category": "Complex conditional only",
-        "code": '''from typing import Dict
-
-def is_candidate_eligible(patient: Dict[str, float], consent_signed: bool) -> bool:
-    age = patient.get("age", 0.0)
-    bmi = patient.get("bmi", 0.0)
-    bp = patient.get("systolic_bp", 0.0)
-    hba1c = patient.get("hba1c", 0.0)
-    cond_a = age >= 18.0 and age <= 65.0 and bmi < 32.0 and bp < 140.0
-    cond_b = age > 65.0 and hba1c < 6.5 and bp < 130.0
-    if (cond_a or cond_b) and consent_signed and not patient.get("pregnant", False):
-        return True
-    return False
+        "task": "Compute weighted harmonic mean of positive observations",
+        "category": "None",
+        "code": '''def weighted_harmonic_mean(
+    values: list[float], weights: list[float]
+) -> float:
+    sum_w = 0.0
+    sum_w_over_v = 0.0
+    for v, w in zip(values, weights):
+        if v <= 0.0:
+            raise ValueError("Values must be positive")
+        sum_w += w
+        sum_w_over_v += w / v
+    if sum_w_over_v == 0.0:
+        return 0.0
+    return sum_w / sum_w_over_v
 
 if __name__ == "__main__":
-    pat = {"age": 45.0, "bmi": 26.0, "systolic_bp": 125.0, "pregnant": False}
-    assert is_candidate_eligible(pat, True) is True
+    v = [10.0, 20.0]
+    w = [1.0, 1.0]
+    assert round(weighted_harmonic_mean(v, w), 2) == 13.33
 '''
     },
-    "P0075": {
+    "P0107": {
         "domain": "Inventory and Record Management",
-        "task": "Automated warehouse refund approval authorization",
-        "category": "Complex conditional only",
-        "code": '''from typing import Dict
-
-def can_auto_approve_refund(
-    order: Dict[str, any], item: Dict[str, any], days_since_delivery: int
-) -> bool:
-    is_prime = order.get("member_tier") == "prime"
-    cost = item.get("unit_price", 0.0)
-    unopened = item.get("sealed_box") is True
-    has_dispute = order.get("open_disputes", 0) > 0
-    fraud_score = order.get("fraud_score", 0.0)
-    rule1 = days_since_delivery <= 30 and unopened and cost <= 250.0
-    rule2 = is_prime and days_since_delivery <= 45 and cost <= 100.0
-    if (rule1 or rule2) and not has_dispute and fraud_score < 0.15:
-        return True
-    return False
+        "task": "Apply FIFO queue consumption for inventory batch deduction",
+        "category": "None",
+        "code": '''def deduct_stock_fifo(
+    batches: list[dict[str, float]], req_qty: float
+) -> float:
+    remaining_req = req_qty
+    total_cost = 0.0
+    for b in batches:
+        if remaining_req <= 0.0:
+            break
+        take = min(b["qty"], remaining_req)
+        b["qty"] -= take
+        total_cost += take * b["cost"]
+        remaining_req -= take
+    return total_cost
 
 if __name__ == "__main__":
-    o = {"member_tier": "prime", "open_disputes": 0, "fraud_score": 0.05}
-    it = {"unit_price": 80.0, "sealed_box": False}
-    assert can_auto_approve_refund(o, it, 20) is True
+    st = [{"qty": 10.0, "cost": 2.0}, {"qty": 10.0, "cost": 3.0}]
+    cost = deduct_stock_fifo(st, 15.0)
+    assert cost == 35.0
 '''
     },
-    "P0076": {
+    "P0108": {
         "domain": "Scheduling and Resource Allocation",
-        "task": "Determine autonomous vehicle dispatch safety clearance",
-        "category": "Complex conditional only",
-        "code": '''from typing import Dict
-
-def is_dispatch_permitted(
-    vehicle: Dict[str, float], weather: Dict[str, float], emergency_mode: bool
-) -> bool:
-    soc = vehicle.get("battery_soc", 0.0)
-    tire = vehicle.get("tire_health", 0.0)
-    vis = weather.get("visibility_km", 0.0)
-    ice = weather.get("road_ice_warning", False)
-    cond1 = soc >= 0.35 and tire >= 0.80 and vis >= 2.0
-    cond2 = emergency_mode and soc >= 0.20 and not ice
-    if (cond1 or cond2) and not vehicle.get("fault_codes_active", False) and weather.get("wind_gust_kph", 0.0) < 70.0:
-        return True
-    return False
+        "task": "Greedy non-overlapping interval scheduling selection",
+        "category": "None",
+        "code": '''def select_max_compatible_intervals(
+    intervals: list[tuple[int, int]]
+) -> list[tuple[int, int]]:
+    sorted_int = sorted(intervals, key=lambda x: x[1])
+    selected = []
+    last_end = -1
+    for start, end in sorted_int:
+        if start >= last_end:
+            selected.append((start, end))
+            last_end = end
+    return selected
 
 if __name__ == "__main__":
-    veh = {"battery_soc": 0.6, "tire_health": 0.9, "fault_codes_active": False}
-    w = {"visibility_km": 5.0, "road_ice_warning": False, "wind_gust_kph": 30.0}
-    assert is_dispatch_permitted(veh, w, False) is True
-'''
-    },
-
-    # 5. LONG STATEMENT AND NESTED LOOP (6 programs: P0077 - P0082)
-    "P0077": {
-        "domain": "Numerical Computation",
-        "task": "Bilinear surface interpolation across 2D grid coordinates",
-        "category": "Long statement and nested loop",
-        "code": '''from typing import List
-
-def bilinear_grid_interpolation(grid: List[List[float]], x_coords: List[float], y_coords: List[float]) -> List[List[float]]:
-    output = []
-    for x in x_coords:
-        row = []
-        for y in y_coords:
-            x1, y1 = int(x), int(y)
-            x2, y2 = min(x1 + 1, len(grid) - 1), min(y1 + 1, len(grid[0]) - 1)
-            val = (grid[x1][y1] * (x2 - x) * (y2 - y)) + (grid[x2][y1] * (x - x1) * (y2 - y)) + (grid[x1][y2] * (x2 - x) * (y - y1)) + (grid[x2][y2] * (x - x1) * (y - y1))
-            row.append(val)
-        output.append(row)
-    return output
-
-if __name__ == "__main__":
-    g = [[1.0, 2.0], [3.0, 4.0]]
-    res = bilinear_grid_interpolation(g, [0.5], [0.5])
-    assert len(res) == 1
-'''
-    },
-    "P0078": {
-        "domain": "Lists, Tuples, Dictionaries, and Sets",
-        "task": "Aggregate multi-source sensor measurements with spatial weighting",
-        "category": "Long statement and nested loop",
-        "code": '''import math
-from typing import List, Dict
-
-def compute_spatial_sensor_influence(stations: List[Dict[str, float]], probes: List[Dict[str, float]], decay_rate: float) -> List[float]:
-    influences = []
-    for probe in probes:
-        acc = 0.0
-        for station in stations:
-            acc += station["power"] / (1.0 + decay_rate * math.sqrt((station["x"] - probe["x"])**2 + (station["y"] - probe["y"])**2 + (station["z"] - probe["z"])**2))
-        influences.append(acc)
-    return influences
-
-if __name__ == "__main__":
-    st = [{"power": 100.0, "x": 0.0, "y": 0.0, "z": 0.0}]
-    pr = [{"x": 3.0, "y": 4.0, "z": 0.0}]
-    assert len(compute_spatial_sensor_influence(st, pr, 0.1)) == 1
-'''
-    },
-    "P0079": {
-        "domain": "Matrix & Grid Operations",
-        "task": "Convolution kernel filtering with normalization",
-        "category": "Long statement and nested loop",
-        "code": '''from typing import List
-
-def apply_blur_filter(image: List[List[float]], kernel_weights: List[List[float]], divisor: float) -> List[List[float]]:
-    h, w = len(image), len(image[0])
-    filtered = [[0.0] * w for _ in range(h)]
-    for r in range(1, h - 1):
-        for c in range(1, w - 1):
-            filtered[r][c] = (image[r-1][c-1]*kernel_weights[0][0] + image[r-1][c]*kernel_weights[0][1] + image[r-1][c+1]*kernel_weights[0][2] + image[r][c-1]*kernel_weights[1][0] + image[r][c]*kernel_weights[1][1] + image[r][c+1]*kernel_weights[1][2] + image[r+1][c-1]*kernel_weights[2][0] + image[r+1][c]*kernel_weights[2][1] + image[r+1][c+1]*kernel_weights[2][2]) / divisor
-    return filtered
-
-if __name__ == "__main__":
-    img = [[1.0]*3 for _ in range(3)]
-    k = [[1.0]*3 for _ in range(3)]
-    assert apply_blur_filter(img, k, 9.0)[1][1] == 1.0
-'''
-    },
-    "P0080": {
-        "domain": "Data Aggregation and Statistics",
-        "task": "Compute pairwise covariance and correlation across multi-asset returns",
-        "category": "Long statement and nested loop",
-        "code": '''from typing import List
-
-def compute_asset_covariance_table(asset_returns: List[List[float]], means: List[float]) -> List[List[float]]:
-    n = len(asset_returns)
-    samples = len(asset_returns[0])
-    table = [[0.0] * n for _ in range(n)]
-    for i in range(n):
-        for j in range(n):
-            table[i][j] = sum((asset_returns[i][t] - means[i]) * (asset_returns[j][t] - means[j]) for t in range(samples)) / float(samples - 1.0)
-    return table
-
-if __name__ == "__main__":
-    rets = [[0.01, 0.02, 0.03], [0.02, 0.01, 0.04]]
-    means = [0.02, 0.0233]
-    res = compute_asset_covariance_table(rets, means)
+    sample = [(1, 3), (2, 5), (4, 6)]
+    res = select_max_compatible_intervals(sample)
     assert len(res) == 2
 '''
     },
-    "P0081": {
-        "domain": "Searching and Sorting",
-        "task": "Find optimal rectangular subgrid with minimum variance",
-        "category": "Long statement and nested loop",
-        "code": '''from typing import List, Tuple
 
-def locate_least_variant_patch(grid: List[List[float]], size: int) -> Tuple[int, int]:
-    h = len(grid) - size + 1
-    w = len(grid[0]) - size + 1
-    best_loc = (0, 0)
-    min_variance = float("inf")
+    # 2. LONG STATEMENT ONLY (6 programs: P0109 - P0114)
+    "P0109": {
+        "domain": "Numerical Computation",
+        "task": "Black-Scholes analytical option pricing formula approximation",
+        "category": "Long statement only",
+        "code": '''import math
+
+def black_scholes_call_approx(stock_price: float, strike_price: float, rate: float, vol: float, time_to_exp: float) -> float:
+    option_value = (stock_price * 0.5 * (1.0 + math.erf(((math.log(stock_price / strike_price) + (rate + 0.5 * vol**2) * time_to_exp) / (vol * math.sqrt(time_to_exp))) / math.sqrt(2.0)))) - (strike_price * math.exp(-rate * time_to_exp) * 0.5 * (1.0 + math.erf((((math.log(stock_price / strike_price) + (rate + 0.5 * vol**2) * time_to_exp) / (vol * math.sqrt(time_to_exp))) - vol * math.sqrt(time_to_exp)) / math.sqrt(2.0))))
+    return option_value
+
+if __name__ == "__main__":
+    val = black_scholes_call_approx(100.0, 100.0, 0.05, 0.2, 1.0)
+    assert val > 0.0
+'''
+    },
+    "P0110": {
+        "domain": "Lists, Tuples, Dictionaries, and Sets",
+        "task": "Aggregate customer loyalty score with decaying temporal activity",
+        "category": "Long statement only",
+        "code": '''def evaluate_loyalty_index(history: dict[str, float], decay_rate: float, bonus_factor: float) -> float:
+    tier_score = (history["spend_ytd"] * 0.12 * (1.0 + bonus_factor)) + (history["frequency_month"] * 15.5 * (1.0 - decay_rate * 0.05)) + (history["referrals_count"] * 45.0) - (history["unresolved_tickets"] * 30.0) + 100.0
+    return tier_score
+
+if __name__ == "__main__":
+    rec = {"spend_ytd": 1200.0, "frequency_month": 4.0, "referrals_count": 2.0, "unresolved_tickets": 0.0}
+    assert evaluate_loyalty_index(rec, 0.1, 0.05) > 0.0
+'''
+    },
+    "P0111": {
+        "domain": "String Processing & Text Analysis",
+        "task": "Compute Flesch-Kincaid readability ease index from corpus metrics",
+        "category": "Long statement only",
+        "code": '''def calculate_flesch_reading_ease(total_words: int, total_sentences: int, total_syllables: int) -> float:
+    return 206.835 - (1.015 * (float(total_words) / float(max(1, total_sentences)))) - (84.6 * (float(total_syllables) / float(max(1, total_words)))) + 10.0
+
+if __name__ == "__main__":
+    score = calculate_flesch_reading_ease(300, 15, 450)
+    assert score > 0.0
+'''
+    },
+    "P0112": {
+        "domain": "Data Aggregation and Statistics",
+        "task": "Calculate weighted Gini coefficient of income distribution",
+        "category": "Long statement only",
+        "code": '''def compute_gini_two_group_disparity(pop_a: float, inc_a: float, pop_b: float, inc_b: float) -> float:
+    disparity_metric = abs(inc_a - inc_b) / (2.0 * ((pop_a * inc_a + pop_b * inc_b) / max(1.0, pop_a + pop_b))) * ((pop_a * pop_b) / ((pop_a + pop_b) ** 2))
+    return disparity_metric
+
+if __name__ == "__main__":
+    d = compute_gini_two_group_disparity(100.0, 30000.0, 100.0, 90000.0)
+    assert d > 0.0
+'''
+    },
+    "P0113": {
+        "domain": "Inventory and Record Management",
+        "task": "Economic Order Quantity (EOQ) with quantity price break penalties",
+        "category": "Long statement only",
+        "code": '''import math
+
+def calculate_adjusted_eoq_cost(annual_demand: float, order_cost: float, holding_cost_rate: float, unit_price: float) -> float:
+    annual_inventory_cost = (annual_demand * unit_price) + (order_cost * annual_demand / math.sqrt(max(1.0, (2.0 * annual_demand * order_cost) / (holding_cost_rate * unit_price)))) + (0.5 * math.sqrt(max(1.0, (2.0 * annual_demand * order_cost) / (holding_cost_rate * unit_price))) * holding_cost_rate * unit_price)
+    return annual_inventory_cost
+
+if __name__ == "__main__":
+    cost = calculate_adjusted_eoq_cost(10000.0, 50.0, 0.2, 25.0)
+    assert cost > 0.0
+'''
+    },
+    "P0114": {
+        "domain": "Small Simulation and Rule-based Systems",
+        "task": "Simulate rocket stage burnout velocity with atmospheric drag",
+        "category": "Long statement only",
+        "code": '''import math
+
+def calculate_burnout_velocity(dry_mass: float, fuel_mass: float, thrust: float, mass_flow: float, drag_coeff: float) -> float:
+    final_vel = (thrust / mass_flow * math.log((dry_mass + fuel_mass) / dry_mass)) - (9.80665 * (fuel_mass / mass_flow)) - (0.5 * drag_coeff * 1.225 * ((thrust / mass_flow * math.log((dry_mass + fuel_mass) / dry_mass)) * 0.4)**2 * 10.0 / dry_mass)
+    return final_vel
+
+if __name__ == "__main__":
+    v = calculate_burnout_velocity(5000.0, 45000.0, 800000.0, 300.0, 0.2)
+    assert v > 0.0
+'''
+    },
+
+    # 3. NESTED LOOP ONLY (6 programs: P0115 - P0120)
+    "P0115": {
+        "domain": "Numerical Computation",
+        "task": "Gaussian elimination forward reduction on augmented matrix",
+        "category": "Nested loop only",
+        "code": '''def gaussian_elimination_forward(
+    matrix: list[list[float]]
+) -> list[list[float]]:
+    mat = [row[:] for row in matrix]
+    n = len(mat)
+    for i in range(n):
+        pivot = mat[i][i]
+        for j in range(i + 1, n):
+            factor = mat[j][i] / pivot
+            for k in range(i, n + 1):
+                mat[j][k] -= factor * mat[i][k]
+    return mat
+
+if __name__ == "__main__":
+    a = [[2.0, 1.0, 5.0], [4.0, -6.0, -2.0]]
+    res = gaussian_elimination_forward(a)
+    assert res[1][0] == 0.0
+'''
+    },
+    "P0116": {
+        "domain": "Searching and Sorting",
+        "task": "Counting inversions in an array using nested scanning",
+        "category": "Nested loop only",
+        "code": '''def count_array_inversions(items: list[int]) -> int:
+    inversions = 0
+    n = len(items)
+    for i in range(n):
+        for j in range(i + 1, n):
+            if items[i] > items[j]:
+                inversions += 1
+    return inversions
+
+if __name__ == "__main__":
+    assert count_array_inversions([2, 4, 1, 3, 5]) == 3
+'''
+    },
+    "P0117": {
+        "domain": "Matrix & Grid Operations",
+        "task": "Rotate a square 2D matrix 90 degrees clockwise in-place",
+        "category": "Nested loop only",
+        "code": '''def rotate_matrix_clockwise(matrix: list[list[int]]) -> list[list[int]]:
+    n = len(matrix)
+    for i in range(n // 2):
+        for j in range(i, n - i - 1):
+            temp = matrix[i][j]
+            matrix[i][j] = matrix[n - 1 - j][i]
+            matrix[n - 1 - j][i] = matrix[n - 1 - i][n - 1 - j]
+            matrix[n - 1 - i][n - 1 - j] = matrix[j][n - 1 - i]
+            matrix[j][n - 1 - i] = temp
+    return matrix
+
+if __name__ == "__main__":
+    m = [[1, 2], [3, 4]]
+    rotate_matrix_clockwise(m)
+    assert m == [[3, 1], [4, 2]]
+'''
+    },
+    "P0118": {
+        "domain": "String Processing & Text Analysis",
+        "task": "Longest common substring search between two strings",
+        "category": "Nested loop only",
+        "code": '''def longest_common_substring(str1: str, str2: str) -> str:
+    m = len(str1)
+    n = len(str2)
+    max_len = 0
+    end_idx = 0
+    dp = [[0] * (n + 1) for _ in range(m + 1)]
+    for i in range(1, m + 1):
+        for j in range(1, n + 1):
+            if str1[i - 1] == str2[j - 1]:
+                dp[i][j] = dp[i - 1][j - 1] + 1
+                if dp[i][j] > max_len:
+                    max_len = dp[i][j]
+                    end_idx = i
+            else:
+                dp[i][j] = 0
+    return str1[end_idx - max_len:end_idx]
+
+if __name__ == "__main__":
+    assert longest_common_substring("photograph", "tomography") == "tograph"
+'''
+    },
+    "P0119": {
+        "domain": "Graph or Tree Traversal",
+        "task": "Compute shortest path transitive closure matrix of directed graph",
+        "category": "Nested loop only",
+        "code": '''def transitive_closure(reach: list[list[int]]) -> list[list[int]]:
+    n = len(reach)
+    closure = [row[:] for row in reach]
+    for k in range(n):
+        for i in range(n):
+            for j in range(n):
+                closure[i][j] = closure[i][j] or (closure[i][k] and closure[k][j])
+    return closure
+
+if __name__ == "__main__":
+    graph = [[1, 1, 0], [0, 1, 1], [0, 0, 1]]
+    tc = transitive_closure(graph)
+    assert tc[0][2] == 1
+'''
+    },
+    "P0120": {
+        "domain": "Small Simulation and Rule-based Systems",
+        "task": "Conway's Game of Life discrete grid single step update",
+        "category": "Nested loop only",
+        "code": '''def game_of_life_step(grid: list[list[int]]) -> list[list[int]]:
+    h = len(grid)
+    w = len(grid[0])
+    nxt = [[0] * w for _ in range(h)]
     for r in range(h):
         for c in range(w):
-            patch_var = sum((grid[r + dr][c + dc] - 50.0)**2 for dr in range(size) for dc in range(size)) / float(size * size)
-            if patch_var < min_variance:
-                min_variance = patch_var
-                best_loc = (r, c)
-    return best_loc
+            neighbors = 0
+            for dr in (-1, 0, 1):
+                for dc in (-1, 0, 1):
+                    if dr == 0 and dc == 0:
+                        continue
+                    nr = r + dr
+                    nc = c + dc
+                    if 0 <= nr < h:
+                        if 0 <= nc < w:
+                            neighbors += grid[nr][nc]
+            is_alive = grid[r][c] == 1
+            if is_alive:
+                if neighbors in (2, 3):
+                    nxt[r][c] = 1
+            else:
+                if neighbors == 3:
+                    nxt[r][c] = 1
+    return nxt
 
 if __name__ == "__main__":
-    g = [[50.0]*4 for _ in range(4)]
-    assert locate_least_variant_patch(g, 2) == (0, 0)
-'''
-    },
-    "P0082": {
-        "domain": "Scheduling and Resource Allocation",
-        "task": "Compute multi-phase job execution latencies across processor nodes",
-        "category": "Long statement and nested loop",
-        "code": '''from typing import List, Dict
-
-def compute_processor_task_delays(nodes: List[Dict[str, float]], tasks: List[Dict[str, float]], network_overhead: float) -> List[List[float]]:
-    latencies = []
-    for node in nodes:
-        row = []
-        for task in tasks:
-            turnaround_time = (task["payload_mb"] / node["bandwidth_mbps"]) + (task["cycles_giga"] / node["clock_ghz"] * node["ipc_efficiency"]) + network_overhead
-            row.append(turnaround_time)
-        latencies.append(row)
-    return latencies
-
-if __name__ == "__main__":
-    n = [{"bandwidth_mbps": 100.0, "clock_ghz": 3.0, "ipc_efficiency": 1.2}]
-    t = [{"payload_mb": 50.0, "cycles_giga": 6.0}]
-    assert len(compute_processor_task_delays(n, t, 0.05)) == 1
+    g = [[0, 1, 0], [0, 1, 0], [0, 1, 0]]
+    res = game_of_life_step(g)
+    assert res[1][0] == 1
 '''
     },
 
-    # 6. LONG STATEMENT AND COMPLEX CONDITIONAL (6 programs: P0083 - P0088)
-    "P0083": {
+    # 4. COMPLEX CONDITIONAL ONLY (6 programs: P0121 - P0126)
+    "P0121": {
         "domain": "Numerical Computation",
-        "task": "Evaluate atmospheric flight path aerodynamic coefficients",
-        "category": "Long statement and complex conditional",
-        "code": '''import math
-from typing import Dict
-
-def evaluate_reentry_aerodynamics(state: Dict[str, float], thermal_shield_active: bool) -> float:
-    alt = state.get("altitude_km", 0.0)
-    mach = state.get("mach_number", 0.0)
-    aoa = state.get("angle_of_attack_deg", 0.0)
-    drag_force = 0.5 * state["air_density"] * (state["velocity_ms"] ** 2) * state["reference_area"] * (state["base_cd"] + 0.015 * (aoa ** 1.8) + 0.08 * math.exp(-alt / 8.5))
-    if ((alt < 80.0 and mach > 5.0 and aoa <= 25.0) or (alt < 40.0 and state.get("plasma_blackout") is True)) and thermal_shield_active and not state.get("surface_damaged", False):
-        return drag_force
-    return 0.0
+        "task": "Check boundary condition stability for finite element mesh element",
+        "category": "Complex conditional only",
+        "code": '''def is_finite_element_admissible(
+    aspect_ratio: float, skewness: float, jacobian: float, is_corner: bool
+) -> bool:
+    cond1 = aspect_ratio < 4.0 and skewness < 0.65 and jacobian > 0.25
+    cond2 = is_corner and aspect_ratio < 6.0 and skewness < 0.80
+    cond3 = jacobian > 0.05 and not is_corner
+    if (cond1 or cond2) and cond3 and not (aspect_ratio > 5.0 and skewness > 0.70):
+        return True
+    return False
 
 if __name__ == "__main__":
-    s = {"altitude_km": 50.0, "mach_number": 12.0, "angle_of_attack_deg": 15.0, "air_density": 0.001, "velocity_ms": 4000.0, "reference_area": 12.0, "base_cd": 0.4}
-    assert evaluate_reentry_aerodynamics(s, True) > 0.0
+    assert is_finite_element_admissible(2.5, 0.4, 0.5, False) is True
 '''
     },
-    "P0084": {
+    "P0122": {
         "domain": "Lists, Tuples, Dictionaries, and Sets",
-        "task": "Calculate commercial credit limit based on financial health indices",
-        "category": "Long statement and complex conditional",
-        "code": '''from typing import Dict
-
-def evaluate_corporate_credit_facility(firm: Dict[str, float], sector_risk: float, audit_approved: bool) -> float:
-    ratio_curr = firm.get("current_assets", 0.0) / (firm.get("current_liabilities", 1.0) + 1.0)
-    ebitda = firm.get("ebitda", 0.0)
-    debt_service = firm.get("debt_service", 1.0)
-    credit_limit = (ebitda * 3.5 * (1.0 - sector_risk * 0.4)) + (firm.get("collateral_market_value", 0.0) * 0.65) - (firm.get("existing_debt", 0.0) * 0.35)
-    if (ratio_curr >= 1.5 and ebitda / debt_service >= 2.5 and sector_risk <= 0.30) or (audit_approved and firm.get("tenure_years", 0.0) >= 10.0 and not firm.get("prior_defaults", False)):
-        return max(0.0, credit_limit)
-    return 0.0
+        "task": "Filter authorized OAuth token grant requests",
+        "category": "Complex conditional only",
+        "code": '''def is_oauth_grant_allowed(
+    req: dict[str, any], scopes: list[str], client_verified: bool
+) -> bool:
+    grant_type = req.get("grant_type")
+    pkce_valid = req.get("pkce_verified") is True
+    has_redirect = req.get("redirect_uri_match") is True
+    elevated = "admin:write" in scopes
+    rate_exceeded = req.get("rate_limited") is True
+    rule_code = grant_type == "auth_code" and pkce_valid and has_redirect
+    rule_refresh = grant_type == "refresh" and client_verified and not elevated
+    if (rule_code or rule_refresh) and not rate_exceeded:
+        return True
+    return False
 
 if __name__ == "__main__":
-    f = {"current_assets": 300.0, "current_liabilities": 100.0, "ebitda": 50.0, "debt_service": 10.0, "collateral_market_value": 200.0, "existing_debt": 40.0}
-    assert evaluate_corporate_credit_facility(f, 0.2, True) > 0.0
+    r = {"grant_type": "auth_code", "pkce_verified": True, "redirect_uri_match": True, "rate_limited": False}
+    assert is_oauth_grant_allowed(r, ["read"], True) is True
 '''
     },
-    "P0085": {
+    "P0123": {
         "domain": "String Processing & Text Analysis",
-        "task": "Validate and score complex URI endpoints for security gateways",
-        "category": "Long statement and complex conditional",
-        "code": '''def audit_endpoint_url_security(url: str, allowed_host: str, require_https: bool) -> float:
-    token_complexity = (len(url) * 0.45) + (sum(c.isupper() for c in url) * 1.8) + (sum(c.isdigit() for c in url) * 1.2) - (url.count("/") * 2.5) + 10.0
-    if (url.startswith("https://") and allowed_host in url and not ".." in url and len(url) <= 512) or (not require_https and url.startswith("http://localhost") and not "@" in url):
-        return token_complexity
-    return -1.0
+        "task": "Classify credit card PAN validity and issuer pattern constraints",
+        "category": "Complex conditional only",
+        "code": '''def check_card_issuer_rules(
+    pan: str, is_luhn_valid: bool, allow_virtual: bool
+) -> bool:
+    is_visa = pan.startswith("4") and len(pan) in (13, 16)
+    is_mc = pan.startswith("5") and len(pan) == 16
+    is_amex = (pan.startswith("34") or pan.startswith("37")) and len(pan) == 15
+    is_commercial = pan.endswith("99")
+    if (is_visa or is_mc or is_amex) and is_luhn_valid and (allow_virtual or not is_commercial):
+        return True
+    return False
 
 if __name__ == "__main__":
-    assert audit_endpoint_url_security("https://api.internal.com/v1/auth", "api.internal.com", True) > 0.0
+    assert check_card_issuer_rules("4123456789012345", True, False) is True
 '''
     },
-    "P0086": {
+    "P0124": {
         "domain": "Data Aggregation and Statistics",
-        "task": "Compute demographic health risk score for epidemiological survey",
-        "category": "Long statement and complex conditional",
-        "code": '''from typing import Dict
-
-def compute_epidemiological_vulnerability(subject: Dict[str, float], base_prevalence: float) -> float:
-    vulnerability_score = (subject["age"] * 0.28) + (subject["bmi"] * 0.45) + (subject["blood_sugar"] * 0.15) + (subject["smoking_pack_years"] * 1.85) - (subject["physical_activity_hours_week"] * 3.5) + base_prevalence * 100.0
-    if (subject.get("age", 0.0) >= 60.0 and subject.get("bmi", 0.0) >= 30.0 and subject.get("hypertension") is True) or (subject.get("immunocompromised") is True and base_prevalence >= 0.05 and not subject.get("vaccinated", False)):
-        return vulnerability_score * 1.4
-    return vulnerability_score
+        "task": "Evaluate commercial loan applicant debt tolerance tier",
+        "category": "Complex conditional only",
+        "code": '''def evaluate_debt_tolerance(
+    debt_to_income: float, credit_utilization: float, bankruptcy_flag: bool, guarantor_present: bool
+) -> str:
+    prime_cond = debt_to_income <= 0.35 and credit_utilization <= 0.30 and not bankruptcy_flag
+    alt_cond = guarantor_present and debt_to_income <= 0.45 and credit_utilization <= 0.50
+    if (prime_cond or alt_cond) and not (credit_utilization > 0.70 or bankruptcy_flag):
+        return "APPROVED"
+    return "DECLINED"
 
 if __name__ == "__main__":
-    sub = {"age": 65.0, "bmi": 32.0, "blood_sugar": 110.0, "smoking_pack_years": 10.0, "physical_activity_hours_week": 2.0, "hypertension": True}
-    assert compute_epidemiological_vulnerability(sub, 0.02) > 0.0
+    res = evaluate_debt_tolerance(0.30, 0.25, False, False)
+    assert res == "APPROVED"
 '''
     },
-    "P0087": {
+    "P0125": {
         "domain": "Inventory and Record Management",
-        "task": "Calculate pharmaceutical shelf expiry loss and inventory write-off",
-        "category": "Long statement and complex conditional",
-        "code": '''from typing import Dict
-
-def calculate_pharma_spoilage_writeoff(batch: Dict[str, float], market_salvage_rate: float, emergency_cleared: bool) -> float:
-    total_writeoff_loss = (batch["unit_cost"] * batch["units_expired"]) - (batch["units_expired"] * batch["unit_cost"] * market_salvage_rate) + (batch.get("hazmat_disposal_fee_per_unit", 2.5) * batch["units_expired"]) + 50.0
-    if ((batch.get("units_expired", 0.0) > 100.0 and batch.get("is_controlled_substance") is True and not batch.get("quarantined", False)) or (batch.get("temperature_violation_hours", 0.0) > 24.0 and not emergency_cleared)) and batch.get("insurance_covered") is not True:
-        return total_writeoff_loss
-    return 0.0
-
-if __name__ == "__main__":
-    b = {"unit_cost": 25.0, "units_expired": 150.0, "is_controlled_substance": True, "quarantined": False, "insurance_covered": False}
-    assert calculate_pharma_spoilage_writeoff(b, 0.1, False) > 0.0
-'''
-    },
-    "P0088": {
-        "domain": "Small Simulation and Rule-based Systems",
-        "task": "Simulate boiler steam pressure regulator and emergency blowout",
-        "category": "Long statement and complex conditional",
-        "code": '''from typing import Dict
-
-def regulate_boiler_steam_chamber(boiler: Dict[str, float], ambient_pressure_psi: float) -> float:
-    vent_flow_rate = (boiler["pressure_psi"] - ambient_pressure_psi) * boiler["orifice_area_sq_in"] * (0.62 + 0.0012 * (boiler["temperature_c"] - 100.0)) * 14.7
-    if ((boiler.get("pressure_psi", 0.0) > 250.0 and boiler.get("temperature_c", 0.0) > 350.0 and boiler.get("water_level_pct", 0.0) < 15.0) or (boiler.get("pressure_psi", 0.0) > 300.0 and not boiler.get("backup_pump_running", False))) and not boiler.get("manual_scram_triggered", False):
-        return vent_flow_rate
-    return 0.0
+        "task": "Approve warehouse purchase order variance threshold",
+        "category": "Complex conditional only",
+        "code": '''def is_po_variance_tolerated(
+    invoice_val: float, po_val: float, trusted_vendor: bool, category_critical: bool
+) -> bool:
+    ratio = abs(invoice_val - po_val) / max(1.0, po_val)
+    cond1 = ratio <= 0.02 and trusted_vendor and invoice_val <= 50000.0
+    cond2 = ratio <= 0.005 and not category_critical and invoice_val > 50000.0
+    cond3 = ratio == 0.0 and not trusted_vendor
+    if (cond1 or cond2 or cond3) and not (category_critical and ratio > 0.01):
+        return True
+    return False
 
 if __name__ == "__main__":
-    boil = {"pressure_psi": 280.0, "temperature_c": 380.0, "water_level_pct": 10.0, "orifice_area_sq_in": 1.5, "backup_pump_running": False, "manual_scram_triggered": False}
-    assert regulate_boiler_steam_chamber(boil, 14.7) > 0.0
+    assert is_po_variance_tolerated(1010.0, 1000.0, True, False) is True
+'''
+    },
+    "P0126": {
+        "domain": "Scheduling and Resource Allocation",
+        "task": "Authorize hospital intensive care unit (ICU) priority transfer",
+        "category": "Complex conditional only",
+        "code": '''def is_icu_transfer_authorized(
+    vital_signs: dict[str, float], beds_available: int, attending_override: bool
+) -> bool:
+    spo2 = vital_signs.get("spo2", 100.0)
+    gcs = vital_signs.get("glasgow_coma_scale", 15.0)
+    map_bp = vital_signs.get("mean_arterial_pressure", 90.0)
+    hypoxia = spo2 < 88.0 and gcs < 9.0 and map_bp < 65.0
+    resuscitation = vital_signs.get("lactate", 0.0) > 4.0 and map_bp < 60.0
+    dnr = vital_signs.get("dnr_active", False)
+    if (hypoxia or resuscitation or attending_override) and beds_available > 0 and not dnr:
+        return True
+    return False
+
+if __name__ == "__main__":
+    v = {"spo2": 85.0, "glasgow_coma_scale": 8.0, "mean_arterial_pressure": 60.0, "dnr_active": False}
+    assert is_icu_transfer_authorized(v, 2, False) is True
 '''
     },
 
-    # 7. NESTED LOOP AND COMPLEX CONDITIONAL (6 programs: P0089 - P0094)
-    "P0089": {
+    # 5. LONG STATEMENT AND NESTED LOOP (6 programs: P0127 - P0132)
+    "P0127": {
         "domain": "Numerical Computation",
-        "task": "Search constrained parameter space for stable differential roots",
-        "category": "Nested loop and complex conditional",
-        "code": '''from typing import List, Tuple
-
-def locate_stable_roots_grid(
-    grid_x: List[float], grid_y: List[float], damp: float
-) -> List[Tuple[float, float]]:
-    stable = []
-    for x in grid_x:
-        for y in grid_y:
-            z = x**2 - y**2 + damp
-            cond_a = z > 0.0 and x > 1.0 and y > 1.0
-            cond_b = damp < 0.5 and z < 10.0 and x < 5.0
-            cond_c = not (x == y and damp == 0.0)
-            cond_d = (z != 1.0 or damp > 0.1)
-            if (cond_a or cond_b) and cond_c and cond_d:
-                stable.append((x, y))
-    return stable
-
-if __name__ == "__main__":
-    assert len(locate_stable_roots_grid([2.0], [1.5], 0.2)) == 1
-'''
-    },
-    "P0090": {
-        "domain": "Searching and Sorting",
-        "task": "Filter matching candidate profiles against multi-criteria job requisitions",
-        "category": "Nested loop and complex conditional",
-        "code": '''from typing import List, Dict
-
-def match_candidates_to_roles(
-    roles: List[Dict[str, any]],
-    candidates: List[Dict[str, any]]
-) -> List[Dict[str, str]]:
-    matches = []
-    for role in roles:
-        for cand in candidates:
-            exp_ok = cand.get("years_exp", 0) >= role.get("min_exp", 0)
-            deg_ok = cand.get("degree") == role.get("req_degree")
-            loc_ok = cand.get("location") == role.get("location")
-            remote = role.get("remote_ok") is True
-            sal_ok = cand.get("expected_sal", 0) <= role.get("max_sal", 0)
-            rule_std = exp_ok and sal_ok and (loc_ok or remote)
-            rule_vet = deg_ok and exp_ok and cand.get("veteran") is True
-            if rule_std or rule_vet:
-                matches.append({"role_id": role["id"], "cand_id": cand["id"]})
-    return matches
-
-if __name__ == "__main__":
-    r = [{"id": "R1", "min_exp": 3, "location": "NY", "remote_ok": True, "max_sal": 100000}]
-    c = [{"id": "C1", "years_exp": 4, "location": "SF", "expected_sal": 90000}]
-    assert len(match_candidates_to_roles(r, c)) == 1
-'''
-    },
-    "P0091": {
-        "domain": "Matrix & Grid Operations",
-        "task": "Scan grid matrix for anomalous local minimum clusters",
-        "category": "Nested loop and complex conditional",
-        "code": '''from typing import List, Tuple
-
-def locate_anomalous_pits(matrix: List[List[float]], threshold: float) -> List[Tuple[int, int]]:
-    pits = []
-    rows = len(matrix)
-    cols = len(matrix[0])
-    for r in range(1, rows - 1):
-        for c in range(1, cols - 1):
-            val = matrix[r][c]
-            lower_h = val < matrix[r-1][c] and val < matrix[r+1][c]
-            lower_v = val < matrix[r][c-1] and val < matrix[r][c+1]
-            deep = val < threshold
-            pit_a = lower_h and lower_v and deep
-            pit_b = val < 0.0 and matrix[r-1][c-1] > threshold and not val == threshold
-            if pit_a or pit_b:
-                pits.append((r, c))
-    return pits
-
-if __name__ == "__main__":
-    m = [[5.0, 5.0, 5.0], [5.0, 1.0, 5.0], [5.0, 5.0, 5.0]]
-    assert locate_anomalous_pits(m, 2.0) == [(1, 1)]
-'''
-    },
-    "P0092": {
-        "domain": "String Processing & Text Analysis",
-        "task": "Cross-compare document token pairs with multi-attribute filtering",
-        "category": "Nested loop and complex conditional",
-        "code": '''from typing import List, Tuple
-
-def filter_cross_document_keyword_pairs(
-    doc_a: List[str], doc_b: List[str], min_overlap_char: int
-) -> List[Tuple[str, str]]:
-    pairs = []
-    for word_a in doc_a:
-        for word_b in doc_b:
-            shared = len(set(word_a).intersection(set(word_b)))
-            len_diff = abs(len(word_a) - len(word_b))
-            pair_a = shared >= min_overlap_char and len_diff <= 2 and word_a[0] == word_b[0]
-            pair_b = word_a in word_b and len(word_a) >= 4 and not word_a == word_b
-            if (pair_a or pair_b) and not word_a.isdigit():
-                pairs.append((word_a, word_b))
-    return pairs
-
-if __name__ == "__main__":
-    assert len(filter_cross_document_keyword_pairs(["cloud"], ["clouds"], 4)) == 1
-'''
-    },
-    "P0093": {
-        "domain": "Graph or Tree Traversal",
-        "task": "Validate clustered server graph communication link rules",
-        "category": "Nested loop and complex conditional",
-        "code": '''from typing import Dict, List, Tuple
-
-def audit_cluster_interlinks(cluster_a: Dict[str, any], cluster_b: Dict[str, any]) -> List[Tuple[str, str]]:
-    valid_links = []
-    nodes_a = cluster_a.get("nodes", [])
-    nodes_b = cluster_b.get("nodes", [])
-    for na in nodes_a:
-        for nb in nodes_b:
-            lat = na.get("latency_to_gw", 100) + nb.get("latency_to_gw", 100)
-            bw = min(na.get("bandwidth", 0), nb.get("bandwidth", 0))
-            link_a = lat <= 50 and bw >= 1000 and na.get("zone") == nb.get("zone")
-            link_b = na.get("public_ip") is True and nb.get("vpc_peered") is True and lat <= 80
-            if (link_a or link_b) and not na.get("draining", False):
-                valid_links.append((na["id"], nb["id"]))
-    return valid_links
-
-if __name__ == "__main__":
-    ca = {"nodes": [{"id": "A1", "latency_to_gw": 20, "bandwidth": 1500, "zone": "us-1", "draining": False}]}
-    cb = {"nodes": [{"id": "B1", "latency_to_gw": 20, "bandwidth": 1500, "zone": "us-1"}]}
-    assert len(audit_cluster_interlinks(ca, cb)) == 1
-'''
-    },
-    "P0094": {
-        "domain": "Inventory and Record Management",
-        "task": "Reconcile supplier purchase orders across warehouse shipments",
-        "category": "Nested loop and complex conditional",
-        "code": '''from typing import List, Dict, Tuple
-
-def reconcile_po_shipments(
-    purchase_orders: List[Dict[str, any]],
-    receipts: List[Dict[str, any]]
-) -> List[Tuple[str, str]]:
-    matched = []
-    for po in purchase_orders:
-        for rec in receipts:
-            sku_match = po.get("sku") == rec.get("sku")
-            qty_diff = abs(po.get("qty", 0) - rec.get("qty", 0))
-            price_diff = abs(po.get("unit_price", 0.0) - rec.get("unit_price", 0.0))
-            full_match = sku_match and qty_diff <= 2 and price_diff < 0.05 and not rec.get("damaged", False)
-            part_match = sku_match and po.get("allow_partial") is True and rec.get("qty", 0) > 0 and not rec.get("inspected") is False
-            if full_match or part_match:
-                matched.append((po["po_id"], rec["rec_id"]))
-    return matched
-
-if __name__ == "__main__":
-    pos = [{"po_id": "PO1", "sku": "SKU1", "qty": 100, "unit_price": 5.0, "allow_partial": False}]
-    recs = [{"rec_id": "R1", "sku": "SKU1", "qty": 100, "unit_price": 5.0, "damaged": False}]
-    assert len(reconcile_po_shipments(pos, recs)) == 1
-'''
-    },
-
-    # 8. ALL THREE TARGET ISSUES (6 programs: P0095 - P0100)
-    "P0095": {
-        "domain": "Numerical Computation",
-        "task": "N-body gravitation simulation step with multi-condition collision damping",
-        "category": "All three target issues",
+        "task": "2D discrete Fourier transform real matrix component aggregation",
+        "category": "Long statement and nested loop",
         "code": '''import math
-from typing import List, Dict
 
-def simulate_n_body_potential_step(bodies: List[Dict[str, float]], g_constant: float, damping_limit: float) -> List[Dict[str, float]]:
-    n = len(bodies)
+def compute_2d_dft_real(spatial_matrix: list[list[float]]) -> list[list[float]]:
+    m = len(spatial_matrix)
+    n = len(spatial_matrix[0])
+    output = [[0.0] * n for _ in range(m)]
+    for u in range(m):
+        for v in range(n):
+            output[u][v] = sum(spatial_matrix[x][y] * math.cos(2.0 * math.pi * ((float(u * x) / float(m)) + (float(v * y) / float(n)))) for x in range(m) for y in range(n))
+    return output
+
+if __name__ == "__main__":
+    mat = [[1.0, 0.0], [0.0, 1.0]]
+    res = compute_2d_dft_real(mat)
+    assert len(res) == 2
+'''
+    },
+    "P0128": {
+        "domain": "Searching and Sorting",
+        "task": "Find all pairs with k-nearest Mahalanobis metric projection",
+        "category": "Long statement and nested loop",
+        "code": '''def compute_pairwise_weighted_projections(points: list[list[float]], metric_weights: list[float]) -> list[list[float]]:
+    n = len(points)
+    dist_table = [[0.0] * n for _ in range(n)]
+    for i in range(n):
+        for j in range(n):
+            dist_table[i][j] = sum(metric_weights[d] * ((points[i][d] - points[j][d]) ** 2) for d in range(len(metric_weights))) ** 0.5
+    return dist_table
+
+if __name__ == "__main__":
+    pts = [[1.0, 2.0], [4.0, 6.0]]
+    w = [1.0, 1.0]
+    res = compute_pairwise_weighted_projections(pts, w)
+    assert res[0][1] == 5.0
+'''
+    },
+    "P0129": {
+        "domain": "Matrix & Grid Operations",
+        "task": "Compute image gradient magnitudes using Sobel convolution operator",
+        "category": "Long statement and nested loop",
+        "code": '''import math
+
+def compute_sobel_gradient_energy(raster: list[list[float]]) -> list[list[float]]:
+    h = len(raster)
+    w = len(raster[0])
+    energy = [[0.0] * w for _ in range(h)]
+    for r in range(1, h - 1):
+        for c in range(1, w - 1):
+            energy[r][c] = math.sqrt(((raster[r-1][c+1] + 2*raster[r][c+1] + raster[r+1][c+1]) - (raster[r-1][c-1] + 2*raster[r][c-1] + raster[r+1][c-1]))**2 + ((raster[r+1][c-1] + 2*raster[r+1][c] + raster[r+1][c+1]) - (raster[r-1][c-1] + 2*raster[r-1][c] + raster[r-1][c+1]))**2)
+    return energy
+
+if __name__ == "__main__":
+    img = [[0.0]*3 for _ in range(3)]
+    res = compute_sobel_gradient_energy(img)
+    assert len(res) == 3
+'''
+    },
+    "P0130": {
+        "domain": "Data Aggregation and Statistics",
+        "task": "Compute double-weighted moving variance table across matrices",
+        "category": "Long statement and nested loop",
+        "code": '''def evaluate_grid_moving_variance(grid: list[list[float]], mean_val: float) -> list[list[float]]:
+    rows = len(grid)
+    cols = len(grid[0])
+    variance_map = [[0.0] * cols for _ in range(rows)]
+    for r in range(rows):
+        for c in range(cols):
+            variance_map[r][c] = sum((grid[min(max(0, r + dr), rows - 1)][min(max(0, c + dc), cols - 1)] - mean_val)**2 for dr in (-1, 0, 1) for dc in (-1, 0, 1)) / 9.0
+    return variance_map
+
+if __name__ == "__main__":
+    g = [[1.0]*3 for _ in range(3)]
+    res = evaluate_grid_moving_variance(g, 1.0)
+    assert res[1][1] == 0.0
+'''
+    },
+    "P0131": {
+        "domain": "Inventory and Record Management",
+        "task": "Compute multi-warehouse freight distance and inventory surcharge",
+        "category": "Long statement and nested loop",
+        "code": '''def compute_dispatch_freight_penalties(hubs: list[dict[str, float]], destinations: list[dict[str, float]]) -> list[list[float]]:
+    cost_matrix = []
+    for hub in hubs:
+        row = []
+        for dst in destinations:
+            transit_cost = (hub["base_fee"] * 1.05) + (((hub["x"] - dst["x"])**2 + (hub["y"] - dst["y"])**2)**0.5 * hub["per_km_rate"] * (1.0 + dst.get("congestion_index", 0.1))) + (dst["weight_kg"] * 0.45)
+            row.append(transit_cost)
+        cost_matrix.append(row)
+    return cost_matrix
+
+if __name__ == "__main__":
+    h = [{"base_fee": 50.0, "x": 0.0, "y": 0.0, "per_km_rate": 1.2}]
+    d = [{"x": 3.0, "y": 4.0, "congestion_index": 0.2, "weight_kg": 10.0}]
+    assert len(compute_dispatch_freight_penalties(h, d)) == 1
+'''
+    },
+    "P0132": {
+        "domain": "Small Simulation and Rule-based Systems",
+        "task": "Simulate electrostatic coulomb energy interactions in particle lattice",
+        "category": "Long statement and nested loop",
+        "code": '''def calculate_lattice_electrostatic_potential(charges: list[list[float]], lattice_spacing: float) -> float:
+    total_energy = 0.0
+    n = len(charges)
     for i in range(n):
         for j in range(n):
             if i != j:
-                dx = bodies[j]["x"] - bodies[i]["x"]
-                dy = bodies[j]["y"] - bodies[i]["y"]
-                dist = math.sqrt(dx**2 + dy**2) + 0.001
-                force_magnitude = (g_constant * bodies[i]["mass"] * bodies[j]["mass"]) / (dist ** 2) * (1.0 + 0.02 * (bodies[i].get("charge", 0.0) * bodies[j].get("charge", 0.0)))
-                if ((dist < damping_limit and bodies[i]["mass"] > 100.0 and bodies[j]["mass"] > 100.0) or (dist < 0.05 and bodies[i].get("ionized") is True and not bodies[j].get("fixed", False))) and force_magnitude > 0.1:
-                    bodies[i]["vx"] += (dx / dist) * force_magnitude * 0.1 / bodies[i]["mass"]
-    return bodies
+                total_energy += (charges[i][0] * charges[j][0]) / (lattice_spacing * (((charges[i][1] - charges[j][1])**2 + (charges[i][2] - charges[j][2])**2)**0.5 + 0.01)) * 8.987e9
+    return total_energy
 
 if __name__ == "__main__":
-    b = [{"x": 0.0, "y": 0.0, "mass": 500.0, "vx": 0.0, "charge": 1.0, "ionized": True}, {"x": 1.0, "y": 0.0, "mass": 500.0, "vx": 0.0, "charge": 1.0, "fixed": False}]
-    assert len(simulate_n_body_potential_step(b, 6.67e-11, 2.0)) == 2
+    particles = [[1.0, 0.0, 0.0], [-1.0, 1.0, 0.0]]
+    e = calculate_lattice_electrostatic_potential(particles, 1.0)
+    assert e < 0.0
 '''
     },
-    "P0096": {
-        "domain": "Matrix & Grid Operations",
-        "task": "Process multi-spectral satellite imagery raster tiles with radiometric calibration",
-        "category": "All three target issues",
-        "code": '''from typing import List, Dict, Tuple
 
-def calibrate_satellite_raster_bands(tiles: List[List[Dict[str, float]]], solar_zenith_deg: float) -> List[Tuple[int, int]]:
-    anomalies = []
-    for r, row in enumerate(tiles):
-        for c, pixel in enumerate(row):
-            toa_reflectance = (pixel["digital_number"] * pixel["gain"] + pixel["bias"]) / (pixel["solar_irradiance"] * 0.95 * (1.0 + 0.033 * (solar_zenith_deg / 90.0)))
-            if ((toa_reflectance > 0.85 and pixel.get("cloud_mask") == 0.0 and pixel.get("thermal_kelvin", 0.0) < 260.0) or (toa_reflectance < 0.02 and pixel.get("water_body") is True and not pixel.get("glint_flag", False))) and pixel.get("quality_flag", 1) == 1:
-                anomalies.append((r, c))
-    return anomalies
+    # 6. LONG STATEMENT AND COMPLEX CONDITIONAL (6 programs: P0133 - P0138)
+    "P0133": {
+        "domain": "Numerical Computation",
+        "task": "Evaluate orbital transfer trajectory delta-v with contingency checks",
+        "category": "Long statement and complex conditional",
+        "code": '''import math
+
+def calculate_orbital_transfer_delta_v(r1: float, r2: float, mu: float, available_propellant: float, dry_mass: float) -> float:
+    delta_v_required = math.sqrt(mu / r1) * (math.sqrt((2.0 * r2) / (r1 + r2)) - 1.0) + math.sqrt(mu / r2) * (1.0 - math.sqrt((2.0 * r1) / (r1 + r2)))
+    max_achievable_delta_v = 310.0 * 9.80665 * math.log((dry_mass + available_propellant) / dry_mass)
+    if (delta_v_required <= max_achievable_delta_v and r1 > 6371.0 and r2 > r1) or (available_propellant > 5000.0 and r2 < 50000.0 and not r1 < 6500.0):
+        return delta_v_required
+    return -1.0
 
 if __name__ == "__main__":
-    grid = [[{"digital_number": 200.0, "gain": 0.005, "bias": 0.1, "solar_irradiance": 1.5, "cloud_mask": 0.0, "thermal_kelvin": 250.0, "quality_flag": 1}]]
-    assert len(calibrate_satellite_raster_bands(grid, 30.0)) == 1
+    dv = calculate_orbital_transfer_delta_v(7000.0, 42000.0, 398600.0, 10000.0, 2000.0)
+    assert dv > 0.0
 '''
     },
-    "P0097": {
+    "P0134": {
+        "domain": "Lists, Tuples, Dictionaries, and Sets",
+        "task": "Compute adjusted property appraisal valuation and tax exemption",
+        "category": "Long statement and complex conditional",
+        "code": '''def evaluate_property_appraisal(asset: dict[str, float], municipal_tax_rate: float, historic_district: bool) -> float:
+    assessed_valuation = (asset["square_feet"] * asset["base_sqft_cost"] * (1.0 + asset.get("renovation_factor", 0.05))) + (asset["lot_acres"] * 45000.0) - (asset["depreciation_years"] * 1850.0) + 12000.0
+    is_residential = asset.get("zone_type") == 1.0
+    tenure_ok = asset.get("owner_occupied_years", 0.0) >= 5.0
+    if ((assessed_valuation > 250000.0 and is_residential and tenure_ok) or (historic_district and assessed_valuation <= 500000.0 and not asset.get("commercial_use", False))) and municipal_tax_rate < 0.035:
+        return assessed_valuation * 0.90
+    return assessed_valuation
+
+if __name__ == "__main__":
+    p = {"square_feet": 2000.0, "base_sqft_cost": 150.0, "lot_acres": 0.5, "depreciation_years": 10.0, "zone_type": 1.0, "owner_occupied_years": 7.0}
+    val = evaluate_property_appraisal(p, 0.02, False)
+    assert val > 0.0
+'''
+    },
+    "P0135": {
+        "domain": "String Processing & Text Analysis",
+        "task": "Verify cryptographic JWT header parameters and calculate security score",
+        "category": "Long statement and complex conditional",
+        "code": '''def verify_jwt_security_envelope(header: dict[str, any], payload_size: int, signature_len: int) -> float:
+    security_score = (len(str(header.get("alg", ""))) * 8.5) + (payload_size * 0.025) + (signature_len * 0.15) - (len(str(header.get("typ", ""))) * 1.2) + 25.0
+    alg = header.get("alg")
+    typ_valid = header.get("typ") == "JWT"
+    has_kid = bool(header.get("kid"))
+    if ((alg in ("RS256", "ES256", "EdDSA") and typ_valid and has_kid) or (alg == "HS256" and signature_len >= 32 and not header.get("allow_insecure", False))) and payload_size <= 65536:
+        return security_score
+    return 0.0
+
+if __name__ == "__main__":
+    hdr = {"alg": "RS256", "typ": "JWT", "kid": "key-1"}
+    assert verify_jwt_security_envelope(hdr, 256, 256) > 0.0
+'''
+    },
+    "P0136": {
         "domain": "Data Aggregation and Statistics",
-        "task": "Aggregate regional healthcare epidemiological risk across layered clinics",
-        "category": "All three target issues",
-        "code": '''from typing import List, Dict
-
-def audit_regional_health_centers(districts: List[Dict[str, any]], alert_baseline: float) -> List[str]:
-    high_risk_centers = []
-    for dist in districts:
-        for clinic in dist.get("clinics", []):
-            composite_risk_index = ((clinic.get("cases", 0) * 12.5) + (clinic.get("positivity_rate", 0.0) * 450.0) - (clinic.get("icu_beds_free", 0) * 8.0)) / (clinic.get("catchment_pop_k", 1.0) * 0.5 + 2.0)
-            if ((composite_risk_index > alert_baseline and clinic.get("icu_beds_free", 0) < 3 and dist.get("containment_zone") is not True) or (clinic.get("positivity_rate", 0.0) > 0.25 and clinic.get("cases", 0) > 50 and not clinic.get("emergency_funding", False))) and clinic.get("status") == "ACTIVE":
-                high_risk_centers.append(clinic["id"])
-    return high_risk_centers
+        "task": "Calculate commercial wind farm energy yield with curtailed tariff",
+        "category": "Long statement and complex conditional",
+        "code": '''def calculate_wind_farm_curtailment_revenue(turbine: dict[str, float], grid_status: dict[str, any]) -> float:
+    gross_revenue = (0.5 * 1.225 * 3.14159 * (turbine["rotor_radius"] ** 2) * (turbine["wind_speed_ms"] ** 3) * turbine["power_coeff"] * 0.001) * turbine["tariff_per_mwh"] * 24.0
+    wind_ok = turbine.get("wind_speed_ms", 0.0) >= 3.5 and turbine.get("wind_speed_ms", 0.0) <= 25.0
+    grid_stable = grid_status.get("grid_frequency_hz", 50.0) >= 49.8 and grid_status.get("grid_frequency_hz", 50.0) <= 50.2
+    if (wind_ok and grid_stable and not grid_status.get("curtailment_ordered", False)) or (turbine.get("black_start_capable") is True and grid_status.get("emergency_mode") is True):
+        return gross_revenue
+    return 0.0
 
 if __name__ == "__main__":
-    d = [{"containment_zone": False, "clinics": [{"id": "C10", "cases": 60, "positivity_rate": 0.3, "icu_beds_free": 1, "catchment_pop_k": 20.0, "status": "ACTIVE", "emergency_funding": False}]}]
-    assert len(audit_regional_health_centers(d, 50.0)) == 1
+    t = {"rotor_radius": 50.0, "wind_speed_ms": 11.0, "power_coeff": 0.42, "tariff_per_mwh": 65.0}
+    g = {"grid_frequency_hz": 50.0, "curtailment_ordered": False, "emergency_mode": False}
+    assert calculate_wind_farm_curtailment_revenue(t, g) > 0.0
 '''
     },
-    "P0098": {
-        "domain": "Scheduling and Resource Allocation",
-        "task": "Optimize multi-datacenter server virtual machine placements with thermal caps",
-        "category": "All three target issues",
-        "code": '''from typing import List, Dict, Tuple
-
-def place_virtual_machines_across_racks(datacenters: List[Dict[str, any]], vm_requests: List[Dict[str, any]]) -> List[Tuple[str, str]]:
-    allocations = []
-    for dc in datacenters:
-        for rack in dc.get("racks", []):
-            for server in rack.get("servers", []):
-                for vm in vm_requests:
-                    placement_efficiency = ((server.get("avail_cpu", 0) - vm.get("req_cpu", 0)) * 1.5) + ((server.get("avail_ram_gb", 0) - vm.get("req_ram_gb", 0)) * 0.8) - (server.get("ambient_temp_c", 20.0) * 0.45)
-                    if (not vm.get("assigned") and server.get("avail_cpu", 0) >= vm.get("req_cpu", 0) and server.get("avail_ram_gb", 0) >= vm.get("req_ram_gb", 0) and (dc.get("region") == vm.get("target_region") or vm.get("allow_failover") is True)) and not server.get("maintenance", False):
-                        allocations.append((server["id"], vm["id"]))
-                        vm["assigned"] = True
-    return allocations
-
-if __name__ == "__main__":
-    dcs = [{"region": "us-east", "racks": [{"servers": [{"id": "S1", "avail_cpu": 32, "avail_ram_gb": 128, "ambient_temp_c": 22.0, "maintenance": False}]}]}]
-    vms = [{"id": "VM1", "req_cpu": 8, "req_ram_gb": 32, "target_region": "us-east", "allow_failover": False, "assigned": False}]
-    assert len(place_virtual_machines_across_racks(dcs, vms)) == 1
-'''
-    },
-    "P0099": {
-        "domain": "Small Simulation and Rule-based Systems",
-        "task": "Simulate industrial multi-chamber chemical pipeline flow and pressure alarms",
-        "category": "All three target issues",
-        "code": '''from typing import List, Dict
-
-def simulate_chemical_cascade_pressures(reactors: List[List[Dict[str, any]]], emergency_nitrogen_purge: bool) -> List[Dict[str, any]]:
-    critical_events = []
-    for row_idx, cascade in enumerate(reactors):
-        for col_idx, chamber in enumerate(cascade):
-            for vessel in chamber.get("vessels", []):
-                membrane_delta_p = ((vessel["inlet_pressure_bar"] - vessel["outlet_pressure_bar"]) * vessel["flow_rate_lpm"] * 0.18) + (vessel["temp_kelvin"] * 0.0035 * vessel.get("viscosity_cp", 1.0)) - 1.25
-                if ((membrane_delta_p > 8.5 and vessel.get("valve_state") == "OPEN" and not emergency_nitrogen_purge) or (vessel.get("temp_kelvin", 300) > 450.0 and vessel.get("acid_concentration", 0.0) > 0.65 and not chamber.get("cooling_jacket_active", False))) and not vessel.get("bypassed", False):
-                    critical_events.append({"loc": (row_idx, col_idx), "vessel_id": vessel["id"], "delta_p": membrane_delta_p})
-    return critical_events
-
-if __name__ == "__main__":
-    chem = [[{"cooling_jacket_active": False, "vessels": [{"id": "V1", "inlet_pressure_bar": 12.0, "outlet_pressure_bar": 2.0, "flow_rate_lpm": 10.0, "temp_kelvin": 320.0, "valve_state": "OPEN", "bypassed": False}]}]]
-    assert len(simulate_chemical_cascade_pressures(chem, False)) == 1
-'''
-    },
-    "P0100": {
+    "P0137": {
         "domain": "Inventory and Record Management",
-        "task": "Audit multi-tiered automated logistics fulfilment routing and customs compliance",
-        "category": "All three target issues",
-        "code": '''from typing import List, Dict
-
-def audit_cross_border_consignments(distribution_centers: List[Dict[str, any]], sanctioned_countries: List[str]) -> List[Dict[str, any]]:
-    flagged_packages = []
-    for dc in distribution_centers:
-        for bay in dc.get("loading_bays", []):
-            for parcel in bay.get("manifested_parcels", []):
-                customs_risk_score = ((parcel.get("declared_val_usd", 0.0) * 0.045) + (parcel.get("weight_kg", 0.0) * 3.2) + (parcel.get("prior_flags", 0) * 25.0)) / (parcel.get("shipper_reputation_score", 1.0) + 0.1)
-                if ((customs_risk_score > 75.0 and parcel.get("dest_country") in sanctioned_countries and not parcel.get("export_license_verified", False)) or (parcel.get("declared_val_usd", 0.0) > 10000.0 and parcel.get("is_dual_use_technology") is True and not dc.get("customs_bonded", False))) and parcel.get("cleared") is not True:
-                    flagged_packages.append({"tracking_number": parcel["tracking_number"], "risk": customs_risk_score})
-    return flagged_packages
+        "task": "Calculate pharmaceutical cold-chain vaccine insurance compensation",
+        "category": "Long statement and complex conditional",
+        "code": '''def assess_cold_chain_vaccine_spoilage(consignment: dict[str, float], monitoring: dict[str, any]) -> float:
+    reimbursement = (consignment["units"] * consignment["cost_per_dose"] * 0.95) - (consignment.get("deductible_usd", 500.0)) + (consignment["units"] * consignment.get("disposal_cost_per_unit", 1.2))
+    temp_exceeded = monitoring.get("max_temp_c", 4.0) > 8.0 or monitoring.get("min_temp_c", 4.0) < 2.0
+    duration_hrs = monitoring.get("violation_duration_hours", 0.0)
+    if ((temp_exceeded and duration_hrs >= 2.0 and consignment.get("units", 0) > 50) or (monitoring.get("sensor_tampered") is True and not consignment.get("carrier_waiver", False))) and consignment.get("policy_valid") is True:
+        return reimbursement
+    return 0.0
 
 if __name__ == "__main__":
-    dcs = [{"customs_bonded": False, "loading_bays": [{"manifested_parcels": [{"tracking_number": "TRK999", "declared_val_usd": 15000.0, "weight_kg": 20.0, "prior_flags": 1, "shipper_reputation_score": 0.5, "dest_country": "COUNTRY_X", "export_license_verified": False, "is_dual_use_technology": True, "cleared": False}]}]}]
-    assert len(audit_cross_border_consignments(dcs, ["COUNTRY_X"])) == 1
+    c = {"units": 1000.0, "cost_per_dose": 20.0, "deductible_usd": 500.0, "policy_valid": True}
+    m = {"max_temp_c": 12.0, "min_temp_c": 3.0, "violation_duration_hours": 4.0, "sensor_tampered": False}
+    assert assess_cold_chain_vaccine_spoilage(c, m) > 0.0
+'''
+    },
+    "P0138": {
+        "domain": "Small Simulation and Rule-based Systems",
+        "task": "Simulate hydraulic dam floodgate spillway discharge and flood warning",
+        "category": "Long statement and complex conditional",
+        "code": '''def evaluate_dam_spillway_release(dam: dict[str, float], downstream: dict[str, any]) -> float:
+    discharge_flow_m3s = (dam["gate_width_m"] * (dam["gate_opening_m"] ** 1.5) * (2.0 * 9.80665 * (dam["water_elevation_m"] - dam["sill_elevation_m"]))**0.5 * 0.62) * dam["active_gate_count"]
+    elev_high = dam.get("water_elevation_m", 0.0) >= dam.get("flood_action_level_m", 150.0)
+    inflow_high = dam.get("reservoir_inflow_m3s", 0.0) > 1200.0
+    safe_downstream = downstream.get("river_gauge_m", 0.0) < downstream.get("bankfull_stage_m", 8.0)
+    if ((elev_high and inflow_high and safe_downstream) or (dam.get("seismic_alert") is True and elev_high and not dam.get("manual_lock", False))) and dam.get("sensor_healthy", True):
+        return discharge_flow_m3s
+    return 0.0
+
+if __name__ == "__main__":
+    d = {"gate_width_m": 12.0, "gate_opening_m": 4.0, "water_elevation_m": 155.0, "sill_elevation_m": 140.0, "active_gate_count": 3.0, "flood_action_level_m": 150.0, "reservoir_inflow_m3s": 1500.0}
+    dw = {"river_gauge_m": 5.0, "bankfull_stage_m": 8.0}
+    assert evaluate_dam_spillway_release(d, dw) > 0.0
+'''
+    },
+
+    # 7. NESTED LOOP AND COMPLEX CONDITIONAL (6 programs: P0139 - P0144)
+    "P0139": {
+        "domain": "Numerical Computation",
+        "task": "Search parameter bounds for stable non-linear limit cycles",
+        "category": "Nested loop and complex conditional",
+        "code": '''def find_stable_limit_cycle_pairs(
+    alphas: list[float], betas: list[float], epsilon: float
+) -> list[tuple[float, float]]:
+    stable_pairs = []
+    for a in alphas:
+        for b in betas:
+            c1 = a > 0.0 and b > 0.0 and a**2 + b**2 < 10.0
+            c2 = a < 0.5 and b > 2.0 and epsilon < 0.1
+            c3 = a != b and not (a == 0.0 and b == 0.0)
+            if (c1 or c2) and c3 and (a * b > 0.1 or epsilon > 0.05):
+                stable_pairs.append((a, b))
+    return stable_pairs
+
+if __name__ == "__main__":
+    res = find_stable_limit_cycle_pairs([0.2], [2.5], 0.02)
+    assert len(res) == 1
+'''
+    },
+    "P0140": {
+        "domain": "Searching and Sorting",
+        "task": "Match job bids to vendor requests across budget and safety constraints",
+        "category": "Nested loop and complex conditional",
+        "code": '''def match_contractor_tenders(
+    tenders: list[dict[str, any]], contractors: list[dict[str, any]]
+) -> list[dict[str, str]]:
+    matches = []
+    for tender in tenders:
+        for contr in contractors:
+            price_ok = contr.get("bid", 0) <= tender.get("max_budget", 0)
+            rating_ok = contr.get("safety_score", 0) >= tender.get("min_safety", 0)
+            bonded = contr.get("is_bonded") is True
+            exp_ok = contr.get("years_active", 0) >= 5
+            rule1 = price_ok and rating_ok and bonded
+            rule2 = exp_ok and price_ok and contr.get("certified_green") is True
+            if (rule1 or rule2) and not contr.get("disqualified", False):
+                matches.append({"tender_id": tender["id"], "contractor_id": contr["id"]})
+    return matches
+
+if __name__ == "__main__":
+    t = [{"id": "T1", "max_budget": 50000, "min_safety": 80}]
+    c = [{"id": "C1", "bid": 45000, "safety_score": 85, "is_bonded": True, "disqualified": False}]
+    assert len(match_contractor_tenders(t, c)) == 1
+'''
+    },
+    "P0141": {
+        "domain": "Matrix & Grid Operations",
+        "task": "Filter terrain elevation digital map for hazardous cliff drops",
+        "category": "Nested loop and complex conditional",
+        "code": '''def detect_perilous_escarpments(
+    elevation: list[list[float]], critical_drop: float
+) -> list[tuple[int, int]]:
+    hazards = []
+    h = len(elevation)
+    w = len(elevation[0])
+    for r in range(1, h - 1):
+        for c in range(1, w - 1):
+            curr = elevation[r][c]
+            drop_north = curr - elevation[r-1][c]
+            drop_south = curr - elevation[r+1][c]
+            cond_a = drop_north > critical_drop and drop_south > critical_drop
+            cond_b = drop_north > critical_drop * 1.5 and curr > 500.0
+            cond_c = not (drop_north == drop_south and curr < 100.0)
+            if (cond_a or cond_b) and cond_c and drop_north > 0.0:
+                hazards.append((r, c))
+    return hazards
+
+if __name__ == "__main__":
+    grid = [[10.0, 10.0, 10.0], [10.0, 80.0, 10.0], [10.0, 10.0, 10.0]]
+    assert len(detect_perilous_escarpments(grid, 30.0)) == 1
+'''
+    },
+    "P0142": {
+        "domain": "String Processing & Text Analysis",
+        "task": "Collate paired entity co-mentions in categorized document lists",
+        "category": "Nested loop and complex conditional",
+        "code": '''def extract_valid_entity_pairings(
+    corpus_a: list[str], corpus_b: list[str], min_shared_vowels: int
+) -> list[tuple[str, str]]:
+    results = []
+    vowels = set("aeiou")
+    for word_1 in corpus_a:
+        for word_2 in corpus_b:
+            shared = len((set(word_1) & set(word_2)) & vowels)
+            len_ratio = len(word_1) / max(1, len(word_2))
+            cond1 = shared >= min_shared_vowels and 0.8 <= len_ratio <= 1.25
+            cond2 = word_1[0] == word_2[0] and len(word_1) >= 6 and not word_1 == word_2
+            if (cond1 or cond2) and not (word_1.isupper() and word_2.islower()):
+                results.append((word_1, word_2))
+    return results
+
+if __name__ == "__main__":
+    assert len(extract_valid_entity_pairings(["biology"], ["geology"], 2)) == 1
+'''
+    },
+    "P0143": {
+        "domain": "Graph or Tree Traversal",
+        "task": "Filter authorized peer-to-peer relay nodes across subnet overlays",
+        "category": "Nested loop and complex conditional",
+        "code": '''def filter_secure_p2p_relays(
+    subnets_a: list[dict[str, any]], subnets_b: list[dict[str, any]]
+) -> list[tuple[str, str]]:
+    relays = []
+    for na in subnets_a:
+        for nb in subnets_b:
+            rtt = na.get("ping_ms", 100) + nb.get("ping_ms", 100)
+            enc_ok = na.get("encrypted") is True and nb.get("encrypted") is True
+            trust_a = na.get("reputation", 0.0) >= 0.8
+            rule_alpha = rtt <= 60 and enc_ok and trust_a
+            rule_beta = na.get("is_anchor") is True and nb.get("is_anchor") is True
+            if (rule_alpha or rule_beta) and not na.get("blacklisted", False):
+                relays.append((na["id"], nb["id"]))
+    return relays
+
+if __name__ == "__main__":
+    a = [{"id": "A1", "ping_ms": 20, "encrypted": True, "reputation": 0.9, "blacklisted": False}]
+    b = [{"id": "B1", "ping_ms": 25, "encrypted": True}]
+    assert len(filter_secure_p2p_relays(a, b)) == 1
+'''
+    },
+    "P0144": {
+        "domain": "Scheduling and Resource Allocation",
+        "task": "Assign emergency response medical crews to dispatched triage events",
+        "category": "Nested loop and complex conditional",
+        "code": '''def allocate_ambulance_crews(
+    incidents: list[dict[str, any]], ambulances: list[dict[str, any]]
+) -> list[dict[str, str]]:
+    dispatch = []
+    for inc in incidents:
+        for amb in ambulances:
+            dist_km = amb.get("eta_min", 99)
+            als = amb.get("has_paramedic") is True
+            prio = inc.get("severity") == "CODE_RED"
+            c1 = prio and als and dist_km <= 15
+            c2 = not prio and dist_km <= 30 and not amb.get("refueling", False)
+            if (c1 or c2) and not amb.get("assigned", False) and amb.get("status") == "IDLE":
+                dispatch.append({"incident_id": inc["id"], "ambulance_id": amb["id"]})
+                amb["assigned"] = True
+    return dispatch
+
+if __name__ == "__main__":
+    inc = [{"id": "INC1", "severity": "CODE_RED"}]
+    amb = [{
+        "id": "AMB1", "eta_min": 10, "has_paramedic": True,
+        "refueling": False, "assigned": False, "status": "IDLE"
+    }]
+    assert len(allocate_ambulance_crews(inc, amb)) == 1
+'''
+    },
+
+    # 8. ALL THREE TARGET ISSUES (6 programs: P0145 - P0150)
+    "P0145": {
+        "domain": "Numerical Computation",
+        "task": "Multi-agent flocking Reynolds simulation velocity updates with safety margins",
+        "category": "All three target issues",
+        "code": '''import math
+
+def simulate_boids_flocking_step(boids: list[dict[str, float]], perception_radius: float) -> list[dict[str, float]]:
+    n = len(boids)
+    for i in range(n):
+        for j in range(n):
+            if i != j:
+                dist = math.sqrt((boids[i]["x"] - boids[j]["x"])**2 + (boids[i]["y"] - boids[j]["y"])**2) + 0.001
+                steer_acc = (boids[j]["vx"] * 0.45) + (boids[j]["vy"] * 0.45) - ((boids[i]["x"] - boids[j]["x"]) / dist * 12.5) + (boids[i].get("cohesion_weight", 1.0) * 0.8)
+                if ((dist < perception_radius and boids[j].get("leader") is True and not boids[i].get("blinded", False)) or (dist < 5.0 and boids[i]["vx"] > 10.0 and boids[j]["vx"] < 2.0)) and steer_acc > 0.0:
+                    boids[i]["vx"] += steer_acc * 0.05
+    return boids
+
+if __name__ == "__main__":
+    flock = [{"x": 0.0, "y": 0.0, "vx": 5.0, "vy": 0.0, "blinded": False}, {"x": 2.0, "y": 1.0, "vx": 6.0, "vy": 0.0, "leader": True}]
+    res = simulate_boids_flocking_step(flock, 10.0)
+    assert len(res) == 2
+'''
+    },
+    "P0146": {
+        "domain": "Matrix & Grid Operations",
+        "task": "Filter hyperspectral geological scan for rare mineral seam signatures",
+        "category": "All three target issues",
+        "code": '''def analyze_mineral_spectrogram_grid(tiles: list[list[dict[str, float]]], base_reflectance: float) -> list[tuple[int, int]]:
+    seams = []
+    for r, row in enumerate(tiles):
+        for c, cell in enumerate(row):
+            absorption_metric = ((cell["band_7"] - cell["band_2"]) * 14.2) + ((cell["band_5"] / max(0.01, cell["band_3"])) * 6.5) - (base_reflectance * 2.8) + (cell.get("iron_index", 0.0) * 1.5)
+            if ((absorption_metric > 45.0 and cell.get("confidence", 0.0) >= 0.85 and cell.get("overburden_depth_m", 0.0) < 50.0) or (absorption_metric > 30.0 and cell.get("lithology") == 4.0 and not cell.get("weathered", False))) and cell.get("qa_passed", True):
+                seams.append((r, c))
+    return seams
+
+if __name__ == "__main__":
+    t = [[{"band_7": 0.8, "band_2": 0.1, "band_5": 0.9, "band_3": 0.2, "confidence": 0.9, "overburden_depth_m": 20.0, "qa_passed": True}]]
+    assert len(analyze_mineral_spectrogram_grid(t, 0.3)) == 1
+'''
+    },
+    "P0147": {
+        "domain": "Data Aggregation and Statistics",
+        "task": "Aggregate urban traffic noise pollution sensors with municipal code violations",
+        "category": "All three target issues",
+        "code": '''def audit_neighborhood_noise_sensors(zones: list[dict[str, any]], legal_decibel_limit: float) -> list[str]:
+    violations = []
+    for zone in zones:
+        for node in zone.get("acoustic_nodes", []):
+            annoyance_quotient = ((node.get("peak_dba", 0.0) - legal_decibel_limit) * 2.5) + (node.get("frequency_hz", 100.0) * 0.015) + (node.get("events_count", 0) * 1.8) - (zone.get("sound_barrier_rating", 0.0) * 4.0)
+            if ((annoyance_quotient > 25.0 and node.get("night_hour") is True and zone.get("residential") is True) or (node.get("peak_dba", 0.0) > legal_decibel_limit + 20.0 and not zone.get("industrial", False))) and not node.get("sensor_malfunction", False):
+                violations.append(node["id"])
+    return violations
+
+if __name__ == "__main__":
+    z = [{"residential": True, "sound_barrier_rating": 2.0, "acoustic_nodes": [{"id": "N1", "peak_dba": 85.0, "frequency_hz": 200.0, "events_count": 15, "night_hour": True, "sensor_malfunction": False}]}]
+    assert len(audit_neighborhood_noise_sensors(z, 60.0)) == 1
+'''
+    },
+    "P0148": {
+        "domain": "Scheduling and Resource Allocation",
+        "task": "Multi-tier microservices container placement across Kubernetes worker pools",
+        "category": "All three target issues",
+        "code": '''def schedule_container_replicas(clusters: list[dict[str, any]], pods: list[dict[str, any]]) -> list[tuple[str, str]]:
+    placements = []
+    for cluster in clusters:
+        for worker in cluster.get("workers", []):
+            for pod in pods:
+                affinity_score = ((worker.get("free_cpu_cores", 0) - pod.get("req_cpu", 0)) * 2.5) + ((worker.get("free_mem_gb", 0) - pod.get("req_mem", 0)) * 1.2) - (worker.get("disk_io_pct", 0) * 0.35)
+                if (not pod.get("scheduled") and worker.get("free_cpu_cores", 0) >= pod.get("req_cpu", 0) and worker.get("free_mem_gb", 0) >= pod.get("req_mem", 0) and (cluster.get("env") == pod.get("target_env") or pod.get("multi_env_ok") is True)) and not worker.get("cordoned", False):
+                    placements.append((worker["id"], pod["id"]))
+                    pod["scheduled"] = True
+    return placements
+
+if __name__ == "__main__":
+    cl = [{"env": "prod", "workers": [{"id": "W1", "free_cpu_cores": 16, "free_mem_gb": 64, "disk_io_pct": 10, "cordoned": False}]}]
+    pd_list = [{"id": "P1", "req_cpu": 4, "req_mem": 16, "target_env": "prod", "multi_env_ok": False, "scheduled": False}]
+    assert len(schedule_container_replicas(cl, pd_list)) == 1
+'''
+    },
+    "P0149": {
+        "domain": "Small Simulation and Rule-based Systems",
+        "task": "Simulate electrical distribution substation transformer thermal stress overload",
+        "category": "All three target issues",
+        "code": '''def simulate_substation_thermal_load(feeders: list[list[dict[str, any]]], emergency_load_shed: bool) -> list[dict[str, any]]:
+    trips = []
+    for bus_idx, bus in enumerate(feeders):
+        for bay_idx, transformer in enumerate(bus):
+            for xfmr in transformer.get("units", []):
+                hotspot_temp_c = (xfmr["ambient_c"] + (xfmr["load_mva"] / max(0.1, xfmr["rated_mva"]))**1.8 * 65.0) + (xfmr.get("top_oil_rise_c", 40.0) * 0.85) - (xfmr.get("cooling_stages_active", 0) * 8.5)
+                if ((hotspot_temp_c > 120.0 and xfmr.get("load_mva", 0) > xfmr.get("rated_mva", 1) and not emergency_load_shed) or (hotspot_temp_c > 140.0 and not xfmr.get("aux_cooling_fault", False) and xfmr.get("service_years", 0) > 20)) and not xfmr.get("offline", False):
+                    trips.append({"bus": bus_idx, "bay": bay_idx, "unit_id": xfmr["id"], "temp": hotspot_temp_c})
+    return trips
+
+if __name__ == "__main__":
+    f = [[{"units": [{"id": "T1", "ambient_c": 35.0, "load_mva": 50.0, "rated_mva": 40.0, "cooling_stages_active": 1, "offline": False}]}]]
+    assert len(simulate_substation_thermal_load(f, False)) == 1
+'''
+    },
+    "P0150": {
+        "domain": "Inventory and Record Management",
+        "task": "Audit retail distribution supply chain shelf replenishment and shrinkage risk",
+        "category": "All three target issues",
+        "code": '''def audit_retail_replenishment_priorities(superstores: list[dict[str, any]], regional_shrinkage_rate: float) -> list[dict[str, any]]:
+    reorders = []
+    for store in superstores:
+        for aisle in store.get("aisles", []):
+            for bay in aisle.get("bays", []):
+                restock_allocation = ((bay.get("safety_stock", 10) * 2.5) - bay.get("on_hand", 0)) + (bay.get("velocity_units_day", 0) * bay.get("lead_time_days", 1) * 1.35) + (regional_shrinkage_rate * bay.get("on_hand", 0) * 0.5)
+                if ((bay.get("on_hand", 0) < bay.get("safety_stock", 10) and store.get("flagship") is True and not store.get("remodeling", False)) or (bay.get("promo_feature") is True and bay.get("on_hand", 0) < 5 and not bay.get("discontinued", False))) and store.get("active") is True:
+                    reorders.append({"store_id": store["id"], "sku": bay["sku"], "qty": max(1, int(restock_allocation))})
+    return reorders
+
+if __name__ == "__main__":
+    st = [{"id": "S10", "flagship": True, "remodeling": False, "active": True, "aisles": [{"bays": [{"sku": "SKU-99", "safety_stock": 20, "on_hand": 5, "velocity_units_day": 10, "lead_time_days": 2}]}]}]
+    assert len(audit_retail_replenishment_priorities(st, 0.02)) == 1
 '''
     }
 }
 
 def main():
     os.makedirs(PROGRAMS_DIR, exist_ok=True)
-    
-    # 1. Write new program files
     written_count = 0
-    new_manifest_rows = []
-    
+    new_rows = []
+
     for pid, data in sorted(PROGRAMS_DATA.items()):
         filename = f"{pid}.py"
         filepath = os.path.join(PROGRAMS_DIR, filename)
         code = data["code"].lstrip()
-        
-        # Verify AST parsing
+
+        # Syntax check
         ast.parse(code)
-        
+
         # Write file
         with open(filepath, "w", encoding="utf-8") as f:
             f.write(code)
         written_count += 1
-        
-        new_manifest_rows.append([
+
+        new_rows.append([
             pid,
             filename,
             data["domain"],
@@ -1140,14 +1089,14 @@ def main():
             "True",
             "ACCEPTED"
         ])
-        
-    print(f"Generated and wrote {written_count} program files (P0051-P0100).")
-    
-    # 2. Append new rows to manifest.csv
+
+    print(f"Generated and verified {written_count} program files (P0101-P0150).")
+
+    # Append to manifest
     with open(MANIFEST_PATH, "a", newline="", encoding="utf-8") as f:
         writer = csv.writer(f)
-        writer.writerows(new_manifest_rows)
-        
+        writer.writerows(new_rows)
+
     print(f"Manifest successfully updated at: {MANIFEST_PATH}")
 
 if __name__ == "__main__":
