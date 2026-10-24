@@ -1,0 +1,335 @@
+program_id,filename,statement_id,statement_type,line_no,end_line,code,reviewed_long_statement,reviewed_nested_loop,reviewed_complex_conditional,review_notes,domain,task_description,intended_category,model_name,prompt_version,generation_batch,syntax_valid,review_status,statement_length,operator_count,operand_count,expression_depth,loop_depth,condition_count,logical_operator_count,long_statement,nested_loop,complex_conditional
+P0002,P0002.py,3,For,10,12,"for row in matrix:
+        for val in row:
+            result.append(val * factor + offset)",,,,,Matrix Operations,Matrix flattening and scaling,Nested loop only,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED,91,2,8,1,2,0,0,0,1,0
+P0010,P0010.py,5,For,12,14,"for worker in shift:
+                if worker.get(""active"") and not worker.get(""busy"") and worker.get(""cert"") == required_cert:
+                    available_count += 1",,,,,Scheduling/Allocation,3D worker roster search,Nested loop only,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED,169,4,11,1,1,3,2,0,0,0
+P0013,P0013.py,7,Assign,15,15,"p = {""max_coverage"": 10000, ""lapsed"": False, ""waive_copay"": False}",,,,,Inventory Management,Health insurance claim check,Complex conditional only,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED,66,0,7,2,0,0,0,1,0,0
+P0014,P0014.py,11,Assign,20,20,"pts = [(0.0, 0.0), (3.0, 4.0)]",,,,,Matrix Operations,Pairwise distance matrix,Nested loop only,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED,30,0,5,3,0,0,0,0,0,0
+P0017,P0017.py,2,If,9,10,"if (task.get(""priority"") == ""HIGH"" and task.get(""latency_ms"", 0) > 500 and node_health.get(""cpu_load"", 0.0) > 0.85) or (task.get(""retries"", 0) >= 3 and task.get(""critical"") is True and not node_health.get(""is_standby"", False)) or (task.get(""tenant_tier"") == ""enterprise"" and task.get(""error_code"") == 503):
+        return ""ESCALATE_INCIDENT""",,,,,Scheduling/Allocation,Cloud worker SLA audit,Complex conditional only,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED,341,15,28,6,0,14,7,0,0,1
+P0022,P0022.py,2,If,7,8,"if (""@"" in email and ""."" in email.split(""@"")[-1] and len(email) <= 254 and not email.startswith(""."") and not email.endswith(""."")) and ((email.split(""@"")[-1] == allowed_domain) or (require_subdomain and email.split(""@"")[-1].endswith(""."" + allowed_domain) and not email.split(""@"")[-1].startswith("".""))) and not "".."" in email:
+        return True",,,,,String Processing,Email address validation,Complex conditional only,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED,343,23,30,10,0,14,9,0,0,1
+P0022,P0022.py,4,Return,9,9,return False,,,,,String Processing,Email address validation,Complex conditional only,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED,12,0,1,1,0,0,0,0,0,0
+P0023,P0023.py,2,If,9,10,"if limit < 2:
+        return []",,,,,Numerical Computation,Sieve of Eratosthenes,Nested loop only,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED,31,1,2,2,0,1,0,0,0,0
+P0023,P0023.py,7,While,15,19,"while p * p <= limit:
+        if primes[p]:
+            for i in range(p * p, limit + 1, p):
+                primes[i] = False
+        p += 1",,,,,Numerical Computation,Sieve of Eratosthenes,Nested loop only,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED,141,4,17,3,2,1,0,0,1,0
+P0025,P0025.py,6,Assign,14,14,"cart_data = {""total_amount"": 180.0, ""items_count"": 2}",,,,,Data Aggregation,Cart promo discount rules,Complex conditional only,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED,53,0,5,2,0,0,0,0,0,0
+P0037,P0037.py,6,Assign,14,14,"term = {""min_clearance"": 5, ""building_id"": ""B1"", ""lockdown_override"": False}",,,,,Lists/Tuples/Dicts,Secure door access audit,Long statement and complex conditional,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED,76,0,7,2,0,0,0,1,0,0
+P0038,P0038.py,3,For,10,15,"for cluster in clusters:
+        for node in cluster.get(""nodes"", []):
+            for job in jobs:
+                if (not job.get(""assigned"") and node.get(""available_ram"") >= job.get(""req_ram"", 0) and node.get(""available_cpu"") >= job.get(""req_cpu"", 0) and (cluster.get(""region"") == job.get(""target_region"") or job.get(""global_fallback"") is True) and not node.get(""maintenance_mode"", False)):
+                    allocations.append({""job_id"": job[""id""], ""node_id"": node[""id""]})
+                    job[""assigned""] = True",,,,,Scheduling/Allocation,Cluster job allocator,Nested loop and complex conditional,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED,521,11,39,1,3,9,5,0,1,0
+P0038,P0038.py,10,If,18,22,"if __name__ == ""__main__"":
+    cls = [{""region"": ""us-east"", ""nodes"": [{""id"": ""n1"", ""available_ram"": 16, ""available_cpu"": 4, ""maintenance_mode"": False}]}]
+    jbs = [{""id"": ""j1"", ""req_ram"": 8, ""req_cpu"": 2, ""target_region"": ""us-east"", ""global_fallback"": False, ""assigned"": False}]
+    res = find_cluster_job_allocations(cls, jbs)
+    assert len(res) == 1",,,,,Scheduling/Allocation,Cluster job allocator,Nested loop and complex conditional,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED,353,2,34,2,0,2,0,0,0,0
+P0039,P0039.py,7,Assign,14,14,"key, val = stripped.split(""="", 1)",,,,,String Processing,Key-value tag parser,,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED,33,0,5,3,0,0,0,0,0,0
+P0041,P0041.py,2,Assign,9,9,arr = list(items),,,,,Searching and Sorting,Selection sort,Nested loop only,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED,17,0,3,2,0,0,0,0,0,0
+P0041,P0041.py,9,Assign,16,16,"arr[i], arr[min_idx] = arr[min_idx], arr[i]",,,,,Searching and Sorting,Selection sort,Nested loop only,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED,43,0,8,3,0,0,0,0,0,0
+P0045,P0045.py,7,If,14,15,"if (shelf.get(""qty"", 0) < safety_threshold and shelf.get(""reorder_locked"") is not True and depot.get(""status"") == ""OPEN"") or (shelf.get(""expiring_soon"") is True and shelf.get(""qty"", 0) > 0 and shelf.get(""essential"") is True and not aisle.get(""remodeling"", False)):
+                    reorder_requests.append({""sku"": shelf[""sku""], ""amount"": max(1, reorder_qty)})",,,,,Inventory Management,Warehouse reorder estimator,All three target issues,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED,362,13,31,6,0,12,6,0,0,1
+P0046,P0046.py,7,If,14,17,"if (current_balance > principal * 1.5 and not period.get(""notified"", False) and period.get(""tier"") == ""subprime"") or (period.get(""default_warning"") is True and current_balance > 0.0 and period.get(""grace_period_days"", 0) == 0):
+            balances.append(round(current_balance, 2))
+        else:
+            balances.append(round(current_balance, 2))",,,,,Numerical Computation,Compound balance schedule,Long statement and complex conditional,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED,351,12,26,6,0,10,5,0,0,1
+P0047,P0047.py,7,If,14,15,"if (account.get(""active"") and computed_risk > min_score and not profile.get(""whitelisted"", False)) or (account.get(""balance"", 0.0) < 0.0 and profile.get(""country_code"") != ""US"" and not account.get(""overdraft_protection"", False)):
+                    flagged.append({""account_id"": account[""id""], ""risk_metric"": computed_risk})",,,,,Lists/Tuples/Dicts,Customer tier registry audit,All three target issues,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED,325,10,23,6,0,8,5,0,0,1
+P0049,P0049.py,10,Assign,18,22,"sample = [
+        ""| Name | Age |"",
+        ""|---|---|"",
+        ""| Alice | 30 |""
+    ]",,,,,String Processing,Markdown table extractor,,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED,88,0,4,2,0,0,0,1,0,0
+P0050,P0050.py,4,For,11,15,"for col_idx, junction in enumerate(street):
+            for approach in junction.get(""approaches"", []):
+                load_factor = ((approach.get(""vehicle_count"", 0) * 1.5) + (approach.get(""waiting_seconds"", 0) * 0.25) - (junction.get(""green_time"", 30) * 0.8)) / (junction.get(""capacity"", 50) + 1.0)
+                if (load_factor > 1.2 and junction.get(""phase"") != ""YELLOW"" and not emergency_route_active) or (approach.get(""waiting_seconds"", 0) > 180 and junction.get(""override_active"") is not True and junction.get(""pedestrian_crossing"") is True and not approach.get(""priority_lane"", False)):
+                    congested_signals.append({""grid_loc"": (row_idx, col_idx), ""load"": load_factor})",,,,,Small Simulation,Traffic signal grid simulation,All three target issues,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED,698,20,49,2,2,11,6,0,1,0
+P0050,P0050.py,11,Assign,19,19,"grid = [[{""phase"": ""GREEN"", ""green_time"": 10, ""capacity"": 20, ""approaches"": [{""vehicle_count"": 40, ""waiting_seconds"": 200, ""priority_lane"": False}]}]]",,,,,Small Simulation,Traffic signal grid simulation,All three target issues,gemini-2.5-pro,v1.0,Batch 1,True,ACCEPTED,150,0,14,6,0,0,0,1,0,0
+P0053,P0053.py,3,If,4,5,"if not filtered:
+        return """"",,,,,String Processing & Text Analysis,Convert snake_case string to camelCase,,gemini-2.5-pro,v2.0-expansion,Batch 2,True,ACCEPTED,34,1,2,2,0,0,0,0,0,0
+P0057,P0057.py,5,If,8,9,"if left_child is None and right_child is None:
+        return 1",,,,,Graph or Tree Traversal,Count total leaf nodes in a binary tree representation,,gemini-2.5-pro,v2.0-expansion,Batch 2,True,ACCEPTED,63,3,5,3,0,3,1,0,0,1
+P0060,P0060.py,2,Return,5,5,return composite_return,,,,,"Lists, Tuples, Dictionaries, and Sets",Compute weighted asset allocation variance across portfolios,Long statement only,gemini-2.5-pro,v2.0-expansion,Batch 2,True,ACCEPTED,23,0,1,1,0,0,0,0,0,0
+P0066,P0066.py,5,For,8,14,"for i in range(gap, n):
+            temp = arr[i]
+            j = i
+            while j >= gap and arr[j - gap] > temp:
+                arr[j] = arr[j - gap]
+                j -= gap
+            arr[j] = temp",,,,,Searching and Sorting,Perform shell sort with custom interval sequences,Nested loop only,gemini-2.5-pro,v2.0-expansion,Batch 2,True,ACCEPTED,208,5,25,2,2,3,1,0,1,0
+P0068,P0068.py,6,Assign,9,9,sub = word_1[:k],,,,,String Processing & Text Analysis,Find all common substrings between two word lists,Nested loop only,gemini-2.5-pro,v2.0-expansion,Batch 2,True,ACCEPTED,16,0,3,3,0,0,0,0,0,0
+P0069,P0069.py,3,For,6,11,"for k in range(n):
+        for i in range(n):
+            for j in range(n):
+                cand = dist[i][k] + dist[k][j]
+                if cand < dist[i][j]:
+                    dist[i][j] = cand",,,,,Graph or Tree Traversal,Floyd-Warshall all-pairs shortest paths algorithm,Nested loop only,gemini-2.5-pro,v2.0-expansion,Batch 2,True,ACCEPTED,199,2,24,2,3,1,0,0,1,0
+P0069,P0069.py,4,For,7,11,"for i in range(n):
+            for j in range(n):
+                cand = dist[i][k] + dist[k][j]
+                if cand < dist[i][j]:
+                    dist[i][j] = cand",,,,,Graph or Tree Traversal,Floyd-Warshall all-pairs shortest paths algorithm,Nested loop only,gemini-2.5-pro,v2.0-expansion,Batch 2,True,ACCEPTED,172,2,21,2,2,1,0,0,1,0
+P0071,P0071.py,4,If,5,6,"if (cond1 or cond2) and not cond3 and (stiffness_ratio < 1000.0 or order > 3):
+        return True",,,,,Numerical Computation,Validate parameters for numerical integration stability,Complex conditional only,gemini-2.5-pro,v2.0-expansion,Batch 2,True,ACCEPTED,98,7,8,4,0,6,4,0,0,1
+P0071,P0071.py,6,Return,7,7,return False,,,,,Numerical Computation,Validate parameters for numerical integration stability,Complex conditional only,gemini-2.5-pro,v2.0-expansion,Batch 2,True,ACCEPTED,12,0,1,1,0,0,0,0,0,0
+P0073,P0073.py,5,Return,8,8,return True,,,,,String Processing & Text Analysis,Validate complex password policy conformance,Complex conditional only,gemini-2.5-pro,v2.0-expansion,Batch 2,True,ACCEPTED,11,0,1,1,0,0,0,0,0,0
+P0075,P0075.py,6,Assign,11,11,rule1 = days_since_delivery <= 30 and unopened and cost <= 250.0,,,,,Inventory and Record Management,Automated warehouse refund approval authorization,Complex conditional only,gemini-2.5-pro,v2.0-expansion,Batch 2,True,ACCEPTED,64,4,6,3,0,4,2,1,0,0
+P0083,P0083.py,7,Return,11,11,return 0.0,,,,,Numerical Computation,Evaluate atmospheric flight path aerodynamic coefficients,Long statement and complex conditional,gemini-2.5-pro,v2.0-expansion,Batch 2,True,ACCEPTED,10,0,1,1,0,0,0,0,0,0
+P0086,P0086.py,6,Assign,10,10,"sub = {""age"": 65.0, ""bmi"": 32.0, ""blood_sugar"": 110.0, ""smoking_pack_years"": 10.0, ""physical_activity_hours_week"": 2.0, ""hypertension"": True}",,,,,Data Aggregation and Statistics,Compute demographic health risk score for epidemiological survey,Long statement and complex conditional,gemini-2.5-pro,v2.0-expansion,Batch 2,True,ACCEPTED,141,0,13,2,0,0,0,1,0,0
+P0087,P0087.py,1,Assign,4,4,"total_writeoff_loss = (batch[""unit_cost""] * batch[""units_expired""]) - (batch[""units_expired""] * batch[""unit_cost""] * market_salvage_rate) + (batch.get(""hazmat_disposal_fee_per_unit"", 2.5) * batch[""units_expired""]) + 50.0",,,,,Inventory and Record Management,Calculate pharmaceutical shelf expiry loss and inventory write-off,Long statement and complex conditional,gemini-2.5-pro,v2.0-expansion,Batch 2,True,ACCEPTED,220,7,16,7,0,0,0,1,0,0
+P0088,P0088.py,2,If,5,6,"if ((boiler.get(""pressure_psi"", 0.0) > 250.0 and boiler.get(""temperature_c"", 0.0) > 350.0 and boiler.get(""water_level_pct"", 0.0) < 15.0) or (boiler.get(""pressure_psi"", 0.0) > 300.0 and not boiler.get(""backup_pump_running"", False))) and not boiler.get(""manual_scram_triggered"", False):
+        return vent_flow_rate",,,,,Small Simulation and Rule-based Systems,Simulate boiler steam pressure regulator and emergency blowout,Long statement and complex conditional,gemini-2.5-pro,v2.0-expansion,Batch 2,True,ACCEPTED,314,11,23,7,0,9,5,0,0,1
+P0088,P0088.py,6,Assign,10,10,"boil = {""pressure_psi"": 280.0, ""temperature_c"": 380.0, ""water_level_pct"": 10.0, ""orifice_area_sq_in"": 1.5, ""backup_pump_running"": False, ""manual_scram_triggered"": False}",,,,,Small Simulation and Rule-based Systems,Simulate boiler steam pressure regulator and emergency blowout,Long statement and complex conditional,gemini-2.5-pro,v2.0-expansion,Batch 2,True,ACCEPTED,169,0,13,2,0,0,0,1,0,0
+P0090,P0090.py,7,Assign,13,13,"remote = role.get(""remote_ok"") is True",,,,,Searching and Sorting,Filter matching candidate profiles against multi-criteria job requisitions,Nested loop and complex conditional,gemini-2.5-pro,v2.0-expansion,Batch 2,True,ACCEPTED,38,1,4,4,0,1,0,0,0,0
+P0090,P0090.py,16,Assign,23,23,"c = [{""id"": ""C1"", ""years_exp"": 4, ""location"": ""SF"", ""expected_sal"": 90000}]",,,,,Searching and Sorting,Filter matching candidate profiles against multi-criteria job requisitions,Nested loop and complex conditional,gemini-2.5-pro,v2.0-expansion,Batch 2,True,ACCEPTED,75,0,9,3,0,0,0,1,0,0
+P0093,P0093.py,13,If,17,20,"if __name__ == ""__main__"":
+    ca = {""nodes"": [{""id"": ""A1"", ""latency_to_gw"": 20, ""bandwidth"": 1500, ""zone"": ""us-1"", ""draining"": False}]}
+    cb = {""nodes"": [{""id"": ""B1"", ""latency_to_gw"": 20, ""bandwidth"": 1500, ""zone"": ""us-1""}]}
+    assert len(audit_cluster_interlinks(ca, cb)) == 1",,,,,Graph or Tree Traversal,Validate clustered server graph communication link rules,Nested loop and complex conditional,gemini-2.5-pro,v2.0-expansion,Batch 2,True,ACCEPTED,281,2,29,2,0,2,0,0,0,0
+P0097,P0097.py,2,For,5,9,"for dist in districts:
+        for clinic in dist.get(""clinics"", []):
+            composite_risk_index = ((clinic.get(""cases"", 0) * 12.5) + (clinic.get(""positivity_rate"", 0.0) * 450.0) - (clinic.get(""icu_beds_free"", 0) * 8.0)) / (clinic.get(""catchment_pop_k"", 1.0) * 0.5 + 2.0)
+            if ((composite_risk_index > alert_baseline and clinic.get(""icu_beds_free"", 0) < 3 and dist.get(""containment_zone"") is not True) or (clinic.get(""positivity_rate"", 0.0) > 0.25 and clinic.get(""cases"", 0) > 50 and not clinic.get(""emergency_funding"", False))) and clinic.get(""status"") == ""ACTIVE"":
+                high_risk_centers.append(clinic[""id""])",,,,,Data Aggregation and Statistics,Aggregate regional healthcare epidemiological risk across layered clinics,All three target issues,gemini-2.5-pro,v2.0-expansion,Batch 2,True,ACCEPTED,637,21,49,1,2,12,6,0,1,0
+P0097,P0097.py,5,If,8,9,"if ((composite_risk_index > alert_baseline and clinic.get(""icu_beds_free"", 0) < 3 and dist.get(""containment_zone"") is not True) or (clinic.get(""positivity_rate"", 0.0) > 0.25 and clinic.get(""cases"", 0) > 50 and not clinic.get(""emergency_funding"", False))) and clinic.get(""status"") == ""ACTIVE"":
+                high_risk_centers.append(clinic[""id""])",,,,,Data Aggregation and Statistics,Aggregate regional healthcare epidemiological risk across layered clinics,All three target issues,gemini-2.5-pro,v2.0-expansion,Batch 2,True,ACCEPTED,347,13,26,7,0,12,6,0,0,1
+P0099,P0099.py,6,If,9,10,"if ((membrane_delta_p > 8.5 and vessel.get(""valve_state"") == ""OPEN"" and not emergency_nitrogen_purge) or (vessel.get(""temp_kelvin"", 300) > 450.0 and vessel.get(""acid_concentration"", 0.0) > 0.65 and not chamber.get(""cooling_jacket_active"", False))) and not vessel.get(""bypassed"", False):
+                    critical_events.append({""loc"": (row_idx, col_idx), ""vessel_id"": vessel[""id""], ""delta_p"": membrane_delta_p})",,,,,Small Simulation and Rule-based Systems,Simulate industrial multi-chamber chemical pipeline flow and pressure alarms,All three target issues,gemini-2.5-pro,v2.0-expansion,Batch 2,True,ACCEPTED,414,13,29,7,0,10,6,0,0,1
+P0100,P0100.py,2,For,5,10,"for dc in distribution_centers:
+        for bay in dc.get(""loading_bays"", []):
+            for parcel in bay.get(""manifested_parcels"", []):
+                customs_risk_score = ((parcel.get(""declared_val_usd"", 0.0) * 0.045) + (parcel.get(""weight_kg"", 0.0) * 3.2) + (parcel.get(""prior_flags"", 0) * 25.0)) / (parcel.get(""shipper_reputation_score"", 1.0) + 0.1)
+                if ((customs_risk_score > 75.0 and parcel.get(""dest_country"") in sanctioned_countries and not parcel.get(""export_license_verified"", False)) or (parcel.get(""declared_val_usd"", 0.0) > 10000.0 and parcel.get(""is_dual_use_technology"") is True and not dc.get(""customs_bonded"", False))) and parcel.get(""cleared"") is not True:
+                    flagged_packages.append({""tracking_number"": parcel[""tracking_number""], ""risk"": customs_risk_score})",,,,,Inventory and Record Management,Audit multi-tiered automated logistics fulfilment routing and customs compliance,All three target issues,gemini-2.5-pro,v2.0-expansion,Batch 2,True,ACCEPTED,813,20,52,1,3,11,6,0,1,0
+P0115,P0115.py,1,Assign,4,4,mat = [row[:] for row in matrix],,,,,Numerical Computation,Gaussian elimination forward reduction on augmented matrix,Nested loop only,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED,32,0,4,3,0,0,0,0,0,0
+P0115,P0115.py,12,Assign,16,16,res = gaussian_elimination_forward(a),,,,,Numerical Computation,Gaussian elimination forward reduction on augmented matrix,Nested loop only,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED,37,0,3,2,0,0,0,0,0,0
+P0117,P0117.py,2,For,3,9,"for i in range(n // 2):
+        for j in range(i, n - i - 1):
+            temp = matrix[i][j]
+            matrix[i][j] = matrix[n - 1 - j][i]
+            matrix[n - 1 - j][i] = matrix[n - 1 - i][n - 1 - j]
+            matrix[n - 1 - i][n - 1 - j] = matrix[j][n - 1 - i]
+            matrix[j][n - 1 - i] = temp",,,,,Matrix & Grid Operations,Rotate a square 2D matrix 90 degrees clockwise in-place,Nested loop only,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED,309,19,52,3,2,0,0,0,1,0
+P0120,P0120.py,4,For,5,23,"for r in range(h):
+        for c in range(w):
+            neighbors = 0
+            for dr in (-1, 0, 1):
+                for dc in (-1, 0, 1):
+                    if dr == 0 and dc == 0:
+                        continue
+                    nr = r + dr
+                    nc = c + dc
+                    if 0 <= nr < h:
+                        if 0 <= nc < w:
+                            neighbors += grid[nr][nc]
+            is_alive = grid[r][c] == 1
+            if is_alive:
+                if neighbors in (2, 3):
+                    nxt[r][c] = 1
+            else:
+                if neighbors == 3:
+                    nxt[r][c] = 1",,,,,Small Simulation and Rule-based Systems,Conway's Game of Life discrete grid single step update,Nested loop only,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED,639,14,55,2,4,10,1,0,1,0
+P0120,P0120.py,9,If,10,11,"if dr == 0 and dc == 0:
+                        continue",,,,,Small Simulation and Rule-based Systems,Conway's Game of Life discrete grid single step update,Nested loop only,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED,56,3,4,3,0,3,1,0,0,1
+P0121,P0121.py,7,If,11,12,"if __name__ == ""__main__"":
+    assert is_finite_element_admissible(2.5, 0.4, 0.5, False) is True",,,,,Numerical Computation,Check boundary condition stability for finite element mesh element,Complex conditional only,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED,96,2,8,2,0,2,0,0,0,0
+P0123,P0123.py,3,Assign,6,6,"is_amex = (pan.startswith(""34"") or pan.startswith(""37"")) and len(pan) == 15",,,,,String Processing & Text Analysis,Classify credit card PAN validity and issuer pattern constraints,Complex conditional only,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED,75,3,8,5,0,3,2,1,0,0
+P0128,P0128.py,7,If,9,13,"if __name__ == ""__main__"":
+    pts = [[1.0, 2.0], [4.0, 6.0]]
+    w = [1.0, 1.0]
+    res = compute_pairwise_weighted_projections(pts, w)
+    assert res[0][1] == 5.0",,,,,Searching and Sorting,Find all pairs with k-nearest Mahalanobis metric projection,Long statement and nested loop,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED,164,2,18,2,0,2,0,0,0,0
+P0133,P0133.py,2,Assign,5,5,max_achievable_delta_v = 310.0 * 9.80665 * math.log((dry_mass + available_propellant) / dry_mass),,,,,Numerical Computation,Evaluate orbital transfer trajectory delta-v with contingency checks,Long statement and complex conditional,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED,97,4,7,5,0,0,0,1,0,0
+P0135,P0135.py,5,If,6,7,"if ((alg in (""RS256"", ""ES256"", ""EdDSA"") and typ_valid and has_kid) or (alg == ""HS256"" and signature_len >= 32 and not header.get(""allow_insecure"", False))) and payload_size <= 65536:
+        return security_score",,,,,String Processing & Text Analysis,Verify cryptographic JWT header parameters and calculate security score,Long statement and complex conditional,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED,212,11,16,7,0,10,6,0,0,1
+P0136,P0136.py,4,If,5,6,"if (wind_ok and grid_stable and not grid_status.get(""curtailment_ordered"", False)) or (turbine.get(""black_start_capable"") is True and grid_status.get(""emergency_mode"") is True):
+        return gross_revenue",,,,,Data Aggregation and Statistics,Calculate commercial wind farm energy yield with curtailed tariff,Long statement and complex conditional,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED,206,7,12,6,0,6,4,0,0,1
+P0137,P0137.py,2,Assign,3,3,"temp_exceeded = monitoring.get(""max_temp_c"", 4.0) > 8.0 or monitoring.get(""min_temp_c"", 4.0) < 2.0",,,,,Inventory and Record Management,Calculate pharmaceutical cold-chain vaccine insurance compensation,Long statement and complex conditional,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED,98,3,9,5,0,3,1,1,0,0
+P0137,P0137.py,6,Return,7,7,return 0.0,,,,,Inventory and Record Management,Calculate pharmaceutical cold-chain vaccine insurance compensation,Long statement and complex conditional,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED,10,0,1,1,0,0,0,0,0,0
+P0139,P0139.py,6,Assign,9,9,c3 = a != b and not (a == 0.0 and b == 0.0),,,,,Numerical Computation,Search parameter bounds for stable non-linear limit cycles,Nested loop and complex conditional,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED,43,6,7,5,0,5,2,0,0,0
+P0140,P0140.py,2,For,5,14,"for tender in tenders:
+        for contr in contractors:
+            price_ok = contr.get(""bid"", 0) <= tender.get(""max_budget"", 0)
+            rating_ok = contr.get(""safety_score"", 0) >= tender.get(""min_safety"", 0)
+            bonded = contr.get(""is_bonded"") is True
+            exp_ok = contr.get(""years_active"", 0) >= 5
+            rule1 = price_ok and rating_ok and bonded
+            rule2 = exp_ok and price_ok and contr.get(""certified_green"") is True
+            if (rule1 or rule2) and not contr.get(""disqualified"", False):
+                matches.append({""tender_id"": tender[""id""], ""contractor_id"": contr[""id""]})",,,,,Searching and Sorting,Match job bids to vendor requests across budget and safety constraints,Nested loop and complex conditional,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED,620,12,49,1,2,11,6,0,1,0
+P0140,P0140.py,4,Assign,7,7,"price_ok = contr.get(""bid"", 0) <= tender.get(""max_budget"", 0)",,,,,Searching and Sorting,Match job bids to vendor requests across budget and safety constraints,Nested loop and complex conditional,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED,61,1,7,4,0,1,0,1,0,0
+P0140,P0140.py,5,Assign,8,8,"rating_ok = contr.get(""safety_score"", 0) >= tender.get(""min_safety"", 0)",,,,,Searching and Sorting,Match job bids to vendor requests across budget and safety constraints,Nested loop and complex conditional,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED,71,1,7,4,0,1,0,1,0,0
+P0141,P0141.py,11,Assign,14,14,cond_c = not (drop_north == drop_south and curr < 100.0),,,,,Matrix & Grid Operations,Filter terrain elevation digital map for hazardous cliff drops,Nested loop and complex conditional,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED,56,4,5,4,0,3,1,0,0,0
+P0141,P0141.py,15,If,19,21,"if __name__ == ""__main__"":
+    grid = [[10.0, 10.0, 10.0], [10.0, 80.0, 10.0], [10.0, 10.0, 10.0]]
+    assert len(detect_perilous_escarpments(grid, 30.0)) == 1",,,,,Matrix & Grid Operations,Filter terrain elevation digital map for hazardous cliff drops,Nested loop and complex conditional,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED,159,2,17,2,0,2,0,0,0,0
+P0146,P0146.py,2,For,3,7,"for r, row in enumerate(tiles):
+        for c, cell in enumerate(row):
+            absorption_metric = ((cell[""band_7""] - cell[""band_2""]) * 14.2) + ((cell[""band_5""] / max(0.01, cell[""band_3""])) * 6.5) - (base_reflectance * 2.8) + (cell.get(""iron_index"", 0.0) * 1.5)
+            if ((absorption_metric > 45.0 and cell.get(""confidence"", 0.0) >= 0.85 and cell.get(""overburden_depth_m"", 0.0) < 50.0) or (absorption_metric > 30.0 and cell.get(""lithology"") == 4.0 and not cell.get(""weathered"", False))) and cell.get(""qa_passed"", True):
+                seams.append((r, c))",,,,,Matrix & Grid Operations,Filter hyperspectral geological scan for rare mineral seam signatures,All three target issues,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED,566,21,51,2,2,11,6,0,1,0
+P0147,P0147.py,5,If,6,7,"if ((annoyance_quotient > 25.0 and node.get(""night_hour"") is True and zone.get(""residential"") is True) or (node.get(""peak_dba"", 0.0) > legal_decibel_limit + 20.0 and not zone.get(""industrial"", False))) and not node.get(""sensor_malfunction"", False):
+                violations.append(node[""id""])",,,,,Data Aggregation and Statistics,Aggregate urban traffic noise pollution sensors with municipal code violations,All three target issues,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED,294,12,22,7,0,9,5,0,0,1
+P0148,P0148.py,6,If,7,9,"if (not pod.get(""scheduled"") and worker.get(""free_cpu_cores"", 0) >= pod.get(""req_cpu"", 0) and worker.get(""free_mem_gb"", 0) >= pod.get(""req_mem"", 0) and (cluster.get(""env"") == pod.get(""target_env"") or pod.get(""multi_env_ok"") is True)) and not worker.get(""cordoned"", False):
+                    placements.append((worker[""id""], pod[""id""]))
+                    pod[""scheduled""] = True",,,,,Scheduling and Resource Allocation,Multi-tier microservices container placement across Kubernetes worker pools,All three target issues,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED,381,11,32,7,0,9,5,0,0,1
+P0150,P0150.py,2,For,3,8,"for store in superstores:
+        for aisle in store.get(""aisles"", []):
+            for bay in aisle.get(""bays"", []):
+                restock_allocation = ((bay.get(""safety_stock"", 10) * 2.5) - bay.get(""on_hand"", 0)) + (bay.get(""velocity_units_day"", 0) * bay.get(""lead_time_days"", 1) * 1.35) + (regional_shrinkage_rate * bay.get(""on_hand"", 0) * 0.5)
+                if ((bay.get(""on_hand"", 0) < bay.get(""safety_stock"", 10) and store.get(""flagship"") is True and not store.get(""remodeling"", False)) or (bay.get(""promo_feature"") is True and bay.get(""on_hand"", 0) < 5 and not bay.get(""discontinued"", False))) and store.get(""active"") is True:
+                    reorders.append({""store_id"": store[""id""], ""sku"": bay[""sku""], ""qty"": max(1, int(restock_allocation))})",,,,,Inventory and Record Management,Audit retail distribution supply chain shelf replenishment and shrinkage risk,All three target issues,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED,759,21,65,1,3,11,6,0,1,0
+P0150,P0150.py,7,Expr,8,8,"reorders.append({""store_id"": store[""id""], ""sku"": bay[""sku""], ""qty"": max(1, int(restock_allocation))})",,,,,Inventory and Record Management,Audit retail distribution supply chain shelf replenishment and shrinkage risk,All three target issues,gemini-2.5-pro,v3.0-expansion,Batch 3,True,ACCEPTED,101,0,12,5,0,0,0,1,0,0
+P0153,P0153.py,6,For,7,13,"for char in text[1:]:
+        if char == curr:
+            count += 1
+        else:
+            chunks.append(f""{curr}{count}"")
+            curr = char
+            count = 1",,,,,String Processing & Text Analysis,Compress repetitive string characters using basic run-length format,,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED,173,1,14,3,1,1,0,0,0,0
+P0154,P0154.py,8,Assign,9,9,pos = low + int(((float(high - low) / (arr[high] - arr[low])) * (target - arr[low]))),,,,,Searching and Sorting,Interpolation search over uniformly distributed sorted integer array,,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED,85,6,13,7,0,0,0,1,0,0
+P0164,P0164.py,2,Return,3,3,return head_loss,,,,,Small Simulation and Rule-based Systems,Simulate hydraulic pipeline friction head loss using Darcy-Weisbach equation,Long statement only,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED,16,0,1,1,0,0,0,0,0,0
+P0167,P0167.py,1,For,2,9,"for i in range(9):
+        row_seen = set()
+        for j in range(9):
+            val = board[i][j]
+            if val != 0:
+                if val in row_seen:
+                    return False
+                row_seen.add(val)",,,,,Matrix & Grid Operations,Check if a 9x9 grid satisfies valid Sudoku placement constraints,Nested loop only,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED,228,2,19,2,2,2,0,0,1,0
+P0167,P0167.py,7,Return,8,8,return False,,,,,Matrix & Grid Operations,Check if a 9x9 grid satisfies valid Sudoku placement constraints,Nested loop only,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED,12,0,1,1,0,0,0,0,0,0
+P0167,P0167.py,13,If,14,17,"if val != 0:
+                if val in col_seen:
+                    return False
+                col_seen.add(val)",,,,,Matrix & Grid Operations,Check if a 9x9 grid satisfies valid Sudoku placement constraints,Nested loop only,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED,115,2,7,2,0,2,0,0,0,0
+P0167,P0167.py,15,Return,16,16,return False,,,,,Matrix & Grid Operations,Check if a 9x9 grid satisfies valid Sudoku placement constraints,Nested loop only,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED,12,0,1,1,0,0,0,0,0,0
+P0170,P0170.py,5,For,6,17,"for c in range(w):
+            if forest[r][c] == 1:
+                for dr in (-1, 0, 1):
+                    for dc in (-1, 0, 1):
+                        nr = r + dr
+                        nc = c + dc
+                        if 0 <= nr < h:
+                            if 0 <= nc < w:
+                                if forest[nr][nc] == 2:
+                                    nxt[r][c] = 2
+            elif forest[r][c] == 2:
+                nxt[r][c] = 0",,,,,Small Simulation and Rule-based Systems,Simulate cellular wildfire spread propagation on forested grid,Nested loop only,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED,460,11,43,2,3,7,0,0,1,0
+P0172,P0172.py,4,Assign,7,7,"has_sig = pkt.get(""malware_signature_match"") is True",,,,,"Lists, Tuples, Dictionaries, and Sets",Evaluate enterprise firewall incoming packet security state,Complex conditional only,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED,52,1,4,4,0,1,0,0,0,0
+P0178,P0178.py,1,Assign,2,2,densities = [],,,,,Searching and Sorting,Compute all-pairs spatial density gradients with polynomial smoothing,Long statement and nested loop,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED,14,0,1,1,0,0,0,0,0,0
+P0180,P0180.py,6,Assign,7,7,corr_table[i][j] = sum(matrix_x[i][k] * matrix_y[j][k] for k in range(len(matrix_x[i]))) / ((sum(v**2 for v in matrix_x[i])**0.5) * (sum(v**2 for v in matrix_y[j])**0.5) + 1e-9),,,,,Data Aggregation and Statistics,Compute double-indexed cross correlation matrix between data series,Long statement and nested loop,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED,177,8,30,8,0,0,0,1,0,0
+P0183,P0183.py,1,Assign,4,4,"pressure_ratio = 1.0 + ((2.0 * gamma) / (gamma + 1.0)) * ((mach * math.sin(math.radians(wedge_angle_deg + 15.0)))**2 - 1.0) + (0.05 * math.log(max(1.1, mach)))",,,,,Numerical Computation,Calculate supersonic shockwave compression angle and thermodynamic pressure ratio,Long statement and complex conditional,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED,159,11,18,10,0,0,0,1,0,0
+P0184,P0184.py,9,Assign,11,11,"b = {""fico_score"": 750.0, ""appraised_home_val"": 500000.0, ""debt_to_income"": 0.28, ""reserves_months"": 6.0}",,,,,"Lists, Tuples, Dictionaries, and Sets",Compute mortgage refinance underwriting approval index,Long statement and complex conditional,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED,105,0,9,2,0,0,0,1,0,0
+P0190,P0190.py,1,Assign,4,4,violations = [],,,,,Searching and Sorting,Filter warehouse pallet allocations against hazardous chemical segregation rules,Nested loop and complex conditional,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED,15,0,1,1,0,0,0,0,0,0
+P0191,P0191.py,4,For,7,15,"for r in range(h):
+        for c in range(w):
+            elev = dem[r][c]
+            salt = salinity[r][c]
+            c1 = elev <= tide_limit and 10.0 <= salt <= 35.0
+            c2 = elev <= 0.0 and salt > 5.0 and tide_limit > 1.0
+            c3 = not (elev < -10.0 and salt > 40.0)
+            if (c1 or c2) and c3 and elev > -5.0:
+                estuary.append((r, c))",,,,,Matrix & Grid Operations,Identify coastal wetland estuary grid zones from multispectral sensors,Nested loop and complex conditional,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED,375,19,40,2,2,16,7,0,1,0
+P0192,P0192.py,4,Assign,7,7,same_len = len(w1) == len(w2),,,,,String Processing & Text Analysis,Collate anagrammatical token clusters satisfying semantic constraints,Nested loop and complex conditional,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED,29,1,5,3,0,1,0,0,0,0
+P0195,P0195.py,2,For,5,13,"for c_idx, cluster_a in enumerate(clusters):
+        for star_a in cluster_a:
+            for star_b in cluster_a:
+                if star_a[""id""] != star_b[""id""]:
+                    dist = math.sqrt((star_a[""x""] - star_b[""x""])**2 + (star_a[""y""] - star_b[""y""])**2) + 0.001
+                    tidal_force = (gravitational_constant * star_a[""mass""] * star_b[""mass""] / (dist**2)) * (1.0 + (3.0 * gravitational_constant * (star_a[""mass""] + star_b[""mass""]) / (dist * 8.987e16))) + 0.05
+                    if ((dist < star_a.get(""tidal_radius"", 10.0) and star_b[""mass""] > 50.0 and star_a[""mass""] < 10.0) or (dist < 1.0 and star_a.get(""halo_star"") is True and not star_b.get(""core_star"", False))) and tidal_force > 0.01:
+                        star_a[""vx""] += (star_b[""x""] - star_a[""x""]) / dist * tidal_force * 0.1
+                        perturbed.append(star_a)",,,,,Numerical Computation,N-body galactic tidal interaction simulation with relativistic correction,All three target issues,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED,860,36,74,2,3,13,6,0,1,0
+P0196,P0196.py,3,For,4,8,"for c, cell in enumerate(row):
+            for neighbor_temp in cell.get(""neighbor_temps"", [ambient_temp_c]):
+                thermal_anomaly_index = ((cell[""temp_kelvin""] - 273.15 - ambient_temp_c) * 1.85) + ((cell[""temp_kelvin""] - neighbor_temp) * 0.45) - (cell.get(""humidity_pct"", 50.0) * 0.15) + (cell.get(""mid_infrared"", 1.0) * 8.2)
+                if ((thermal_anomaly_index > 65.0 and cell.get(""canopy_cover_pct"", 100.0) < 40.0 and cell[""temp_kelvin""] > 340.0) or (cell.get(""flame_sensor"") is True and thermal_anomaly_index > 40.0 and not cell.get(""calibrated_false_positive"", False))) and not cell.get(""water_body"", False):
+                    ember_locations.append((r, c))",,,,,Matrix & Grid Operations,Multi-spectral thermal drone search for localized forest embers,All three target issues,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED,682,23,49,2,2,11,6,0,1,0
+P0196,P0196.py,10,Assign,12,12,"g = [[{""temp_kelvin"": 360.0, ""neighbor_temps"": [295.0], ""canopy_cover_pct"": 20.0, ""mid_infrared"": 5.0, ""water_body"": False}]]",,,,,Matrix & Grid Operations,Multi-spectral thermal drone search for localized forest embers,All three target issues,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED,125,0,11,5,0,0,0,1,0,0
+P0197,P0197.py,6,If,7,8,"if ((line_stress_index > stability_threshold and substation.get(""n_minus_one_contingency"") is True and not grid.get(""isOLTC_locked"", False)) or (feeder.get(""frequency_hz"", 50.0) < 49.5 and line_stress_index > 80.0 and not substation.get(""load_shedding_armed"", False))) and feeder.get(""online"") is True:
+                    critical_nodes.append(substation[""id""])",,,,,Data Aggregation and Statistics,Audit regional power grid transmission node congestion and blackout hazard,All three target issues,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED,362,13,23,7,0,11,6,0,0,1
+P0198,P0198.py,3,For,4,9,"for accelerator in node.get(""gpus"", []):
+            for job in workloads:
+                affinity_metric = ((accelerator.get(""free_vram_gb"", 0) - job.get(""req_vram_gb"", 0)) * 3.5) + (accelerator.get(""tflops_fp16"", 10.0) * 1.2) - (accelerator.get(""die_temp_c"", 45.0) * 0.85) + (node.get(""network_gbps"", 10.0) * 0.4)
+                if (not job.get(""scheduled"") and accelerator.get(""free_vram_gb"", 0) >= job.get(""req_vram_gb"", 0) and accelerator.get(""die_temp_c"", 45.0) < 85.0 and (node.get(""region"") == job.get(""req_region"") or job.get(""fallback_region_ok"") is True)) and not accelerator.get(""throttled"", False):
+                    placements.append((accelerator[""id""], job[""id""]))
+                    job[""scheduled""] = True",,,,,Scheduling and Resource Allocation,Allocate distributed edge compute tasks with thermal throttling constraints,All three target issues,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED,727,19,55,3,2,9,5,0,1,0
+P0198,P0198.py,5,Assign,6,6,"affinity_metric = ((accelerator.get(""free_vram_gb"", 0) - job.get(""req_vram_gb"", 0)) * 3.5) + (accelerator.get(""tflops_fp16"", 10.0) * 1.2) - (accelerator.get(""die_temp_c"", 45.0) * 0.85) + (node.get(""network_gbps"", 10.0) * 0.4)",,,,,Scheduling and Resource Allocation,Allocate distributed edge compute tasks with thermal throttling constraints,All three target issues,gemini-2.5-pro,v4.0-expansion,Batch 4,True,ACCEPTED,225,8,20,8,0,0,0,1,0,0
+P0202,P0202.py,3,Assign,6,6,min_val = min(values),,,,,"Lists, Tuples, Dictionaries, and Sets",Min-max normalization of numeric feature vector,,gemini-2.5-pro,v5.0-expansion,Batch 5,True,ACCEPTED,21,0,3,2,0,0,0,0,0,0
+P0202,P0202.py,5,Assign,8,8,spread = max_val - min_val,,,,,"Lists, Tuples, Dictionaries, and Sets",Min-max normalization of numeric feature vector,,gemini-2.5-pro,v5.0-expansion,Batch 5,True,ACCEPTED,26,1,3,2,0,0,0,0,0,0
+P0202,P0202.py,9,For,12,14,"for x in values:
+        norm = (x - min_val) / spread
+        normalized.append(round(norm, 4))",,,,,"Lists, Tuples, Dictionaries, and Sets",Min-max normalization of numeric feature vector,,gemini-2.5-pro,v5.0-expansion,Batch 5,True,ACCEPTED,96,2,10,1,1,0,0,0,0,0
+P0204,P0204.py,8,Assign,10,10,right = m2,,,,,Searching and Sorting,Ternary search for finding peak in strictly unimodal array,,gemini-2.5-pro,v5.0-expansion,Batch 5,True,ACCEPTED,10,0,2,1,0,0,0,0,0,0
+P0206,P0206.py,7,Return,9,15,"return {
+        ""q1"": q1,
+        ""q3"": q3,
+        ""iqr"": iqr,
+        ""lower_fence"": q1 - 1.5 * iqr,
+        ""upper_fence"": q3 + 1.5 * iqr
+    }",,,,,Data Aggregation and Statistics,Compute interquartile range (IQR) and outlier fences,,gemini-2.5-pro,v5.0-expansion,Batch 5,True,ACCEPTED,147,4,14,4,0,0,0,1,0,0
+P0211,P0211.py,3,If,5,7,"if __name__ == ""__main__"":
+    score = compute_coleman_liau_readability(1500, 300, 15)
+    assert score > 0.0",,,,,String Processing & Text Analysis,Compute Coleman-Liau linguistic readability index from character histograms,Long statement only,gemini-2.5-pro,v5.0-expansion,Batch 5,True,ACCEPTED,109,2,9,2,0,2,0,0,0,0
+P0215,P0215.py,15,Assign,18,18,lower[k][i] = (matrix[k][i] - sum_l) / upper[i][i],,,,,Numerical Computation,Compute matrix LU decomposition with Doolittle's algorithm,Nested loop only,gemini-2.5-pro,v5.0-expansion,Batch 5,True,ACCEPTED,50,2,10,5,0,0,0,0,0,0
+P0215,P0215.py,19,Assign,23,23,"l, u = lu_decomposition_doolittle(m)",,,,,Numerical Computation,Compute matrix LU decomposition with Doolittle's algorithm,Nested loop only,gemini-2.5-pro,v5.0-expansion,Batch 5,True,ACCEPTED,36,0,4,2,0,0,0,0,0,0
+P0218,P0218.py,14,If,17,18,"if __name__ == ""__main__"":
+    assert scs_length(""geek"", ""eke"") == 5",,,,,String Processing & Text Analysis,Compute shortest common supersequence length using dynamic programming,Nested loop only,gemini-2.5-pro,v5.0-expansion,Batch 5,True,ACCEPTED,68,2,6,2,0,2,0,0,0,0
+P0220,P0220.py,4,For,5,12,"for r in range(1, h - 1):
+        for c in range(1, w - 1):
+            flow = 0.0
+            for dr in (-1, 1):
+                flow += grid[r + dr][c] - grid[r][c]
+            for dc in (-1, 1):
+                flow += grid[r][c + dc] - grid[r][c]
+            nxt[r][c] += flow * coeff",,,,,Small Simulation and Rule-based Systems,Simulate particle diffusion across porous membrane lattice barrier,Nested loop only,gemini-2.5-pro,v5.0-expansion,Batch 5,True,ACCEPTED,288,9,39,3,3,0,0,0,1,0
+P0221,P0221.py,4,If,7,8,"if (armijo and curvature) or (strong_curv and f_curr < f_prev and alpha > 1e-3):
+        return True",,,,,Numerical Computation,Verify non-linear optimization convergence with Wolfe conditions,Complex conditional only,gemini-2.5-pro,v5.0-expansion,Batch 5,True,ACCEPTED,100,6,8,4,0,6,4,0,0,1
+P0224,P0224.py,8,Return,11,11,return True,,,,,Data Aggregation and Statistics,Authorize high-value securities margin trading order,Complex conditional only,gemini-2.5-pro,v5.0-expansion,Batch 5,True,ACCEPTED,11,0,1,1,0,0,0,0,0,0
+P0229,P0229.py,10,Assign,12,12,"res = apply_laplacian_edge_filter(m, 1.0)",,,,,Matrix & Grid Operations,Apply Laplacian edge detector convolution kernel on grayscale image raster,Long statement and nested loop,gemini-2.5-pro,v5.0-expansion,Batch 5,True,ACCEPTED,41,0,4,2,0,0,0,0,0,0
+P0230,P0230.py,1,Assign,2,2,m = len(series_a),,,,,Data Aggregation and Statistics,Compute double-rolling covariance across multi-variate financial time series,Long statement and nested loop,gemini-2.5-pro,v5.0-expansion,Batch 5,True,ACCEPTED,17,0,3,2,0,0,0,0,0,0
+P0230,P0230.py,10,Assign,12,12,"b = [[2.0, 4.0, 6.0]]",,,,,Data Aggregation and Statistics,Compute double-rolling covariance across multi-variate financial time series,Long statement and nested loop,gemini-2.5-pro,v5.0-expansion,Batch 5,True,ACCEPTED,21,0,4,3,0,0,0,0,0,0
+P0231,P0231.py,10,Assign,12,12,"dp = [{""base_tariff"": 100.0, ""coord_x"": 0.0, ""coord_y"": 0.0, ""ton_mile_cost"": 0.5}]",,,,,Inventory and Record Management,Calculate multi-echelon supply hub replenishment costs,Long statement and nested loop,gemini-2.5-pro,v5.0-expansion,Batch 5,True,ACCEPTED,83,0,9,3,0,0,0,1,0,0
+P0236,P0236.py,4,If,5,6,"if ((irr_ok and temp_safe and not grid_status.get(""grid_overfrequency_trip"", False)) or (plant.get(""has_battery_storage"") is True and irr_ok)) and not plant.get(""inverter_fault"", False):
+        return generation_revenue",,,,,Data Aggregation and Statistics,Compute solar photovoltaic park daily revenue with feed-in curtailment,Long statement and complex conditional,gemini-2.5-pro,v5.0-expansion,Batch 5,True,ACCEPTED,220,8,13,7,0,6,5,0,0,0
+P0237,P0237.py,4,Assign,5,5,"no_violations = compliance.get(""form_483_issued"") is not True",,,,,Inventory and Record Management,Calculate pharmaceutical clinical drug inventory reserve under FDA compliance,Long statement and complex conditional,gemini-2.5-pro,v5.0-expansion,Batch 5,True,ACCEPTED,61,1,4,4,0,1,0,1,0,0
+P0237,P0237.py,5,If,6,7,"if ((phase_ok and audited and no_violations) or (compliance.get(""fast_track_granted"") is True and audited)) and trial.get(""active_participants"", 0) > 10:
+        return reserve_capital",,,,,Inventory and Record Management,Calculate pharmaceutical clinical drug inventory reserve under FDA compliance,Long statement and complex conditional,gemini-2.5-pro,v5.0-expansion,Batch 5,True,ACCEPTED,184,7,12,7,0,7,5,0,0,1
+P0239,P0239.py,3,For,6,13,"for v in mesh_v:
+            divergence = -friction + 3.0 * (u**2)
+            jacobian_det = u * v - friction**2
+            c1 = divergence < 0.0 and jacobian_det > 0.0 and friction > 0.05
+            c2 = abs(divergence) < 0.01 and jacobian_det > 1.0
+            c3 = not (u == 0.0 and v == 0.0)
+            if (c1 or c2) and c3 and (u > -2.0 or friction < 0.5):
+                attractors.append((u, v))",,,,,Numerical Computation,Search 2D autonomous dynamical phase portrait for limit cycle attractors,Nested loop and complex conditional,gemini-2.5-pro,v5.0-expansion,Batch 5,True,ACCEPTED,407,26,40,1,1,17,8,0,0,0
+P0241,P0241.py,4,For,7,17,"for r in range(h):
+        for c in range(w):
+            nir = nir_band[r][c]
+            red = red_band[r][c]
+            ndvi = (nir - red) / max(0.01, nir + red)
+            moist = soil_moisture[r][c]
+            c1 = ndvi < 0.25 and moist < 0.15 and nir > 0.1
+            c2 = ndvi < 0.35 and moist < 0.10 and red > 0.2
+            c3 = not (ndvi < 0.05 and moist > 0.5)
+            if (c1 or c2) and c3 and nir > 0.0:
+                stress_points.append((r, c))",,,,,Matrix & Grid Operations,Filter agricultural hyperspectral NDVI vegetation indices for drought stress,Nested loop and complex conditional,gemini-2.5-pro,v5.0-expansion,Batch 5,True,ACCEPTED,469,21,52,2,2,17,8,0,1,0
+P0246,P0246.py,6,If,7,8,"if ((rcs_ratio > 35.0 and cell.get(""coherence_factor"", 0.0) >= 0.75 and cell[""sigma_hh_db""] > reference_db + 15.0) or (cell.get(""metallic_signature"") is True and rcs_ratio > 25.0 and not cell.get(""multipath_ghost"", False))) and not cell.get(""sensor_blinded"", False):
+                    detections.append((r, c))",,,,,Matrix & Grid Operations,Radar cross-section backscatter matrix analysis for concealed object detection,All three target issues,gemini-2.5-pro,v5.0-expansion,Batch 5,True,ACCEPTED,312,14,24,7,0,11,6,0,0,1
+P0248,P0248.py,12,Assign,14,14,"p_list = [{""id"": ""PASS-401"", ""req_band"": ""X_BAND"", ""eirp_dbw"": 45.0, ""slant_range_km"": 800.0, ""allowed_country"": ""NO"", ""international_ok"": False, ""scheduled"": False}]",,,,,Scheduling and Resource Allocation,Multi-tier satellite constellation ground station tracking downlink scheduler,All three target issues,gemini-2.5-pro,v5.0-expansion,Batch 5,True,ACCEPTED,166,0,15,3,0,0,0,1,0,0
+P0249,P0249.py,6,If,7,8,"if ((surge_deviation_pct > 15.0 and comp.get(""discharge_temp_c"", 0) > 110.0 and not automated_esd_armed) or (comp.get(""vibration_mms"", 0) > 12.0 and comp.get(""shaft_speed_rpm"", 0) > 8000 and not station.get(""bypassed"", False))) and not comp.get(""standby"", False):
+                    venting_events.append({""corridor"": corridor_idx, ""station"": station_idx, ""unit"": comp[""id""], ""surge"": surge_deviation_pct})",,,,,Small Simulation and Rule-based Systems,Simulate natural gas pipeline compressor station surge and venting,All three target issues,gemini-2.5-pro,v5.0-expansion,Batch 5,True,ACCEPTED,407,13,31,7,0,10,6,0,0,1
+P0250,P0250.py,3,For,4,8,"for vessel in line.get(""vessels"", []):
+            for container in vessel.get(""manifested_containers"", []):
+                customs_risk_index = ((container.get(""declared_weight_kg"", 0) / max(1.0, container.get(""scanned_weight_kg"", 1))) * 45.0) + (container.get(""hs_code_dual_use_tier"", 0) * 18.5) + (container.get(""transshipment_hops"", 0) * 12.0) - 25.0
+                if ((customs_risk_index > 65.0 and container.get(""origin_port"") in sanctioned_ports and not container.get(""pre_cleared_by_cbp"", False)) or (container.get(""declared_val_usd"", 0) > 500000.0 and container.get(""radiological_alarm"") is True and not vessel.get(""flag_of_convenience"", False))) and not container.get(""released"", False):
+                    suspicious_cargo.append({""vessel_imo"": vessel[""imo""], ""container_id"": container[""id""], ""risk"": customs_risk_index})",,,,,Inventory and Record Management,Audit maritime cargo customs manifest risk against sanctioned transshipment hubs,All three target issues,gemini-2.5-pro,v5.0-expansion,Batch 5,True,ACCEPTED,836,20,55,3,2,10,6,0,1,0
