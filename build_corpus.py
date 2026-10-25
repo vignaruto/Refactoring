@@ -1,6 +1,6 @@
 """
 build_corpus.py
-Writes the Batch 7 (P0301-P0350) programs into program_corpus/programs and
+Writes the Batch 8 (P0351-P0400) programs into program_corpus/programs and
 appends their rows to program_corpus/manifest.csv. Earlier batches are already
 in the corpus and are not rebuilt by this script.
 
@@ -38,1101 +38,1096 @@ MANIFEST_COLUMNS = [
 # the corpus (for example P0131/P0231) score 0.89-0.995.
 STRUCTURAL_SIMILARITY_LIMIT = 0.85
 
-BATCH7_PROGRAMS = {
-    # 1. NONE (8 programs: P0301 - P0308)
-    "P0301": {
+BATCH8_PROGRAMS = {
+    # 1. NONE (8 programs: P0351 - P0358)
+    "P0351": {
         "domain": "Numerical Computation",
-        "task": "Integer square root via binary interval halving",
+        "task": "Digital root of a non-negative integer by repeated digit summation",
         "category": "None",
-        "code": '''def integer_sqrt(n: int) -> int:
+        "code": '''def digital_root_value(n: int) -> int:
     if n < 0:
         raise ValueError("n must be non-negative")
-    if n < 2:
-        return n
-    low = 1
-    high = n // 2
-    best = 1
+    total = n
+    while total >= 10:
+        total = sum(int(digit) for digit in str(total))
+    return total
+
+if __name__ == "__main__":
+    assert digital_root_value(0) == 0
+    assert digital_root_value(9875) == 2
+    assert digital_root_value(38) == 2
+'''
+    },
+    "P0352": {
+        "domain": "String Processing & Text Analysis",
+        "task": "Count vowels and consonants among the letters of a phrase",
+        "category": "None",
+        "code": '''def count_vowel_consonant(text: str) -> tuple[int, int]:
+    vowels = 0
+    consonants = 0
+    for ch in text.lower():
+        if not ch.isalpha():
+            continue
+        if ch in "aeiou":
+            vowels += 1
+        else:
+            consonants += 1
+    return vowels, consonants
+
+if __name__ == "__main__":
+    assert count_vowel_consonant("Hello, World!") == (3, 7)
+    assert count_vowel_consonant("123") == (0, 0)
+'''
+    },
+    "P0353": {
+        "domain": "Searching and Sorting",
+        "task": "Exponential search for a target in a sorted list",
+        "category": "None",
+        "code": '''def exponential_search_index(items: list[int], target: int) -> int:
+    if not items:
+        return -1
+    bound = 1
+    while bound < len(items) and items[bound] < target:
+        bound *= 2
+    low = bound // 2
+    high = min(bound, len(items) - 1)
     while low <= high:
         mid = (low + high) // 2
-        square = mid * mid
-        if square == n:
+        if items[mid] == target:
             return mid
-        if square < n:
-            best = mid
+        if items[mid] < target:
             low = mid + 1
         else:
             high = mid - 1
-    return best
+    return -1
 
 if __name__ == "__main__":
-    assert integer_sqrt(0) == 0
-    assert integer_sqrt(27) == 5
-    assert integer_sqrt(144) == 12
+    data = [1, 3, 5, 7, 9, 11, 13, 15, 17]
+    assert exponential_search_index(data, 13) == 6
+    assert exponential_search_index(data, 4) == -1
+    assert exponential_search_index([], 4) == -1
 '''
     },
-    "P0302": {
-        "domain": "String Processing & Text Analysis",
-        "task": "Rotational Caesar-13 cipher on ASCII letters preserving case",
-        "category": "None",
-        "code": '''def rot13_transform(text: str) -> str:
-    out = []
-    for ch in text:
-        code = ord(ch)
-        if 65 <= code <= 90:
-            out.append(chr(65 + (code - 65 + 13) % 26))
-        elif 97 <= code <= 122:
-            out.append(chr(97 + (code - 97 + 13) % 26))
-        else:
-            out.append(ch)
-    return "".join(out)
-
-if __name__ == "__main__":
-    assert rot13_transform("Hello, World!") == "Uryyb, Jbeyq!"
-    assert rot13_transform("Uryyb, Jbeyq!") == "Hello, World!"
-'''
-    },
-    "P0303": {
-        "domain": "Searching and Sorting",
-        "task": "Lower-bound index of the first element at least target in sorted list",
-        "category": "None",
-        "code": '''def lower_bound_index(items: list[int], target: int) -> int:
-    left = 0
-    right = len(items)
-    while left < right:
-        mid = (left + right) // 2
-        if items[mid] < target:
-            left = mid + 1
-        else:
-            right = mid
-    return left
-
-if __name__ == "__main__":
-    assert lower_bound_index([1, 2, 4, 4, 7], 4) == 2
-    assert lower_bound_index([1, 2, 4, 4, 7], 5) == 4
-    assert lower_bound_index([1, 2, 4], 9) == 3
-'''
-    },
-    "P0304": {
+    "P0354": {
         "domain": "Data Aggregation and Statistics",
-        "task": "Symmetric trimmed mean after dropping outer tail observations",
+        "task": "Statistical mode of integer observations with smallest-value tie break",
         "category": "None",
-        "code": '''def trimmed_mean(values: list[float], trim_fraction: float) -> float:
+        "code": '''def smallest_mode(values: list[int]) -> int:
     if not values:
         raise ValueError("values must not be empty")
-    n = len(values)
-    cut = int(n * trim_fraction)
-    if 2 * cut >= n:
-        raise ValueError("trim_fraction removes all observations")
-    ordered = sorted(values)
-    core = ordered[cut:n - cut]
-    return round(sum(core) / len(core), 4)
+    counts: dict[int, int] = {}
+    for value in values:
+        counts[value] = counts.get(value, 0) + 1
+    best_value = min(counts)
+    for value, count in counts.items():
+        if count > counts[best_value]:
+            best_value = value
+        elif count == counts[best_value] and value < best_value:
+            best_value = value
+    return best_value
 
 if __name__ == "__main__":
-    assert trimmed_mean([1.0, 2.0, 3.0, 4.0, 100.0], 0.2) == 3.0
-    assert trimmed_mean([10.0, 20.0, 30.0], 0.0) == 20.0
+    assert smallest_mode([4, 1, 2, 2, 4, 3]) == 2
+    assert smallest_mode([7]) == 7
 '''
     },
-    "P0305": {
+    "P0355": {
         "domain": "Lists, Tuples, Dictionaries, and Sets",
-        "task": "Invert a one-to-one mapping while rejecting duplicate values",
+        "task": "Rotate a list to the right by k positions",
         "category": "None",
-        "code": '''def invert_unique_mapping(mapping: dict[str, int]) -> dict[int, str]:
-    inverted: dict[int, str] = {}
-    for key, value in mapping.items():
-        if value in inverted:
-            raise ValueError("duplicate value in mapping")
-        inverted[value] = key
-    return inverted
+        "code": '''def rotate_right_by(items: list[int], k: int) -> list[int]:
+    if not items:
+        return []
+    shift = k % len(items)
+    if shift == 0:
+        return list(items)
+    return items[-shift:] + items[:-shift]
 
 if __name__ == "__main__":
-    assert invert_unique_mapping({"a": 1, "b": 2}) == {1: "a", 2: "b"}
-    assert invert_unique_mapping({}) == {}
+    assert rotate_right_by([1, 2, 3, 4, 5], 2) == [4, 5, 1, 2, 3]
+    assert rotate_right_by([1, 2, 3], 3) == [1, 2, 3]
+    assert rotate_right_by([], 4) == []
 '''
     },
-    "P0306": {
+    "P0356": {
         "domain": "Graph or Tree Traversal",
-        "task": "Trace ancestor chain from a node to the root in a parent map",
+        "task": "Count connected components of an undirected graph with union-find",
         "category": "None",
-        "code": '''def trace_root_ancestors(parents: dict[str, str], node: str) -> list[str]:
-    chain = []
-    seen = set()
-    current = node
-    while current is not None:
-        if current in seen:
-            raise ValueError("cycle detected in parent links")
-        seen.add(current)
-        chain.append(current)
-        current = parents.get(current)
-    return chain
+        "code": '''def uf_find_root(parent: dict[str, str], node: str) -> str:
+    while parent[node] != node:
+        parent[node] = parent[parent[node]]
+        node = parent[node]
+    return node
+
+def count_union_components(nodes: list[str], edges: list[tuple[str, str]]) -> int:
+    parent = {node: node for node in nodes}
+    for a, b in edges:
+        root_a = uf_find_root(parent, a)
+        root_b = uf_find_root(parent, b)
+        if root_a != root_b:
+            parent[root_a] = root_b
+    return len({uf_find_root(parent, n) for n in nodes})
 
 if __name__ == "__main__":
-    assert trace_root_ancestors({"d": "b", "b": "a"}, "d") == ["d", "b", "a"]
-    assert trace_root_ancestors({}, "root") == ["root"]
+    assert count_union_components(["a", "b", "c", "d"], [("a", "b"), ("c", "d")]) == 2
+    assert count_union_components(["x"], []) == 1
 '''
     },
-    "P0307": {
+    "P0357": {
         "domain": "Inventory and Record Management",
-        "task": "Verify double-entry ledger balance across debit and credit postings",
+        "task": "Straight-line depreciation book values of a fixed asset",
         "category": "None",
-        "code": '''def ledger_trial_balance(entries: list[tuple[str, str, int]]) -> tuple[bool, int]:
-    debit_cents = 0
-    credit_cents = 0
-    for account, side, amount in entries:
-        if amount < 0:
-            raise ValueError("amount must be non-negative")
-        if side == "DR":
-            debit_cents += amount
-        elif side == "CR":
-            credit_cents += amount
+        "code": '''def straight_line_schedule(cost: float, salvage: float, years: int) -> list[float]:
+    if years <= 0:
+        raise ValueError("years must be positive")
+    annual = (cost - salvage) / years
+    book_values = []
+    value = cost
+    for _ in range(years):
+        value -= annual
+        book_values.append(round(value, 2))
+    return book_values
+
+if __name__ == "__main__":
+    assert straight_line_schedule(1000.0, 100.0, 3) == [700.0, 400.0, 100.0]
+'''
+    },
+    "P0358": {
+        "domain": "Scheduling and Resource Allocation",
+        "task": "Minimum number of meeting rooms for overlapping intervals using a heap",
+        "category": "None",
+        "code": '''import heapq
+
+def min_meeting_rooms(intervals: list[tuple[int, int]]) -> int:
+    ends: list[int] = []
+    for start, end in sorted(intervals):
+        if ends and ends[0] <= start:
+            heapq.heapreplace(ends, end)
         else:
-            raise ValueError("unknown entry side")
-    imbalance = debit_cents - credit_cents
-    return imbalance == 0, imbalance
+            heapq.heappush(ends, end)
+    return len(ends)
 
 if __name__ == "__main__":
-    assert ledger_trial_balance([("cash", "DR", 500), ("sales", "CR", 500)]) == (True, 0)
-    assert ledger_trial_balance([("cash", "DR", 500), ("sales", "CR", 450)]) == (False, 50)
-'''
-    },
-    "P0308": {
-        "domain": "Scheduling and Resource Allocation",
-        "task": "Shortest-processing-time single machine mean flow time",
-        "category": "None",
-        "code": '''def spt_mean_flow_time(durations: list[float]) -> float:
-    if not durations:
-        return 0.0
-    ordered = sorted(durations)
-    elapsed = 0.0
-    total_flow = 0.0
-    for duration in ordered:
-        if duration < 0.0:
-            raise ValueError("duration must be non-negative")
-        elapsed += duration
-        total_flow += elapsed
-    return round(total_flow / len(ordered), 4)
-
-if __name__ == "__main__":
-    assert spt_mean_flow_time([5.0, 2.0, 8.0]) == 8.0
-    assert spt_mean_flow_time([]) == 0.0
+    assert min_meeting_rooms([(0, 30), (5, 10), (15, 20)]) == 2
+    assert min_meeting_rooms([(1, 2), (2, 3)]) == 1
+    assert min_meeting_rooms([]) == 0
 '''
     },
 
-    # 2. LONG STATEMENT ONLY (6 programs: P0309 - P0314)
-    "P0309": {
+    # 2. LONG STATEMENT ONLY (6 programs: P0359 - P0364)
+    "P0359": {
         "domain": "Numerical Computation",
-        "task": "Tetens saturation vapor pressure and dew point temperature",
+        "task": "Body surface area by the Mosteller and DuBois formulas",
         "category": "Long statement only",
         "code": '''import math
 
-def saturation_and_dew_point(temp_c: float, rel_humidity_pct: float) -> tuple[float, float]:
-    sat_kpa = 0.61078 * math.exp((17.27 * temp_c) / (temp_c + 237.3))
-    actual_kpa = sat_kpa * (rel_humidity_pct / 100.0)
-    gamma = math.log(actual_kpa / 0.61078)
-    dew_point_c = (237.3 * gamma) / (17.27 - gamma)
-    return round(sat_kpa, 4), round(dew_point_c, 2)
+def body_surface_areas(height_cm: float, weight_kg: float) -> tuple[float, float]:
+    mosteller_m2 = math.sqrt(height_cm * weight_kg / 3600.0)
+    dubois_m2 = 0.007184 * (weight_kg ** 0.425) * (height_cm ** 0.725)
+    return round(mosteller_m2, 3), round(dubois_m2, 3)
 
 if __name__ == "__main__":
-    sat, dew = saturation_and_dew_point(25.0, 50.0)
-    assert abs(sat - 3.1678) < 0.01 and abs(dew - 13.86) < 0.1
+    mosteller, dubois = body_surface_areas(180.0, 80.0)
+    assert mosteller == 2.0 and 1.9 < dubois < 2.1
 '''
     },
-    "P0310": {
+    "P0360": {
         "domain": "Data Aggregation and Statistics",
-        "task": "Sample excess kurtosis with finite-sample bias adjustment",
+        "task": "Sharpe and Sortino ratios from periodic portfolio returns",
         "category": "Long statement only",
-        "code": '''def sample_excess_kurtosis(values: list[float]) -> float:
-    n = len(values)
-    if n < 4:
-        raise ValueError("need at least four observations")
-    mean = sum(values) / n
-    m2 = sum((x - mean) ** 2 for x in values) / n
-    m4 = sum((x - mean) ** 4 for x in values) / n
-    excess = ((n - 1) / ((n - 2) * (n - 3))) * ((n + 1) * (m4 / (m2 ** 2)) - 3.0 * (n - 1))
-    return round(excess, 4)
+        "code": '''import math
+
+def sharpe_sortino_ratios(returns: list[float], risk_free: float) -> tuple[float, float]:
+    n = len(returns)
+    if n < 2:
+        raise ValueError("need at least two returns")
+    excess = [r - risk_free for r in returns]
+    mean_excess = sum(excess) / n
+    total_sd = math.sqrt(sum((e - mean_excess) ** 2 for e in excess) / (n - 1))
+    downside_sd = math.sqrt(sum(min(0.0, e) ** 2 for e in excess) / n)
+    sharpe = mean_excess / total_sd if total_sd > 0 else 0.0
+    sortino = mean_excess / downside_sd if downside_sd > 0 else 0.0
+    return round(sharpe, 4), round(sortino, 4)
 
 if __name__ == "__main__":
-    assert sample_excess_kurtosis([1.0, 2.0, 3.0, 4.0, 5.0]) == -1.2
+    sharpe, sortino = sharpe_sortino_ratios([0.1, -0.05, 0.2, 0.0], 0.0)
+    assert 0.5 < sharpe < 0.6 and sortino == 2.5
 '''
     },
-    "P0311": {
+    "P0361": {
         "domain": "String Processing & Text Analysis",
-        "task": "BM25 single-term relevance score for a document in a collection",
+        "task": "Gunning fog readability index from sentence and syllable-heavy word counts",
         "category": "Long statement only",
-        "code": '''import math
-
-def bm25_term_score(term_freq: int, doc_len: int, avg_doc_len: float, total_docs: int, docs_with_term: int) -> float:
-    k1 = 1.5
-    b = 0.75
-    idf = math.log(1.0 + (total_docs - docs_with_term + 0.5) / (docs_with_term + 0.5))
-    tf_norm = (term_freq * (k1 + 1.0)) / (term_freq + k1 * (1.0 - b + b * (doc_len / avg_doc_len)))
-    return round(idf * tf_norm, 4)
+        "code": '''def gunning_fog_index(text: str) -> float:
+    sentences = max(1, text.count(".") + text.count("!") + text.count("?"))
+    words = [w.strip(".,!?;:").lower() for w in text.split() if w.strip(".,!?;:")]
+    complex_words = sum(1 for w in words if sum(1 for ch in w if ch in "aeiouy") >= 3)
+    fog = 0.4 * ((len(words) / sentences) + 100.0 * (complex_words / max(1, len(words))))
+    return round(fog, 2)
 
 if __name__ == "__main__":
-    assert bm25_term_score(3, 120, 100.0, 1000, 50) > 4.0
-    assert bm25_term_score(0, 120, 100.0, 1000, 50) == 0.0
+    assert gunning_fog_index("The cat sat. It was happy.") == 1.2
 '''
     },
-    "P0312": {
+    "P0362": {
         "domain": "Inventory and Record Management",
-        "task": "Newsvendor critical fractile and normal optimal order quantity",
+        "task": "Annual carrying cost of average inventory from capital, storage and obsolescence rates",
         "category": "Long statement only",
-        "code": '''import math
-
-def newsvendor_order_quantity(mean_demand: float, demand_sd: float, retail_price: float, unit_cost: float, salvage_value: float) -> tuple[float, float]:
-    underage_cost = retail_price - unit_cost
-    overage_cost = unit_cost - salvage_value
-    critical_fractile = underage_cost / (underage_cost + overage_cost)
-    approx_z = 4.91 * (critical_fractile ** 0.14 - (1.0 - critical_fractile) ** 0.14)
-    optimal_units = max(0.0, mean_demand + approx_z * demand_sd + 0.0 * math.pi)
-    return round(critical_fractile, 4), round(optimal_units, 2)
+        "code": '''def annual_carrying_cost(order_qty: float, safety_stock: float, unit_cost: float, capital_rate: float, storage_rate: float, obsolescence_rate: float) -> float:
+    average_units = order_qty / 2.0 + safety_stock
+    carrying_rate = capital_rate + storage_rate + obsolescence_rate
+    annual_cost = average_units * unit_cost * carrying_rate
+    return round(annual_cost, 2)
 
 if __name__ == "__main__":
-    frac, qty = newsvendor_order_quantity(200.0, 30.0, 50.0, 20.0, 5.0)
-    assert frac == 0.6667 and 212.0 < qty < 214.0
+    assert annual_carrying_cost(200.0, 50.0, 10.0, 0.1, 0.05, 0.05) == 300.0
 '''
     },
-    "P0313": {
+    "P0363": {
         "domain": "Small Simulation and Rule-based Systems",
-        "task": "Single-node RC thermal step response under constant joule heating",
+        "task": "Free-fall velocity and distance under linear air drag",
         "category": "Long statement only",
         "code": '''import math
 
-def rc_thermal_step(ambient_c: float, initial_c: float, power_w: float, thermal_res_cw: float, thermal_cap_jc: float, elapsed_s: float) -> float:
-    tau = thermal_res_cw * thermal_cap_jc
-    steady_state_c = ambient_c + power_w * thermal_res_cw
-    instantaneous_c = steady_state_c + (initial_c - steady_state_c) * math.exp(-elapsed_s / tau)
-    return round(instantaneous_c, 3)
+def drag_fall_state(mass_kg: float, drag_coeff: float, time_s: float, gravity: float = 9.81) -> tuple[float, float]:
+    terminal_velocity = mass_kg * gravity / drag_coeff
+    decay = math.exp(-drag_coeff * time_s / mass_kg)
+    velocity = terminal_velocity * (1.0 - decay)
+    distance = terminal_velocity * time_s - terminal_velocity * (mass_kg / drag_coeff) * (1.0 - decay)
+    return round(velocity, 3), round(distance, 3)
 
 if __name__ == "__main__":
-    assert rc_thermal_step(25.0, 25.0, 10.0, 2.0, 5.0, 0.0) == 25.0
-    assert rc_thermal_step(25.0, 25.0, 10.0, 2.0, 5.0, 1000.0) == 45.0
+    assert drag_fall_state(80.0, 10.0, 0.0) == (0.0, 0.0)
+    assert drag_fall_state(80.0, 10.0, 1000.0)[0] == 78.48
 '''
     },
-    "P0314": {
+    "P0364": {
         "domain": "Scheduling and Resource Allocation",
-        "task": "Kingman VUT queue waiting time approximation for a single workstation",
+        "task": "Little's law cycle time and excess work-in-process for a production line",
         "category": "Long statement only",
-        "code": '''def kingman_wait_minutes(arrival_rate_per_hr: float, service_rate_per_hr: float, cv_arrival: float, cv_service: float) -> float:
-    utilization = arrival_rate_per_hr / service_rate_per_hr
-    if utilization >= 1.0 or utilization <= 0.0:
-        raise ValueError("utilization must be strictly between 0 and 1")
-    mean_service_min = 60.0 / service_rate_per_hr
-    expected_wait_min = ((cv_arrival ** 2 + cv_service ** 2) / 2.0) * (utilization / (1.0 - utilization)) * mean_service_min
-    return round(expected_wait_min, 3)
+        "code": '''def littles_law_metrics(throughput_per_hr: float, wip_units: float, target_cycle_hr: float) -> tuple[float, float]:
+    if throughput_per_hr <= 0.0:
+        raise ValueError("throughput must be positive")
+    cycle_time_hr = wip_units / throughput_per_hr
+    wip_needed_for_target = throughput_per_hr * target_cycle_hr
+    excess_wip_fraction = (wip_units - wip_needed_for_target) / max(1.0, wip_needed_for_target)
+    return round(cycle_time_hr, 3), round(excess_wip_fraction, 3)
 
 if __name__ == "__main__":
-    assert kingman_wait_minutes(12.0, 15.0, 1.0, 1.0) == 16.0
+    assert littles_law_metrics(10.0, 50.0, 4.0) == (5.0, 0.25)
 '''
     },
 
-    # 3. NESTED LOOP ONLY (6 programs: P0315 - P0320)
-    "P0315": {
+    # 3. NESTED LOOP ONLY (6 programs: P0365 - P0370)
+    "P0365": {
         "domain": "Searching and Sorting",
-        "task": "Odd-even transposition brick sort for a list of integers",
+        "task": "Comb sort with a shrinking comparison gap",
         "category": "Nested loop only",
-        "code": '''def odd_even_brick_sort(values: list[int]) -> list[int]:
+        "code": '''def comb_sort_values(values: list[int]) -> list[int]:
     arr = list(values)
-    n = len(arr)
-    for phase in range(n):
-        start = phase % 2
-        for idx in range(start, n - 1, 2):
-            if arr[idx] > arr[idx + 1]:
-                arr[idx], arr[idx + 1] = arr[idx + 1], arr[idx]
+    gap = len(arr)
+    swapped = True
+    while gap > 1 or swapped:
+        gap = max(1, int(gap / 1.3))
+        swapped = False
+        for i in range(len(arr) - gap):
+            if arr[i] > arr[i + gap]:
+                arr[i], arr[i + gap] = arr[i + gap], arr[i]
+                swapped = True
     return arr
 
 if __name__ == "__main__":
-    assert odd_even_brick_sort([9, 3, 7, 1, 5, 2]) == [1, 2, 3, 5, 7, 9]
-    assert odd_even_brick_sort([]) == []
+    assert comb_sort_values([8, 4, 1, 56, 3, -44, 23]) == [-44, 1, 3, 4, 8, 23, 56]
+    assert comb_sort_values([]) == []
 '''
     },
-    "P0316": {
+    "P0366": {
         "domain": "Matrix & Grid Operations",
-        "task": "Lower-triangular Pascal binomial table up to order n",
+        "task": "Spiral order traversal of a rectangular matrix",
         "category": "Nested loop only",
-        "code": '''def pascal_triangle_table(order: int) -> list[list[int]]:
-    rows = []
-    for r in range(order + 1):
-        row = [1] * (r + 1)
-        for c in range(1, r):
-            row[c] = rows[r - 1][c - 1] + rows[r - 1][c]
-        rows.append(row)
-    return rows
+        "code": '''def spiral_order(matrix: list[list[int]]) -> list[int]:
+    result = []
+    if not matrix:
+        return result
+    top, bottom = 0, len(matrix) - 1
+    left, right = 0, len(matrix[0]) - 1
+    while top <= bottom and left <= right:
+        for c in range(left, right + 1):
+            result.append(matrix[top][c])
+        top += 1
+        for r in range(top, bottom + 1):
+            result.append(matrix[r][right])
+        right -= 1
+        if top <= bottom:
+            for c in range(right, left - 1, -1):
+                result.append(matrix[bottom][c])
+            bottom -= 1
+        if left <= right:
+            for r in range(bottom, top - 1, -1):
+                result.append(matrix[r][left])
+            left += 1
+    return result
 
 if __name__ == "__main__":
-    assert pascal_triangle_table(4)[-1] == [1, 4, 6, 4, 1]
-    assert pascal_triangle_table(0) == [[1]]
+    assert spiral_order([[1, 2, 3], [4, 5, 6], [7, 8, 9]]) == [1, 2, 3, 6, 9, 8, 7, 4, 5]
+    assert spiral_order([]) == []
 '''
     },
-    "P0317": {
+    "P0367": {
         "domain": "String Processing & Text Analysis",
-        "task": "Character transition bigram count matrix across a word list",
+        "task": "Longest common prefix shared by every word in a list",
         "category": "Nested loop only",
-        "code": '''def character_bigram_counts(words: list[str]) -> dict[str, int]:
-    counts: dict[str, int] = {}
-    for word in words:
-        cleaned = word.lower()
-        for idx in range(len(cleaned) - 1):
-            pair = cleaned[idx:idx + 2]
-            counts[pair] = counts.get(pair, 0) + 1
-    return counts
-
-if __name__ == "__main__":
-    assert character_bigram_counts(["banana"]) == {"ba": 1, "an": 2, "na": 2}
-    assert character_bigram_counts(["a", ""]) == {}
-'''
-    },
-    "P0318": {
-        "domain": "Graph or Tree Traversal",
-        "task": "Kahn topological ordering of a directed acyclic graph",
-        "category": "Nested loop only",
-        "code": '''from collections import deque
-
-def kahn_topological_order(graph: dict[str, list[str]]) -> list[str]:
-    in_degree = {u: 0 for u in graph}
-    for u, neighbors in graph.items():
-        for v in neighbors:
-            in_degree[v] = in_degree.get(v, 0) + 1
-    zero_nodes = [u for u, d in in_degree.items() if d == 0]
-    ready = deque(sorted(zero_nodes))
-    order = []
-    while ready:
-        node = ready.popleft()
-        order.append(node)
-        for nxt in graph.get(node, []):
-            in_degree[nxt] -= 1
-            if in_degree[nxt] == 0:
-                ready.append(nxt)
-    return order
-
-if __name__ == "__main__":
-    g = {"a": ["b", "c"], "b": ["d"], "c": ["d"], "d": []}
-    assert kahn_topological_order(g) == ["a", "b", "c", "d"]
-'''
-    },
-    "P0319": {
-        "domain": "Data Aggregation and Statistics",
-        "task": "Empirical joint histogram over two-dimensional bin edges",
-        "category": "Nested loop only",
-        "code": '''def joint_grid_histogram(xs: list[float], ys: list[float], bins: int) -> list[list[int]]:
-    grid = []
-    for _ in range(bins):
-        grid.append([0] * bins)
-    for r in range(bins):
-        for c in range(bins):
-            for x, y in zip(xs, ys):
-                ix = min(bins - 1, max(0, int(x * bins)))
-                iy = min(bins - 1, max(0, int(y * bins)))
-                if ix == r and iy == c:
-                    grid[r][c] += 1
-    return grid
-
-if __name__ == "__main__":
-    xs, ys = [0.1, 0.1, 0.9], [0.2, 0.8, 0.9]
-    assert joint_grid_histogram(xs, ys, 2) == [[1, 1], [0, 1]]
-'''
-    },
-    "P0320": {
-        "domain": "Small Simulation and Rule-based Systems",
-        "task": "Abelian sandpile toppling relaxation on a square grid",
-        "category": "Nested loop only",
-        "code": '''def relax_abelian_sandpile(initial: list[list[int]]) -> list[list[int]]:
-    size = len(initial)
-    grid = [row[:] for row in initial]
-    changed = True
-    while changed:
-        changed = False
-        for r in range(size):
-            for c in range(size):
-                if grid[r][c] >= 4:
-                    spill = grid[r][c] // 4
-                    grid[r][c] %= 4
-                    changed = True
-                    if r > 0:
-                        grid[r - 1][c] += spill
-                    if r + 1 < size:
-                        grid[r + 1][c] += spill
-                    if c > 0:
-                        grid[r][c - 1] += spill
-                    if c + 1 < size:
-                        grid[r][c + 1] += spill
-    return grid
-
-if __name__ == "__main__":
-    assert relax_abelian_sandpile([[0, 0, 0], [0, 4, 0], [0, 0, 0]]) == [[0, 1, 0], [1, 0, 1], [0, 1, 0]]
-'''
-    },
-
-    # 4. COMPLEX CONDITIONAL ONLY (6 programs: P0321 - P0326)
-    "P0321": {
-        "domain": "String Processing & Text Analysis",
-        "task": "Validate semantic version strings with optional pre-release tags",
-        "category": "Complex conditional only",
-        "code": '''def is_valid_semver(version: str) -> bool:
-    core, sep, prerelease = version.partition("-")
-    parts = core.split(".")
-    if len(parts) != 3 or (sep == "-" and not prerelease):
-        return False
-    for num in parts:
-        if not num.isdigit() or (len(num) > 1 and num.startswith("0")):
-            return False
-    if prerelease:
-        for ident in prerelease.split("."):
-            if not ident or not ident.replace("-", "").isalnum():
-                return False
-            if ident.isdigit() and len(ident) > 1 and ident.startswith("0"):
-                return False
-    return True
-
-if __name__ == "__main__":
-    assert is_valid_semver("1.2.3-alpha.1") is True
-    assert is_valid_semver("01.2.3") is False
-    assert is_valid_semver("1.2.3-01") is False
-'''
-    },
-    "P0322": {
-        "domain": "Numerical Computation",
-        "task": "Check strict diagonal dominance and positivity of a 3x3 matrix",
-        "category": "Complex conditional only",
-        "code": '''def is_strictly_diagonally_dominant_3x3(m: list[list[float]]) -> bool:
-    if len(m) != 3 or len(m[0]) != 3 or len(m[1]) != 3 or len(m[2]) != 3:
-        return False
-    d0, d1, d2 = abs(m[0][0]), abs(m[1][1]), abs(m[2][2])
-    r0 = abs(m[0][1]) + abs(m[0][2])
-    r1 = abs(m[1][0]) + abs(m[1][2])
-    r2 = abs(m[2][0]) + abs(m[2][1])
-    if d0 <= r0 or d1 <= r1 or d2 <= r2:
-        return False
-    return m[0][0] > 0 and m[1][1] > 0 and m[2][2] > 0
-
-if __name__ == "__main__":
-    assert is_strictly_diagonally_dominant_3x3([[4, -1, 1], [1, 5, -2], [0, 2, 3]]) is True
-    assert is_strictly_diagonally_dominant_3x3([[2, -1, 1], [1, 5, -2], [0, 2, 3]]) is False
-'''
-    },
-    "P0323": {
-        "domain": "Scheduling and Resource Allocation",
-        "task": "Determine blood donor deferral status from vitals and recent history",
-        "category": "Complex conditional only",
-        "code": '''def is_blood_donor_eligible(age: int, weight_kg: float, hemoglobin_g_dl: float, days_since_donation: int, recent_tattoo: bool) -> bool:
-    if age < 18 or age > 65 or weight_kg < 50.0:
-        return False
-    if hemoglobin_g_dl < 12.5 or hemoglobin_g_dl > 18.5:
-        return False
-    if days_since_donation < 56 or recent_tattoo:
-        return False
-    return True
-
-if __name__ == "__main__":
-    assert is_blood_donor_eligible(30, 65.0, 14.2, 90, False) is True
-    assert is_blood_donor_eligible(30, 65.0, 11.8, 90, False) is False
-    assert is_blood_donor_eligible(30, 65.0, 14.2, 40, False) is False
-'''
-    },
-    "P0324": {
-        "domain": "Inventory and Record Management",
-        "task": "Determine whether a warehouse bin can accept an incoming cold-storage lot",
-        "category": "Complex conditional only",
-        "code": '''def can_store_lot_in_bin(free_slots: int, pallets: int, cold_lot: bool, cold_bin: bool, temp_c: float, locked: bool) -> bool:
-    if locked or pallets <= 0 or free_slots < pallets:
-        return False
-    if cold_lot and (not cold_bin or temp_c > 4.0):
-        return False
-    return True
-
-if __name__ == "__main__":
-    assert can_store_lot_in_bin(6, 3, True, True, 2.5, False) is True
-    assert can_store_lot_in_bin(6, 3, True, True, 8.0, False) is False
-    assert can_store_lot_in_bin(2, 5, False, False, 20.0, False) is False
-'''
-    },
-    "P0325": {
-        "domain": "Small Simulation and Rule-based Systems",
-        "task": "Select elevator cabin dispatch state from hall calls, load and fire mode",
-        "category": "Complex conditional only",
-        "code": '''def elevator_dispatch_action(floor: int, target: int, load_kg: float, max_kg: float, fire_alarm: bool, door_blocked: bool) -> str:
-    if fire_alarm and floor != 1 and not door_blocked:
-        return "RECALL_GROUND"
-    if door_blocked or load_kg > max_kg:
-        return "HOLD_ALARM"
-    if fire_alarm and floor == 1:
-        return "PARK_OPEN"
-    if target > floor and load_kg <= max_kg:
-        return "ASCEND"
-    if target < floor and load_kg <= max_kg:
-        return "DESCEND"
-    return "IDLE"
-
-if __name__ == "__main__":
-    assert elevator_dispatch_action(5, 8, 300.0, 800.0, True, False) == "RECALL_GROUND"
-    assert elevator_dispatch_action(3, 7, 900.0, 800.0, False, False) == "HOLD_ALARM"
-    assert elevator_dispatch_action(2, 6, 400.0, 800.0, False, False) == "ASCEND"
-'''
-    },
-    "P0326": {
-        "domain": "Matrix & Grid Operations",
-        "task": "Check legality of a rook slide along an unobstructed rank or file",
-        "category": "Complex conditional only",
-        "code": '''def is_legal_rook_slide(start: tuple[int, int], end: tuple[int, int], occupied: set[tuple[int, int]]) -> bool:
-    r1, c1 = start
-    r2, c2 = end
-    if start == end or (r1 != r2 and c1 != c2) or not (0 <= r2 < 8 and 0 <= c2 < 8):
-        return False
-    dr = 0 if r1 == r2 else (1 if r2 > r1 else -1)
-    dc = 0 if c1 == c2 else (1 if c2 > c1 else -1)
-    cr, cc = r1 + dr, c1 + dc
-    while (cr, cc) != (r2, c2):
-        if (cr, cc) in occupied:
-            return False
-        cr += dr
-        cc += dc
-    return end not in occupied
-
-if __name__ == "__main__":
-    assert is_legal_rook_slide((0, 0), (0, 5), {(0, 7)}) is True
-    assert is_legal_rook_slide((0, 0), (0, 5), {(0, 3)}) is False
-    assert is_legal_rook_slide((1, 1), (3, 4), set()) is False
-'''
-    },
-
-    # 5. LONG STATEMENT AND NESTED LOOP (6 programs: P0327 - P0332)
-    "P0327": {
-        "domain": "Numerical Computation",
-        "task": "Gauss-Seidel iterative solver for a square linear system",
-        "category": "Long statement and nested loop",
-        "code": '''def gauss_seidel_solve(a: list[list[float]], b: list[float], iterations: int) -> list[float]:
-    n = len(b)
-    x = [0.0] * n
-    for _ in range(iterations):
-        for i in range(n):
-            off_diag = sum(a[i][j] * x[j] for j in range(n) if j != i)
-            x[i] = (b[i] - off_diag) / a[i][i]
-    return [round(val, 5) for val in x]
-
-if __name__ == "__main__":
-    sol = gauss_seidel_solve([[4.0, 1.0], [2.0, 3.0]], [1.0, 2.0], 25)
-    assert sol == [0.1, 0.6]
-'''
-    },
-    "P0328": {
-        "domain": "Data Aggregation and Statistics",
-        "task": "Bhattacharyya distance between normalized two-dimensional histograms",
-        "category": "Long statement and nested loop",
-        "code": '''import math
-
-def bhattacharyya_grid_distance(hist_p: list[list[float]], hist_q: list[list[float]]) -> float:
-    total_p = sum(sum(row) for row in hist_p)
-    total_q = sum(sum(row) for row in hist_q)
-    coeff = 0.0
-    for r in range(len(hist_p)):
-        for c in range(len(hist_p[r])):
-            coeff += math.sqrt((hist_p[r][c] / total_p) * (hist_q[r][c] / total_q))
-    return round(-math.log(max(1e-12, min(1.0, coeff))), 5)
-
-if __name__ == "__main__":
-    assert bhattacharyya_grid_distance([[1.0, 2.0], [3.0, 4.0]], [[1.0, 2.0], [3.0, 4.0]]) == 0.0
-    assert bhattacharyya_grid_distance([[9.0, 1.0], [1.0, 1.0]], [[1.0, 1.0], [1.0, 9.0]]) > 0.3
-'''
-    },
-    "P0329": {
-        "domain": "Small Simulation and Rule-based Systems",
-        "task": "Coupled Kuramoto phase oscillators synchronization step",
-        "category": "Long statement and nested loop",
-        "code": '''import math
-
-def kuramoto_step(phases: list[float], natural_freqs: list[float], coupling: float, dt: float) -> list[float]:
-    n = len(phases)
-    updated = []
-    for i in range(n):
-        interaction = 0.0
-        for j in range(n):
-            interaction += math.sin(phases[j] - phases[i])
-        next_phase = phases[i] + dt * (natural_freqs[i] + (coupling / n) * interaction)
-        updated.append(round(next_phase, 6))
-    return updated
-
-if __name__ == "__main__":
-    res = kuramoto_step([0.0, 1.0], [0.5, 0.5], 2.0, 0.1)
-    assert res[0] > 0.05 and res[1] < 1.05
-'''
-    },
-    "P0330": {
-        "domain": "Scheduling and Resource Allocation",
-        "task": "Proportional-fair downlink wireless resource block throughput matrix",
-        "category": "Long statement and nested loop",
-        "code": '''import math
-
-def proportional_fair_utilities(snr_db_grid: list[list[float]], avg_rates_mbps: list[float], bw_mhz: float) -> list[list[float]]:
-    utilities = []
-    for u, user_snrs in enumerate(snr_db_grid):
-        row = []
-        for snr_db in user_snrs:
-            instantaneous_rate = bw_mhz * math.log2(1.0 + 10.0 ** (snr_db / 10.0))
-            row.append(round(instantaneous_rate / max(0.1, avg_rates_mbps[u]), 4))
-        utilities.append(row)
-    return utilities
-
-if __name__ == "__main__":
-    grid = proportional_fair_utilities([[0.0, 10.0], [10.0, 0.0]], [1.0, 2.0], 1.0)
-    assert grid[0][0] == 1.0 and grid[1][1] == 0.5
-'''
-    },
-    "P0331": {
-        "domain": "Inventory and Record Management",
-        "task": "Multi-period Wagner-Whitin dynamic lot-sizing cost table",
-        "category": "Long statement and nested loop",
-        "code": '''def wagner_whitin_min_cost(demands: list[int], setup_cost: float, holding_cost: float) -> float:
-    periods = len(demands)
-    dp = [float("inf")] * (periods + 1)
-    dp[0] = 0.0
-    for t in range(1, periods + 1):
-        for s in range(1, t + 1):
-            carry_cost = sum((k - s) * demands[k - 1] * holding_cost for k in range(s, t + 1))
-            dp[t] = min(dp[t], dp[s - 1] + setup_cost + carry_cost)
-    return round(dp[periods], 2)
-
-if __name__ == "__main__":
-    assert wagner_whitin_min_cost([20, 30, 10], 100.0, 2.0) == 200.0
-'''
-    },
-    "P0332": {
-        "domain": "Matrix & Grid Operations",
-        "task": "Bilateral-weighted smoothing of a one-dimensional signal with spatial and range kernels",
-        "category": "Long statement and nested loop",
-        "code": '''import math
-
-def bilateral_filter_1d(signal: list[float], sigma_spatial: float, sigma_range: float) -> list[float]:
-    n = len(signal)
-    smoothed = []
-    for i in range(n):
-        num = 0.0
-        den = 0.0
-        for j in range(n):
-            weight = math.exp(-((i - j) ** 2) / (2.0 * sigma_spatial ** 2) - ((signal[i] - signal[j]) ** 2) / (2.0 * sigma_range ** 2))
-            num += weight * signal[j]
-            den += weight
-        smoothed.append(round(num / den, 4))
-    return smoothed
-
-if __name__ == "__main__":
-    out = bilateral_filter_1d([1.0, 1.0, 10.0, 10.0], 1.0, 0.5)
-    assert out[0] < 1.1 and out[3] > 9.9
-'''
-    },
-
-    # 6. LONG STATEMENT AND COMPLEX CONDITIONAL (6 programs: P0333 - P0338)
-    "P0333": {
-        "domain": "Numerical Computation",
-        "task": "Snell acoustic refraction angle and critical total internal reflection check",
-        "category": "Long statement and complex conditional",
-        "code": '''import math
-
-def snell_refraction_deg(incident_deg: float, c_medium1: float, c_medium2: float) -> tuple[str, float]:
-    if incident_deg < 0.0 or incident_deg >= 90.0 or c_medium1 <= 0.0 or c_medium2 <= 0.0:
-        raise ValueError("invalid angle or wave speeds")
-    sin_transmitted = (c_medium2 / c_medium1) * math.sin(math.radians(incident_deg))
-    if sin_transmitted >= 1.0:
-        critical_deg = math.degrees(math.asin(c_medium1 / c_medium2))
-        return ("total_internal_reflection", round(critical_deg, 3))
-    transmitted_deg = math.degrees(math.asin(sin_transmitted))
-    return ("refracted", round(transmitted_deg, 3))
-
-if __name__ == "__main__":
-    assert snell_refraction_deg(30.0, 1500.0, 1500.0) == ("refracted", 30.0)
-    assert snell_refraction_deg(60.0, 1500.0, 3000.0) == ("total_internal_reflection", 30.0)
-'''
-    },
-    "P0334": {
-        "domain": "Data Aggregation and Statistics",
-        "task": "Two-sample Welch t-statistic and significance decision",
-        "category": "Long statement and complex conditional",
-        "code": '''import math
-
-def welch_t_decision(mean1: float, var1: float, n1: int, mean2: float, var2: float, n2: int, critical_t: float) -> tuple[float, bool]:
-    if n1 < 2 or n2 < 2 or var1 < 0.0 or var2 < 0.0 or (var1 == 0.0 and var2 == 0.0):
-        raise ValueError("invalid sample statistics")
-    se = math.sqrt(var1 / n1 + var2 / n2)
-    t_stat = (mean1 - mean2) / se
-    df_num = (var1 / n1 + var2 / n2) ** 2
-    df_den = (var1 / n1) ** 2 / (n1 - 1) + (var2 / n2) ** 2 / (n2 - 1)
-    reject = abs(t_stat) >= critical_t and (df_num / df_den) >= 4.0 and se > 0.0
-    return round(t_stat, 4), reject
-
-if __name__ == "__main__":
-    assert welch_t_decision(10.0, 4.0, 16, 7.0, 4.0, 16, 2.0) == (4.2426, True)
-'''
-    },
-    "P0335": {
-        "domain": "String Processing & Text Analysis",
-        "task": "DKIM email header tag parser and cryptographic policy check",
-        "category": "Long statement and complex conditional",
-        "code": '''def evaluate_dkim_header(header: str, now_epoch: int) -> tuple[bool, int]:
-    tags = {}
-    for item in header.split(";"):
-        key, sep, val = item.strip().partition("=")
-        if sep:
-            tags[key.strip()] = val.strip()
-    algo = tags.get("a", "")
-    created = int(tags.get("t", "0"))
-    expires = int(tags.get("x", str(now_epoch + 3600)))
-    if tags.get("v") != "1" or algo not in ("rsa-sha256", "ed25519-sha256") or not tags.get("b") or not tags.get("d"):
-        return False, 0
-    if created > now_epoch or expires <= now_epoch or (expires - created) > 7 * 86400:
-        return False, 0
-    remaining_validity_hours = int((expires - now_epoch) / 3600.0 + (24 if algo == "ed25519-sha256" else 0))
-    return True, remaining_validity_hours
-
-if __name__ == "__main__":
-    assert evaluate_dkim_header("v=1; a=rsa-sha256; d=example.org; b=xyz; t=1000; x=8200", 1000) == (True, 2)
-    assert evaluate_dkim_header("v=1; a=rsa-sha1; d=example.org; b=xyz", 1000) == (False, 0)
-'''
-    },
-    "P0336": {
-        "domain": "Small Simulation and Rule-based Systems",
-        "task": "Lithium-ion cell fast-charge current taper and thermal cutback",
-        "category": "Long statement and complex conditional",
-        "code": '''def fast_charge_current_amps(soc: float, temp_c: float, cell_v: float, capacity_ah: float, fault_flag: bool) -> float:
-    if fault_flag or temp_c < 0.0 or temp_c > 55.0 or cell_v >= 4.25 or soc >= 1.0:
-        return 0.0
-    base_c_rate = 2.0 if 15.0 <= temp_c <= 40.0 and soc < 0.5 else 1.0
-    voltage_taper = max(0.1, (4.20 - max(3.60, cell_v)) / 0.60)
-    commanded_amps = capacity_ah * base_c_rate * min(1.0, voltage_taper) * (1.0 - 0.5 * max(0.0, soc - 0.8) / 0.2)
-    return round(commanded_amps, 3)
-
-if __name__ == "__main__":
-    assert fast_charge_current_amps(0.3, 25.0, 3.6, 50.0, False) == 100.0
-    assert fast_charge_current_amps(0.3, -5.0, 3.6, 50.0, False) == 0.0
-'''
-    },
-    "P0337": {
-        "domain": "Inventory and Record Management",
-        "task": "Letter-of-credit documentary discrepancy fee and payment release",
-        "category": "Long statement and complex conditional",
-        "code": '''def release_letter_of_credit(face_usd: float, shipped_days_late: int, invoice_usd: float, clean_bill: bool, insured: bool, sanctioned: bool) -> tuple[bool, float]:
-    if sanctioned or not clean_bill or not insured or shipped_days_late > 5 or invoice_usd > face_usd * 1.05:
-        return False, 0.0
-    overrun_usd = max(0.0, invoice_usd - face_usd)
-    discrepancy_fee = (75.0 if shipped_days_late > 0 else 0.0) + 0.02 * overrun_usd + 0.0015 * invoice_usd
-    net_payout = invoice_usd - discrepancy_fee
-    return True, round(net_payout, 2)
-
-if __name__ == "__main__":
-    assert release_letter_of_credit(10000.0, 0, 10000.0, True, True, False) == (True, 9985.0)
-    assert release_letter_of_credit(10000.0, 7, 10000.0, True, True, False) == (False, 0.0)
-'''
-    },
-    "P0338": {
-        "domain": "Scheduling and Resource Allocation",
-        "task": "EV charging depot transformer load curtailment and session tariff",
-        "category": "Long statement and complex conditional",
-        "code": '''def ev_depot_session_quote(requested_kwh: float, dwell_hours: float, grid_load_pct: float, peak_window: bool, fleet_contract: bool) -> tuple[float, float]:
-    if requested_kwh <= 0.0 or dwell_hours <= 0.0 or grid_load_pct >= 98.0:
-        return 0.0, 0.0
-    max_charger_kw = 22.0 if grid_load_pct < 80.0 and not (peak_window and not fleet_contract) else 11.0
-    delivered_kwh = min(requested_kwh, max_charger_kw * dwell_hours)
-    rate_per_kwh = 0.18 + (0.09 if peak_window else 0.0) - (0.04 if fleet_contract else 0.0)
-    total_charge = delivered_kwh * rate_per_kwh + (1.50 * dwell_hours if dwell_hours > 8.0 and not fleet_contract else 0.0)
-    return round(delivered_kwh, 2), round(total_charge, 2)
-
-if __name__ == "__main__":
-    assert ev_depot_session_quote(40.0, 2.0, 60.0, False, True) == (40.0, 5.6)
-    assert ev_depot_session_quote(40.0, 2.0, 99.0, False, True) == (0.0, 0.0)
-'''
-    },
-
-    # 7. NESTED LOOP AND COMPLEX CONDITIONAL (6 programs: P0339 - P0344)
-    "P0339": {
-        "domain": "Matrix & Grid Operations",
-        "task": "Find interior grid cells that are strict local extrema along both axes",
-        "category": "Nested loop and complex conditional",
-        "code": '''def find_axial_extrema(grid: list[list[float]]) -> list[tuple[int, int, str]]:
-    rows, cols = len(grid), len(grid[0])
-    extrema = []
-    for r in range(1, rows - 1):
-        for c in range(1, cols - 1):
-            val = grid[r][c]
-            up, down = grid[r - 1][c], grid[r + 1][c]
-            left, right = grid[r][c - 1], grid[r][c + 1]
-            if val > up and val > down and val > left and val > right:
-                extrema.append((r, c, "peak"))
-            elif val < up and val < down and val < left and val < right:
-                extrema.append((r, c, "pit"))
-    return extrema
-
-if __name__ == "__main__":
-    assert find_axial_extrema([[1, 2, 1], [2, 9, 2], [1, 2, 1]]) == [(1, 1, "peak")]
-    assert find_axial_extrema([[5, 4, 5], [4, 0, 4], [5, 4, 5]]) == [(1, 1, "pit")]
-'''
-    },
-    "P0340": {
-        "domain": "Graph or Tree Traversal",
-        "task": "Detect directed two-hop broker bridges between isolated security zones",
-        "category": "Nested loop and complex conditional",
-        "code": '''def find_zone_broker_bridges(edges: dict[str, list[str]], zones: dict[str, str], cleared: set[str]) -> list[tuple[str, str, str]]:
-    bridges = []
-    for src, mids in edges.items():
-        for mid in mids:
-            for dst in edges.get(mid, []):
-                if src != dst and zones.get(src) != zones.get(dst) and mid in cleared and dst not in mids:
-                    bridges.append((src, mid, dst))
-    return sorted(bridges)
-
-if __name__ == "__main__":
-    g = {"n1": ["b1"], "b1": ["n2"], "n2": []}
-    assert find_zone_broker_bridges(g, {"n1": "red", "b1": "dmz", "n2": "blue"}, {"b1"}) == [("n1", "b1", "n2")]
-'''
-    },
-    "P0341": {
-        "domain": "Scheduling and Resource Allocation",
-        "task": "Find radio channel co-channel interference conflicts across base stations",
-        "category": "Nested loop and complex conditional",
-        "code": '''def find_channel_interference_pairs(towers: list[tuple[str, float, float, float, int, bool]]) -> list[tuple[str, str]]:
-    conflicts = []
-    for i in range(len(towers)):
-        for j in range(i + 1, len(towers)):
-            id_a, xa, ya, ra, ch_a, on_a = towers[i]
-            id_b, xb, yb, rb, ch_b, on_b = towers[j]
-            dist_sq = (xa - xb) ** 2 + (ya - yb) ** 2
-            limit_sq = (ra + rb) ** 2
-            if on_a and on_b and abs(ch_a - ch_b) <= 1 and dist_sq < limit_sq:
-                conflicts.append((id_a, id_b))
-    return conflicts
-
-if __name__ == "__main__":
-    t1 = ("T1", 0.0, 0.0, 5.0, 6, True)
-    t2 = ("T2", 3.0, 4.0, 2.0, 6, True)
-    assert find_channel_interference_pairs([t1, t2]) == [("T1", "T2")]
-'''
-    },
-    "P0342": {
-        "domain": "String Processing & Text Analysis",
-        "task": "Match log lines against multi-clause intrusion detection signatures",
-        "category": "Nested loop and complex conditional",
-        "code": '''def match_intrusion_signatures(logs: list[str], rules: list[tuple[str, str, str, str]]) -> list[tuple[int, str]]:
-    hits = []
-    for idx, raw in enumerate(logs):
-        lower = raw.lower()
-        for name, kw1, kw2, allow_tag in rules:
-            if kw1 in lower and kw2 in lower and allow_tag not in lower:
-                hits.append((idx, name))
-    return hits
-
-if __name__ == "__main__":
-    rule = ("SQLI", "union", "select", "ok")
-    sample = ["GET /q?x=UNION+SELECT", "ok UNION SELECT"]
-    assert match_intrusion_signatures(sample, [rule]) == [(0, "SQLI")]
-'''
-    },
-    "P0343": {
-        "domain": "Small Simulation and Rule-based Systems",
-        "task": "Advance vehicle platooning gap regulation across highway lanes",
-        "category": "Nested loop and complex conditional",
-        "code": '''def step_lane_platoons(lanes: list[list[tuple[float, float, bool]]], safe_gap: float) -> list[list[str]]:
-    commands = []
-    for lane in lanes:
-        lane_cmds = ["CRUISE"]
-        for idx in range(1, len(lane)):
-            lead_pos, lead_v, _ = lane[idx - 1]
-            fol_pos, fol_v, manual = lane[idx]
-            gap = lead_pos - fol_pos
-            if gap < safe_gap and fol_v > lead_v and not manual:
-                lane_cmds.append("BRAKE")
-            elif gap > safe_gap * 2.0 and fol_v <= lead_v and not manual:
-                lane_cmds.append("ACCEL")
-            else:
-                lane_cmds.append("CRUISE")
-        commands.append(lane_cmds)
-    return commands
-
-if __name__ == "__main__":
-    cars = [(100.0, 20.0, False), (90.0, 25.0, False)]
-    assert step_lane_platoons([cars], 15.0) == [["CRUISE", "BRAKE"]]
-'''
-    },
-    "P0344": {
-        "domain": "Inventory and Record Management",
-        "task": "Cross-match blood bank unit bags to compatible patient requests",
-        "category": "Nested loop and complex conditional",
-        "code": '''def allocate_blood_units(requests: list[tuple[str, str, int]], bags: list[tuple[str, str, int, int]]) -> dict[str, str]:
-    used = set()
-    assigned = {}
-    for pid, req_abo, min_ml in requests:
-        for bid, bag_abo, days_left, vol_ml in bags:
-            if bid in used:
-                continue
-            if (bag_abo == "O" or bag_abo == req_abo) and days_left >= 2 and vol_ml >= min_ml:
-                assigned[pid] = bid
-                used.add(bid)
+        "code": '''def longest_shared_prefix(words: list[str]) -> str:
+    if not words:
+        return ""
+    prefix = words[0]
+    for word in words[1:]:
+        length = 0
+        for a, b in zip(prefix, word):
+            if a != b:
                 break
-    return assigned
+            length += 1
+        prefix = prefix[:length]
+    return prefix
 
 if __name__ == "__main__":
-    reqs = [("P1", "A", 450)]
-    stock = [("B1", "B", 10, 500), ("B2", "O", 5, 500)]
-    assert allocate_blood_units(reqs, stock) == {"P1": "B2"}
+    assert longest_shared_prefix(["flower", "flow", "flight"]) == "fl"
+    assert longest_shared_prefix(["dog", "car"]) == ""
 '''
     },
+    "P0368": {
+        "domain": "Graph or Tree Traversal",
+        "task": "Dijkstra single-source shortest path distances with a binary heap",
+        "category": "Nested loop only",
+        "code": '''import heapq
 
-    # 8. ALL THREE TARGET ISSUES (6 programs: P0345 - P0350)
-    "P0345": {
-        "domain": "Small Simulation and Rule-based Systems",
-        "task": "Gaussian plume downwind atmospheric pollutant dispersion grid alert",
-        "category": "All three target issues",
-        "code": '''import math
-
-def dispersion_grid_exceedances(sources: list[dict[str, float]], receptors: list[tuple[float, float]], wind_ms: float, limit_ug_m3: float) -> list[tuple[int, float]]:
-    exceeded = []
-    for idx, (rx, ry) in enumerate(receptors):
-        total_conc = 0.0
-        for src in sources:
-            dx = rx - src["x"]
-            dy = ry - src["y"]
-            if dx > 0.0 and wind_ms >= 0.5 and src["emission_g_s"] > 0.0:
-                sigma_y = 0.08 * dx * (1.0 + 0.0001 * dx) ** (-0.5)
-                sigma_z = 0.06 * dx * (1.0 + 0.0015 * dx) ** (-0.5)
-                plume_ug_m3 = (src["emission_g_s"] * 1e6 / (math.pi * wind_ms * sigma_y * sigma_z)) * math.exp(-0.5 * (dy / sigma_y) ** 2 - 0.5 * (src["stack_m"] / sigma_z) ** 2)
-                total_conc += plume_ug_m3
-        if total_conc >= limit_ug_m3:
-            exceeded.append((idx, round(total_conc, 2)))
-    return exceeded
-
-if __name__ == "__main__":
-    hits = dispersion_grid_exceedances([{"x": 0.0, "y": 0.0, "stack_m": 10.0, "emission_g_s": 50.0}], [(500.0, 0.0), (-100.0, 0.0)], 4.0, 100.0)
-    assert len(hits) == 1 and hits[0][0] == 0
-'''
-    },
-    "P0346": {
-        "domain": "Matrix & Grid Operations",
-        "task": "Synthetic aperture radar phase interferogram coherence and fringe detector",
-        "category": "All three target issues",
-        "code": '''import math
-
-def detect_insar_fringe_cells(amp: list[list[float]], phase: list[list[float]], min_amp: float) -> list[tuple[int, int, float]]:
-    rows, cols = len(amp), len(amp[0])
-    fringes = []
-    for r in range(1, rows - 1):
-        for c in range(1, cols - 1):
-            grad_x = math.atan2(math.sin(phase[r][c + 1] - phase[r][c - 1]), math.cos(phase[r][c + 1] - phase[r][c - 1]))
-            grad_y = math.atan2(math.sin(phase[r + 1][c] - phase[r - 1][c]), math.cos(phase[r + 1][c] - phase[r - 1][c]))
-            fringe_rate = math.hypot(grad_x, grad_y)
-            if amp[r][c] >= min_amp and amp[r][c + 1] >= min_amp and fringe_rate > 1.2:
-                fringes.append((r, c, round(fringe_rate, 3)))
-    return fringes
-
-if __name__ == "__main__":
-    a = [[5.0, 5.0, 5.0], [5.0, 5.0, 5.0], [5.0, 5.0, 5.0]]
-    p = [[0.0, 0.0, 0.0], [0.0, 1.0, 2.5], [0.0, 0.0, 0.0]]
-    assert detect_insar_fringe_cells(a, p, 2.0) == [(1, 1, 2.5)]
-'''
-    },
-    "P0347": {
-        "domain": "Scheduling and Resource Allocation",
-        "task": "Assign maritime harbour tugboats to incoming vessels under bollard pull and draft rules",
-        "category": "All three target issues",
-        "code": '''def assign_harbour_tugboats(vessels: list[dict], tugs: list[dict], tide_m: float) -> dict[str, str]:
-    busy = set()
-    berth_plan = {}
-    for vessel in sorted(vessels, key=lambda v: -v["tonnage"]):
-        required_pull_t = 0.0012 * vessel["tonnage"] + 0.8 * vessel["wind_area_m2"] * (vessel["wind_kts"] / 20.0) ** 2
-        for tug in tugs:
-            if tug["id"] in busy:
-                continue
-            if tug["bollard_pull_t"] >= required_pull_t and vessel["draft_m"] <= tug["channel_depth_m"] + tide_m and (not vessel["hazmat"] or tug["firefighting"]):
-                berth_plan[vessel["imo"]] = tug["id"]
-                busy.add(tug["id"])
-                break
-    return berth_plan
-
-if __name__ == "__main__":
-    v = [{"imo": "V1", "tonnage": 30000, "wind_area_m2": 500.0, "wind_kts": 10.0, "draft_m": 11.0, "hazmat": True}]
-    t = [{"id": "T1", "bollard_pull_t": 150.0, "channel_depth_m": 10.0, "firefighting": True}]
-    assert assign_harbour_tugboats(v, t, 2.0) == {"V1": "T1"}
-'''
-    },
-    "P0348": {
-        "domain": "Inventory and Record Management",
-        "task": "Reconcile fuel depot tank strapping dip readings against metered flow totals",
-        "category": "All three target issues",
-        "code": '''def audit_depot_tank_losses(depots: list[dict], max_loss_pct: float) -> list[tuple[str, str, float]]:
-    alerts = []
-    for depot in depots:
-        for tank in depot["tanks"]:
-            thermal_factor = 1.0 - 0.00085 * (tank["temp_c"] - 15.0)
-            expected_liters = (tank["opening_l"] + sum(tank["receipts_l"]) - sum(tank["dispensed_l"])) * thermal_factor
-            variance_pct = abs(tank["strapped_l"] - expected_liters) / max(1.0, expected_liters) * 100.0
-            if variance_pct > max_loss_pct and tank["water_bottom_mm"] < 25.0 and not tank.get("meter_calibrating", False):
-                alerts.append((depot["code"], tank["id"], round(variance_pct, 2)))
-    return alerts
-
-if __name__ == "__main__":
-    tank = {"id": "TK1", "temp_c": 15.0, "opening_l": 10000.0, "receipts_l": [2000.0], "dispensed_l": [1000.0], "strapped_l": 10500.0, "water_bottom_mm": 5.0}
-    assert audit_depot_tank_losses([{"code": "D1", "tanks": [tank]}], 2.0) == [("D1", "TK1", 4.55)]
-'''
-    },
-    "P0349": {
-        "domain": "Numerical Computation",
-        "task": "Grid search of Tuned Mass Damper parameters for structural resonance suppression",
-        "category": "All three target issues",
-        "code": '''import math
-
-def optimize_tuned_mass_damper(freq_ratios: list[float], damping_ratios: list[float], mass_ratio: float) -> tuple[float, float, float]:
-    best = (0.0, 0.0, float("inf"))
-    for f_ratio in freq_ratios:
-        for zeta in damping_ratios:
-            if f_ratio <= 0.5 or zeta <= 0.01 or zeta >= 0.5:
-                continue
-            peak_amp = 0.0
-            for step in range(80, 121):
-                g = step / 100.0
-                real_part = (f_ratio ** 2 - g ** 2) * (1.0 - g ** 2) - mass_ratio * (g ** 2) * (f_ratio ** 2)
-                imag_part = 2.0 * zeta * g * f_ratio * (1.0 - g ** 2 * (1.0 + mass_ratio))
-                amp = math.hypot(f_ratio ** 2 - g ** 2, 2.0 * zeta * g * f_ratio) / max(1e-9, math.hypot(real_part, imag_part))
-                peak_amp = max(peak_amp, amp)
-            if peak_amp < best[2]:
-                best = (f_ratio, zeta, round(peak_amp, 3))
+def dijkstra_distances(graph: dict[str, list[tuple[str, float]]], source: str) -> dict[str, float]:
+    best = {source: 0.0}
+    heap = [(0.0, source)]
+    while heap:
+        dist, node = heapq.heappop(heap)
+        if dist > best.get(node, float("inf")):
+            continue
+        for neighbor, weight in graph.get(node, []):
+            candidate = dist + weight
+            if candidate < best.get(neighbor, float("inf")):
+                best[neighbor] = candidate
+                heapq.heappush(heap, (candidate, neighbor))
     return best
 
 if __name__ == "__main__":
-    res = optimize_tuned_mass_damper([0.95, 1.0], [0.05, 0.12], 0.05)
-    assert res[0] == 0.95 and res[2] < 10.0
+    g = {"a": [("b", 4.0), ("c", 1.0)], "c": [("b", 2.0)]}
+    assert dijkstra_distances(g, "a") == {"a": 0.0, "b": 3.0, "c": 1.0}
 '''
     },
-    "P0350": {
+    "P0369": {
         "domain": "Data Aggregation and Statistics",
-        "task": "Flag clinical lab panels with multivariate z-score drift and hemolysis interference",
+        "task": "Kendall tau-a rank correlation from concordant and discordant pairs",
+        "category": "Nested loop only",
+        "code": '''def kendall_tau_a(xs: list[float], ys: list[float]) -> float:
+    n = len(xs)
+    if n < 2:
+        raise ValueError("need at least two pairs")
+    concordant = 0
+    discordant = 0
+    for i in range(n):
+        for j in range(i + 1, n):
+            sign = (xs[i] - xs[j]) * (ys[i] - ys[j])
+            if sign > 0:
+                concordant += 1
+            elif sign < 0:
+                discordant += 1
+    pairs = n * (n - 1) / 2
+    return round((concordant - discordant) / pairs, 4)
+
+if __name__ == "__main__":
+    assert kendall_tau_a([1, 2, 3], [1, 2, 3]) == 1.0
+    assert kendall_tau_a([1, 2, 3], [3, 2, 1]) == -1.0
+'''
+    },
+    "P0370": {
+        "domain": "Small Simulation and Rule-based Systems",
+        "task": "Langton's ant walk on a toroidal grid and final black-cell count",
+        "category": "Nested loop only",
+        "code": '''def langtons_ant_black_cells(size: int, steps: int) -> int:
+    grid = [[0] * size for _ in range(size)]
+    row, col = size // 2, size // 2
+    heading = 0
+    moves = [(-1, 0), (0, 1), (1, 0), (0, -1)]
+    for _ in range(steps):
+        if grid[row][col] == 0:
+            heading = (heading + 1) % 4
+        else:
+            heading = (heading - 1) % 4
+        grid[row][col] ^= 1
+        dr, dc = moves[heading]
+        row = (row + dr) % size
+        col = (col + dc) % size
+    black = 0
+    for line in grid:
+        for cell in line:
+            black += cell
+    return black
+
+if __name__ == "__main__":
+    assert langtons_ant_black_cells(5, 0) == 0
+    assert langtons_ant_black_cells(5, 4) == 4
+'''
+    },
+
+    # 4. COMPLEX CONDITIONAL ONLY (6 programs: P0371 - P0376)
+    "P0371": {
+        "domain": "String Processing & Text Analysis",
+        "task": "Validate hexadecimal colour codes in short, long and alpha forms",
+        "category": "Complex conditional only",
+        "code": '''def is_hex_color(code: str) -> bool:
+    if not code.startswith("#") or len(code) not in (4, 7, 9):
+        return False
+    for ch in code[1:]:
+        if not ("0" <= ch <= "9" or "a" <= ch.lower() <= "f"):
+            return False
+    return True
+
+if __name__ == "__main__":
+    assert is_hex_color("#1a2B3c") is True
+    assert is_hex_color("#fff") is True
+    assert is_hex_color("#12345g") is False
+    assert is_hex_color("123456") is False
+'''
+    },
+    "P0372": {
+        "domain": "Numerical Computation",
+        "task": "Check whether three integer points form a right triangle",
+        "category": "Complex conditional only",
+        "code": '''def is_right_triangle(p: tuple[int, int], q: tuple[int, int], r: tuple[int, int]) -> bool:
+    a = (p[0] - q[0]) ** 2 + (p[1] - q[1]) ** 2
+    b = (q[0] - r[0]) ** 2 + (q[1] - r[1]) ** 2
+    c = (r[0] - p[0]) ** 2 + (r[1] - p[1]) ** 2
+    if a == 0 or b == 0 or c == 0:
+        return False
+    return a + b == c or b + c == a or a + c == b
+
+if __name__ == "__main__":
+    assert is_right_triangle((0, 0), (3, 0), (0, 4)) is True
+    assert is_right_triangle((0, 0), (2, 1), (5, 3)) is False
+    assert is_right_triangle((1, 1), (1, 1), (2, 2)) is False
+'''
+    },
+    "P0373": {
+        "domain": "Scheduling and Resource Allocation",
+        "task": "Approve a remote-work day against team coverage and probation rules",
+        "category": "Complex conditional only",
+        "code": '''def approve_remote_day(on_site_count: int, team_size: int, on_probation: bool, has_client_meeting: bool, weekday: int) -> bool:
+    if on_probation or has_client_meeting or weekday not in range(5):
+        return False
+    remaining = on_site_count - 1
+    if remaining < 2 or remaining * 2 < team_size:
+        return False
+    return True
+
+if __name__ == "__main__":
+    assert approve_remote_day(6, 8, False, False, 2) is True
+    assert approve_remote_day(2, 8, False, False, 2) is False
+    assert approve_remote_day(6, 8, True, False, 2) is False
+'''
+    },
+    "P0374": {
+        "domain": "Inventory and Record Management",
+        "task": "Decide whether a library loan can be renewed by its borrower",
+        "category": "Complex conditional only",
+        "code": '''def can_renew_loan(loan: dict[str, int], fines_due: float, item_type: str) -> tuple[bool, str]:
+    limits = {"book": 3, "dvd": 1, "journal": 0}
+    allowed = limits.get(item_type, 0)
+    blocked = fines_due > 10.0 and loan["late"] > 0
+    if loan["renewed"] >= allowed or loan["holds"] > 0 or blocked:
+        return False, "denied"
+    new_due = loan["due"] + (21 if item_type == "book" else 7)
+    return True, f"day {new_due}"
+
+if __name__ == "__main__":
+    loan = {"renewed": 1, "holds": 0, "late": 0, "due": 10}
+    assert can_renew_loan(loan, 0.0, "book") == (True, "day 31")
+    assert can_renew_loan(loan, 0.0, "dvd") == (False, "denied")
+    assert can_renew_loan(loan, 0.0, "journal") == (False, "denied")
+'''
+    },
+    "P0375": {
+        "domain": "Small Simulation and Rule-based Systems",
+        "task": "Next traffic-light phase from elapsed time, pedestrian requests and emergency override",
+        "category": "Complex conditional only",
+        "code": '''def next_signal_phase(phase: str, elapsed_s: int, ped_button: bool, emergency: bool, queue_len: int) -> str:
+    if emergency:
+        return "ALL_RED"
+    if phase == "GREEN" and (elapsed_s >= 45 or (ped_button and elapsed_s >= 15)):
+        return "YELLOW"
+    if phase == "YELLOW" and elapsed_s >= 4:
+        return "RED"
+    if phase == "RED" and elapsed_s >= 30 and queue_len > 0:
+        return "GREEN"
+    return phase
+
+if __name__ == "__main__":
+    assert next_signal_phase("GREEN", 20, True, False, 0) == "YELLOW"
+    assert next_signal_phase("GREEN", 20, False, False, 0) == "GREEN"
+    assert next_signal_phase("RED", 35, False, False, 3) == "GREEN"
+    assert next_signal_phase("RED", 5, False, True, 3) == "ALL_RED"
+'''
+    },
+    "P0376": {
+        "domain": "Matrix & Grid Operations",
+        "task": "Check that a tic-tac-toe board is reachable under alternating legal play",
+        "category": "Complex conditional only",
+        "code": '''ROWS = ((0, 1, 2), (3, 4, 5), (6, 7, 8))
+COLS = ((0, 3, 6), (1, 4, 7), (2, 5, 8))
+DIAGS = ((0, 4, 8), (2, 4, 6))
+
+def count_wins(board: str, mark: str) -> int:
+    wins = 0
+    for a, b, c in ROWS + COLS + DIAGS:
+        if board[a] == mark and board[b] == mark and board[c] == mark:
+            wins += 1
+    return wins
+
+def is_reachable_tictactoe(board: str) -> bool:
+    x_count = board.count("X")
+    o_count = board.count("O")
+    if len(board) != 9 or x_count < o_count or x_count > o_count + 1:
+        return False
+    x_wins = count_wins(board, "X")
+    o_wins = count_wins(board, "O")
+    if x_wins and o_wins:
+        return False
+    if x_wins and x_count != o_count + 1:
+        return False
+    if o_wins and x_count != o_count:
+        return False
+    return True
+
+if __name__ == "__main__":
+    assert is_reachable_tictactoe("XXXOO....") is True
+    assert is_reachable_tictactoe("XXXOOO...") is False
+    assert is_reachable_tictactoe("XX.......") is False
+'''
+    },
+
+    # 5. LONG STATEMENT AND NESTED LOOP (6 programs: P0377 - P0382)
+    "P0377": {
+        "domain": "Numerical Computation",
+        "task": "Power iteration estimate of the dominant eigenvalue of a square matrix",
+        "category": "Long statement and nested loop",
+        "code": '''import math
+
+def power_iteration_dominant(matrix: list[list[float]], iterations: int) -> float:
+    n = len(matrix)
+    vector = [1.0] * n
+    eigenvalue = 0.0
+    for _ in range(iterations):
+        product = [0.0] * n
+        for i in range(n):
+            product[i] = sum(matrix[i][j] * vector[j] for j in range(n))
+        norm = math.sqrt(sum(value * value for value in product))
+        vector = [value / norm for value in product]
+        eigenvalue = sum(vector[i] * sum(matrix[i][j] * vector[j] for j in range(n)) for i in range(n))
+    return round(eigenvalue, 4)
+
+if __name__ == "__main__":
+    assert power_iteration_dominant([[2.0, 0.0], [0.0, 1.0]], 50) == 2.0
+'''
+    },
+    "P0378": {
+        "domain": "Data Aggregation and Statistics",
+        "task": "Inverse-distance weighted k-nearest-neighbour regression for query points",
+        "category": "Long statement and nested loop",
+        "code": '''import math
+
+def knn_inverse_distance_predict(train: list[tuple[float, float, float]], queries: list[tuple[float, float]], k: int) -> list[float]:
+    predictions = []
+    for qx, qy in queries:
+        scored = []
+        for tx, ty, target in train:
+            distance = math.hypot(qx - tx, qy - ty)
+            scored.append((distance, target))
+        nearest = sorted(scored)[:k]
+        weighted_sum = sum(target / (distance + 1e-9) for distance, target in nearest)
+        weight_total = sum(1.0 / (distance + 1e-9) for distance, _ in nearest)
+        predictions.append(round(weighted_sum / weight_total, 3))
+    return predictions
+
+if __name__ == "__main__":
+    train = [(0.0, 0.0, 10.0), (10.0, 10.0, 20.0)]
+    assert knn_inverse_distance_predict(train, [(0.0, 0.0)], 2) == [10.0]
+'''
+    },
+    "P0379": {
+        "domain": "Small Simulation and Rule-based Systems",
+        "task": "Explicit finite-difference heat conduction along a rod with fixed ends",
+        "category": "Long statement and nested loop",
+        "code": '''def heat_rod_profile(initial: list[float], alpha: float, dx: float, dt: float, steps: int) -> list[float]:
+    temps = list(initial)
+    ratio = alpha * dt / (dx * dx)
+    for _ in range(steps):
+        updated = list(temps)
+        for i in range(1, len(temps) - 1):
+            updated[i] = temps[i] + ratio * (temps[i - 1] - 2.0 * temps[i] + temps[i + 1])
+        temps = updated
+    return [round(value, 4) for value in temps]
+
+if __name__ == "__main__":
+    assert heat_rod_profile([0.0, 100.0, 0.0], 1.0, 1.0, 0.25, 1) == [0.0, 50.0, 0.0]
+'''
+    },
+    "P0380": {
+        "domain": "Scheduling and Resource Allocation",
+        "task": "Machine utilisation percentages per shift from job runtime logs",
+        "category": "Long statement and nested loop",
+        "code": '''def shift_utilization_matrix(logs: dict[str, list[list[float]]], shift_hours: float) -> dict[str, list[float]]:
+    utilization = {}
+    for machine, shifts in logs.items():
+        ratios = []
+        for runtimes in shifts:
+            busy_hours = sum(runtimes)
+            ratios.append(round(min(1.0, busy_hours / shift_hours) * 100.0, 1))
+        utilization[machine] = ratios
+    return utilization
+
+if __name__ == "__main__":
+    assert shift_utilization_matrix({"M1": [[2.0, 2.0], [8.0, 1.0]]}, 8.0) == {"M1": [50.0, 100.0]}
+'''
+    },
+    "P0381": {
+        "domain": "Inventory and Record Management",
+        "task": "Freshness-weighted stock value across warehouse aisles and bins",
+        "category": "Long statement and nested loop",
+        "code": '''def shelf_life_stock_value(aisles: list[list[tuple[int, float, int, int]]]) -> float:
+    total_value = 0.0
+    for aisle in aisles:
+        for units, unit_price, days_left, shelf_life in aisle:
+            freshness = max(0.0, days_left / shelf_life)
+            total_value += units * unit_price * (0.5 + 0.5 * freshness) * (1.0 if days_left > 0 else 0.0)
+    return round(total_value, 2)
+
+if __name__ == "__main__":
+    assert shelf_life_stock_value([[(10, 2.0, 5, 10)], [(4, 3.0, 0, 10)]]) == 15.0
+'''
+    },
+    "P0382": {
+        "domain": "Matrix & Grid Operations",
+        "task": "Gamma correction with linear contrast stretch of a grayscale image",
+        "category": "Long statement and nested loop",
+        "code": '''def gamma_contrast_adjust(image: list[list[int]], gamma: float, low: int, high: int) -> list[list[int]]:
+    adjusted = []
+    for row in image:
+        new_row = []
+        for pixel in row:
+            stretched = min(1.0, max(0.0, (pixel - low) / max(1, high - low)))
+            new_row.append(int(round(255.0 * stretched ** gamma)))
+        adjusted.append(new_row)
+    return adjusted
+
+if __name__ == "__main__":
+    assert gamma_contrast_adjust([[0, 128, 255]], 1.0, 0, 255) == [[0, 128, 255]]
+'''
+    },
+
+    # 6. LONG STATEMENT AND COMPLEX CONDITIONAL (6 programs: P0383 - P0388)
+    "P0383": {
+        "domain": "Numerical Computation",
+        "task": "Apparent temperature from wind chill or heat index by weather regime",
+        "category": "Long statement and complex conditional",
+        "code": '''def apparent_temperature_c(temp_c: float, wind_kmh: float, humidity_pct: float) -> float:
+    if temp_c <= 10.0 and wind_kmh > 4.8 and humidity_pct >= 0.0:
+        wind_chill = 13.12 + 0.6215 * temp_c - 11.37 * wind_kmh ** 0.16 + 0.3965 * temp_c * wind_kmh ** 0.16
+        return round(wind_chill, 1)
+    if temp_c >= 27.0 and humidity_pct >= 40.0 and humidity_pct <= 100.0:
+        heat_index = temp_c + 0.5555 * (6.11 * 2.718281828 ** (5417.753 * (1 / 273.16 - 1 / (temp_c + 273.15))) * humidity_pct / 100.0 - 10.0)
+        return round(heat_index, 1)
+    return round(temp_c, 1)
+
+if __name__ == "__main__":
+    assert apparent_temperature_c(20.0, 10.0, 50.0) == 20.0
+    assert apparent_temperature_c(0.0, 20.0, 50.0) == -5.2
+    assert apparent_temperature_c(35.0, 10.0, 60.0) > 35.0
+'''
+    },
+    "P0384": {
+        "domain": "Data Aggregation and Statistics",
+        "task": "Final course letter grade with exam curve, attendance penalty and plagiarism override",
+        "category": "Long statement and complex conditional",
+        "code": '''def final_course_grade(exam: float, coursework: float, attendance_pct: float, plagiarism_flag: bool, curve_points: float) -> str:
+    if plagiarism_flag or attendance_pct < 50.0 or exam < 0.0 or coursework < 0.0:
+        return "F"
+    weighted_score = 0.6 * min(100.0, exam + curve_points) + 0.4 * coursework - (5.0 if attendance_pct < 75.0 else 0.0)
+    if weighted_score >= 85.0:
+        return "A"
+    if weighted_score >= 70.0:
+        return "B"
+    if weighted_score >= 55.0:
+        return "C"
+    return "F"
+
+if __name__ == "__main__":
+    assert final_course_grade(90.0, 80.0, 90.0, False, 0.0) == "A"
+    assert final_course_grade(60.0, 60.0, 60.0, False, 0.0) == "C"
+    assert final_course_grade(90.0, 90.0, 40.0, False, 0.0) == "F"
+'''
+    },
+    "P0385": {
+        "domain": "String Processing & Text Analysis",
+        "task": "Parse and range-check a compact ISO-8601 date-time string",
+        "category": "Long statement and complex conditional",
+        "code": '''def parse_iso_datetime(stamp: str) -> tuple[int, int, int, int, int]:
+    if len(stamp) != 16 or stamp[4] != "-" or stamp[7] != "-" or stamp[10] != "T" or stamp[13] != ":":
+        raise ValueError("expected YYYY-MM-DDTHH:MM")
+    year, month, day = int(stamp[0:4]), int(stamp[5:7]), int(stamp[8:10])
+    hour, minute = int(stamp[11:13]), int(stamp[14:16])
+    if not (1 <= month <= 12) or not (1 <= day <= 31) or hour > 23 or minute > 59:
+        raise ValueError("date-time field out of range")
+    return year, month, day, hour, minute
+
+if __name__ == "__main__":
+    assert parse_iso_datetime("2026-10-25T14:15") == (2026, 10, 25, 14, 15)
+'''
+    },
+    "P0386": {
+        "domain": "Small Simulation and Rule-based Systems",
+        "task": "Greenhouse roof vent opening and misting decision from climate sensors",
+        "category": "Long statement and complex conditional",
+        "code": '''def greenhouse_actuators(temp_c: float, humidity_pct: float, co2_ppm: float, raining: bool, wind_ms: float) -> tuple[int, bool]:
+    vent_pct = int(max(0.0, min(100.0, (temp_c - 24.0) * 12.5 + (co2_ppm - 800.0) * 0.05)))
+    if raining or wind_ms > 12.0 or temp_c < 10.0:
+        vent_pct = 0
+    misting = humidity_pct < 55.0 and temp_c > 28.0 and not raining
+    return vent_pct, misting
+
+if __name__ == "__main__":
+    assert greenhouse_actuators(32.0, 40.0, 800.0, False, 3.0) == (100, True)
+    assert greenhouse_actuators(32.0, 40.0, 800.0, True, 3.0) == (0, False)
+'''
+    },
+    "P0387": {
+        "domain": "Inventory and Record Management",
+        "task": "Pallet rack beam load check with seismic derating and impact damage",
+        "category": "Long statement and complex conditional",
+        "code": '''def rack_beam_load_ok(load_kg: float, beam_rating_kg: float, seismic_zone: int, damaged: bool, inspection_days: int) -> tuple[bool, float]:
+    seismic_factor = 1.0 if seismic_zone <= 1 else 0.85 if seismic_zone == 2 else 0.7
+    derated_capacity_kg = beam_rating_kg * seismic_factor * (0.5 if damaged else 1.0)
+    if damaged and inspection_days > 30 or load_kg > derated_capacity_kg or load_kg < 0.0:
+        return False, round(derated_capacity_kg, 1)
+    return True, round(derated_capacity_kg, 1)
+
+if __name__ == "__main__":
+    assert rack_beam_load_ok(800.0, 1000.0, 1, False, 0) == (True, 1000.0)
+    assert rack_beam_load_ok(800.0, 1000.0, 3, False, 0) == (False, 700.0)
+'''
+    },
+    "P0388": {
+        "domain": "Scheduling and Resource Allocation",
+        "task": "Nurse shift pay with night, holiday and overtime multipliers under fatigue limits",
+        "category": "Long statement and complex conditional",
+        "code": '''def nurse_shift_pay(hours: float, base_rate: float, night_shift: bool, consecutive_days: int, holiday: bool) -> float:
+    if hours <= 0.0 or hours > 16.0 or consecutive_days > 6:
+        raise ValueError("shift violates fatigue limits")
+    overtime_hours = max(0.0, hours - 8.0)
+    multiplier = (1.25 if night_shift else 1.0) * (2.0 if holiday else 1.0)
+    shift_pay = base_rate * multiplier * (min(hours, 8.0) + 1.5 * overtime_hours)
+    return round(shift_pay, 2)
+
+if __name__ == "__main__":
+    assert nurse_shift_pay(10.0, 20.0, False, 1, False) == 220.0
+    assert nurse_shift_pay(8.0, 20.0, True, 1, True) == 400.0
+'''
+    },
+
+    # 7. NESTED LOOP AND COMPLEX CONDITIONAL (6 programs: P0389 - P0394)
+    "P0389": {
+        "domain": "Matrix & Grid Operations",
+        "task": "Count islands of land cells with iterative flood fill",
+        "category": "Nested loop and complex conditional",
+        "code": '''def count_land_islands(grid: list[list[int]]) -> int:
+    rows, cols = len(grid), len(grid[0])
+    seen = set()
+    islands = 0
+    for r in range(rows):
+        for c in range(cols):
+            if grid[r][c] != 1 or (r, c) in seen:
+                continue
+            islands += 1
+            stack = [(r, c)]
+            seen.add((r, c))
+            while stack:
+                cr, cc = stack.pop()
+                for nr, nc in ((cr + 1, cc), (cr - 1, cc), (cr, cc + 1), (cr, cc - 1)):
+                    inside = 0 <= nr < rows and 0 <= nc < cols
+                    if inside and grid[nr][nc] == 1 and (nr, nc) not in seen:
+                        seen.add((nr, nc))
+                        stack.append((nr, nc))
+    return islands
+
+if __name__ == "__main__":
+    assert count_land_islands([[1, 1, 0], [0, 0, 1], [1, 0, 1]]) == 3
+'''
+    },
+    "P0390": {
+        "domain": "Graph or Tree Traversal",
+        "task": "Suggest friends-of-friends who share at least two interests",
+        "category": "Nested loop and complex conditional",
+        "code": '''def suggest_friends(friends: dict[str, set[str]], interests: dict[str, set[str]]) -> list[tuple[str, str]]:
+    suggestions = []
+    for user, circle in friends.items():
+        for friend in circle:
+            for candidate in friends.get(friend, set()):
+                shared = interests[user] & interests[candidate]
+                if candidate != user and candidate not in circle and len(shared) >= 2:
+                    suggestions.append((user, candidate))
+    return sorted(set(suggestions))
+
+if __name__ == "__main__":
+    f = {"a": {"b"}, "b": {"a", "c"}, "c": {"b"}}
+    tags = {"a": {"x", "y"}, "b": set(), "c": {"x", "y", "z"}}
+    assert suggest_friends(f, tags) == [("a", "c"), ("c", "a")]
+'''
+    },
+    "P0391": {
+        "domain": "Scheduling and Resource Allocation",
+        "task": "Detect roster shifts that violate the minimum rest gap between consecutive shifts",
+        "category": "Nested loop and complex conditional",
+        "code": '''def find_rest_violations(roster: dict[str, list[tuple[int, int]]], min_rest: int) -> list[tuple[str, int]]:
+    violations = []
+    for nurse, shifts in roster.items():
+        ordered = sorted(shifts)
+        for k in range(1, len(ordered)):
+            prev_end = ordered[k - 1][1]
+            start, end = ordered[k]
+            gap = start - prev_end
+            if gap < min_rest and end > start and prev_end > 0:
+                violations.append((nurse, k))
+    return violations
+
+if __name__ == "__main__":
+    roster = {"N1": [(0, 8), (12, 20), (40, 48)]}
+    assert find_rest_violations(roster, 10) == [("N1", 1)]
+'''
+    },
+    "P0392": {
+        "domain": "String Processing & Text Analysis",
+        "task": "Find ordered word pairs whose concatenation is a palindrome",
+        "category": "Nested loop and complex conditional",
+        "code": '''def palindrome_join_pairs(words: list[str], min_len: int) -> list[tuple[int, int]]:
+    pairs = []
+    for i, first in enumerate(words):
+        for j, second in enumerate(words):
+            joined = first + second
+            if i != j and len(joined) >= min_len and joined == joined[::-1]:
+                pairs.append((i, j))
+    return pairs
+
+if __name__ == "__main__":
+    assert palindrome_join_pairs(["ab", "ba", "x"], 2) == [(0, 1), (1, 0)]
+'''
+    },
+    "P0393": {
+        "domain": "Small Simulation and Rule-based Systems",
+        "task": "Single update step of the Brian's Brain three-state cellular automaton",
+        "category": "Nested loop and complex conditional",
+        "code": '''def brians_brain_step(grid: list[list[int]]) -> list[list[int]]:
+    rows, cols = len(grid), len(grid[0])
+    nxt = [[0] * cols for _ in range(rows)]
+    for r in range(rows):
+        for c in range(cols):
+            state = grid[r][c]
+            if state == 1:
+                nxt[r][c] = 2
+                continue
+            if state == 2:
+                continue
+            firing = 0
+            for dr in (-1, 0, 1):
+                for dc in (-1, 0, 1):
+                    rr, cc = r + dr, c + dc
+                    if (dr or dc) and 0 <= rr < rows and 0 <= cc < cols:
+                        firing += grid[rr][cc] == 1
+            if firing == 2:
+                nxt[r][c] = 1
+    return nxt
+
+if __name__ == "__main__":
+    assert brians_brain_step([[1, 1, 0], [0, 0, 0]]) == [[2, 2, 0], [1, 1, 0]]
+'''
+    },
+    "P0394": {
+        "domain": "Inventory and Record Management",
+        "task": "Three-way match of goods receipts to supplier invoices within price tolerance",
+        "category": "Nested loop and complex conditional",
+        "code": '''def three_way_match(receipts: list[tuple[str, str, int]], invoices: list[tuple[str, str, int, float]], unit_prices: dict[str, float]) -> list[str]:
+    matched = []
+    for po, sku, qty in receipts:
+        for inv_id, inv_sku, inv_qty, inv_price in invoices:
+            expected = unit_prices[sku]
+            price_ok = abs(inv_price - expected) <= 0.02 * expected
+            if inv_sku == sku and inv_qty == qty and price_ok:
+                matched.append(inv_id)
+                break
+    return matched
+
+if __name__ == "__main__":
+    receipts = [("PO1", "A", 10)]
+    invoices = [("I1", "A", 10, 5.05), ("I2", "A", 10, 5.0)]
+    assert three_way_match(receipts, invoices, {"A": 5.0}) == ["I1"]
+'''
+    },
+
+    # 8. ALL THREE TARGET ISSUES (6 programs: P0395 - P0400)
+    "P0395": {
+        "domain": "Small Simulation and Rule-based Systems",
+        "task": "Herd migration across a habitat-quality grid with barriers and crowding",
         "category": "All three target issues",
-        "code": '''def flag_anomalous_lab_panels(panels: list[dict], ref_bounds: dict[str, tuple[float, float]]) -> list[str]:
+        "code": '''def migrate_herds(grid: list[list[float]], herds: list[tuple[int, int, int]], barriers: set[tuple[int, int]], steps: int) -> list[tuple[int, int, int]]:
+    rows, cols = len(grid), len(grid[0])
+    current = list(herds)
+    for _ in range(steps):
+        moved = []
+        for r, c, size in current:
+            best_r, best_c, best_score = r, c, grid[r][c]
+            for dr, dc in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                nr, nc = r + dr, c + dc
+                if 0 <= nr < rows and 0 <= nc < cols and (nr, nc) not in barriers:
+                    crowding_penalty = 0.01 * size * sum(1 for hr, hc, _ in current if (hr, hc) == (nr, nc))
+                    score = grid[nr][nc] - crowding_penalty
+                    if score > best_score:
+                        best_r, best_c, best_score = nr, nc, score
+            moved.append((best_r, best_c, size))
+        current = moved
+    return current
+
+if __name__ == "__main__":
+    habitat = [[0.1, 0.9], [0.2, 0.3]]
+    assert migrate_herds(habitat, [(0, 0, 10)], set(), 2) == [(0, 1, 10)]
+'''
+    },
+    "P0396": {
+        "domain": "Matrix & Grid Operations",
+        "task": "Detect urban heat island hotspots from surface temperature and vegetation grids",
+        "category": "All three target issues",
+        "code": '''def urban_heat_hotspots(lst: list[list[float]], ndvi: list[list[float]], built_up: list[list[bool]]) -> list[tuple[int, int, float]]:
+    rows, cols = len(lst), len(lst[0])
+    hotspots = []
+    for r in range(1, rows - 1):
+        for c in range(1, cols - 1):
+            neighborhood = [lst[r + dr][c + dc] for dr in (-1, 0, 1) for dc in (-1, 0, 1) if dr or dc]
+            anomaly = lst[r][c] - sum(neighborhood) / len(neighborhood)
+            if anomaly > 2.0 and ndvi[r][c] < 0.2 and built_up[r][c]:
+                hotspots.append((r, c, round(anomaly, 2)))
+    return hotspots
+
+if __name__ == "__main__":
+    temps = [[30.0, 30.0, 30.0], [30.0, 40.0, 30.0], [30.0, 30.0, 30.0]]
+    veg = [[0.1] * 3 for _ in range(3)]
+    urban = [[True] * 3 for _ in range(3)]
+    assert urban_heat_hotspots(temps, veg, urban) == [(1, 1, 10.0)]
+'''
+    },
+    "P0397": {
+        "domain": "Scheduling and Resource Allocation",
+        "task": "Assign exam invigilators to rooms under subject conflict and workload caps",
+        "category": "All three target issues",
+        "code": '''def assign_invigilators(rooms: list[tuple[str, str, int]], staff: list[tuple[str, str, int]]) -> tuple[dict[str, list[str]], list[str]]:
+    load = {name: 0 for name, _, _ in staff}
+    plan = {}
+    for room, subject, needed in sorted(rooms, key=lambda item: -item[2]):
+        chosen = []
+        for name, own_subject, cap in staff:
+            if len(chosen) < needed and own_subject != subject and load[name] < cap:
+                chosen.append(name)
+                load[name] += 1
+        plan[room] = chosen
+    unmet_rooms = [room for room, _, needed in rooms if len(plan[room]) < needed]
+    return plan, unmet_rooms
+
+if __name__ == "__main__":
+    rooms = [("R1", "math", 2), ("R2", "bio", 1)]
+    staff = [("A", "math", 2), ("B", "bio", 2), ("C", "chem", 1)]
+    assert assign_invigilators(rooms, staff) == ({"R1": ["B", "C"], "R2": ["A"]}, [])
+'''
+    },
+    "P0398": {
+        "domain": "Inventory and Record Management",
+        "task": "Audit grain silo moisture and depth-sensor temperatures for spoilage risk",
+        "category": "All three target issues",
+        "code": '''def audit_grain_silos(silos: list[dict], moisture_limit: float) -> list[tuple[str, int]]:
+    alerts = []
+    for silo in silos:
+        for depth, readings in enumerate(silo["sensor_columns"]):
+            hottest = max(readings)
+            spoilage_risk = 0.6 * max(0.0, silo["moisture_pct"] - moisture_limit) + 0.4 * max(0.0, hottest - silo["ambient_c"]) / 5.0
+            if spoilage_risk > 1.0 and not silo["aeration_on"] and silo["fill_pct"] > 10.0:
+                alerts.append((silo["id"], depth))
+    return alerts
+
+if __name__ == "__main__":
+    silo = {"id": "S1", "sensor_columns": [[20.0, 22.0], [20.0, 35.0]], "moisture_pct": 15.0, "ambient_c": 20.0, "aeration_on": False, "fill_pct": 80.0}
+    assert audit_grain_silos([silo], 14.0) == [("S1", 1)]
+'''
+    },
+    "P0399": {
+        "domain": "Numerical Computation",
+        "task": "Grid search of launch speed and angle that clear a target height window",
+        "category": "All three target issues",
+        "code": '''import math
+
+def search_launch_solutions(speeds: list[float], angles_deg: list[float], target_x: float, window_y: tuple[float, float], gravity: float = 9.81) -> list[tuple[float, float]]:
+    solutions = []
+    for speed in speeds:
+        for angle in angles_deg:
+            theta = math.radians(angle)
+            vx = speed * math.cos(theta)
+            if vx <= 0.0:
+                continue
+            flight_t = target_x / vx
+            height_at_target = speed * math.sin(theta) * flight_t - 0.5 * gravity * flight_t ** 2
+            if window_y[0] <= height_at_target <= window_y[1] and angle < 80.0:
+                solutions.append((speed, angle))
+    return solutions
+
+if __name__ == "__main__":
+    assert search_launch_solutions([20.0], [45.0, 85.0], 10.0, (0.0, 20.0)) == [(20.0, 45.0)]
+'''
+    },
+    "P0400": {
+        "domain": "Data Aggregation and Statistics",
+        "task": "Flag loan vintages with weighted early-delinquency drift across monthly cohorts",
+        "category": "All three target issues",
+        "code": '''def flag_delinquent_vintages(vintages: dict[str, list[list[int]]], balances: dict[str, float], threshold: float) -> list[str]:
     flagged = []
-    for panel in panels:
-        extreme_count = 0
-        mahalanobis_sq = 0.0
-        for analyte, value in panel["analytes"].items():
-            mean, sd = ref_bounds[analyte]
-            z_score = (value - mean) / max(1e-6, sd)
-            mahalanobis_sq += z_score * z_score
-            if abs(z_score) >= 2.5 and not panel["fasting_exempt"] and analyte != "glucose":
-                extreme_count += 1
-        composite_index = mahalanobis_sq / max(1, len(panel["analytes"])) + 1.5 * extreme_count - (0.8 if panel["hemolysis_index"] > 50.0 else 0.0)
-        if composite_index >= 4.0 and panel["hemolysis_index"] <= 100.0 and not panel.get("retest_ordered", False):
-            flagged.append(panel["sample_id"])
+    for vintage, months in vintages.items():
+        worst_rate = 0.0
+        for month_index, buckets in enumerate(months):
+            current, dpd30, dpd60, dpd90 = buckets
+            total = max(1, current + dpd30 + dpd60 + dpd90)
+            weighted_delinquency = (0.2 * dpd30 + 0.5 * dpd60 + 1.0 * dpd90) / total * (1.0 + 0.05 * month_index)
+            worst_rate = max(worst_rate, weighted_delinquency)
+        if worst_rate >= threshold and balances.get(vintage, 0.0) > 1e5 and len(months) >= 3:
+            flagged.append(vintage)
     return flagged
 
 if __name__ == "__main__":
-    ref = {"potassium": (4.2, 0.4), "sodium": (140.0, 2.0)}
-    s1 = {"sample_id": "S1", "analytes": {"potassium": 5.6, "sodium": 147.0}, "fasting_exempt": False, "hemolysis_index": 10.0}
-    s2 = {"sample_id": "S2", "analytes": {"potassium": 4.3, "sodium": 140.5}, "fasting_exempt": False, "hemolysis_index": 10.0}
-    assert flag_anomalous_lab_panels([s1, s2], ref) == ["S1"]
+    early = [[100, 0, 0, 0], [90, 5, 3, 2], [80, 10, 5, 5]]
+    clean = [[100, 0, 0, 0]] * 3
+    books = {"2025Q1": early, "2025Q2": clean}
+    sizes = {"2025Q1": 2e5, "2025Q2": 2e5}
+    assert flag_delinquent_vintages(books, sizes, 0.05) == ["2025Q1"]
 '''
     },
 }
 
 BATCHES = [
     {
-        "batch_id": "Batch 7",
+        "batch_id": "Batch 8",
         "model_id": "claude-opus-5.5",
-        "prompt_version": "v7.0-expansion",
-        "programs": BATCH7_PROGRAMS,
+        "prompt_version": "v8.0-expansion",
+        "programs": BATCH8_PROGRAMS,
     },
 ]
+
 
 def read_existing_manifest():
     """Existing manifest rows keyed by program_id; fails on duplicates."""

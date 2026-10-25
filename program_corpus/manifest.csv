@@ -349,3 +349,53 @@ P0347,P0347.py,Scheduling and Resource Allocation,Assign maritime harbour tugboa
 P0348,P0348.py,Inventory and Record Management,Reconcile fuel depot tank strapping dip readings against metered flow totals,All three target issues,claude-opus-5.5,v7.0-expansion,Batch 7,True,ACCEPTED
 P0349,P0349.py,Numerical Computation,Grid search of Tuned Mass Damper parameters for structural resonance suppression,All three target issues,claude-opus-5.5,v7.0-expansion,Batch 7,True,ACCEPTED
 P0350,P0350.py,Data Aggregation and Statistics,Flag clinical lab panels with multivariate z-score drift and hemolysis interference,All three target issues,claude-opus-5.5,v7.0-expansion,Batch 7,True,ACCEPTED
+P0351,P0351.py,Numerical Computation,Digital root of a non-negative integer by repeated digit summation,None,claude-opus-5.5,v8.0-expansion,Batch 8,True,ACCEPTED
+P0352,P0352.py,String Processing & Text Analysis,Count vowels and consonants among the letters of a phrase,None,claude-opus-5.5,v8.0-expansion,Batch 8,True,ACCEPTED
+P0353,P0353.py,Searching and Sorting,Exponential search for a target in a sorted list,None,claude-opus-5.5,v8.0-expansion,Batch 8,True,ACCEPTED
+P0354,P0354.py,Data Aggregation and Statistics,Statistical mode of integer observations with smallest-value tie break,None,claude-opus-5.5,v8.0-expansion,Batch 8,True,ACCEPTED
+P0355,P0355.py,"Lists, Tuples, Dictionaries, and Sets",Rotate a list to the right by k positions,None,claude-opus-5.5,v8.0-expansion,Batch 8,True,ACCEPTED
+P0356,P0356.py,Graph or Tree Traversal,Count connected components of an undirected graph with union-find,None,claude-opus-5.5,v8.0-expansion,Batch 8,True,ACCEPTED
+P0357,P0357.py,Inventory and Record Management,Straight-line depreciation book values of a fixed asset,None,claude-opus-5.5,v8.0-expansion,Batch 8,True,ACCEPTED
+P0358,P0358.py,Scheduling and Resource Allocation,Minimum number of meeting rooms for overlapping intervals using a heap,None,claude-opus-5.5,v8.0-expansion,Batch 8,True,ACCEPTED
+P0359,P0359.py,Numerical Computation,Body surface area by the Mosteller and DuBois formulas,Long statement only,claude-opus-5.5,v8.0-expansion,Batch 8,True,ACCEPTED
+P0360,P0360.py,Data Aggregation and Statistics,Sharpe and Sortino ratios from periodic portfolio returns,Long statement only,claude-opus-5.5,v8.0-expansion,Batch 8,True,ACCEPTED
+P0361,P0361.py,String Processing & Text Analysis,Gunning fog readability index from sentence and syllable-heavy word counts,Long statement only,claude-opus-5.5,v8.0-expansion,Batch 8,True,ACCEPTED
+P0362,P0362.py,Inventory and Record Management,"Annual carrying cost of average inventory from capital, storage and obsolescence rates",Long statement only,claude-opus-5.5,v8.0-expansion,Batch 8,True,ACCEPTED
+P0363,P0363.py,Small Simulation and Rule-based Systems,Free-fall velocity and distance under linear air drag,Long statement only,claude-opus-5.5,v8.0-expansion,Batch 8,True,ACCEPTED
+P0364,P0364.py,Scheduling and Resource Allocation,Little's law cycle time and excess work-in-process for a production line,Long statement only,claude-opus-5.5,v8.0-expansion,Batch 8,True,ACCEPTED
+P0365,P0365.py,Searching and Sorting,Comb sort with a shrinking comparison gap,Nested loop only,claude-opus-5.5,v8.0-expansion,Batch 8,True,ACCEPTED
+P0366,P0366.py,Matrix & Grid Operations,Spiral order traversal of a rectangular matrix,Nested loop only,claude-opus-5.5,v8.0-expansion,Batch 8,True,ACCEPTED
+P0367,P0367.py,String Processing & Text Analysis,Longest common prefix shared by every word in a list,Nested loop only,claude-opus-5.5,v8.0-expansion,Batch 8,True,ACCEPTED
+P0368,P0368.py,Graph or Tree Traversal,Dijkstra single-source shortest path distances with a binary heap,Nested loop only,claude-opus-5.5,v8.0-expansion,Batch 8,True,ACCEPTED
+P0369,P0369.py,Data Aggregation and Statistics,Kendall tau-a rank correlation from concordant and discordant pairs,Nested loop only,claude-opus-5.5,v8.0-expansion,Batch 8,True,ACCEPTED
+P0370,P0370.py,Small Simulation and Rule-based Systems,Langton's ant walk on a toroidal grid and final black-cell count,Nested loop only,claude-opus-5.5,v8.0-expansion,Batch 8,True,ACCEPTED
+P0371,P0371.py,String Processing & Text Analysis,"Validate hexadecimal colour codes in short, long and alpha forms",Complex conditional only,claude-opus-5.5,v8.0-expansion,Batch 8,True,ACCEPTED
+P0372,P0372.py,Numerical Computation,Check whether three integer points form a right triangle,Complex conditional only,claude-opus-5.5,v8.0-expansion,Batch 8,True,ACCEPTED
+P0373,P0373.py,Scheduling and Resource Allocation,Approve a remote-work day against team coverage and probation rules,Complex conditional only,claude-opus-5.5,v8.0-expansion,Batch 8,True,ACCEPTED
+P0374,P0374.py,Inventory and Record Management,Decide whether a library loan can be renewed by its borrower,Complex conditional only,claude-opus-5.5,v8.0-expansion,Batch 8,True,ACCEPTED
+P0375,P0375.py,Small Simulation and Rule-based Systems,"Next traffic-light phase from elapsed time, pedestrian requests and emergency override",Complex conditional only,claude-opus-5.5,v8.0-expansion,Batch 8,True,ACCEPTED
+P0376,P0376.py,Matrix & Grid Operations,Check that a tic-tac-toe board is reachable under alternating legal play,Complex conditional only,claude-opus-5.5,v8.0-expansion,Batch 8,True,ACCEPTED
+P0377,P0377.py,Numerical Computation,Power iteration estimate of the dominant eigenvalue of a square matrix,Long statement and nested loop,claude-opus-5.5,v8.0-expansion,Batch 8,True,ACCEPTED
+P0378,P0378.py,Data Aggregation and Statistics,Inverse-distance weighted k-nearest-neighbour regression for query points,Long statement and nested loop,claude-opus-5.5,v8.0-expansion,Batch 8,True,ACCEPTED
+P0379,P0379.py,Small Simulation and Rule-based Systems,Explicit finite-difference heat conduction along a rod with fixed ends,Long statement and nested loop,claude-opus-5.5,v8.0-expansion,Batch 8,True,ACCEPTED
+P0380,P0380.py,Scheduling and Resource Allocation,Machine utilisation percentages per shift from job runtime logs,Long statement and nested loop,claude-opus-5.5,v8.0-expansion,Batch 8,True,ACCEPTED
+P0381,P0381.py,Inventory and Record Management,Freshness-weighted stock value across warehouse aisles and bins,Long statement and nested loop,claude-opus-5.5,v8.0-expansion,Batch 8,True,ACCEPTED
+P0382,P0382.py,Matrix & Grid Operations,Gamma correction with linear contrast stretch of a grayscale image,Long statement and nested loop,claude-opus-5.5,v8.0-expansion,Batch 8,True,ACCEPTED
+P0383,P0383.py,Numerical Computation,Apparent temperature from wind chill or heat index by weather regime,Long statement and complex conditional,claude-opus-5.5,v8.0-expansion,Batch 8,True,ACCEPTED
+P0384,P0384.py,Data Aggregation and Statistics,"Final course letter grade with exam curve, attendance penalty and plagiarism override",Long statement and complex conditional,claude-opus-5.5,v8.0-expansion,Batch 8,True,ACCEPTED
+P0385,P0385.py,String Processing & Text Analysis,Parse and range-check a compact ISO-8601 date-time string,Long statement and complex conditional,claude-opus-5.5,v8.0-expansion,Batch 8,True,ACCEPTED
+P0386,P0386.py,Small Simulation and Rule-based Systems,Greenhouse roof vent opening and misting decision from climate sensors,Long statement and complex conditional,claude-opus-5.5,v8.0-expansion,Batch 8,True,ACCEPTED
+P0387,P0387.py,Inventory and Record Management,Pallet rack beam load check with seismic derating and impact damage,Long statement and complex conditional,claude-opus-5.5,v8.0-expansion,Batch 8,True,ACCEPTED
+P0388,P0388.py,Scheduling and Resource Allocation,"Nurse shift pay with night, holiday and overtime multipliers under fatigue limits",Long statement and complex conditional,claude-opus-5.5,v8.0-expansion,Batch 8,True,ACCEPTED
+P0389,P0389.py,Matrix & Grid Operations,Count islands of land cells with iterative flood fill,Nested loop and complex conditional,claude-opus-5.5,v8.0-expansion,Batch 8,True,ACCEPTED
+P0390,P0390.py,Graph or Tree Traversal,Suggest friends-of-friends who share at least two interests,Nested loop and complex conditional,claude-opus-5.5,v8.0-expansion,Batch 8,True,ACCEPTED
+P0391,P0391.py,Scheduling and Resource Allocation,Detect roster shifts that violate the minimum rest gap between consecutive shifts,Nested loop and complex conditional,claude-opus-5.5,v8.0-expansion,Batch 8,True,ACCEPTED
+P0392,P0392.py,String Processing & Text Analysis,Find ordered word pairs whose concatenation is a palindrome,Nested loop and complex conditional,claude-opus-5.5,v8.0-expansion,Batch 8,True,ACCEPTED
+P0393,P0393.py,Small Simulation and Rule-based Systems,Single update step of the Brian's Brain three-state cellular automaton,Nested loop and complex conditional,claude-opus-5.5,v8.0-expansion,Batch 8,True,ACCEPTED
+P0394,P0394.py,Inventory and Record Management,Three-way match of goods receipts to supplier invoices within price tolerance,Nested loop and complex conditional,claude-opus-5.5,v8.0-expansion,Batch 8,True,ACCEPTED
+P0395,P0395.py,Small Simulation and Rule-based Systems,Herd migration across a habitat-quality grid with barriers and crowding,All three target issues,claude-opus-5.5,v8.0-expansion,Batch 8,True,ACCEPTED
+P0396,P0396.py,Matrix & Grid Operations,Detect urban heat island hotspots from surface temperature and vegetation grids,All three target issues,claude-opus-5.5,v8.0-expansion,Batch 8,True,ACCEPTED
+P0397,P0397.py,Scheduling and Resource Allocation,Assign exam invigilators to rooms under subject conflict and workload caps,All three target issues,claude-opus-5.5,v8.0-expansion,Batch 8,True,ACCEPTED
+P0398,P0398.py,Inventory and Record Management,Audit grain silo moisture and depth-sensor temperatures for spoilage risk,All three target issues,claude-opus-5.5,v8.0-expansion,Batch 8,True,ACCEPTED
+P0399,P0399.py,Numerical Computation,Grid search of launch speed and angle that clear a target height window,All three target issues,claude-opus-5.5,v8.0-expansion,Batch 8,True,ACCEPTED
+P0400,P0400.py,Data Aggregation and Statistics,Flag loan vintages with weighted early-delinquency drift across monthly cohorts,All three target issues,claude-opus-5.5,v8.0-expansion,Batch 8,True,ACCEPTED
