@@ -16,18 +16,72 @@ MANIFEST_FILE = BASE_DIR / "program_corpus" / "manifest.csv"
 OUTPUT_FILE = BASE_DIR / "dataset.csv"
 
 LONG_STATEMENT_THRESHOLD = 60
+COMPLEX_CONDITION_THRESHOLD = 3
 
-SUPPORTED_STATEMENTS = (
+SIMPLE_STATEMENTS = (
     ast.Assign,
     ast.AnnAssign,
     ast.AugAssign,
     ast.Expr,
     ast.Return,
-    ast.If,
-    ast.For,
-    ast.While,
-    ast.AsyncFor,
 )
+
+LOOP_STATEMENTS = (
+    ast.For,
+    ast.AsyncFor,
+    ast.While,
+)
+
+HEADER_STATEMENTS = (ast.If,) + LOOP_STATEMENTS
+
+SCOPE_STATEMENTS = (
+    ast.FunctionDef,
+    ast.AsyncFunctionDef,
+    ast.ClassDef,
+)
+
+
+# =========================================================
+# STATEMENT-RECORD POLICY
+# =========================================================
+#
+# A dataset record is one of:
+#   - a simple statement: Assign, AnnAssign, AugAssign, Expr, Return;
+#   - the header of a compound statement: If (each elif is its own If
+#     record), For, AsyncFor, While.
+#
+# A header record covers the source from the keyword up to and
+# including its colon, e.g. "for row in matrix:". Body statements are
+# separate records, so no source text belongs to two records.
+#
+# Records come from walking statement lists in source order: module,
+# class and function bodies, and the body / else / except / finally /
+# case blocks of compound statements. Other statements (def, class,
+# with, try, match, import, ...) are not records, but their blocks are
+# still walked.
+#
+# Module, class and function docstrings (a string literal that is the
+# first statement of that body) are documentation and are not records.
+# Any other standalone string expression is an ordinary Expr record.
+#
+# Feature scope:
+#   - code, statement_length, operator_count, operand_count,
+#     expression_depth, condition_count and logical_operator_count are
+#     computed only from the construct the record represents: the whole
+#     simple statement, the if/while test, or the for target and
+#     iterable. Trailing comments are not part of a record.
+#   - loop_depth and nested_loop describe loops in the record's whole
+#     subtree, body included, so an outer loop that contains another
+#     loop is detectable from its header record.
+#   - parent_statement_id is the statement_id of the nearest enclosing
+#     If/For/While record in the same function or class scope, or blank
+#     if there is none.
+#   - enclosing_loop_depth is the number of For/While loops in the same
+#     function or class scope whose body contains the record. A loop's
+#     own header and its else block are not inside the loop body.
+#
+# statement_id numbers records 1..n per program in source order, so IDs
+# are deterministic for a given corpus file.
 
 
 # =========================================================
@@ -226,92 +280,197 @@ def has_nested_loop(node):
     ) > 1
 
 
+def count_atomic_conditions(test):
+    """
+    Count the atomic conditions in an if/while test.
+
+    - and / or: the sum of the counts of its operands;
+    - not: the count of its operand;
+    - comparison: one per comparison operator, so the chained
+      comparison 0 <= x < n counts 2;
+    - any other expression (name, call, attribute, constant, ...): 1.
+
+    Boolean expressions nested inside a call, subscript or conditional
+    expression are not unpacked; that enclosing expression counts 1.
+    """
+    if isinstance(test, ast.BoolOp):
+        return sum(count_atomic_conditions(value) for value in test.values)
+
+    if isinstance(test, ast.UnaryOp) and isinstance(test.op, ast.Not):
+        return count_atomic_conditions(test.operand)
+
+    if isinstance(test, ast.Compare):
+        return len(test.ops)
+
+    return 1
+
+
 def has_complex_conditional(node):
     """
-    Operational heuristic:
-    - at least one logical operator and at least two comparisons; OR
-    - at least three comparisons.
-
-    Applied to if statements only.
+    Initial heuristic (a candidate label, not ground truth): an if or
+    while test with at least COMPLEX_CONDITION_THRESHOLD atomic
+    conditions.
     """
-    if not isinstance(node, ast.If):
+    if not isinstance(node, (ast.If, ast.While)):
         return False
 
-    logical_count = sum(
-        len(child.values) - 1
-        for child in ast.walk(node.test)
-        if isinstance(child, ast.BoolOp)
-    )
-
-    comparison_count = sum(
-        len(child.ops)
-        for child in ast.walk(node.test)
-        if isinstance(child, ast.Compare)
-    )
-
     return (
-        (logical_count >= 1 and comparison_count >= 2)
-        or comparison_count >= 3
+        count_atomic_conditions(node.test)
+        >= COMPLEX_CONDITION_THRESHOLD
+    )
+
+
+def is_docstring(stmt, owner):
+    """True if stmt is the docstring of a module, class or function."""
+    return (
+        isinstance(owner, (ast.Module,) + SCOPE_STATEMENTS)
+        and bool(owner.body)
+        and owner.body[0] is stmt
+        and isinstance(stmt, ast.Expr)
+        and isinstance(stmt.value, ast.Constant)
+        and isinstance(stmt.value.value, str)
     )
 
 
 def is_long_statement(node, code):
     """
-    Initial heuristic: more than 60 characters.
-    Control-flow blocks and function definitions are excluded.
+    Initial heuristic (a candidate label, not ground truth): a simple
+    statement whose source text is longer than LONG_STATEMENT_THRESHOLD
+    characters. Compound-statement headers are never long statements.
     """
-    excluded_types = (
-        ast.If,
-        ast.For,
-        ast.While,
-        ast.AsyncFor,
-        ast.FunctionDef,
-        ast.AsyncFunctionDef,
-    )
-
-    if isinstance(node, excluded_types):
+    if not isinstance(node, SIMPLE_STATEMENTS):
         return False
 
-    return len(code.strip()) > LONG_STATEMENT_THRESHOLD
+    return len(code) > LONG_STATEMENT_THRESHOLD
+
+
+def to_char_col(line, byte_col):
+    """Convert an AST UTF-8 byte offset into a str index for line."""
+    return len(line.encode("utf-8")[:byte_col].decode("utf-8", "ignore"))
+
+
+def header_colon_position(node, source_lines):
+    """
+    (line, char col) of the colon that ends an if/for/while header.
+
+    Scanning starts after the last header expression and skips closing
+    brackets, whitespace, line continuations and comments.
+    """
+    last_part = header_parts(node)[-1]
+    line_no = last_part.end_lineno
+    col = to_char_col(source_lines[line_no - 1], last_part.end_col_offset)
+
+    while line_no <= len(source_lines):
+        line = source_lines[line_no - 1]
+
+        while col < len(line):
+            char = line[col]
+
+            if char == ":":
+                return line_no, col
+            if char == "#":
+                break
+            col += 1
+
+        line_no += 1
+        col = 0
+
+    raise ValueError(
+        f"No header colon found for {type(node).__name__} "
+        f"at line {node.lineno}"
+    )
+
+
+def record_span(node, source_lines):
+    """
+    Start and end (line, char col) of the source a record represents,
+    end exclusive: the whole simple statement, or a compound header up
+    to and including its colon.
+    """
+    start = (
+        node.lineno,
+        to_char_col(source_lines[node.lineno - 1], node.col_offset),
+    )
+
+    if isinstance(node, HEADER_STATEMENTS):
+        colon_line, colon_col = header_colon_position(node, source_lines)
+        return start, (colon_line, colon_col + 1)
+
+    end = (
+        node.end_lineno,
+        to_char_col(source_lines[node.end_lineno - 1], node.end_col_offset),
+    )
+    return start, end
+
+
+def source_text(source_lines, start, end):
+    (start_line, start_col), (end_line, end_col) = start, end
+
+    if start_line == end_line:
+        return source_lines[start_line - 1][start_col:end_col]
+
+    parts = [source_lines[start_line - 1][start_col:]]
+    parts.extend(source_lines[start_line:end_line - 1])
+    parts.append(source_lines[end_line - 1][:end_col])
+    return "".join(parts)
+
+
+def header_parts(node):
+    """The AST expressions a record's statement-level features cover."""
+    if isinstance(node, (ast.If, ast.While)):
+        return [node.test]
+
+    if isinstance(node, (ast.For, ast.AsyncFor)):
+        return [node.target, node.iter]
+
+    return [
+        child
+        for child in ast.iter_child_nodes(node)
+        if isinstance(child, ast.expr)
+    ]
+
+
+def nested_blocks(stmt):
+    """Statement lists nested in a non-record statement, in source order."""
+    yield getattr(stmt, "body", [])
+
+    for child in getattr(stmt, "handlers", []) + getattr(stmt, "cases", []):
+        yield child.body
+
+    yield getattr(stmt, "orelse", [])
+    yield getattr(stmt, "finalbody", [])
 
 
 def extract_statements(tree, source_lines):
     statements = []
+    spans = []
 
-    for node in ast.walk(tree):
-        if not isinstance(node, SUPPORTED_STATEMENTS):
-            continue
+    def emit(node, parent_id, enclosing_loops):
+        start, end = record_span(node, source_lines)
+        code = source_text(source_lines, start, end).strip()
 
-        start_line = node.lineno
-        end_line = getattr(node, "end_lineno", start_line)
-
-        code = "".join(
-            source_lines[start_line - 1:end_line]
-        ).strip()
-
-        if not code:
-            continue
+        parts = header_parts(node)
 
         extractor = FeatureExtractor()
-        extractor.visit(node)
-
-        direct_expressions = [
-            child
-            for child in ast.iter_child_nodes(node)
-            if isinstance(child, ast.expr)
-        ]
+        if isinstance(node, SIMPLE_STATEMENTS):
+            extractor.visit(node)
+        else:
+            for part in parts:
+                extractor.visit(part)
 
         expression_depth = max(
-            (
-                calculate_expression_depth(expression)
-                for expression in direct_expressions
-            ),
+            (calculate_expression_depth(part) for part in parts),
             default=0,
         )
 
+        statement_id = len(statements) + 1
+
         statements.append({
-            "line_no": start_line,
-            "end_line": end_line,
+            "statement_id": statement_id,
+            "parent_statement_id": "" if parent_id is None else parent_id,
+            "enclosing_loop_depth": enclosing_loops,
+            "line_no": start[0],
+            "end_line": end[0],
             "statement_type": type(node).__name__,
             "code": code,
             "statement_length": len(code),
@@ -332,20 +491,63 @@ def extract_statements(tree, source_lines):
                 has_complex_conditional(node)
             ),
         })
+        spans.append((start, end))
 
-    # Stable, human-readable ordering by source position.
-    statements.sort(
-        key=lambda row: (
-            row["line_no"],
-            row["end_line"],
-            row["statement_type"],
-        )
-    )
+        return statement_id
 
-    for index, statement in enumerate(statements, start=1):
-        statement["statement_id"] = index
+    def visit_block(block, owner, parent_id, enclosing_loops):
+        for stmt in block:
+            if is_docstring(stmt, owner):
+                continue
+            visit_statement(stmt, parent_id, enclosing_loops)
+
+    def visit_statement(stmt, parent_id, enclosing_loops):
+        if isinstance(stmt, SIMPLE_STATEMENTS):
+            emit(stmt, parent_id, enclosing_loops)
+
+        elif isinstance(stmt, ast.If):
+            own_id = emit(stmt, parent_id, enclosing_loops)
+            visit_block(stmt.body, stmt, own_id, enclosing_loops)
+            visit_block(stmt.orelse, stmt, own_id, enclosing_loops)
+
+        elif isinstance(stmt, LOOP_STATEMENTS):
+            own_id = emit(stmt, parent_id, enclosing_loops)
+            visit_block(stmt.body, stmt, own_id, enclosing_loops + 1)
+            visit_block(stmt.orelse, stmt, own_id, enclosing_loops)
+
+        elif isinstance(stmt, SCOPE_STATEMENTS):
+            visit_block(stmt.body, stmt, None, 0)
+
+        else:
+            for block in nested_blocks(stmt):
+                visit_block(block, stmt, parent_id, enclosing_loops)
+
+    visit_block(tree.body, tree, None, 0)
+
+    check_record_spans(spans)
 
     return statements
+
+
+def count_docstrings(tree):
+    owners = [tree] + [
+        node for node in ast.walk(tree)
+        if isinstance(node, SCOPE_STATEMENTS)
+    ]
+    return sum(
+        bool(owner.body) and is_docstring(owner.body[0], owner)
+        for owner in owners
+    )
+
+
+def check_record_spans(spans):
+    """Records must be in source order and must not share source text."""
+    for (_, previous_end), (start, _) in zip(spans, spans[1:]):
+        if start < previous_end:
+            raise ValueError(
+                f"Overlapping or out-of-order records: a record starts at "
+                f"{start} before the previous one ends at {previous_end}"
+            )
 
 
 # =========================================================
@@ -416,6 +618,7 @@ def main():
 
     all_rows = []
     syntax_errors = []
+    docstrings_excluded = 0
 
     # Provenance fields retained from the manifest.
     metadata_fields = [
@@ -455,6 +658,7 @@ def main():
         source_lines = source_code.splitlines(keepends=True)
 
         statements = extract_statements(tree, source_lines)
+        docstrings_excluded += count_docstrings(tree)
 
         for statement in statements:
             row = {
@@ -489,6 +693,8 @@ def main():
         "filename",
         *metadata_fields,
         "statement_id",
+        "parent_statement_id",
+        "enclosing_loop_depth",
         "statement_type",
         "line_no",
         "end_line",
@@ -520,6 +726,7 @@ def main():
     print("Manifest records:", len(manifest_records))
     print("Python files processed:", len(python_files))
     print("Statement records:", len(all_rows))
+    print("Docstrings excluded (not records):", docstrings_excluded)
     print("Output file:", OUTPUT_FILE)
 
     print("\nRule-generated statement label distribution:")

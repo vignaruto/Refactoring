@@ -5,8 +5,9 @@ import hashlib
 from pathlib import Path
 
 
-CORPUS_DIR = Path("program_corpus/programs")
-REPORT_FILE = Path("corpus_validation.csv")
+BASE_DIR = Path(__file__).resolve().parent
+CORPUS_DIR = BASE_DIR / "program_corpus" / "programs"
+REPORT_FILE = BASE_DIR / "corpus_validation.csv"
 
 
 def validate_corpus():

@@ -1,7 +1,10 @@
 
+from pathlib import Path
+
 import pandas as pd
 
-DATASET_FILE = "dataset.csv"
+BASE_DIR = Path(__file__).resolve().parent
+DATASET_FILE = BASE_DIR / "dataset.csv"
 
 df = pd.read_csv(DATASET_FILE)
 
@@ -103,5 +106,39 @@ if duplicate_mask.any():
             ],
         ].head(20).to_string(index=False)
     )
+
+print("\n6. Overlapping source-line ranges within a program")
+
+overlapping_pairs = 0
+for _, group in df.sort_values(["program_id", "line_no"]).groupby("program_id"):
+    latest_end = 0
+    for start, end in zip(group["line_no"], group["end_line"]):
+        if start <= latest_end:
+            overlapping_pairs += 1
+        latest_end = max(latest_end, end)
+
+print("Records starting inside an earlier record's line range:",
+      overlapping_pairs)
+
+print("\n7. Statement-ID and parent consistency")
+
+print("Duplicate (program_id, statement_id):",
+      int(df.duplicated(subset=["program_id", "statement_id"]).sum()))
+
+if "parent_statement_id" in df.columns:
+    ids = set(zip(df["program_id"], df["statement_id"]))
+    with_parent = df[df["parent_statement_id"].notna()]
+    dangling = sum(
+        (program, int(parent)) not in ids or int(parent) >= statement
+        for program, parent, statement in zip(
+            with_parent["program_id"],
+            with_parent["parent_statement_id"],
+            with_parent["statement_id"],
+        )
+    )
+    print("Records with a parent:", len(with_parent))
+    print("Parents missing or not earlier in the program:", dangling)
+else:
+    print("parent_statement_id column not present.")
 
 print("\nAudit completed.")

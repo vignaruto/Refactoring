@@ -249,3 +249,53 @@ P0247,P0247.py,Data Aggregation and Statistics,Aggregate metropolitan municipal 
 P0248,P0248.py,Scheduling and Resource Allocation,Multi-tier satellite constellation ground station tracking downlink scheduler,All three target issues,gemini-2.5-pro,v5.0-expansion,Batch 5,True,ACCEPTED
 P0249,P0249.py,Small Simulation and Rule-based Systems,Simulate natural gas pipeline compressor station surge and venting,All three target issues,gemini-2.5-pro,v5.0-expansion,Batch 5,True,ACCEPTED
 P0250,P0250.py,Inventory and Record Management,Audit maritime cargo customs manifest risk against sanctioned transshipment hubs,All three target issues,gemini-2.5-pro,v5.0-expansion,Batch 5,True,ACCEPTED
+P0251,P0251.py,Numerical Computation,Modular exponentiation by repeated squaring,None,claude-opus-5.5,v6.0-expansion,Batch 6,True,ACCEPTED
+P0252,P0252.py,String Processing & Text Analysis,Caesar cipher letter shifting that preserves case and punctuation,None,claude-opus-5.5,v6.0-expansion,Batch 6,True,ACCEPTED
+P0253,P0253.py,Searching and Sorting,Counting sort for bounded non-negative integers,None,claude-opus-5.5,v6.0-expansion,Batch 6,True,ACCEPTED
+P0254,P0254.py,Data Aggregation and Statistics,Median absolute deviation as a robust spread estimate,None,claude-opus-5.5,v6.0-expansion,Batch 6,True,ACCEPTED
+P0255,P0255.py,"Lists, Tuples, Dictionaries, and Sets",Group normalized words into a dictionary keyed by initial letter,None,claude-opus-5.5,v6.0-expansion,Batch 6,True,ACCEPTED
+P0256,P0256.py,Graph or Tree Traversal,Compute in-degree and out-degree of every node from a directed edge list,None,claude-opus-5.5,v6.0-expansion,Batch 6,True,ACCEPTED
+P0257,P0257.py,Inventory and Record Management,Weighted average unit cost across stock receipts,None,claude-opus-5.5,v6.0-expansion,Batch 6,True,ACCEPTED
+P0258,P0258.py,Scheduling and Resource Allocation,Round-robin CPU scheduling completion times with a fixed quantum,None,claude-opus-5.5,v6.0-expansion,Batch 6,True,ACCEPTED
+P0259,P0259.py,Numerical Computation,Haversine great-circle distance between two coordinates,Long statement only,claude-opus-5.5,v6.0-expansion,Batch 6,True,ACCEPTED
+P0260,P0260.py,Data Aggregation and Statistics,Cohen's d effect size with pooled standard deviation,Long statement only,claude-opus-5.5,v6.0-expansion,Batch 6,True,ACCEPTED
+P0261,P0261.py,String Processing & Text Analysis,Keystroke-level model estimate of time to type and enter a text field,Long statement only,claude-opus-5.5,v6.0-expansion,Batch 6,True,ACCEPTED
+P0262,P0262.py,Inventory and Record Management,Safety stock and days of cover under joint demand and lead-time variability,Long statement only,claude-opus-5.5,v6.0-expansion,Batch 6,True,ACCEPTED
+P0263,P0263.py,Small Simulation and Rule-based Systems,Projectile range and apex height from an elevated launch point,Long statement only,claude-opus-5.5,v6.0-expansion,Batch 6,True,ACCEPTED
+P0264,P0264.py,Scheduling and Resource Allocation,PERT three-point duration estimates and variances per task,Long statement only,claude-opus-5.5,v6.0-expansion,Batch 6,True,ACCEPTED
+P0265,P0265.py,Searching and Sorting,Insertion sort with element shifting,Nested loop only,claude-opus-5.5,v6.0-expansion,Batch 6,True,ACCEPTED
+P0266,P0266.py,Matrix & Grid Operations,Kronecker product of two matrices,Nested loop only,claude-opus-5.5,v6.0-expansion,Batch 6,True,ACCEPTED
+P0267,P0267.py,String Processing & Text Analysis,Naive substring search returning all match positions,Nested loop only,claude-opus-5.5,v6.0-expansion,Batch 6,True,ACCEPTED
+P0268,P0268.py,Graph or Tree Traversal,Breadth-first search hop distances from a source node,Nested loop only,claude-opus-5.5,v6.0-expansion,Batch 6,True,ACCEPTED
+P0269,P0269.py,Data Aggregation and Statistics,Pearson chi-square statistic for a contingency table,Nested loop only,claude-opus-5.5,v6.0-expansion,Batch 6,True,ACCEPTED
+P0270,P0270.py,Small Simulation and Rule-based Systems,One-dimensional elementary cellular automaton evolution by rule number,Nested loop only,claude-opus-5.5,v6.0-expansion,Batch 6,True,ACCEPTED
+P0271,P0271.py,String Processing & Text Analysis,Validate dotted-decimal IPv4 address strings,Complex conditional only,claude-opus-5.5,v6.0-expansion,Batch 6,True,ACCEPTED
+P0272,P0272.py,Numerical Computation,Classify a triangle from three side lengths,Complex conditional only,claude-opus-5.5,v6.0-expansion,Batch 6,True,ACCEPTED
+P0273,P0273.py,Scheduling and Resource Allocation,"Check a meeting slot against working hours, room capacity and blackout periods",Complex conditional only,claude-opus-5.5,v6.0-expansion,Batch 6,True,ACCEPTED
+P0274,P0274.py,Inventory and Record Management,Decide whether a stock item needs a hazardous-materials shipping label,Complex conditional only,claude-opus-5.5,v6.0-expansion,Batch 6,True,ACCEPTED
+P0275,P0275.py,Small Simulation and Rule-based Systems,Validate proleptic Gregorian calendar dates including leap years,Complex conditional only,claude-opus-5.5,v6.0-expansion,Batch 6,True,ACCEPTED
+P0276,P0276.py,Matrix & Grid Operations,Check legality of a chess knight move on an occupied board,Complex conditional only,claude-opus-5.5,v6.0-expansion,Batch 6,True,ACCEPTED
+P0277,P0277.py,Numerical Computation,Finite-difference Hessian matrix of a multivariate function,Long statement and nested loop,claude-opus-5.5,v6.0-expansion,Batch 6,True,ACCEPTED
+P0278,P0278.py,Data Aggregation and Statistics,Mean silhouette coefficient for labelled two-dimensional clusters,Long statement and nested loop,claude-opus-5.5,v6.0-expansion,Batch 6,True,ACCEPTED
+P0279,P0279.py,Small Simulation and Rule-based Systems,Lotka-Volterra predator-prey dynamics across independent habitat patches,Long statement and nested loop,claude-opus-5.5,v6.0-expansion,Batch 6,True,ACCEPTED
+P0280,P0280.py,Scheduling and Resource Allocation,Permutation flow-shop completion times with sequence setup delays,Long statement and nested loop,claude-opus-5.5,v6.0-expansion,Batch 6,True,ACCEPTED
+P0281,P0281.py,Data Aggregation and Statistics,Aggregate diesel and electric carbon emissions per delivery route leg,Long statement and nested loop,claude-opus-5.5,v6.0-expansion,Batch 6,True,ACCEPTED
+P0282,P0282.py,Numerical Computation,Two-dimensional midpoint-rule integration of a modulated Gaussian surface,Long statement and nested loop,claude-opus-5.5,v6.0-expansion,Batch 6,True,ACCEPTED
+P0283,P0283.py,Numerical Computation,Numerically stable quadratic equation roots with degenerate-case handling,Long statement and complex conditional,claude-opus-5.5,v6.0-expansion,Batch 6,True,ACCEPTED
+P0284,P0284.py,Data Aggregation and Statistics,Weekly gross pay with daily and weekly overtime and exemption rules,Long statement and complex conditional,claude-opus-5.5,v6.0-expansion,Batch 6,True,ACCEPTED
+P0285,P0285.py,String Processing & Text Analysis,HTTP response cache freshness lifetime from Cache-Control headers,Long statement and complex conditional,claude-opus-5.5,v6.0-expansion,Batch 6,True,ACCEPTED
+P0286,P0286.py,Small Simulation and Rule-based Systems,HVAC cooling load estimate and compressor stage selection,Long statement and complex conditional,claude-opus-5.5,v6.0-expansion,Batch 6,True,ACCEPTED
+P0287,P0287.py,Inventory and Record Management,Loading dock detention charge with tiered rates and waiver rules,Long statement and complex conditional,claude-opus-5.5,v6.0-expansion,Batch 6,True,ACCEPTED
+P0288,P0288.py,Scheduling and Resource Allocation,Conference room booking fee with crowding surcharge and discount eligibility,Long statement and complex conditional,claude-opus-5.5,v6.0-expansion,Batch 6,True,ACCEPTED
+P0289,P0289.py,Matrix & Grid Operations,Find strict saddle points that are unique row minima and column maxima,Nested loop and complex conditional,claude-opus-5.5,v6.0-expansion,Batch 6,True,ACCEPTED
+P0290,P0290.py,Graph or Tree Traversal,Find mutual follow pairs between active accounts in a social graph,Nested loop and complex conditional,claude-opus-5.5,v6.0-expansion,Batch 6,True,ACCEPTED
+P0291,P0291.py,Scheduling and Resource Allocation,Detect double-booked rooms among overlapping reservations,Nested loop and complex conditional,claude-opus-5.5,v6.0-expansion,Batch 6,True,ACCEPTED
+P0292,P0292.py,String Processing & Text Analysis,Find word pairs that differ by exactly one letter substitution excluding stop words,Nested loop and complex conditional,claude-opus-5.5,v6.0-expansion,Batch 6,True,ACCEPTED
+P0293,P0293.py,Small Simulation and Rule-based Systems,Single update step of a falling-sand cellular grid with diagonal sliding,Nested loop and complex conditional,claude-opus-5.5,v6.0-expansion,Batch 6,True,ACCEPTED
+P0294,P0294.py,Inventory and Record Management,Match customer returns to eligible original invoice lines,Nested loop and complex conditional,claude-opus-5.5,v6.0-expansion,Batch 6,True,ACCEPTED
+P0295,P0295.py,Small Simulation and Rule-based Systems,Discrete SIR epidemic across districts with travel coupling and lockdown triggers,All three target issues,claude-opus-5.5,v6.0-expansion,Batch 6,True,ACCEPTED
+P0296,P0296.py,Matrix & Grid Operations,Coral reef bleaching alert levels from degree heating weeks over a sea temperature grid,All three target issues,claude-opus-5.5,v6.0-expansion,Batch 6,True,ACCEPTED
+P0297,P0297.py,Scheduling and Resource Allocation,"Assign delivery drones to parcels under payload, battery and wind constraints",All three target issues,claude-opus-5.5,v6.0-expansion,Batch 6,True,ACCEPTED
+P0298,P0298.py,Inventory and Record Management,Audit controlled-substance cabinet counts across hospital wards,All three target issues,claude-opus-5.5,v6.0-expansion,Batch 6,True,ACCEPTED
+P0299,P0299.py,Numerical Computation,Grid search of PI controller gains for a first-order plant step response,All three target issues,claude-opus-5.5,v6.0-expansion,Batch 6,True,ACCEPTED
+P0300,P0300.py,Data Aggregation and Statistics,Flag online sellers with burst five-star reviews and unverified purchase signals,All three target issues,claude-opus-5.5,v6.0-expansion,Batch 6,True,ACCEPTED
