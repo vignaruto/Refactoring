@@ -299,3 +299,53 @@ P0297,P0297.py,Scheduling and Resource Allocation,"Assign delivery drones to par
 P0298,P0298.py,Inventory and Record Management,Audit controlled-substance cabinet counts across hospital wards,All three target issues,claude-opus-5.5,v6.0-expansion,Batch 6,True,ACCEPTED
 P0299,P0299.py,Numerical Computation,Grid search of PI controller gains for a first-order plant step response,All three target issues,claude-opus-5.5,v6.0-expansion,Batch 6,True,ACCEPTED
 P0300,P0300.py,Data Aggregation and Statistics,Flag online sellers with burst five-star reviews and unverified purchase signals,All three target issues,claude-opus-5.5,v6.0-expansion,Batch 6,True,ACCEPTED
+P0301,P0301.py,Numerical Computation,Integer square root via binary interval halving,None,claude-opus-5.5,v7.0-expansion,Batch 7,True,ACCEPTED
+P0302,P0302.py,String Processing & Text Analysis,Rotational Caesar-13 cipher on ASCII letters preserving case,None,claude-opus-5.5,v7.0-expansion,Batch 7,True,ACCEPTED
+P0303,P0303.py,Searching and Sorting,Lower-bound index of the first element at least target in sorted list,None,claude-opus-5.5,v7.0-expansion,Batch 7,True,ACCEPTED
+P0304,P0304.py,Data Aggregation and Statistics,Symmetric trimmed mean after dropping outer tail observations,None,claude-opus-5.5,v7.0-expansion,Batch 7,True,ACCEPTED
+P0305,P0305.py,"Lists, Tuples, Dictionaries, and Sets",Invert a one-to-one mapping while rejecting duplicate values,None,claude-opus-5.5,v7.0-expansion,Batch 7,True,ACCEPTED
+P0306,P0306.py,Graph or Tree Traversal,Trace ancestor chain from a node to the root in a parent map,None,claude-opus-5.5,v7.0-expansion,Batch 7,True,ACCEPTED
+P0307,P0307.py,Inventory and Record Management,Verify double-entry ledger balance across debit and credit postings,None,claude-opus-5.5,v7.0-expansion,Batch 7,True,ACCEPTED
+P0308,P0308.py,Scheduling and Resource Allocation,Shortest-processing-time single machine mean flow time,None,claude-opus-5.5,v7.0-expansion,Batch 7,True,ACCEPTED
+P0309,P0309.py,Numerical Computation,Tetens saturation vapor pressure and dew point temperature,Long statement only,claude-opus-5.5,v7.0-expansion,Batch 7,True,ACCEPTED
+P0310,P0310.py,Data Aggregation and Statistics,Sample excess kurtosis with finite-sample bias adjustment,Long statement only,claude-opus-5.5,v7.0-expansion,Batch 7,True,ACCEPTED
+P0311,P0311.py,String Processing & Text Analysis,BM25 single-term relevance score for a document in a collection,Long statement only,claude-opus-5.5,v7.0-expansion,Batch 7,True,ACCEPTED
+P0312,P0312.py,Inventory and Record Management,Newsvendor critical fractile and normal optimal order quantity,Long statement only,claude-opus-5.5,v7.0-expansion,Batch 7,True,ACCEPTED
+P0313,P0313.py,Small Simulation and Rule-based Systems,Single-node RC thermal step response under constant joule heating,Long statement only,claude-opus-5.5,v7.0-expansion,Batch 7,True,ACCEPTED
+P0314,P0314.py,Scheduling and Resource Allocation,Kingman VUT queue waiting time approximation for a single workstation,Long statement only,claude-opus-5.5,v7.0-expansion,Batch 7,True,ACCEPTED
+P0315,P0315.py,Searching and Sorting,Odd-even transposition brick sort for a list of integers,Nested loop only,claude-opus-5.5,v7.0-expansion,Batch 7,True,ACCEPTED
+P0316,P0316.py,Matrix & Grid Operations,Lower-triangular Pascal binomial table up to order n,Nested loop only,claude-opus-5.5,v7.0-expansion,Batch 7,True,ACCEPTED
+P0317,P0317.py,String Processing & Text Analysis,Character transition bigram count matrix across a word list,Nested loop only,claude-opus-5.5,v7.0-expansion,Batch 7,True,ACCEPTED
+P0318,P0318.py,Graph or Tree Traversal,Kahn topological ordering of a directed acyclic graph,Nested loop only,claude-opus-5.5,v7.0-expansion,Batch 7,True,ACCEPTED
+P0319,P0319.py,Data Aggregation and Statistics,Empirical joint histogram over two-dimensional bin edges,Nested loop only,claude-opus-5.5,v7.0-expansion,Batch 7,True,ACCEPTED
+P0320,P0320.py,Small Simulation and Rule-based Systems,Abelian sandpile toppling relaxation on a square grid,Nested loop only,claude-opus-5.5,v7.0-expansion,Batch 7,True,ACCEPTED
+P0321,P0321.py,String Processing & Text Analysis,Validate semantic version strings with optional pre-release tags,Complex conditional only,claude-opus-5.5,v7.0-expansion,Batch 7,True,ACCEPTED
+P0322,P0322.py,Numerical Computation,Check strict diagonal dominance and positivity of a 3x3 matrix,Complex conditional only,claude-opus-5.5,v7.0-expansion,Batch 7,True,ACCEPTED
+P0323,P0323.py,Scheduling and Resource Allocation,Determine blood donor deferral status from vitals and recent history,Complex conditional only,claude-opus-5.5,v7.0-expansion,Batch 7,True,ACCEPTED
+P0324,P0324.py,Inventory and Record Management,Determine whether a warehouse bin can accept an incoming cold-storage lot,Complex conditional only,claude-opus-5.5,v7.0-expansion,Batch 7,True,ACCEPTED
+P0325,P0325.py,Small Simulation and Rule-based Systems,"Select elevator cabin dispatch state from hall calls, load and fire mode",Complex conditional only,claude-opus-5.5,v7.0-expansion,Batch 7,True,ACCEPTED
+P0326,P0326.py,Matrix & Grid Operations,Check legality of a rook slide along an unobstructed rank or file,Complex conditional only,claude-opus-5.5,v7.0-expansion,Batch 7,True,ACCEPTED
+P0327,P0327.py,Numerical Computation,Gauss-Seidel iterative solver for a square linear system,Long statement and nested loop,claude-opus-5.5,v7.0-expansion,Batch 7,True,ACCEPTED
+P0328,P0328.py,Data Aggregation and Statistics,Bhattacharyya distance between normalized two-dimensional histograms,Long statement and nested loop,claude-opus-5.5,v7.0-expansion,Batch 7,True,ACCEPTED
+P0329,P0329.py,Small Simulation and Rule-based Systems,Coupled Kuramoto phase oscillators synchronization step,Long statement and nested loop,claude-opus-5.5,v7.0-expansion,Batch 7,True,ACCEPTED
+P0330,P0330.py,Scheduling and Resource Allocation,Proportional-fair downlink wireless resource block throughput matrix,Long statement and nested loop,claude-opus-5.5,v7.0-expansion,Batch 7,True,ACCEPTED
+P0331,P0331.py,Inventory and Record Management,Multi-period Wagner-Whitin dynamic lot-sizing cost table,Long statement and nested loop,claude-opus-5.5,v7.0-expansion,Batch 7,True,ACCEPTED
+P0332,P0332.py,Matrix & Grid Operations,Bilateral-weighted smoothing of a one-dimensional signal with spatial and range kernels,Long statement and nested loop,claude-opus-5.5,v7.0-expansion,Batch 7,True,ACCEPTED
+P0333,P0333.py,Numerical Computation,Snell acoustic refraction angle and critical total internal reflection check,Long statement and complex conditional,claude-opus-5.5,v7.0-expansion,Batch 7,True,ACCEPTED
+P0334,P0334.py,Data Aggregation and Statistics,Two-sample Welch t-statistic and significance decision,Long statement and complex conditional,claude-opus-5.5,v7.0-expansion,Batch 7,True,ACCEPTED
+P0335,P0335.py,String Processing & Text Analysis,DKIM email header tag parser and cryptographic policy check,Long statement and complex conditional,claude-opus-5.5,v7.0-expansion,Batch 7,True,ACCEPTED
+P0336,P0336.py,Small Simulation and Rule-based Systems,Lithium-ion cell fast-charge current taper and thermal cutback,Long statement and complex conditional,claude-opus-5.5,v7.0-expansion,Batch 7,True,ACCEPTED
+P0337,P0337.py,Inventory and Record Management,Letter-of-credit documentary discrepancy fee and payment release,Long statement and complex conditional,claude-opus-5.5,v7.0-expansion,Batch 7,True,ACCEPTED
+P0338,P0338.py,Scheduling and Resource Allocation,EV charging depot transformer load curtailment and session tariff,Long statement and complex conditional,claude-opus-5.5,v7.0-expansion,Batch 7,True,ACCEPTED
+P0339,P0339.py,Matrix & Grid Operations,Find interior grid cells that are strict local extrema along both axes,Nested loop and complex conditional,claude-opus-5.5,v7.0-expansion,Batch 7,True,ACCEPTED
+P0340,P0340.py,Graph or Tree Traversal,Detect directed two-hop broker bridges between isolated security zones,Nested loop and complex conditional,claude-opus-5.5,v7.0-expansion,Batch 7,True,ACCEPTED
+P0341,P0341.py,Scheduling and Resource Allocation,Find radio channel co-channel interference conflicts across base stations,Nested loop and complex conditional,claude-opus-5.5,v7.0-expansion,Batch 7,True,ACCEPTED
+P0342,P0342.py,String Processing & Text Analysis,Match log lines against multi-clause intrusion detection signatures,Nested loop and complex conditional,claude-opus-5.5,v7.0-expansion,Batch 7,True,ACCEPTED
+P0343,P0343.py,Small Simulation and Rule-based Systems,Advance vehicle platooning gap regulation across highway lanes,Nested loop and complex conditional,claude-opus-5.5,v7.0-expansion,Batch 7,True,ACCEPTED
+P0344,P0344.py,Inventory and Record Management,Cross-match blood bank unit bags to compatible patient requests,Nested loop and complex conditional,claude-opus-5.5,v7.0-expansion,Batch 7,True,ACCEPTED
+P0345,P0345.py,Small Simulation and Rule-based Systems,Gaussian plume downwind atmospheric pollutant dispersion grid alert,All three target issues,claude-opus-5.5,v7.0-expansion,Batch 7,True,ACCEPTED
+P0346,P0346.py,Matrix & Grid Operations,Synthetic aperture radar phase interferogram coherence and fringe detector,All three target issues,claude-opus-5.5,v7.0-expansion,Batch 7,True,ACCEPTED
+P0347,P0347.py,Scheduling and Resource Allocation,Assign maritime harbour tugboats to incoming vessels under bollard pull and draft rules,All three target issues,claude-opus-5.5,v7.0-expansion,Batch 7,True,ACCEPTED
+P0348,P0348.py,Inventory and Record Management,Reconcile fuel depot tank strapping dip readings against metered flow totals,All three target issues,claude-opus-5.5,v7.0-expansion,Batch 7,True,ACCEPTED
+P0349,P0349.py,Numerical Computation,Grid search of Tuned Mass Damper parameters for structural resonance suppression,All three target issues,claude-opus-5.5,v7.0-expansion,Batch 7,True,ACCEPTED
+P0350,P0350.py,Data Aggregation and Statistics,Flag clinical lab panels with multivariate z-score drift and hemolysis interference,All three target issues,claude-opus-5.5,v7.0-expansion,Batch 7,True,ACCEPTED
