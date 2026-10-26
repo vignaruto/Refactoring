@@ -649,3 +649,53 @@ P0647,P0647.py,Scheduling and Resource Allocation,"Expected wait in a call queue
 P0648,P0648.py,String Processing & Text Analysis,"Reading-ease score from sentence, word and vowel-group counts",Long statement only,claude-opus-5.5,v13.0-expansion,Batch 13,True,ACCEPTED
 P0649,P0649.py,Numerical Computation,Weighted sum over a filtered integer grid of index pairs,All three target issues,claude-opus-5.5,v13.0-expansion,Batch 13,True,ACCEPTED
 P0650,P0650.py,Data Aggregation and Statistics,Store weeks whose sales z-score exceeds a limit,All three target issues,claude-opus-5.5,v13.0-expansion,Batch 13,True,ACCEPTED
+P0651,P0651.py,Numerical Computation,Continued fraction terms of a rational number and its reconstruction,None,claude-opus-5.5,v14.0-expansion,Batch 14,True,ACCEPTED
+P0652,P0652.py,String Processing & Text Analysis,Run-length tokens such as 3a and their expansion back to text,None,claude-opus-5.5,v14.0-expansion,Batch 14,True,ACCEPTED
+P0653,P0653.py,"Lists, Tuples, Dictionaries, and Sets","Turn header plus row tuples into dict records, skipping ragged rows",None,claude-opus-5.5,v14.0-expansion,Batch 14,True,ACCEPTED
+P0654,P0654.py,Scheduling and Resource Allocation,Deal tasks to workers in round-robin order and find the busiest worker,None,claude-opus-5.5,v14.0-expansion,Batch 14,True,ACCEPTED
+P0655,P0655.py,Inventory and Record Management,Restock quantities for SKUs under their reorder point and the order cost,None,claude-opus-5.5,v14.0-expansion,Batch 14,True,ACCEPTED
+P0656,P0656.py,Data Aggregation and Statistics,Mid-rank percentile of every score within its own sample,None,claude-opus-5.5,v14.0-expansion,Batch 14,True,ACCEPTED
+P0657,P0657.py,Small Simulation and Rule-based Systems,Heater on/off states from a thermostat with a hysteresis band,None,claude-opus-5.5,v14.0-expansion,Batch 14,True,ACCEPTED
+P0658,P0658.py,Matrix & Grid Operations,Group matrix cells into anti-diagonals and find the heaviest one,Nested loop only,claude-opus-5.5,v14.0-expansion,Batch 14,True,ACCEPTED
+P0659,P0659.py,Graph or Tree Traversal,Number of distinct source-to-node paths in a DAG given a topological order,Nested loop only,claude-opus-5.5,v14.0-expansion,Batch 14,True,ACCEPTED
+P0660,P0660.py,Searching and Sorting,Merge several sorted lists by repeatedly scanning the current heads,Nested loop only,claude-opus-5.5,v14.0-expansion,Batch 14,True,ACCEPTED
+P0661,P0661.py,String Processing & Text Analysis,"Index each letter to its word and position, then letters in every word",Nested loop only,claude-opus-5.5,v14.0-expansion,Batch 14,True,ACCEPTED
+P0662,P0662.py,Data Aggregation and Statistics,Cross-tabulate two categorical fields and compute row shares,Nested loop only,claude-opus-5.5,v14.0-expansion,Batch 14,True,ACCEPTED
+P0663,P0663.py,Numerical Computation,Count integer lattice points inside a circle and estimate pi from them,Nested loop only,claude-opus-5.5,v14.0-expansion,Batch 14,True,ACCEPTED
+P0664,P0664.py,"Lists, Tuples, Dictionaries, and Sets",Swap the outer and inner keys of a nested dictionary,Nested loop only,claude-opus-5.5,v14.0-expansion,Batch 14,True,ACCEPTED
+P0665,P0665.py,Small Simulation and Rule-based Systems,Pedestrian crossing phases over time from button presses,Complex conditional only,claude-opus-5.5,v14.0-expansion,Batch 14,True,ACCEPTED
+P0666,P0666.py,Inventory and Record Management,"Whether a stock lot may ship given quantity, shelf life and quality hold",Complex conditional only,claude-opus-5.5,v14.0-expansion,Batch 14,True,ACCEPTED
+P0667,P0667.py,Scheduling and Resource Allocation,Fill a shift with highest-priority tasks until hours or budget run out,Complex conditional only,claude-opus-5.5,v14.0-expansion,Batch 14,True,ACCEPTED
+P0668,P0668.py,String Processing & Text Analysis,"Markdown heading level of a line, or 0 when it is not a heading",Complex conditional only,claude-opus-5.5,v14.0-expansion,Batch 14,True,ACCEPTED
+P0669,P0669.py,Graph or Tree Traversal,Check a node-table tree obeys binary search tree bounds without cycles,Complex conditional only,claude-opus-5.5,v14.0-expansion,Batch 14,True,ACCEPTED
+P0670,P0670.py,Searching and Sorting,"First product that is in stock, within budget and rated highly enough",Complex conditional only,claude-opus-5.5,v14.0-expansion,Batch 14,True,ACCEPTED
+P0671,P0671.py,Numerical Computation,Check whether a numeric sequence is a geometric progression,Complex conditional only,claude-opus-5.5,v14.0-expansion,Batch 14,True,ACCEPTED
+P0672,P0672.py,Numerical Computation,"Future value of a principal plus monthly deposits, ordinary or due",Long statement only,claude-opus-5.5,v14.0-expansion,Batch 14,True,ACCEPTED
+P0673,P0673.py,Data Aggregation and Statistics,"Combined mean and standard deviation from per-group count, mean and std",Long statement only,claude-opus-5.5,v14.0-expansion,Batch 14,True,ACCEPTED
+P0674,P0674.py,Inventory and Record Management,Inventory valuation including freight and duty on imported lines,Long statement only,claude-opus-5.5,v14.0-expansion,Batch 14,True,ACCEPTED
+P0675,P0675.py,Scheduling and Resource Allocation,"Meeting agenda with clock times, gaps and a flag for long items",Long statement only,claude-opus-5.5,v14.0-expansion,Batch 14,True,ACCEPTED
+P0676,P0676.py,Small Simulation and Rule-based Systems,Horizontal range of a projectile launched from a given height,Long statement only,claude-opus-5.5,v14.0-expansion,Batch 14,True,ACCEPTED
+P0677,P0677.py,"Lists, Tuples, Dictionaries, and Sets",Jaccard index and a blended set-similarity score for two tag sets,Long statement only,claude-opus-5.5,v14.0-expansion,Batch 14,True,ACCEPTED
+P0678,P0678.py,String Processing & Text Analysis,"Score a username suggestion by letters, digits, length and availability",Long statement only,claude-opus-5.5,v14.0-expansion,Batch 14,True,ACCEPTED
+P0679,P0679.py,Matrix & Grid Operations,Weighted smoothing of interior grid cells using their four neighbours,Long statement and nested loop,claude-opus-5.5,v14.0-expansion,Batch 14,True,ACCEPTED
+P0680,P0680.py,Graph or Tree Traversal,Edge weight inside versus across clusters of an undirected graph,Long statement and nested loop,claude-opus-5.5,v14.0-expansion,Batch 14,True,ACCEPTED
+P0681,P0681.py,Searching and Sorting,Rank documents for a query with a title boost for longer terms,Long statement and nested loop,claude-opus-5.5,v14.0-expansion,Batch 14,True,ACCEPTED
+P0682,P0682.py,Data Aggregation and Statistics,Rolling-window maxima per named series and the spread of those peaks,Long statement and nested loop,claude-opus-5.5,v14.0-expansion,Batch 14,True,ACCEPTED
+P0683,P0683.py,Inventory and Record Management,"Free bin capacity per warehouse, ignoring quarantined X bins",Long statement and nested loop,claude-opus-5.5,v14.0-expansion,Batch 14,True,ACCEPTED
+P0684,P0684.py,Scheduling and Resource Allocation,Free time slots per room and day given a set of bookings,Long statement and nested loop,claude-opus-5.5,v14.0-expansion,Batch 14,True,ACCEPTED
+P0685,P0685.py,"Lists, Tuples, Dictionaries, and Sets",Pairwise agreement score between user preference dictionaries,Long statement and nested loop,claude-opus-5.5,v14.0-expansion,Batch 14,True,ACCEPTED
+P0686,P0686.py,Small Simulation and Rule-based Systems,Wildfire danger rating from weather readings and dry days,Long statement and complex conditional,claude-opus-5.5,v14.0-expansion,Batch 14,True,ACCEPTED
+P0687,P0687.py,Matrix & Grid Operations,Local height peaks above a minimum with a prominence score,All three target issues,claude-opus-5.5,v14.0-expansion,Batch 14,True,ACCEPTED
+P0688,P0688.py,Graph or Tree Traversal,"Cheapest route with banned nodes, toll fees and a hop limit",All three target issues,claude-opus-5.5,v14.0-expansion,Batch 14,True,ACCEPTED
+P0689,P0689.py,Searching and Sorting,Interpolation search for several queries in a sorted list,All three target issues,claude-opus-5.5,v14.0-expansion,Batch 14,True,ACCEPTED
+P0690,P0690.py,Data Aggregation and Statistics,Flag z-score outliers inside each group of measurements,All three target issues,claude-opus-5.5,v14.0-expansion,Batch 14,True,ACCEPTED
+P0691,P0691.py,Scheduling and Resource Allocation,Assign jobs to the least-loaded machine meeting GPU and deadline needs,All three target issues,claude-opus-5.5,v14.0-expansion,Batch 14,True,ACCEPTED
+P0692,P0692.py,Numerical Computation,Midpoint-rule integral over the positive quadrant of a disc,All three target issues,claude-opus-5.5,v14.0-expansion,Batch 14,True,ACCEPTED
+P0693,P0693.py,Inventory and Record Management,Reconcile counted stock against book records with value of each gap,All three target issues,claude-opus-5.5,v14.0-expansion,Batch 14,True,ACCEPTED
+P0694,P0694.py,Matrix & Grid Operations,Centres of plus-shaped patterns of filled cells in a binary grid,Nested loop and complex conditional,claude-opus-5.5,v14.0-expansion,Batch 14,True,ACCEPTED
+P0695,P0695.py,Graph or Tree Traversal,Count triangles in an undirected graph given as adjacency sets,Nested loop and complex conditional,claude-opus-5.5,v14.0-expansion,Batch 14,True,ACCEPTED
+P0696,P0696.py,Searching and Sorting,Count rising index triples whose consecutive gaps stay within a limit,Nested loop and complex conditional,claude-opus-5.5,v14.0-expansion,Batch 14,True,ACCEPTED
+P0697,P0697.py,String Processing & Text Analysis,Find accidentally doubled words on each line of a text,Nested loop and complex conditional,claude-opus-5.5,v14.0-expansion,Batch 14,True,ACCEPTED
+P0698,P0698.py,"Lists, Tuples, Dictionaries, and Sets",Scalar settings shared with the same value by every config dictionary,Nested loop and complex conditional,claude-opus-5.5,v14.0-expansion,Batch 14,True,ACCEPTED
+P0699,P0699.py,Small Simulation and Rule-based Systems,Topple an abelian sandpile grid until every cell is stable,Nested loop and complex conditional,claude-opus-5.5,v14.0-expansion,Batch 14,True,ACCEPTED
+P0700,P0700.py,Matrix & Grid Operations,Count axis-aligned rectangles whose four corner cells hold equal values,Nested loop and complex conditional,claude-opus-5.5,v14.0-expansion,Batch 14,True,ACCEPTED

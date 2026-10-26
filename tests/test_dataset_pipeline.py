@@ -469,13 +469,13 @@ class ManifestSafetyTests(ProjectCopyTestCase):
         self.assertEqual(len(ids), len(set(ids)))
 
     def test_differing_program_file_stops_without_writing(self):
-        program = self.copy / "program_corpus" / "programs" / "P0601.py"
+        program = self.copy / "program_corpus" / "programs" / "P0651.py"
         program.write_text(program.read_text() + "\n# edited\n")
         before = self.snapshot()
 
         result = self.run_script("build_corpus.py")
         self.assertNotEqual(result.returncode, 0)
-        self.assertIn("P0601.py exists with different content", result.stderr)
+        self.assertIn("P0651.py exists with different content", result.stderr)
         self.assertEqual(self.snapshot(), before)
 
     def test_conflicting_manifest_metadata_stops_without_writing(self):
@@ -485,7 +485,7 @@ class ManifestSafetyTests(ProjectCopyTestCase):
             fields = reader.fieldnames
             rows = list(reader)
         for row in rows:
-            if row["program_id"] == "P0602":
+            if row["program_id"] == "P0652":
                 row["intended_category"] = "Long statement only"
         with manifest.open("w", newline="", encoding="utf-8") as f:
             writer = csv.DictWriter(f, fieldnames=fields)
@@ -495,7 +495,7 @@ class ManifestSafetyTests(ProjectCopyTestCase):
 
         result = self.run_script("build_corpus.py")
         self.assertNotEqual(result.returncode, 0)
-        self.assertIn("P0602 is already in the manifest", result.stderr)
+        self.assertIn("P0652 is already in the manifest", result.stderr)
         self.assertEqual(self.snapshot(), before)
 
     def test_malformed_manifest_row_stops_without_writing(self):
@@ -510,7 +510,7 @@ class ManifestSafetyTests(ProjectCopyTestCase):
         self.assertEqual(self.snapshot(), before)
 
     def test_missing_rows_and_files_are_added_once(self):
-        removed = ["P0649", "P0650"]
+        removed = ["P0699", "P0700"]
         manifest = self.copy / "program_corpus" / "manifest.csv"
         lines = manifest.read_text(encoding="utf-8").splitlines(keepends=True)
         kept = [
