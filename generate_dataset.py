@@ -72,6 +72,13 @@ SCOPE_STATEMENTS = (
 #     computed only from the construct the record represents: the whole
 #     simple statement, the if/while test, or the for target and
 #     iterable. Trailing comments are not part of a record.
+#   - statement_length (and so long_statement) counts a multi-line
+#     record as if written on one line: each line break and the
+#     indentation around it become one space, or nothing next to an
+#     opening or closing bracket. The code column keeps the original.
+#   - in_main_guard is 1 for the module-level
+#     `if __name__ == "__main__":` header and everything inside it.
+#     These rows are test scaffolding rather than program logic.
 #   - loop_depth and nested_loop describe loops in the record's whole
 #     subtree, body included, so an outer loop that contains another
 #     loop is detectable from its header record.
@@ -337,16 +344,33 @@ def is_docstring(stmt, owner):
     )
 
 
+def statement_length(code):
+    """Length of code with its line breaks joined as on a single line."""
+    flat = re.sub(r"(?<=[\[({])\s*\\?\n\s*|\s*\\?\n\s*(?=[\])}])", "", code)
+    return len(re.sub(r"\s*\\?\n\s*", " ", flat))
+
+
 def is_long_statement(node, code):
     """
     Initial heuristic (a candidate label, not ground truth): a simple
-    statement whose source text is longer than LONG_STATEMENT_THRESHOLD
+    statement whose statement_length is above LONG_STATEMENT_THRESHOLD
     characters. Compound-statement headers are never long statements.
     """
     if not isinstance(node, SIMPLE_STATEMENTS):
         return False
 
-    return len(code) > LONG_STATEMENT_THRESHOLD
+    return statement_length(code) > LONG_STATEMENT_THRESHOLD
+
+
+def main_guard_lines(tree):
+    """Line ranges of module-level `if __name__ == "__main__":` blocks."""
+    return [
+        (node.lineno, node.end_lineno)
+        for node in tree.body
+        if isinstance(node, ast.If)
+        and "__name__" in ast.unparse(node.test)
+        and "__main__" in ast.unparse(node.test)
+    ]
 
 
 def to_char_col(line, byte_col):
@@ -449,6 +473,7 @@ def nested_blocks(stmt):
 def extract_statements(tree, source_lines):
     statements = []
     spans = []
+    main_guards = main_guard_lines(tree)
 
     def emit(node, parent_id, enclosing_loops):
         start, end = record_span(node, source_lines)
@@ -476,9 +501,12 @@ def extract_statements(tree, source_lines):
             "enclosing_loop_depth": enclosing_loops,
             "line_no": start[0],
             "end_line": end[0],
+            "in_main_guard": int(any(
+                first <= start[0] <= last for first, last in main_guards
+            )),
             "statement_type": type(node).__name__,
             "code": code,
-            "statement_length": len(code),
+            "statement_length": statement_length(code),
             "operator_count": extractor.operator_count,
             "operand_count": extractor.operand_count,
             "expression_depth": expression_depth,
@@ -707,6 +735,7 @@ def main():
         "statement_type",
         "line_no",
         "end_line",
+        "in_main_guard",
         "code",
         "statement_length",
         "operator_count",

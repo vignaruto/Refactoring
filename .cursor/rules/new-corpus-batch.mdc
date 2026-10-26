@@ -12,10 +12,11 @@ Programs flow through: `build_corpus.py` -> `validate_corpus.py` -> `generate_da
 - Run `python build_corpus.py`, which enforces `check_uniqueness` and `check_architecture_fit`. Then run `validate_corpus.py`, `generate_dataset.py`, `audit_dataset.py`, and `python -m unittest tests.test_dataset_pipeline`. Fix the programs; don't loosen the checks.
 
 ## Labels must match `intended_category` exactly (rules in generate_dataset.py)
-- `long_statement`: a simple statement (Assign/AugAssign/AnnAssign/Expr/Return) whose stripped code is **> 60 chars**. Compound headers never count.
+- `long_statement`: a simple statement (Assign/AugAssign/AnnAssign/Expr/Return) whose `statement_length` is **> 60 chars**, measured as if written on one line (splitting a statement across lines does not shorten it). Compound headers, `def` lines and `assert`s are not records and never count.
 - `nested_loop`: a for/while that contains another for/while (comprehensions don't count).
 - `complex_conditional`: an `if`/`elif`/`while` test with **>= 3 atomic conditions** (`0 <= x < n` = 2; `not` doesn't add; calls count 1).
-- Programs **without** long_statement must keep **every** simple statement <= 60 chars, including asserts in `__main__`, type-hinted signatures, and f-strings. This is the most common past mistake.
+- Programs **without** long_statement must keep **every** simple statement <= 60 chars, including f-strings and returned dict literals. This is the most common past mistake.
+- No target issue may appear inside `if __name__ == "__main__":` (rows flagged `in_main_guard`). Keep test data short there, e.g. build it over several short assignments; `build_corpus.py` rejects violations.
 - Rebalance the corpus: check the manifest's `intended_category` counts first and give more programs to the smallest categories (currently "Complex conditional only" and "Nested loop and complex conditional").
 
 ## Make the downstream stages succeed
@@ -27,6 +28,7 @@ Programs flow through: `build_corpus.py` -> `validate_corpus.py` -> `generate_da
 
 ## Data quality for the model
 - Add hard negatives: simple statements of 50-60 chars, conditions with exactly 2 atoms, and loops whose body has a comprehension rather than a loop. Add hard positives just over the thresholds (61-70 chars, exactly 3 atoms).
+- Vary coding style, not only topic: mix prompt styles (terse vs. verbose, typed vs. untyped, helper variables vs. inline expressions) and record the actual generating model in `model_id`; batches from other LLMs reduce source bias.
 - Vary statement types for long statements (Return, AugAssign, call Expr), not only Assign.
 - Use only the 10 domains in `build_corpus.DOMAINS`, spread across the batch; realistic, varied tasks, 10-40 lines each.
 - Unique task description and top-level function names; AST structural similarity < 0.85 to every program (similarity_group must stay a singleton).

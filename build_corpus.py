@@ -1247,11 +1247,13 @@ def check_uniqueness(new_programs, existing_manifest):
     return problems, closest
 
 
-def check_architecture_fit(pid, row, code):
+def check_architecture_fit(pid, row, code, allow_scaffold_issues=False):
     """
     Reasons a new program would not work in the refactoring pipeline:
     - unknown domain or intended_category;
     - the labels generate_dataset.py assigns differ from intended_category;
+    - a target issue sits in the __main__ test block rather than program
+      logic (allowed for batches 1-10 via allow_scaffold_issues);
     - two records start on the same line (main.py keys actions by line);
     - it uses a name that transformation.py introduces;
     - it has no assert-based self-test under __main__, or that test fails.
@@ -1283,6 +1285,22 @@ def check_architecture_fit(pid, row, code):
             f"{pid} is {category!r} but its rule labels are "
             f"{sorted(labels) or 'none'}"
         )
+
+    if not allow_scaffold_issues:
+        scaffold = sorted({
+            record["line_no"]
+            for record in records
+            if record["in_main_guard"] and any(
+                record[label]
+                for label in ("long_statement", "nested_loop",
+                              "complex_conditional")
+            )
+        })
+        if scaffold:
+            problems.append(
+                f"{pid} has target issues in its __main__ block on "
+                f"line(s) {scaffold}"
+            )
 
     starts = [record["line_no"] for record in records]
     shared = sorted({line for line in starts if starts.count(line) > 1})

@@ -62,6 +62,34 @@ class ComplexConditionalTests(unittest.TestCase):
         )
 
 
+class LengthAndScaffoldTests(unittest.TestCase):
+    def test_multiline_length_matches_one_line_form(self):
+        one_line = 'x = {"a": 1, "b": 2}'
+        records = extract("""
+            x = {
+                "a": 1,
+                "b": 2
+            }
+            y = 1 + \\
+                2
+        """)
+        self.assertEqual(records[0]["statement_length"], len(one_line))
+        self.assertEqual(records[1]["statement_length"], len("y = 1 + 2"))
+
+    def test_main_guard_rows_are_flagged(self):
+        records = extract("""
+            def f():
+                return 1
+
+            if __name__ == "__main__":
+                value = f()
+                assert value == 1
+        """)
+        self.assertEqual(
+            [record["in_main_guard"] for record in records], [0, 1, 1]
+        )
+
+
 class DocstringTests(unittest.TestCase):
     SOURCE = '''
         """Module docstring that is definitely longer than sixty characters in total."""
@@ -356,8 +384,20 @@ class ArchitectureFitTests(unittest.TestCase):
             code = (self.bc.PROGRAMS_DIR / row["filename"]).read_text()
             with self.subTest(pid=pid):
                 self.assertEqual(
-                    self.bc.check_architecture_fit(pid, row, code), []
+                    self.bc.check_architecture_fit(
+                        pid, row, code, allow_scaffold_issues=True
+                    ),
+                    [],
                 )
+
+    def test_issues_in_main_block_are_rejected(self):
+        code = self.CODE.replace(
+            "    assert clamp_total([1, 2], 2) == 2\n",
+            "    numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]\n"
+            "    assert clamp_total(numbers, 2) == 2\n",
+        )
+        problems = self.problems_for(code)
+        self.assertTrue(any("__main__ block" in p for p in problems))
 
 
 class SimilarityGroupTests(unittest.TestCase):
