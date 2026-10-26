@@ -1,6 +1,6 @@
 """
 build_corpus.py
-Writes the Batch 11 (P0501-P0550) programs into program_corpus/programs and
+Writes the Batch 12 (P0551-P0600) programs into program_corpus/programs and
 appends their rows to program_corpus/manifest.csv. Earlier batches are already
 in the corpus and are not rebuilt by this script.
 
@@ -76,1058 +76,1068 @@ DOMAINS = {
 # Names transformation.py introduces when it rewrites code.
 RESERVED_NAMES = {"_temp1", "_temp2", "_condition"}
 
-BATCH11_PROGRAMS = {
-    # 1. COMPLEX CONDITIONAL ONLY (12 programs: P0501 - P0512)
-    "P0501": {
+BATCH12_PROGRAMS = {
+    # 1. COMPLEX CONDITIONAL ONLY (17 programs: P0551 - P0567)
+    "P0551": {
         "domain": "Small Simulation and Rule-based Systems",
-        "task": "Next traffic signal phase from waiting cars and elapsed time",
+        "task": "Vending machine that dispenses only with stock and enough credit",
         "category": "Complex conditional only",
-        "code": '''def advance_signal_phase(phase: str, waiting: int, elapsed: int, emergency: bool) -> str:
-    if emergency:
-        return "all_red"
-    if phase == "green" and elapsed >= 30 and waiting > 0:
-        return "yellow"
-    if phase == "yellow" and elapsed >= 4:
-        return "red"
-    if phase == "red" and (elapsed >= 25 or waiting > 5):
-        return "green"
-    return phase
+        "code": '''class VendingMachine:
+    def __init__(self, stock, prices):
+        self.stock = stock
+        self.prices = prices
+        self.credit = 0
+
+    def insert(self, coins):
+        self.credit += coins
+
+    def select(self, item):
+        price = self.prices.get(item)
+        if price is None:
+            return "unknown"
+        if self.stock.get(item, 0) > 0 and self.credit >= price and price > 0:
+            self.stock[item] -= 1
+            self.credit -= price
+            return "dispensed"
+        return "denied"
 
 if __name__ == "__main__":
-    assert advance_signal_phase("green", 3, 31, False) == "yellow"
-    assert advance_signal_phase("green", 0, 31, False) == "green"
-    assert advance_signal_phase("red", 6, 10, False) == "green"
-    assert advance_signal_phase("yellow", 0, 1, True) == "all_red"
+    vm = VendingMachine({"cola": 1}, {"cola": 150})
+    vm.insert(200)
+    assert vm.select("cola") == "dispensed"
+    assert vm.credit == 50
+    assert vm.select("cola") == "denied"
+    assert vm.select("tea") == "unknown"
 '''
     },
-    "P0502": {
+    "P0552": {
         "domain": "Inventory and Record Management",
-        "task": "Library loan eligibility from member tier, overdue days and item kind",
+        "task": "Decide whether two contact records describe the same person",
         "category": "Complex conditional only",
-        "code": '''def can_borrow_item(member: dict, item: dict, loans: int) -> bool:
-    limit = 8 if member["tier"] == "premium" else 4
-    overdue = member.get("overdue_days", 0)
-    if item.get("reference_only"):
-        return False
-    if member["active"] and overdue == 0 and loans < limit:
+        "code": '''def digits_only(text):
+    return "".join(ch for ch in text if ch.isdigit())
+
+def same_contact(a, b):
+    mail_a = a.get("email", "").lower()
+    mail_b = b.get("email", "").lower()
+    if mail_a and mail_a == mail_b:
         return True
-    elif member["active"] and overdue <= 3 and loans < 2 and item["kind"] != "dvd":
+    phone_a = digits_only(a.get("phone", ""))
+    phone_b = digits_only(b.get("phone", ""))
+    if phone_a and phone_a == phone_b and a["last"].lower() == b["last"].lower():
         return True
     return False
 
 if __name__ == "__main__":
-    m = {"tier": "basic", "active": True}
-    assert can_borrow_item(m, {"kind": "book"}, 3)
-    assert not can_borrow_item(m, {"kind": "book"}, 4)
-    late = {"tier": "basic", "active": True, "overdue_days": 2}
-    assert can_borrow_item(late, {"kind": "book"}, 1)
-    assert not can_borrow_item(late, {"kind": "dvd"}, 1)
+    x = {"email": "Ann@x.com", "last": "Lee"}
+    y = {"email": "ann@X.com", "last": "Li"}
+    assert same_contact(x, y)
+    p = {"phone": "(555) 010-2000", "last": "Rao"}
+    q = {"phone": "555 010 2000", "last": "rao"}
+    assert same_contact(p, q)
+    assert not same_contact(p, {"phone": "5550102000", "last": "Roy"})
 '''
     },
-    "P0503": {
+    "P0553": {
         "domain": "Scheduling and Resource Allocation",
-        "task": "Approve a meeting room booking against opening hours and capacity",
+        "task": "Accept an extra delivery stop if shift time and van capacity allow",
         "category": "Complex conditional only",
-        "code": '''def approve_room_booking(start: int, end: int, attendees: int, room: dict) -> str:
-    duration = end - start
-    if duration <= 0:
-        return "invalid"
-    open_ok = start >= room["opens"] and end <= room["closes"]
-    if open_ok and attendees <= room["capacity"] and duration <= 240:
-        return "approved"
-    if attendees > room["capacity"]:
-        return "too_small"
-    return "needs_review"
+        "code": '''def accept_extra_stop(route_minutes, stop_minutes, shift_end, now, van_load, parcel, capacity):
+    finish = now + route_minutes + stop_minutes
+    if finish <= shift_end and van_load + parcel <= capacity and stop_minutes < 45:
+        return True
+    return False
 
 if __name__ == "__main__":
-    room = {"opens": 480, "closes": 1080, "capacity": 10}
-    assert approve_room_booking(540, 660, 6, room) == "approved"
-    assert approve_room_booking(540, 660, 12, room) == "too_small"
-    assert approve_room_booking(420, 540, 4, room) == "needs_review"
-    assert approve_room_booking(600, 600, 2, room) == "invalid"
+    assert accept_extra_stop(120, 20, 600, 400, 10, 5, 20)
+    assert not accept_extra_stop(120, 20, 600, 400, 30, 5, 20)
+    assert not accept_extra_stop(120, 50, 900, 400, 1, 1, 20)
 '''
     },
-    "P0504": {
+    "P0554": {
         "domain": "String Processing & Text Analysis",
-        "task": "Classify log line severity with keyword rules",
+        "task": "Check that text has the shape of an ISO YYYY-MM-DD date",
         "category": "Complex conditional only",
-        "code": '''def classify_log_severity(line: str) -> str:
-    text = line.lower()
-    has_code = any(ch.isdigit() for ch in text)
-    if "fatal" in text or "panic" in text or ("error" in text and has_code):
-        return "critical"
-    if "warn" in text and not text.startswith("debug"):
-        return "warning"
-    return "info"
+        "code": '''def looks_like_iso_date(text: str) -> bool:
+    parts = text.split("-")
+    if len(parts) != 3:
+        return False
+    year, month, day = parts
+    ok = year.isdigit() and month.isdigit() and day.isdigit()
+    if ok and len(year) == 4 and 1 <= int(month) <= 12 and 1 <= int(day) <= 31:
+        return True
+    return False
 
 if __name__ == "__main__":
-    assert classify_log_severity("FATAL disk failure") == "critical"
-    assert classify_log_severity("error 503 upstream") == "critical"
-    assert classify_log_severity("error upstream") == "info"
-    assert classify_log_severity("WARN low memory") == "warning"
-    assert classify_log_severity("debug: warn flag") == "info"
+    assert looks_like_iso_date("2024-02-29")
+    assert not looks_like_iso_date("2024-13-01")
+    assert not looks_like_iso_date("24-01-01")
+    assert not looks_like_iso_date("2024-1a-01")
+    assert not looks_like_iso_date("2024/01/01")
 '''
     },
-    "P0505": {
+    "P0555": {
         "domain": "Numerical Computation",
-        "task": "Cube root by Newton iteration with tolerance and iteration cap",
+        "task": "Test whether three distinct points lie on one line",
         "category": "Complex conditional only",
-        "code": '''def newton_cube_root(value: float, tolerance: float = 1e-9) -> float:
-    if value == 0:
-        return 0.0
-    guess = value if abs(value) > 1 else 1.0
-    step = 1.0
-    iterations = 0
-    while abs(step) > tolerance and iterations < 100 and guess != 0:
-        step = (guess ** 3 - value) / (3 * guess ** 2)
-        guess -= step
-        iterations += 1
-    return guess
+        "code": '''def collinear_distinct(p, q, r, tol=1e-9):
+    cross_a = (q[0] - p[0]) * (r[1] - p[1])
+    cross_b = (q[1] - p[1]) * (r[0] - p[0])
+    if abs(cross_a - cross_b) <= tol and p != q and q != r and p != r:
+        return True
+    return False
 
 if __name__ == "__main__":
-    assert abs(newton_cube_root(27.0) - 3.0) < 1e-6
-    assert abs(newton_cube_root(-8.0) + 2.0) < 1e-6
-    assert newton_cube_root(0) == 0.0
+    assert collinear_distinct((0, 0), (1, 1), (2, 2))
+    assert not collinear_distinct((0, 0), (1, 1), (1, 1))
+    assert not collinear_distinct((0, 0), (1, 0), (0, 1))
 '''
     },
-    "P0506": {
+    "P0556": {
         "domain": "Data Aggregation and Statistics",
-        "task": "Indexes of sensor readings out of range or jumping too far",
+        "task": "Index of the first week in a run of consecutive sales declines",
         "category": "Complex conditional only",
-        "code": '''def flag_suspicious_readings(readings: list[float], low: float, high: float) -> list[int]:
-    flagged = []
-    previous = None
-    for index, value in enumerate(readings):
-        jump = 0.0 if previous is None else abs(value - previous)
-        if value < low or value > high or jump > (high - low) / 2:
-            flagged.append(index)
-        previous = value
-    return flagged
-
-if __name__ == "__main__":
-    data = [5.0, 6.0, 30.0, 7.0, -1.0]
-    assert flag_suspicious_readings(data, 0.0, 20.0) == [2, 3, 4]
-    assert flag_suspicious_readings([], 0.0, 1.0) == []
-'''
-    },
-    "P0507": {
-        "domain": "Lists, Tuples, Dictionaries, and Sets",
-        "task": "Merge user setting overrides that are known, same-typed and unlocked",
-        "category": "Complex conditional only",
-        "code": '''def merge_user_settings(defaults: dict, overrides: dict, locked: set) -> dict:
-    merged = dict(defaults)
-    for key, value in overrides.items():
-        known = key in defaults
-        same_type = known and type(value) is type(defaults[key])
-        if known and same_type and key not in locked:
-            merged[key] = value
-    return merged
-
-if __name__ == "__main__":
-    base = {"theme": "light", "font": 12, "beta": False}
-    new = {"theme": "dark", "font": "big", "beta": True}
-    expected = {"theme": "dark", "font": 12, "beta": False}
-    assert merge_user_settings(base, new, {"beta"}) == expected
-'''
-    },
-    "P0508": {
-        "domain": "Searching and Sorting",
-        "task": "Peak index of a unimodal list by ternary search",
-        "category": "Complex conditional only",
-        "code": '''def unimodal_peak_index(values: list[int]) -> int:
-    if not values:
-        return -1
-    lo, hi = 0, len(values) - 1
-    steps = 0
-    while lo < hi and hi - lo > 2 and steps < 64:
-        steps += 1
-        third = (hi - lo) // 3
-        left, right = lo + third, hi - third
-        if values[left] < values[right]:
-            lo = left + 1
+        "code": '''def first_decline_streak(sales: list[float], length: int, drop: float) -> int:
+    i = 1
+    streak = 0
+    while i < len(sales) and streak < length and length > 0:
+        if sales[i] <= sales[i - 1] - drop:
+            streak += 1
         else:
-            hi = right
-    best = lo
-    for index in range(lo, hi + 1):
-        if values[index] > values[best]:
-            best = index
-    return best
+            streak = 0
+        i += 1
+    return i - length if streak == length else -1
 
 if __name__ == "__main__":
-    assert unimodal_peak_index([1, 3, 8, 12, 9, 4, 2]) == 3
-    assert unimodal_peak_index([5, 4, 3]) == 0
-    assert unimodal_peak_index([1, 2]) == 1
-    assert unimodal_peak_index([]) == -1
+    weekly = [10, 8, 6, 7, 5, 3, 1]
+    assert first_decline_streak(weekly, 3, 1) == 4
+    assert first_decline_streak([1, 2, 3], 2, 1) == -1
 '''
     },
-    "P0509": {
+    "P0557": {
+        "domain": "Lists, Tuples, Dictionaries, and Sets",
+        "task": "Resolve a name through an alias table with prefix fallback",
+        "category": "Complex conditional only",
+        "code": '''def resolve_alias(name, aliases, fallback=None):
+    key = name.strip().lower()
+    if key in aliases:
+        return aliases[key]
+    for alias, target in aliases.items():
+        if alias.startswith(key) and len(key) >= 3 and target is not None:
+            return target
+    return fallback
+
+if __name__ == "__main__":
+    aliases = {"nyc": "New York", "losangeles": "Los Angeles"}
+    assert resolve_alias(" NYC ", aliases) == "New York"
+    assert resolve_alias("losan", aliases) == "Los Angeles"
+    assert resolve_alias("lo", aliases, "?") == "?"
+'''
+    },
+    "P0558": {
+        "domain": "Searching and Sorting",
+        "task": "Index of the smallest element in a rotated sorted list",
+        "category": "Complex conditional only",
+        "code": '''def rotation_point(values):
+    lo, hi = 0, len(values) - 1
+    while lo < hi and values and values[lo] > values[hi]:
+        mid = (lo + hi) // 2
+        if values[mid] > values[hi]:
+            lo = mid + 1
+        else:
+            hi = mid
+    return lo
+
+if __name__ == "__main__":
+    assert rotation_point([4, 5, 6, 1, 2, 3]) == 3
+    assert rotation_point([1, 2, 3]) == 0
+    assert rotation_point([2, 1]) == 1
+    assert rotation_point([]) == 0
+'''
+    },
+    "P0559": {
         "domain": "Inventory and Record Management",
-        "task": "Decide whether projected stock after lead time needs a reorder",
+        "task": "List validation problems in a vehicle service record",
         "category": "Complex conditional only",
-        "code": '''def should_place_reorder(sku: dict, daily_demand: float, lead_days: int) -> bool:
-    on_hand = sku["on_hand"] + sku.get("incoming", 0)
-    safety = sku.get("safety_stock", 0)
-    projected = on_hand - daily_demand * lead_days
-    if sku.get("discontinued"):
-        return False
-    if projected < safety and daily_demand > 0 and not sku.get("frozen", False):
-        return True
-    return False
+        "code": '''def service_record_errors(record):
+    """Return the names of the fields that fail validation."""
+    errors = []
+    km = record.get("odometer_km", -1)
+    if not record.get("vin") or len(record["vin"]) != 17:
+        errors.append("vin")
+    if km < 0 or km > 2_000_000 or not isinstance(km, int):
+        errors.append("odometer")
+    if record.get("next_due_km") is not None and record["next_due_km"] <= km:
+        errors.append("next_due")
+    return errors
 
 if __name__ == "__main__":
-    item = {"on_hand": 20, "incoming": 5, "safety_stock": 10}
-    assert should_place_reorder(item, 4.0, 5)
-    assert not should_place_reorder(item, 2.0, 5)
-    assert not should_place_reorder({"on_hand": 0, "frozen": True}, 1.0, 3)
+    good = {"vin": "1HGCM82633A004352", "odometer_km": 5000}
+    assert service_record_errors(good) == []
+    bad = {"vin": "X", "odometer_km": -3, "next_due_km": -10}
+    assert service_record_errors(bad) == ["vin", "odometer", "next_due"]
 '''
     },
-    "P0510": {
+    "P0560": {
         "domain": "Small Simulation and Rule-based Systems",
-        "task": "Elevator direction choice from pending floor requests",
+        "task": "Garden watering minutes from soil moisture, rain, heat and hour",
         "category": "Complex conditional only",
-        "code": '''def choose_elevator_direction(floor: int, requests: list[int], moving_up: bool) -> str:
-    above = [r for r in requests if r > floor]
-    below = [r for r in requests if r < floor]
-    if not requests:
-        return "idle"
-    if moving_up and above or not below and above:
-        return "up"
-    if below:
-        return "down"
-    return "open"
+        "code": '''def watering_minutes(soil_moisture: float, rain_mm: float, temp_c: float, hour: int) -> int:
+    if rain_mm > 5:
+        return 0
+    if soil_moisture < 0.25 and temp_c > 30 and not 11 <= hour <= 16:
+        return 20
+    if soil_moisture < 0.35 or temp_c > 35:
+        return 10
+    return 0
 
 if __name__ == "__main__":
-    assert choose_elevator_direction(3, [5, 1], True) == "up"
-    assert choose_elevator_direction(3, [5, 1], False) == "down"
-    assert choose_elevator_direction(3, [1], True) == "down"
-    assert choose_elevator_direction(3, [3], True) == "open"
-    assert choose_elevator_direction(3, [], True) == "idle"
+    assert watering_minutes(0.2, 0, 32, 7) == 20
+    assert watering_minutes(0.2, 0, 32, 12) == 10
+    assert watering_minutes(0.5, 0, 20, 7) == 0
+    assert watering_minutes(0.1, 9, 40, 7) == 0
 '''
     },
-    "P0511": {
+    "P0561": {
         "domain": "Scheduling and Resource Allocation",
-        "task": "Approve a shift swap by role, weekly hour cap and rest time",
+        "task": "First free charging bay that suits a vehicle's power and speed needs",
         "category": "Complex conditional only",
-        "code": '''def approve_shift_swap(giver: dict, taker: dict, shift_hours: int) -> bool:
-    if giver["role"] != taker["role"]:
+        "code": '''def pick_charging_bay(bays, needs_fast, vehicle_kw):
+    for bay_id, free, max_kw, fast in bays:
+        if free and max_kw >= vehicle_kw and (fast or not needs_fast):
+            return bay_id
+    return None
+
+if __name__ == "__main__":
+    bays = [(1, False, 50, True), (2, True, 22, False)]
+    bays.append((3, True, 150, True))
+    assert pick_charging_bay(bays, False, 11) == 2
+    assert pick_charging_bay(bays, True, 50) == 3
+    assert pick_charging_bay(bays, True, 200) is None
+'''
+    },
+    "P0562": {
+        "domain": "String Processing & Text Analysis",
+        "task": "Decide whether a sentence reads as a question",
+        "category": "Complex conditional only",
+        "code": '''def is_question(sentence: str) -> bool:
+    text = sentence.strip()
+    if not text:
         return False
-    new_total = taker["weekly_hours"] + shift_hours
-    rested = taker.get("rest_hours", 24) >= 11
-    if new_total <= 48 and rested and not taker.get("on_leave", False):
+    first = text.split()[0].lower().strip(",")
+    starters = {"who", "what", "why", "how", "is", "can"}
+    if text.endswith("?") or first in starters and len(text.split()) > 2 and not text.endswith("."):
         return True
     return False
 
 if __name__ == "__main__":
-    a = {"role": "nurse", "weekly_hours": 36}
-    b = {"role": "nurse", "weekly_hours": 40, "rest_hours": 12}
-    assert approve_shift_swap(a, b, 8)
-    assert not approve_shift_swap(a, b, 12)
-    assert not approve_shift_swap(a, {"role": "porter", "weekly_hours": 0}, 8)
+    assert is_question("Is it raining")
+    assert is_question("ok?")
+    assert not is_question("Why.")
+    assert not is_question("Can you go.")
+    assert not is_question("")
 '''
     },
-    "P0512": {
-        "domain": "String Processing & Text Analysis",
-        "task": "Validate a user handle by first character, allowed symbols and length",
+    "P0563": {
+        "domain": "Numerical Computation",
+        "task": "Convergence test on the last values of an iteration history",
         "category": "Complex conditional only",
-        "code": '''def is_valid_handle(handle: str) -> bool:
-    if not handle:
+        "code": '''def has_converged(history: list[float], abs_tol: float, rel_tol: float) -> bool:
+    if len(history) < 3:
         return False
-    first = handle[0]
-    allowed = all(ch.isalnum() or ch in "_." for ch in handle)
-    if first.isalpha() and allowed and 3 <= len(handle) <= 15:
-        return not handle.endswith(".")
+    last, prev, before = history[-1], history[-2], history[-3]
+    change = abs(last - prev)
+    if change <= abs_tol or change <= rel_tol * abs(last) and abs(prev - before) <= abs_tol * 10:
+        return True
     return False
 
 if __name__ == "__main__":
-    assert is_valid_handle("alice_99")
-    assert is_valid_handle("x.y.z")
-    assert not is_valid_handle("9lives")
-    assert not is_valid_handle("ab")
-    assert not is_valid_handle("bob.")
+    assert has_converged([1.0, 1.5, 1.5000001], 1e-6, 1e-9)
+    assert not has_converged([1.0, 2.0, 3.0], 1e-6, 1e-9)
+    assert not has_converged([1.0], 1.0, 1.0)
+'''
+    },
+    "P0564": {
+        "domain": "Data Aggregation and Statistics",
+        "task": "Customer segment from recency, frequency and monetary value",
+        "category": "Complex conditional only",
+        "code": '''def rfm_segment(recency_days: int, frequency: int, monetary: float) -> str:
+    if recency_days <= 30 and frequency >= 10 and monetary >= 500:
+        return "champion"
+    if recency_days > 180 and frequency <= 2:
+        return "lost"
+    if recency_days <= 90 or frequency >= 5 or monetary >= 1000:
+        return "loyal"
+    return "casual"
+
+if __name__ == "__main__":
+    assert rfm_segment(10, 12, 800) == "champion"
+    assert rfm_segment(200, 1, 50) == "lost"
+    assert rfm_segment(100, 6, 10) == "loyal"
+    assert rfm_segment(120, 3, 100) == "casual"
+'''
+    },
+    "P0565": {
+        "domain": "Lists, Tuples, Dictionaries, and Sets",
+        "task": "Keep complete rows matching a column filter up to a limit",
+        "category": "Complex conditional only",
+        "code": '''def filter_rows(rows: list[tuple], spec: dict[int, object], limit: int) -> list[tuple]:
+    kept = []
+    for row in rows:
+        matches = all(row[i] == v for i, v in spec.items())
+        if matches and len(kept) < limit and None not in row:
+            kept.append(row)
+    return kept
+
+if __name__ == "__main__":
+    rows = [(1, "a"), (2, "b"), (1, "b"), (1, None)]
+    assert filter_rows(rows, {0: 1}, 5) == [(1, "a"), (1, "b")]
+    assert filter_rows(rows, {0: 1}, 1) == [(1, "a")]
+'''
+    },
+    "P0566": {
+        "domain": "Graph or Tree Traversal",
+        "task": "Recursive check that a binary tree keeps search-tree ordering",
+        "category": "Complex conditional only",
+        "code": '''def check_search_tree_order(tree, node, low=None, high=None):
+    if node is None:
+        return True
+    value, left, right = tree[node]
+    if value is None or low is not None and value <= low or high is not None and value >= high:
+        return False
+    if not check_search_tree_order(tree, left, low, value):
+        return False
+    return check_search_tree_order(tree, right, value, high)
+
+if __name__ == "__main__":
+    t = {"r": (8, "a", "b"), "a": (3, None, None)}
+    t["b"] = (10, "c", None)
+    t["c"] = (9, None, None)
+    assert check_search_tree_order(t, "r")
+    t["c"] = (7, None, None)
+    assert not check_search_tree_order(t, "r")
+'''
+    },
+    "P0567": {
+        "domain": "Searching and Sorting",
+        "task": "Check that an array satisfies the min-heap property",
+        "category": "Complex conditional only",
+        "code": '''def is_min_heap_array(values):
+    n = len(values)
+    for i in range(n):
+        left, right = 2 * i + 1, 2 * i + 2
+        if left < n and values[left] < values[i] or right < n and values[right] < values[i]:
+            return False
+    return True
+
+if __name__ == "__main__":
+    assert is_min_heap_array([1, 3, 2, 7, 4])
+    assert not is_min_heap_array([2, 1])
+    assert is_min_heap_array([])
 '''
     },
 
-    # 2. NESTED LOOP AND COMPLEX CONDITIONAL (12 programs: P0513 - P0524)
-    "P0513": {
+    # 2. NESTED LOOP AND COMPLEX CONDITIONAL (17 programs: P0568 - P0584)
+    "P0568": {
         "domain": "Matrix & Grid Operations",
-        "task": "Count grid cells above a minimum that beat both vertical neighbours",
+        "task": "Count land cells on the coastline of a binary map",
         "category": "Nested loop and complex conditional",
-        "code": '''def count_vertical_peaks(grid: list[list[int]], minimum: int) -> int:
+        "code": '''def coastline_cells(grid):
     rows, cols = len(grid), len(grid[0])
-    peaks = 0
+    coast = 0
     for r in range(rows):
         for c in range(cols):
-            value = grid[r][c]
-            up = grid[r - 1][c] if r > 0 else -1
-            down = grid[r + 1][c] if r < rows - 1 else -1
-            if value >= minimum and value > up and value > down:
-                peaks += 1
-    return peaks
+            if grid[r][c] != 1:
+                continue
+            edge = r == 0 or c == 0 or r == rows - 1 or c == cols - 1
+            if edge or grid[r - 1][c] == 0 or grid[r + 1][c] == 0 or grid[r][c - 1] == 0 or grid[r][c + 1] == 0:
+                coast += 1
+    return coast
 
 if __name__ == "__main__":
-    grid = [[1, 5, 1], [4, 2, 6], [1, 1, 1]]
-    assert count_vertical_peaks(grid, 3) == 3
-    assert count_vertical_peaks(grid, 9) == 0
+    island = [[0, 0, 0, 0], [0, 1, 1, 0], [0, 1, 1, 0]]
+    island.append([0, 0, 0, 0])
+    assert coastline_cells(island) == 4
+    assert coastline_cells([[1, 1, 1], [1, 1, 1], [1, 1, 1]]) == 8
 '''
     },
-    "P0514": {
+    "P0569": {
         "domain": "Matrix & Grid Operations",
-        "task": "Top-left corners of uniform non-zero 2x2 blocks in a grid",
+        "task": "Centres of plus-shaped patterns of one value in a grid",
         "category": "Nested loop and complex conditional",
-        "code": '''def uniform_square_corners(grid: list[list[int]]) -> list[tuple[int, int]]:
-    corners = []
-    for r in range(len(grid) - 1):
-        for c in range(len(grid[0]) - 1):
-            v = grid[r][c]
-            right, below = grid[r][c + 1], grid[r + 1][c]
-            if v != 0 and v == right and v == below and v == grid[r + 1][c + 1]:
-                corners.append((r, c))
-    return corners
+        "code": '''def plus_shape_centers(grid, value):
+    centers = []
+    for r in range(1, len(grid) - 1):
+        row = grid[r]
+        for c in range(1, len(row) - 1):
+            col_ok = grid[r - 1][c] == value and grid[r + 1][c] == value
+            if row[c] == value and col_ok and row[c - 1] == value and row[c + 1] == value:
+                centers.append((r, c))
+    return centers
 
 if __name__ == "__main__":
-    assert uniform_square_corners([[1, 1, 0], [1, 1, 0], [2, 2, 2]]) == [(0, 0)]
-    assert uniform_square_corners([[0, 0], [0, 0]]) == []
+    g = [[0, 1, 0], [1, 1, 1], [0, 1, 0]]
+    assert plus_shape_centers(g, 1) == [(1, 1)]
+    assert plus_shape_centers(g, 0) == []
 '''
     },
-    "P0515": {
+    "P0570": {
+        "domain": "Matrix & Grid Operations",
+        "task": "Detect k pieces in a row on any down-right diagonal of a board",
+        "category": "Nested loop and complex conditional",
+        "code": '''def has_diagonal_run(board, player, k):
+    n = len(board)
+    for r in range(n):
+        for c in range(n):
+            run = 0
+            while r + run < n and c + run < n and board[r + run][c + run] == player:
+                run += 1
+            if run >= k:
+                return True
+    return False
+
+if __name__ == "__main__":
+    board = ["XO.", ".XO", "..X"]
+    assert has_diagonal_run(board, "X", 3)
+    assert has_diagonal_run(board, "O", 2)
+    assert not has_diagonal_run(board, "O", 3)
+'''
+    },
+    "P0571": {
         "domain": "Graph or Tree Traversal",
-        "task": "Nodes reachable within a hop limit while avoiding blocked nodes",
+        "task": "Even-degree nodes at an exact BFS distance from a start node",
         "category": "Nested loop and complex conditional",
         "code": '''from collections import deque
 
-def reachable_within_hops(graph: dict[str, list[str]], start: str, blocked: set[str], max_hops: int) -> set[str]:
-    seen = {start: 0}
+def even_degree_at_distance(adj, start, distance):
+    depth = {start: 0}
     queue = deque([start])
+    hits = []
     while queue:
         node = queue.popleft()
-        for nxt in graph.get(node, []):
-            hops = seen[node] + 1
-            if nxt not in seen and nxt not in blocked and hops <= max_hops:
-                seen[nxt] = hops
-                queue.append(nxt)
-    return set(seen)
+        for nb in adj.get(node, ()):
+            if nb not in depth:
+                depth[nb] = depth[node] + 1
+                queue.append(nb)
+        if depth[node] == distance and len(adj.get(node, ())) % 2 == 0 and node != start:
+            hits.append(node)
+    return sorted(hits)
 
 if __name__ == "__main__":
-    g = {"a": ["b", "c"], "b": ["d"], "c": ["d"], "d": ["e"]}
-    assert reachable_within_hops(g, "a", {"c"}, 2) == {"a", "b", "d"}
-    assert reachable_within_hops(g, "a", set(), 1) == {"a", "b", "c"}
+    adj = {"a": ["b", "c"], "b": ["a", "d"]}
+    adj["c"] = ["a"]
+    adj["d"] = ["b"]
+    assert even_degree_at_distance(adj, "a", 1) == ["b"]
+    assert even_degree_at_distance(adj, "a", 2) == []
 '''
     },
-    "P0516": {
+    "P0572": {
         "domain": "Graph or Tree Traversal",
-        "task": "Leaves whose weighted root path total falls inside a range",
+        "task": "Count triangles in an undirected graph given as neighbour sets",
         "category": "Nested loop and complex conditional",
-        "code": '''def qualifying_leaf_paths(tree: dict[str, list[str]], weight: dict[str, int], root: str, low: int, high: int) -> list[str]:
-    found = []
-    stack = [(root, weight[root])]
-    while stack:
-        node, total = stack.pop()
-        children = tree.get(node, [])
-        if not children and low <= total <= high and node != root:
-            found.append(node)
-        for child in children:
-            stack.append((child, total + weight[child]))
-    return sorted(found)
+        "code": '''def undirected_triangle_count(adj):
+    total = 0
+    for a in sorted(adj):
+        for b in adj[a]:
+            for c in adj[b]:
+                if a < b < c and a in adj[c] and c != a:
+                    total += 1
+    return total
 
 if __name__ == "__main__":
-    t = {"r": ["a", "b"], "a": ["c"]}
-    w = {"r": 1, "a": 2, "b": 9, "c": 3}
-    assert qualifying_leaf_paths(t, w, "r", 5, 8) == ["c"]
-    assert qualifying_leaf_paths(t, w, "r", 5, 10) == ["b", "c"]
+    adj = {"a": {"b", "c", "d"}, "b": {"a", "c"}}
+    adj["c"] = {"a", "b"}
+    adj["d"] = {"a"}
+    assert undirected_triangle_count(adj) == 1
+    assert undirected_triangle_count({"x": set()}) == 0
 '''
     },
-    "P0517": {
+    "P0573": {
         "domain": "Searching and Sorting",
-        "task": "Count two-pointer pair matches for several target sums",
+        "task": "Merge several sorted lists by repeatedly scanning their heads",
         "category": "Nested loop and complex conditional",
-        "code": '''def count_pair_sums(values: list[int], targets: list[int]) -> dict[int, int]:
-    ordered = sorted(values)
-    counts = {}
-    for target in targets:
-        i, j = 0, len(ordered) - 1
-        found = 0
-        while i < j and ordered[i] <= target and found < 10:
-            pair = ordered[i] + ordered[j]
-            if pair == target:
-                found += 1
-                i += 1
-                j -= 1
-            elif pair < target:
-                i += 1
-            else:
-                j -= 1
-        counts[target] = found
-    return counts
+        "code": '''def merge_by_head_scan(lists):
+    heads = [0] * len(lists)
+    merged = []
+    while True:
+        best = -1
+        for i, seq in enumerate(lists):
+            if heads[i] < len(seq) and (best == -1 or seq[heads[i]] < lists[best][heads[best]]):
+                best = i
+        if best == -1:
+            return merged
+        merged.append(lists[best][heads[best]])
+        heads[best] += 1
 
 if __name__ == "__main__":
-    nums = [1, 2, 3, 4, 5, 6]
-    assert count_pair_sums(nums, [7, 3, 20]) == {7: 3, 3: 1, 20: 0}
+    assert merge_by_head_scan([[1, 4, 9], [2, 3], [], [5]]) == [1, 2, 3, 4, 5, 9]
+    assert merge_by_head_scan([]) == []
 '''
     },
-    "P0518": {
+    "P0574": {
         "domain": "Data Aggregation and Statistics",
-        "task": "Total valid survey scores per question for adult respondents",
+        "task": "Pivot non-refunded sales into region by month totals",
         "category": "Nested loop and complex conditional",
-        "code": '''def tally_survey_scores(responses: list[dict], questions: list[str], min_age: int) -> dict[str, int]:
-    totals = {q: 0 for q in questions}
-    for person in responses:
-        for q in questions:
-            score = person["answers"].get(q)
-            if score is not None and person["age"] >= min_age and 1 <= score <= 5:
-                totals[q] += score
+        "code": '''def pivot_sales(rows, regions, months):
+    table = {r: {m: 0 for m in months} for r in regions}
+    for region in regions:
+        for region_name, month, amount, refunded in rows:
+            if region_name == region and month in table[region] and not refunded:
+                table[region][month] += amount
+    return table
+
+if __name__ == "__main__":
+    rows = [("N", "jan", 5, False), ("N", "jan", 3, True)]
+    rows.append(("S", "feb", 4, False))
+    table = pivot_sales(rows, ["N", "S"], ["jan", "feb"])
+    assert table == {"N": {"jan": 5, "feb": 0}, "S": {"jan": 0, "feb": 4}}
+'''
+    },
+    "P0575": {
+        "domain": "String Processing & Text Analysis",
+        "task": "Distinct palindromic words of a minimum length across sentences",
+        "category": "Nested loop and complex conditional",
+        "code": '''def palindromic_words(sentences, min_len):
+    found = []
+    for sentence in sentences:
+        for raw in sentence.split():
+            w = raw.strip(".,!?").lower()
+            if len(w) >= min_len and w == w[::-1] and w.isalpha() and w not in found:
+                found.append(w)
+    return found
+
+if __name__ == "__main__":
+    text = ["Anna saw a racecar.", "Wow, level up!"]
+    assert palindromic_words(text, 3) == ["anna", "racecar", "wow", "level"]
+    assert palindromic_words(text, 6) == ["racecar"]
+'''
+    },
+    "P0576": {
+        "domain": "Scheduling and Resource Allocation",
+        "task": "Pairs of bookings that overlap in the same room",
+        "category": "Nested loop and complex conditional",
+        "code": '''def double_bookings(bookings):
+    clashes = []
+    for i in range(len(bookings)):
+        for j in range(i + 1, len(bookings)):
+            room_a, start_a, end_a = bookings[i]
+            room_b, start_b, end_b = bookings[j]
+            if room_a == room_b and start_a < end_b and start_b < end_a:
+                clashes.append((i, j))
+    return clashes
+
+if __name__ == "__main__":
+    bookings = [("A", 9, 11), ("A", 10, 12), ("B", 9, 10)]
+    bookings.append(("A", 11, 13))
+    assert double_bookings(bookings) == [(0, 1), (1, 3)]
+'''
+    },
+    "P0577": {
+        "domain": "Small Simulation and Rule-based Systems",
+        "task": "Customers served by bank tellers before their patience runs out",
+        "category": "Nested loop and complex conditional",
+        "code": '''def served_customers(arrivals, service, tellers, patience):
+    free_at = [0] * tellers
+    served = 0
+    for t in arrivals:
+        for k in range(tellers):
+            wait = max(0, free_at[k] - t)
+            if wait <= patience and free_at[k] == min(free_at) and service > 0:
+                free_at[k] = max(free_at[k], t) + service
+                served += 1
+                break
+    return served
+
+if __name__ == "__main__":
+    assert served_customers([0, 0, 0, 1], 5, 2, 2) == 2
+    assert served_customers([0, 0, 0, 1], 5, 2, 10) == 4
+'''
+    },
+    "P0578": {
+        "domain": "Lists, Tuples, Dictionaries, and Sets",
+        "task": "Name pairs whose non-negative scores add up to a total",
+        "category": "Nested loop and complex conditional",
+        "code": '''def complementary_pairs(scores, total):
+    names = sorted(scores)
+    pairs = []
+    for i, a in enumerate(names):
+        for b in names[i + 1:]:
+            if scores[a] + scores[b] == total and scores[a] >= 0 and scores[b] >= 0:
+                pairs.append((a, b))
+    return pairs
+
+if __name__ == "__main__":
+    scores = {"x": 3, "y": 7, "z": 5, "w": -2, "v": 12}
+    assert complementary_pairs(scores, 10) == [("x", "y")]
+'''
+    },
+    "P0579": {
+        "domain": "Numerical Computation",
+        "task": "Non-negative integer solutions of ax + by = c inside a box",
+        "category": "Nested loop and complex conditional",
+        "code": '''def bounded_linear_solutions(a, b, c, bound):
+    solutions = []
+    for x in range(-bound, bound + 1):
+        for y in range(-bound, bound + 1):
+            if a * x + b * y == c and x >= 0 and y >= 0:
+                solutions.append((x, y))
+    return solutions
+
+if __name__ == "__main__":
+    assert bounded_linear_solutions(2, 3, 12, 6) == [(0, 4), (3, 2), (6, 0)]
+    assert bounded_linear_solutions(2, 4, 7, 5) == []
+'''
+    },
+    "P0580": {
+        "domain": "Inventory and Record Management",
+        "task": "SKUs whose stock counts disagree between warehouses",
+        "category": "Nested loop and complex conditional",
+        "code": '''def conflicting_stock(warehouses):
+    seen = {}
+    conflicts = set()
+    for name, items in warehouses.items():
+        for sku, qty in items.items():
+            if sku in seen and seen[sku][1] != qty and seen[sku][0] != name:
+                conflicts.add(sku)
+            seen.setdefault(sku, (name, qty))
+    return sorted(conflicts)
+
+if __name__ == "__main__":
+    w = {"north": {"a1": 5, "b2": 3}}
+    w["south"] = {"a1": 5, "b2": 4, "c3": 1}
+    assert conflicting_stock(w) == ["b2"]
+'''
+    },
+    "P0581": {
+        "domain": "Data Aggregation and Statistics",
+        "task": "Tag pairs that co-occur in posts at least a minimum number of times",
+        "category": "Nested loop and complex conditional",
+        "code": '''def tag_cooccurrence(posts, minimum):
+    pairs = {}
+    for tags in posts:
+        unique = sorted(set(tags))
+        for i in range(len(unique)):
+            for j in range(i + 1, len(unique)):
+                key = (unique[i], unique[j])
+                pairs[key] = pairs.get(key, 0) + 1
+    strong = {}
+    for key, count in pairs.items():
+        if count >= minimum and key[0] != key[1] and "misc" not in key:
+            strong[key] = count
+    return strong
+
+if __name__ == "__main__":
+    posts = [["py", "ml"], ["ml", "py", "misc"], ["py", "web"]]
+    assert tag_cooccurrence(posts, 2) == {("ml", "py"): 2}
+'''
+    },
+    "P0582": {
+        "domain": "Scheduling and Resource Allocation",
+        "task": "Earliest quarter-hour slot free in every attendee calendar",
+        "category": "Nested loop and complex conditional",
+        "code": '''def common_free_slot(calendars, day_start, day_end, length):
+    t = day_start
+    while t + length <= day_end:
+        clash = False
+        for busy in calendars:
+            for start, end in busy:
+                if start < t + length and t < end and end > start:
+                    clash = True
+        if not clash:
+            return t
+        t += 15
+    return -1
+
+if __name__ == "__main__":
+    cals = [[(540, 600)], [(570, 630), (700, 720)]]
+    assert common_free_slot(cals, 480, 1020, 60) == 480
+    assert common_free_slot(cals, 540, 1020, 60) == 630
+    assert common_free_slot(cals, 540, 600, 60) == -1
+'''
+    },
+    "P0583": {
+        "domain": "Small Simulation and Rule-based Systems",
+        "task": "Lights-out puzzle state after toggling pressed cells and neighbours",
+        "category": "Nested loop and complex conditional",
+        "code": '''def press_lights(grid, presses):
+    rows, cols = len(grid), len(grid[0])
+    state = [row[:] for row in grid]
+    for r, c in presses:
+        for dr, dc in ((0, 0), (1, 0), (-1, 0), (0, 1), (0, -1)):
+            nr, nc = r + dr, c + dc
+            if 0 <= nr < rows and 0 <= nc < cols:
+                state[nr][nc] = 1 - state[nr][nc]
+    return state
+
+if __name__ == "__main__":
+    dark = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
+    assert press_lights(dark, [(1, 1)]) == [[0, 1, 0], [1, 1, 1], [0, 1, 0]]
+    assert press_lights(dark, [(0, 0)]) == [[1, 1, 0], [1, 0, 0], [0, 0, 0]]
+'''
+    },
+    "P0584": {
+        "domain": "Inventory and Record Management",
+        "task": "Match returned items to receipts within the return window",
+        "category": "Nested loop and complex conditional",
+        "code": '''def match_returns(receipts, returns, max_days):
+    stock = {rid: list(items) for rid, items, _ in receipts}
+    matched = {}
+    for ret_id, sku, day in returns:
+        for receipt_id, _, bought_day in receipts:
+            if sku in stock[receipt_id] and 0 <= day - bought_day <= max_days and ret_id not in matched:
+                matched[ret_id] = receipt_id
+                stock[receipt_id].remove(sku)
+    return matched
+
+if __name__ == "__main__":
+    receipts = [("r1", ["a", "b"], 1), ("r2", ["a"], 5)]
+    rets = [("x1", "a", 3), ("x2", "a", 6), ("x3", "b", 40)]
+    assert match_returns(receipts, rets, 30) == {"x1": "r1", "x2": "r2"}
+'''
+    },
+
+    # 3. NESTED LOOP ONLY (6 programs: P0585 - P0590)
+    "P0585": {
+        "domain": "String Processing & Text Analysis",
+        "task": "Longest shared leading text of several words by column scan",
+        "category": "Nested loop only",
+        "code": '''def shared_leading_text(words):
+    if not words:
+        return ""
+    prefix = []
+    for i in range(min(len(w) for w in words)):
+        letter = words[0][i]
+        for w in words[1:]:
+            if w[i] != letter:
+                return "".join(prefix)
+        prefix.append(letter)
+    return "".join(prefix)
+
+if __name__ == "__main__":
+    assert shared_leading_text(["flower", "flow", "flight"]) == "fl"
+    assert shared_leading_text(["a"]) == "a"
+    assert shared_leading_text([]) == ""
+'''
+    },
+    "P0586": {
+        "domain": "Numerical Computation",
+        "task": "Primes in a closed range by trial division",
+        "category": "Nested loop only",
+        "code": '''def trial_division_primes(low, high):
+    found = []
+    for n in range(max(2, low), high + 1):
+        d = 2
+        while d * d <= n and n % d:
+            d += 1
+        if d * d > n:
+            found.append(n)
+    return found
+
+if __name__ == "__main__":
+    assert trial_division_primes(10, 30) == [11, 13, 17, 19, 23, 29]
+    assert trial_division_primes(0, 3) == [2, 3]
+'''
+    },
+    "P0587": {
+        "domain": "Lists, Tuples, Dictionaries, and Sets",
+        "task": "Element frequencies across nested lists ranked by count",
+        "category": "Nested loop only",
+        "code": '''def flatten_and_count(nested):
+    counts = {}
+    for group in nested:
+        for item in group:
+            counts[item] = counts.get(item, 0) + 1
+    return sorted(counts.items(), key=lambda p: (-p[1], p[0]))
+
+if __name__ == "__main__":
+    groups = [["a", "b"], ["b"], ["c", "b", "a"]]
+    assert flatten_and_count(groups) == [("b", 3), ("a", 2), ("c", 1)]
+'''
+    },
+    "P0588": {
+        "domain": "Searching and Sorting",
+        "task": "Largest k values by repeated maximum scans without sorting",
+        "category": "Nested loop only",
+        "code": '''def top_k_by_scanning(values, k):
+    pool = list(values)
+    chosen = []
+    while pool and len(chosen) < k:
+        best = 0
+        for i in range(1, len(pool)):
+            if pool[i] > pool[best]:
+                best = i
+        chosen.append(pool.pop(best))
+    return chosen
+
+if __name__ == "__main__":
+    assert top_k_by_scanning([4, 9, 1, 7], 2) == [9, 7]
+    assert top_k_by_scanning([1], 3) == [1]
+'''
+    },
+    "P0589": {
+        "domain": "Graph or Tree Traversal",
+        "task": "Adjacency matrix and node degrees from an undirected edge list",
+        "category": "Nested loop only",
+        "code": '''def adjacency_with_degrees(n, edges):
+    matrix = [[0] * n for _ in range(n)]
+    for u, v in edges:
+        matrix[u][v] = 1
+        matrix[v][u] = 1
+    degrees = []
+    for row in matrix:
+        total = 0
+        for cell in row:
+            total += cell
+        degrees.append(total)
+    return matrix, degrees
+
+if __name__ == "__main__":
+    edges = [(0, 1), (1, 2)]
+    matrix, degrees = adjacency_with_degrees(3, edges)
+    assert degrees == [1, 2, 1]
+    assert matrix[0] == [0, 1, 0]
+'''
+    },
+    "P0590": {
+        "domain": "Matrix & Grid Operations",
+        "task": "Kronecker product of two small matrices",
+        "category": "Nested loop only",
+        "code": '''def kron_expand(a, b):
+    rows_b, cols_b = len(b), len(b[0])
+    width = len(a[0]) * cols_b
+    height = len(a) * rows_b
+    out = [[0] * width for _ in range(height)]
+    for i, row in enumerate(a):
+        for j, x in enumerate(row):
+            for p in range(rows_b):
+                for q in range(cols_b):
+                    out[i * rows_b + p][j * cols_b + q] = x * b[p][q]
+    return out
+
+if __name__ == "__main__":
+    swap = [[0, 1], [1, 0]]
+    assert kron_expand([[1, 2]], swap) == [[0, 1, 0, 2], [1, 0, 2, 0]]
+'''
+    },
+
+    # 4. LONG STATEMENT AND NESTED LOOP (6 programs: P0591 - P0596)
+    "P0591": {
+        "domain": "Matrix & Grid Operations",
+        "task": "Sobel edge magnitude for the interior pixels of an image",
+        "category": "Long statement and nested loop",
+        "code": '''def sobel_magnitude(img):
+    h, w = len(img), len(img[0])
+    out = [[0] * w for _ in range(h)]
+    for r in range(1, h - 1):
+        for c in range(1, w - 1):
+            gx = img[r - 1][c + 1] + 2 * img[r][c + 1] + img[r + 1][c + 1] - img[r - 1][c - 1] - 2 * img[r][c - 1] - img[r + 1][c - 1]
+            gy = img[r + 1][c - 1] + 2 * img[r + 1][c] + img[r + 1][c + 1] - img[r - 1][c - 1] - 2 * img[r - 1][c] - img[r - 1][c + 1]
+            out[r][c] = abs(gx) + abs(gy)
+    return out
+
+if __name__ == "__main__":
+    edge = [[0, 0, 9], [0, 0, 9], [0, 0, 9]]
+    assert sobel_magnitude(edge)[1][1] == 36
+    assert sobel_magnitude(edge)[0][0] == 0
+'''
+    },
+    "P0592": {
+        "domain": "Graph or Tree Traversal",
+        "task": "Total cost of several routes with tolls and fees on each leg",
+        "category": "Long statement and nested loop",
+        "code": '''def route_costs(graph, routes):
+    totals = []
+    for route in routes:
+        cost = 0
+        for a, b in zip(route, route[1:]):
+            cost = cost + graph[a][b]["distance"] * graph[a][b].get("toll_factor", 1.0) + graph[a][b].get("fee", 0)
+        totals.append(round(cost, 2))
     return totals
 
 if __name__ == "__main__":
-    a = {"age": 30, "answers": {"q1": 4, "q2": 9}}
-    b = {"age": 17, "answers": {"q1": 5}}
-    assert tally_survey_scores([a, b], ["q1", "q2"], 18) == {"q1": 4, "q2": 0}
+    g = {"a": {}, "b": {}}
+    g["a"]["b"] = {"distance": 10}
+    g["b"]["c"] = {"distance": 5, "fee": 2}
+    assert route_costs(g, [["a", "b", "c"], ["a", "b"]]) == [17.0, 10.0]
 '''
     },
-    "P0519": {
+    "P0593": {
         "domain": "String Processing & Text Analysis",
-        "task": "Letter pairs of distinct letters that recur across words",
-        "category": "Nested loop and complex conditional",
-        "code": '''def frequent_letter_pairs(words: list[str], least: int) -> list[str]:
-    counts = {}
-    for word in words:
-        for i in range(len(word) - 1):
-            a, b = word[i], word[i + 1]
-            if a.isalpha() and b.isalpha() and a != b:
-                pair = (a + b).lower()
-                counts[pair] = counts.get(pair, 0) + 1
-    return sorted(p for p, n in counts.items() if n >= least)
-
-if __name__ == "__main__":
-    words = ["hello", "yellow", "mellow"]
-    assert frequent_letter_pairs(words, 3) == ["el", "lo"]
-    assert frequent_letter_pairs(["a1b"], 1) == []
-'''
-    },
-    "P0520": {
-        "domain": "Scheduling and Resource Allocation",
-        "task": "Greedy task assignment to skilled workers within hour capacity",
-        "category": "Nested loop and complex conditional",
-        "code": '''def assign_tasks_greedily(tasks: list[tuple[str, int, str]], workers: list[tuple[str, int, set[str]]]) -> dict[str, str]:
-    plan = {}
-    load = {name: 0 for name, _, _ in workers}
-    for task_id, hours, skill in tasks:
-        for name, capacity, skills in workers:
-            fits = load[name] + hours <= capacity
-            if fits and skill in skills and task_id not in plan:
-                plan[task_id] = name
-                load[name] += hours
-    return plan
-
-if __name__ == "__main__":
-    crew = [("ana", 6, {"weld"}), ("raj", 8, {"weld", "paint"})]
-    jobs = [("t1", 4, "weld"), ("t2", 4, "weld")]
-    jobs.append(("t3", 3, "paint"))
-    assert assign_tasks_greedily(jobs, crew) == {"t1": "ana", "t2": "raj", "t3": "raj"}
-'''
-    },
-    "P0521": {
-        "domain": "Small Simulation and Rule-based Systems",
-        "task": "One step of fire spreading through a forest grid with wind",
-        "category": "Nested loop and complex conditional",
-        "code": '''def spread_fire_once(forest: list[str], wind_east: bool) -> list[str]:
-    rows, cols = len(forest), len(forest[0])
-    nxt = [list(row) for row in forest]
-    for r in range(rows):
-        for c in range(cols):
-            if forest[r][c] != "T":
-                continue
-            west = c > 0 and forest[r][c - 1] == "F"
-            north = r > 0 and forest[r - 1][c] == "F"
-            if west or north or (not wind_east and c < cols - 1 and forest[r][c + 1] == "F"):
-                nxt[r][c] = "F"
-    return ["".join(row) for row in nxt]
-
-if __name__ == "__main__":
-    assert spread_fire_once(["TFT", "TTT"], True) == ["TFF", "TFT"]
-    assert spread_fire_once(["TFT", "TTT"], False) == ["FFF", "TFT"]
-'''
-    },
-    "P0522": {
-        "domain": "Lists, Tuples, Dictionaries, and Sets",
-        "task": "Cleaned tags shared by more than one group, excluding banned tags",
-        "category": "Nested loop and complex conditional",
-        "code": '''def shared_tags(groups: list[list[str]], banned: set[str]) -> list[str]:
-    seen_in = {}
-    for index, group in enumerate(groups):
-        for tag in set(group):
-            clean = tag.strip().lower()
-            if clean and clean not in banned and not clean.startswith("#"):
-                seen_in.setdefault(clean, set()).add(index)
-    common = [t for t, ids in seen_in.items() if len(ids) > 1]
-    return sorted(common)
-
-if __name__ == "__main__":
-    groups = [["Red", "blue"], ["red ", "#x"]]
-    groups.append(["BLUE", "green"])
-    assert shared_tags(groups, {"green"}) == ["blue", "red"]
-    assert shared_tags(groups, {"red", "blue"}) == []
-'''
-    },
-    "P0523": {
-        "domain": "Numerical Computation",
-        "task": "Count even-sum lattice points inside a circular ring",
-        "category": "Nested loop and complex conditional",
-        "code": '''def lattice_points_in_ring(inner: int, outer: int) -> int:
-    count = 0
-    for x in range(-outer, outer + 1):
-        for y in range(-outer, outer + 1):
-            dist = x * x + y * y
-            if inner * inner <= dist <= outer * outer and (x + y) % 2 == 0:
-                count += 1
-    return count
-
-if __name__ == "__main__":
-    assert lattice_points_in_ring(1, 2) == 8
-    assert lattice_points_in_ring(1, 1) == 0
-'''
-    },
-    "P0524": {
-        "domain": "Inventory and Record Management",
-        "task": "Order lines without a matching shipment of sufficient quantity",
-        "category": "Nested loop and complex conditional",
-        "code": '''def unmatched_order_lines(orders: list[tuple[str, str, int]], shipped: list[tuple[str, str, int]]) -> list[str]:
-    missing = []
-    for order_id, sku, qty in orders:
-        matched = False
-        for ship_order, ship_sku, ship_qty in shipped:
-            if ship_order == order_id and ship_sku == sku and ship_qty >= qty:
-                matched = True
-                break
-        if not matched:
-            missing.append(f"{order_id}:{sku}")
-    return missing
-
-if __name__ == "__main__":
-    orders = [("o1", "pen", 3), ("o1", "ink", 1)]
-    orders.append(("o2", "pad", 2))
-    sent = [("o1", "pen", 3), ("o2", "pad", 1)]
-    assert unmatched_order_lines(orders, sent) == ["o1:ink", "o2:pad"]
-'''
-    },
-
-    # 3. NESTED LOOP ONLY (6 programs: P0525 - P0530)
-    "P0525": {
-        "domain": "Matrix & Grid Operations",
-        "task": "Sums of each anti-diagonal of a rectangular matrix",
-        "category": "Nested loop only",
-        "code": '''def anti_diagonal_sums(matrix: list[list[int]]) -> list[int]:
-    rows, cols = len(matrix), len(matrix[0])
-    sums = [0] * (rows + cols - 1)
-    for r in range(rows):
-        for c in range(cols):
-            sums[r + c] += matrix[r][c]
-    return sums
-
-if __name__ == "__main__":
-    assert anti_diagonal_sums([[1, 2, 3], [4, 5, 6]]) == [1, 6, 8, 6]
-    assert anti_diagonal_sums([[7]]) == [7]
-'''
-    },
-    "P0526": {
-        "domain": "Searching and Sorting",
-        "task": "Positions where a short pattern list occurs inside a longer list",
-        "category": "Nested loop only",
-        "code": '''def find_sublist_positions(haystack: list[int], pattern: list[int]) -> list[int]:
-    positions = []
-    width = len(pattern)
-    start = 0
-    while start + width <= len(haystack) and width:
-        offset = 0
-        while offset < width and haystack[start + offset] == pattern[offset]:
-            offset += 1
-        if offset == width:
-            positions.append(start)
-        start += 1
-    return positions
-
-if __name__ == "__main__":
-    assert find_sublist_positions([1, 2, 1, 2, 1], [1, 2, 1]) == [0, 2]
-    assert find_sublist_positions([3, 4], [5]) == []
-    assert find_sublist_positions([3, 4], []) == []
-'''
-    },
-    "P0527": {
-        "domain": "Numerical Computation",
-        "task": "Perfect numbers up to a limit using a divisor-sum sieve",
-        "category": "Nested loop only",
-        "code": '''def perfect_numbers_upto(limit: int) -> list[int]:
-    sums = [0] * (limit + 1)
-    for d in range(1, limit + 1):
-        for multiple in range(2 * d, limit + 1, d):
-            sums[multiple] += d
-    return [n for n in range(2, limit + 1) if sums[n] == n]
-
-if __name__ == "__main__":
-    assert perfect_numbers_upto(30) == [6, 28]
-    assert perfect_numbers_upto(5) == []
-'''
-    },
-    "P0528": {
-        "domain": "Searching and Sorting",
-        "task": "Closest pool value for each query by linear scan",
-        "category": "Nested loop only",
-        "code": '''def nearest_values(pool: list[int], queries: list[int]) -> list[int]:
-    answers = []
-    for q in queries:
-        best = pool[0]
-        for candidate in pool:
-            if abs(candidate - q) < abs(best - q):
-                best = candidate
-        answers.append(best)
-    return answers
-
-if __name__ == "__main__":
-    assert nearest_values([1, 8, 15], [7, 12, 0]) == [8, 15, 1]
-'''
-    },
-    "P0529": {
-        "domain": "Data Aggregation and Statistics",
-        "task": "Maximum of every fixed-width sliding window by direct scan",
-        "category": "Nested loop only",
-        "code": '''def window_maxima(series: list[float], width: int) -> list[float]:
-    result = []
-    for start in range(len(series) - width + 1):
-        top = series[start]
-        for offset in range(1, width):
-            top = max(top, series[start + offset])
-        result.append(top)
-    return result
-
-if __name__ == "__main__":
-    assert window_maxima([1, 3, 2, 5, 4], 2) == [3, 3, 5, 5]
-    assert window_maxima([1, 3, 2], 3) == [3]
-'''
-    },
-    "P0530": {
-        "domain": "Lists, Tuples, Dictionaries, and Sets",
-        "task": "Invert a key-to-values mapping into value-to-keys",
-        "category": "Nested loop only",
-        "code": '''def invert_multimap(mapping: dict[str, list[str]]) -> dict[str, list[str]]:
-    inverted = {}
-    for key, values in mapping.items():
-        for value in values:
-            if key not in inverted.get(value, []):
-                inverted.setdefault(value, []).append(key)
-    pairs = sorted(inverted.items())
-    return {v: sorted(ks) for v, ks in pairs}
-
-if __name__ == "__main__":
-    data = {"b": ["x"], "a": ["x", "y", "x"]}
-    assert invert_multimap(data) == {"x": ["a", "b"], "y": ["a"]}
-'''
-    },
-
-    # 4. NONE (6 programs: P0531 - P0536)
-    "P0531": {
-        "domain": "Numerical Computation",
-        "task": "Reduce an integer ratio to lowest terms with a positive sign",
-        "category": "None",
-        "code": '''from math import gcd
-
-def reduce_ratio(parts: list[int]) -> list[int]:
-    if not parts or all(p == 0 for p in parts):
-        return list(parts)
-    common = 0
-    for value in parts:
-        common = gcd(common, abs(value))
-    sign = -1 if all(p <= 0 for p in parts) else 1
-    return [sign * p // common for p in parts]
-
-if __name__ == "__main__":
-    assert reduce_ratio([4, 6, 10]) == [2, 3, 5]
-    assert reduce_ratio([-2, -4]) == [1, 2]
-    assert reduce_ratio([0, 0]) == [0, 0]
-'''
-    },
-    "P0532": {
-        "domain": "String Processing & Text Analysis",
-        "task": "Convert a snake_case identifier into title words keeping acronyms",
-        "category": "None",
-        "code": '''def snake_to_title(name: str, keep_upper: set[str]) -> str:
-    words = [w for w in name.strip("_").split("_") if w]
-    titled = []
-    for word in words:
-        upper = word.upper()
-        if upper in keep_upper:
-            titled.append(upper)
-        else:
-            titled.append(word.capitalize())
-    return " ".join(titled)
-
-if __name__ == "__main__":
-    assert snake_to_title("_http_status_code", {"HTTP"}) == "HTTP Status Code"
-    assert snake_to_title("max__value", set()) == "Max Value"
-'''
-    },
-    "P0533": {
-        "domain": "Graph or Tree Traversal",
-        "task": "Lowest common ancestor of two nodes from a parent map",
-        "category": "None",
-        "code": '''def lowest_common_ancestor(parent: dict[str, str], a: str, b: str) -> str:
-    ancestors = set()
-    node = a
-    while node:
-        ancestors.add(node)
-        node = parent.get(node, "")
-    node = b
-    while node and node not in ancestors:
-        node = parent.get(node, "")
-    return node
-
-if __name__ == "__main__":
-    parent = {"b": "a", "c": "a", "d": "b", "e": "b"}
-    assert lowest_common_ancestor(parent, "d", "e") == "b"
-    assert lowest_common_ancestor(parent, "d", "c") == "a"
-    assert lowest_common_ancestor(parent, "d", "x") == ""
-'''
-    },
-    "P0534": {
-        "domain": "Lists, Tuples, Dictionaries, and Sets",
-        "task": "Split a list into fixed-size tuples padding the last one",
-        "category": "None",
-        "code": '''def chunk_with_padding(items: list, size: int, filler=None) -> list[tuple]:
-    if size <= 0:
-        raise ValueError("size must be positive")
-    chunks = []
-    for start in range(0, len(items), size):
-        piece = list(items[start:start + size])
-        piece.extend([filler] * (size - len(piece)))
-        chunks.append(tuple(piece))
-    return chunks
-
-if __name__ == "__main__":
-    assert chunk_with_padding([1, 2, 3, 4, 5], 2, 0) == [(1, 2), (3, 4), (5, 0)]
-    assert chunk_with_padding([], 3) == []
-'''
-    },
-    "P0535": {
-        "domain": "Lists, Tuples, Dictionaries, and Sets",
-        "task": "Added, removed and changed keys between two dictionaries",
-        "category": "None",
-        "code": '''def dict_changes(old: dict, new: dict) -> tuple[list, list, list]:
-    added = sorted(k for k in new if k not in old)
-    removed = sorted(k for k in old if k not in new)
-    shared = [k for k in old if k in new]
-    changed = sorted(k for k in shared if old[k] != new[k])
-    return added, removed, changed
-
-if __name__ == "__main__":
-    before = {"a": 1, "b": 2, "c": 3}
-    after = {"b": 2, "c": 4, "d": 5}
-    assert dict_changes(before, after) == (["d"], ["a"], ["c"])
-'''
-    },
-    "P0536": {
-        "domain": "Data Aggregation and Statistics",
-        "task": "Median absolute deviation of a list of values",
-        "category": "None",
-        "code": '''def middle_value(ordered: list[float]) -> float:
-    mid = len(ordered) // 2
-    if len(ordered) % 2:
-        return ordered[mid]
-    return (ordered[mid - 1] + ordered[mid]) / 2
-
-def median_spread(values: list[float]) -> float:
-    if not values:
-        raise ValueError("values must not be empty")
-    center = middle_value(sorted(values))
-    deviations = sorted(abs(v - center) for v in values)
-    return middle_value(deviations)
-
-if __name__ == "__main__":
-    assert median_spread([1, 1, 2, 2, 4, 6, 9]) == 1
-    assert median_spread([3, 5]) == 1.0
-'''
-    },
-
-    # 5. LONG STATEMENT ONLY (4 programs: P0537 - P0540)
-    "P0537": {
-        "domain": "Numerical Computation",
-        "task": "Future value of a principal with yearly deposits at a fixed rate",
-        "category": "Long statement only",
-        "code": '''def future_value_with_deposits(principal: float, rate: float, years: int, deposit: float) -> float:
-    if rate == 0:
-        return principal + deposit * years
-    growth = (1 + rate) ** years
-    total = principal * growth + deposit * (growth - 1) / rate * (1 + rate)
-    return round(total, 2)
-
-if __name__ == "__main__":
-    assert future_value_with_deposits(1000, 0.0, 5, 100) == 1500
-    assert future_value_with_deposits(1000, 0.1, 2, 100) == 1441.0
-'''
-    },
-    "P0538": {
-        "domain": "Data Aggregation and Statistics",
-        "task": "Weighted final course score from quizzes, exams and project",
-        "category": "Long statement only",
-        "code": '''def course_final_score(quizzes: list[float], midterm: float, final: float, project: float) -> float:
-    quiz_avg = sum(quizzes) / len(quizzes) if quizzes else 0.0
-    return round(quiz_avg * 0.15 + midterm * 0.25 + final * 0.4 + project * 0.2, 1)
-
-if __name__ == "__main__":
-    assert abs(course_final_score([80, 100], 60, 80, 90) - 78.5) < 0.06
-    assert course_final_score([], 0, 0, 0) == 0.0
-'''
-    },
-    "P0539": {
-        "domain": "Inventory and Record Management",
-        "task": "Stock valuation net of damage with a handling fee on costly lots",
-        "category": "Long statement only",
-        "code": '''def stock_valuation(lots: list[tuple[int, float, float]]) -> float:
-    value = 0.0
-    for qty, unit_cost, damage_rate in lots:
-        value += qty * unit_cost * (1 - damage_rate) + qty * 0.15 * (unit_cost > 100)
-    return round(value, 2)
-
-if __name__ == "__main__":
-    lots = [(10, 50.0, 0.1), (2, 200.0, 0.0)]
-    assert stock_valuation(lots) == 850.3
-    assert stock_valuation([]) == 0.0
-'''
-    },
-    "P0540": {
-        "domain": "Scheduling and Resource Allocation",
-        "task": "Rotating daily staff rota with a fixed number per day",
-        "category": "Long statement only",
-        "code": '''def build_rota(staff: list[str], days: int, per_day: int) -> list[list[str]]:
-    rota = []
-    for day in range(days):
-        start = (day * per_day) % len(staff)
-        rota.append([staff[(start + k) % len(staff)] for k in range(per_day)])
-    return rota
-
-if __name__ == "__main__":
-    assert build_rota(["a", "b", "c"], 2, 2) == [["a", "b"], ["c", "a"]]
-    assert build_rota(["a"], 1, 1) == [["a"]]
-'''
-    },
-
-    # 6. LONG STATEMENT AND NESTED LOOP (4 programs: P0541 - P0544)
-    "P0541": {
-        "domain": "Matrix & Grid Operations",
-        "task": "Five-point box blur of the interior cells of an image grid",
+        "task": "Guess a Caesar cipher shift by counting common English letters",
         "category": "Long statement and nested loop",
-        "code": '''def box_blur_interior(img: list[list[float]]) -> list[list[float]]:
-    out = [row[:] for row in img]
-    for r in range(1, len(img) - 1):
-        for c in range(1, len(img[0]) - 1):
-            out[r][c] = (img[r - 1][c] + img[r + 1][c] + img[r][c - 1] + img[r][c + 1] + img[r][c]) / 5
+        "code": '''def guess_caesar_shift(cipher):
+    common = "etaoinshr"
+    best_shift, best_score = 0, -1
+    for shift in range(26):
+        score = 0
+        for ch in cipher.lower():
+            if ch.isalpha():
+                decoded = chr((ord(ch) - ord("a") - shift + 26) % 26 + ord("a"))
+                score += 1 if decoded in common else 0
+        if score > best_score:
+            best_shift, best_score = shift, score
+    return best_shift
+
+if __name__ == "__main__":
+    assert guess_caesar_shift("wkh vhfuhw lv qrw khuh") == 3
+    assert guess_caesar_shift("the rain in spain") == 0
+'''
+    },
+    "P0594": {
+        "domain": "Numerical Computation",
+        "task": "Midpoint-rule double integral of a quadratic form over a rectangle",
+        "category": "Long statement and nested loop",
+        "code": '''def double_integral_midpoint(coeffs, x_range, y_range, steps):
+    a, b, c = coeffs
+    (x0, x1), (y0, y1) = x_range, y_range
+    hx, hy = (x1 - x0) / steps, (y1 - y0) / steps
+    total = 0.0
+    for i in range(steps):
+        for j in range(steps):
+            x, y = x0 + (i + 0.5) * hx, y0 + (j + 0.5) * hy
+            cell_value = a * x * x * hx * hy + b * x * y * hx * hy + c * y * y * hx * hy
+            total += cell_value
+    return total
+
+if __name__ == "__main__":
+    unit = (0.0, 1.0)
+    assert abs(double_integral_midpoint((1, 0, 0), unit, unit, 50) - 1 / 3) < 1e-3
+    assert abs(double_integral_midpoint((0, 1, 0), unit, unit, 10) - 0.25) < 1e-9
+'''
+    },
+    "P0595": {
+        "domain": "Lists, Tuples, Dictionaries, and Sets",
+        "task": "Join two lists of record dictionaries on a shared key",
+        "category": "Long statement and nested loop",
+        "code": '''def join_records_on(left, right, key):
+    joined = []
+    for l_row in left:
+        for r_row in right:
+            if l_row[key] == r_row[key]:
+                joined.append({**l_row, **{k: v for k, v in r_row.items() if k != key}})
+    return joined
+
+if __name__ == "__main__":
+    left = [{"id": 1, "n": "a"}, {"id": 2, "n": "b"}]
+    right = [{"id": 2, "q": 5}]
+    assert join_records_on(left, right, "id") == [{"id": 2, "n": "b", "q": 5}]
+'''
+    },
+    "P0596": {
+        "domain": "Searching and Sorting",
+        "task": "Stable counting sort of keyed records with a position checksum",
+        "category": "Long statement and nested loop",
+        "code": '''def counting_sort_records(records, max_key):
+    buckets = [[] for _ in range(max_key + 1)]
+    for rec in records:
+        buckets[rec[0]].append(rec)
+    ordered = []
+    for bucket in buckets:
+        for rec in bucket:
+            ordered.append(rec)
+    checksum = sum(rec[0] * (i + 1) for i, rec in enumerate(ordered)) + len(ordered) * max_key
+    return ordered, checksum
+
+if __name__ == "__main__":
+    recs = [(2, "b"), (0, "a"), (2, "c"), (1, "d")]
+    ordered, checksum = counting_sort_records(recs, 2)
+    assert ordered == [(0, "a"), (1, "d"), (2, "b"), (2, "c")]
+    assert checksum == 24
+'''
+    },
+
+    # 5. NONE (2 programs: P0597 - P0598)
+    "P0597": {
+        "domain": "Small Simulation and Rule-based Systems",
+        "task": "Score one roll of five dice under triple and single-face rules",
+        "category": "None",
+        "code": '''from collections import Counter
+
+def score_dice_roll(dice):
+    counts = Counter(dice)
+    score = 0
+    for face, n in counts.items():
+        if n >= 3:
+            score += face * 100 if face != 1 else 1000
+            n -= 3
+        if face == 1:
+            score += n * 100
+        elif face == 5:
+            score += n * 50
+    return score
+
+if __name__ == "__main__":
+    assert score_dice_roll([1, 1, 1, 5, 2]) == 1050
+    assert score_dice_roll([3, 3, 3, 3, 5]) == 350
+    assert score_dice_roll([2, 3, 4, 6, 6]) == 0
+'''
+    },
+    "P0598": {
+        "domain": "Inventory and Record Management",
+        "task": "Fixed-width shelf label line with truncated name and bin code",
+        "category": "None",
+        "code": '''def label_line(sku, name, qty, bin_code, width=32):
+    short = name if len(name) <= 16 else name[:15] + "~"
+    qty_text = str(qty).rjust(4)
+    line = f"{sku:<8}{short:<16}{qty_text}"
+    if bin_code:
+        line = line[:width - 4] + bin_code[:4]
+    return line[:width]
+
+if __name__ == "__main__":
+    label = label_line("A1", "Widget", 7, "B3")
+    assert label.startswith("A1      Widget") and label.endswith("   7B3")
+    assert label_line("Z9", "Extra long product name", 120, "")[8:24] == "Extra long prod~"
+'''
+    },
+
+    # 6. LONG STATEMENT ONLY (2 programs: P0599 - P0600)
+    "P0599": {
+        "domain": "Scheduling and Resource Allocation",
+        "task": "Finish times of queued print jobs with warm-up and duplex slowdown",
+        "category": "Long statement only",
+        "code": '''def print_queue_finish_times(jobs, pages_per_minute, warmup):
+    clock = 0.0
+    finishes = []
+    for pages, copies, duplex in jobs:
+        clock = clock + warmup + pages * copies / pages_per_minute * (1.6 if duplex else 1.0)
+        finishes.append(round(clock, 1))
+    return finishes
+
+if __name__ == "__main__":
+    jobs = [(10, 2, False), (5, 1, True)]
+    assert print_queue_finish_times(jobs, 20, 0.5) == [1.5, 2.4]
+'''
+    },
+    "P0600": {
+        "domain": "Data Aggregation and Statistics",
+        "task": "Bias-corrected exponential moving mean and variance of a series",
+        "category": "Long statement only",
+        "code": '''def ewma_mean_variance(series, beta):
+    avg = 0.0
+    variance = 0.0
+    out = []
+    for t, x in enumerate(series, start=1):
+        avg = beta * avg + (1 - beta) * x
+        corrected = avg / (1 - beta ** t)
+        variance = beta * variance + (1 - beta) * (x - corrected) * (x - corrected)
+        out.append((round(corrected, 4), round(variance, 4)))
     return out
 
 if __name__ == "__main__":
-    img = [[0.0, 0.0, 0.0], [0.0, 10.0, 0.0], [0.0, 0.0, 0.0]]
-    assert box_blur_interior(img)[1][1] == 2.0
-    assert box_blur_interior(img)[0][0] == 0.0
-'''
-    },
-    "P0542": {
-        "domain": "Graph or Tree Traversal",
-        "task": "PageRank scores by fixed-round power iteration",
-        "category": "Long statement and nested loop",
-        "code": '''def page_rank_scores(links: dict[str, list[str]], rounds: int = 20, damping: float = 0.85) -> dict[str, float]:
-    nodes = sorted(links)
-    rank = {n: 1 / len(nodes) for n in nodes}
-    for _ in range(rounds):
-        fresh = {}
-        for node in nodes:
-            incoming = [src for src in nodes if node in links[src]]
-            fresh[node] = (1 - damping) / len(nodes) + damping * sum(rank[s] / len(links[s]) for s in incoming)
-        rank = fresh
-    return {n: round(r, 3) for n, r in rank.items()}
-
-if __name__ == "__main__":
-    assert page_rank_scores({"a": ["b"], "b": ["a"]}) == {"a": 0.5, "b": 0.5}
-    links = {"a": ["b", "c"], "b": ["c"], "c": ["a"]}
-    scores = page_rank_scores(links)
-    assert abs(sum(scores.values()) - 1.0) < 0.01
-    assert scores["c"] > scores["b"]
-'''
-    },
-    "P0543": {
-        "domain": "Small Simulation and Rule-based Systems",
-        "task": "Horizontal range of projectiles by stepping until they land",
-        "category": "Long statement and nested loop",
-        "code": '''def simulate_projectiles(launches: list[tuple[float, float]], steps: int, dt: float) -> list[float]:
-    ranges = []
-    for vx, vy in launches:
-        x, y, t = 0.0, 0.0, 0
-        while y >= 0.0 and t < steps:
-            x += vx * dt
-            y = y + vy * dt - 0.5 * 9.81 * dt * dt - 0.5 * 9.81 * dt * dt * (2 * t)
-            t += 1
-        ranges.append(round(x, 2))
-    return ranges
-
-if __name__ == "__main__":
-    launches = [(10.0, 0.0), (5.0, 9.0)]
-    assert simulate_projectiles(launches, 100, 0.1) == [1.0, 9.5]
-'''
-    },
-    "P0544": {
-        "domain": "Searching and Sorting",
-        "task": "League table order by points then goal difference using bubble passes",
-        "category": "Long statement and nested loop",
-        "code": '''def league_table_order(teams: list[tuple[str, int, int, int]]) -> list[str]:
-    order = list(teams)
-    for end in range(len(order) - 1, 0, -1):
-        for i in range(end):
-            a, b = order[i], order[i + 1]
-            score_gap = (b[1] * 3 + b[2]) * 100 + b[3] - (a[1] * 3 + a[2]) * 100 - a[3]
-            if score_gap > 0:
-                order[i], order[i + 1] = b, a
-    return [team[0] for team in order]
-
-if __name__ == "__main__":
-    teams = [("ash", 2, 1, 3), ("elm", 3, 0, 1)]
-    teams.append(("oak", 2, 1, 5))
-    assert league_table_order(teams) == ["elm", "oak", "ash"]
-'''
-    },
-
-    # 7. ALL THREE TARGET ISSUES (3 programs: P0545 - P0547)
-    "P0545": {
-        "domain": "Graph or Tree Traversal",
-        "task": "Single-source shortest costs with Bellman-Ford and cycle detection",
-        "category": "All three target issues",
-        "code": '''def bellman_ford_costs(edges: list[tuple[str, str, int]], nodes: list[str], source: str) -> dict[str, float]:
-    cost = {n: float("inf") for n in nodes}
-    cost[source] = 0
-    for _ in range(len(nodes) - 1):
-        for u, v, w in edges:
-            if cost[u] != float("inf") and cost[u] + w < cost[v] and v != source:
-                cost[v] = cost[u] + w
-    for u, v, w in edges:
-        candidate_cost_through_edge = cost[u] + w if cost[u] != float("inf") else float("inf")
-        if candidate_cost_through_edge < cost[v]:
-            raise ValueError("negative cycle")
-    return cost
-
-if __name__ == "__main__":
-    edges = [("a", "b", 4), ("a", "c", 1), ("c", "b", 2)]
-    edges.append(("b", "d", 1))
-    costs = bellman_ford_costs(edges, ["a", "b", "c", "d"], "a")
-    assert costs == {"a": 0, "b": 3, "c": 1, "d": 4}
-'''
-    },
-    "P0546": {
-        "domain": "Matrix & Grid Operations",
-        "task": "Matrix product computed only where a mask allows, skipping zeros",
-        "category": "All three target issues",
-        "code": '''def masked_matrix_product(a: list[list[float]], b: list[list[float]], mask: list[list[int]]) -> list[list[float]]:
-    n, m, p = len(a), len(b), len(b[0])
-    out = [[0.0] * p for _ in range(n)]
-    for i in range(n):
-        for j in range(p):
-            if mask[i][j] == 0:
-                continue
-            for k in range(m):
-                if a[i][k] != 0 and b[k][j] != 0 and abs(a[i][k] * b[k][j]) > 1e-12:
-                    out[i][j] = out[i][j] + a[i][k] * b[k][j] * mask[i][j] / max(1, mask[i][j])
-    return out
-
-if __name__ == "__main__":
-    a = [[1, 2], [3, 4]]
-    b = [[5, 6], [7, 8]]
-    mask = [[1, 0], [1, 1]]
-    assert masked_matrix_product(a, b, mask) == [[19, 0.0], [43, 50]]
-'''
-    },
-    "P0547": {
-        "domain": "String Processing & Text Analysis",
-        "task": "Report word n-grams repeated across sentences, ignoring stopword edges",
-        "category": "All three target issues",
-        "code": '''def repeated_phrase_report(sentences: list[str], n: int, stopwords: set[str]) -> list[str]:
-    counts = {}
-    for sentence in sentences:
-        words = sentence.lower().split()
-        for i in range(len(words) - n + 1):
-            gram = words[i:i + n]
-            if gram[0] not in stopwords and gram[-1] not in stopwords and len(set(gram)) == n:
-                key = " ".join(gram)
-                counts[key] = counts.get(key, 0) + 1
-    report = [f"{phrase} x{count}" for phrase, count in sorted(counts.items()) if count > 1]
-    return report
-
-if __name__ == "__main__":
-    text = ["the red fox runs", "a red fox sleeps"]
-    text.append("red fox red fox")
-    assert repeated_phrase_report(text, 2, {"the", "a"}) == ["red fox x4"]
-'''
-    },
-
-    # 8. LONG STATEMENT AND COMPLEX CONDITIONAL (3 programs: P0548 - P0550)
-    "P0548": {
-        "domain": "Inventory and Record Management",
-        "task": "Invoice total with member coupon discounts and tax",
-        "category": "Long statement and complex conditional",
-        "code": '''def invoice_total(subtotal: float, customer: dict, coupon: str) -> float:
-    member = customer.get("member", False)
-    if member and subtotal >= 100 and coupon == "SAVE10":
-        discount = 0.1
-    elif coupon == "SAVE5":
-        discount = 0.05
-    else:
-        discount = 0.0
-    total = subtotal - subtotal * discount + subtotal * (1 - discount) * customer["tax_rate"]
-    return round(total, 2)
-
-if __name__ == "__main__":
-    shopper = {"member": True, "tax_rate": 0.2}
-    assert invoice_total(200, shopper, "SAVE10") == 216.0
-    assert invoice_total(50, shopper, "SAVE5") == 57.0
-'''
-    },
-    "P0549": {
-        "domain": "Scheduling and Resource Allocation",
-        "task": "Batch job priority score with a boost for long-waiting short jobs",
-        "category": "Long statement and complex conditional",
-        "code": '''def job_priority(job: dict, now: int) -> float:
-    if job.get("paused"):
-        return 0.0
-    waited = now - job["submitted"]
-    score = job["base"] * 2 + waited * 0.5 + job.get("boost", 0) * 3 - job["est_minutes"] * 0.1
-    if waited > 60 and job["est_minutes"] < 10 and not job.get("batch", False):
-        score += 25
-    return round(score, 1)
-
-if __name__ == "__main__":
-    job = {"submitted": 0, "base": 5, "est_minutes": 5}
-    assert job_priority(job, 100) == 84.5
-    assert job_priority({"paused": True}, 100) == 0.0
-'''
-    },
-    "P0550": {
-        "domain": "Small Simulation and Rule-based Systems",
-        "task": "Thermostat action from a humidity-adjusted feels-like temperature",
-        "category": "Long statement and complex conditional",
-        "code": '''def thermostat_action(temp: float, target: float, humidity: float, occupied: bool) -> tuple[str, float]:
-    feels_like = temp - 0.55 * (1 - humidity / 100) * (temp - 14.5) + 0.1 * (humidity - 50)
-    if occupied and feels_like > target + 1 and humidity < 70:
-        return "cool", round(feels_like, 1)
-    if occupied and (feels_like < target - 1 or temp < 16):
-        return "heat", round(feels_like, 1)
-    return "hold", round(feels_like, 1)
-
-if __name__ == "__main__":
-    assert thermostat_action(30.0, 22.0, 40.0, True)[0] == "cool"
-    assert thermostat_action(18.0, 22.0, 50.0, True)[0] == "heat"
-    assert thermostat_action(25.0, 22.0, 50.0, False)[0] == "hold"
+    assert ewma_mean_variance([10, 10, 10], 0.5) == [(10.0, 0.0)] * 3
+    mean, var = ewma_mean_variance([0, 10], 0.5)[1]
+    assert abs(mean - 6.6667) < 1e-4 and abs(var - 5.5556) < 1e-4
 '''
     },
 }
 
 BATCHES = [
     {
-        "batch_id": "Batch 11",
+        "batch_id": "Batch 12",
         "model_id": "claude-opus-5.5",
-        "prompt_version": "v11.0-expansion",
-        "programs": BATCH11_PROGRAMS,
+        "prompt_version": "v12.0-expansion",
+        "programs": BATCH12_PROGRAMS,
     },
 ]
 
