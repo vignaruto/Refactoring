@@ -599,3 +599,53 @@ P0597,P0597.py,Small Simulation and Rule-based Systems,Score one roll of five di
 P0598,P0598.py,Inventory and Record Management,Fixed-width shelf label line with truncated name and bin code,None,claude-opus-5.5,v12.0-expansion,Batch 12,True,ACCEPTED
 P0599,P0599.py,Scheduling and Resource Allocation,Finish times of queued print jobs with warm-up and duplex slowdown,Long statement only,claude-opus-5.5,v12.0-expansion,Batch 12,True,ACCEPTED
 P0600,P0600.py,Data Aggregation and Statistics,Bias-corrected exponential moving mean and variance of a series,Long statement only,claude-opus-5.5,v12.0-expansion,Batch 12,True,ACCEPTED
+P0601,P0601.py,Small Simulation and Rule-based Systems,"Parking exit gate rule from ticket, payment time and plate flag",Complex conditional only,claude-opus-5.5,v13.0-expansion,Batch 13,True,ACCEPTED
+P0602,P0602.py,Inventory and Record Management,"Accept, hold or flag a goods receipt line against its purchase order",Complex conditional only,claude-opus-5.5,v13.0-expansion,Batch 13,True,ACCEPTED
+P0603,P0603.py,Scheduling and Resource Allocation,"Whether a nurse may take an on-call slot given hours, rest and seniority",Complex conditional only,claude-opus-5.5,v13.0-expansion,Batch 13,True,ACCEPTED
+P0604,P0604.py,String Processing & Text Analysis,Check a word can be played from a letter rack and is in the dictionary,Complex conditional only,claude-opus-5.5,v13.0-expansion,Batch 13,True,ACCEPTED
+P0605,P0605.py,Numerical Computation,Integer square root by bisection with a round limit,Complex conditional only,claude-opus-5.5,v13.0-expansion,Batch 13,True,ACCEPTED
+P0606,P0606.py,Data Aggregation and Statistics,"Grade survey response quality from speed, attention check and straight-lining",Complex conditional only,claude-opus-5.5,v13.0-expansion,Batch 13,True,ACCEPTED
+P0607,P0607.py,"Lists, Tuples, Dictionaries, and Sets",Numeric settings under a key prefix whose values fall in a range,Complex conditional only,claude-opus-5.5,v13.0-expansion,Batch 13,True,ACCEPTED
+P0608,P0608.py,Searching and Sorting,Lower bound in a sorted list by galloping then binary search,Complex conditional only,claude-opus-5.5,v13.0-expansion,Batch 13,True,ACCEPTED
+P0609,P0609.py,Graph or Tree Traversal,"Height of a binary tree, or -1 when any subtree is unbalanced",Complex conditional only,claude-opus-5.5,v13.0-expansion,Batch 13,True,ACCEPTED
+P0610,P0610.py,Inventory and Record Management,"Refund outcome from purchase age, packaging, receipt and history",Complex conditional only,claude-opus-5.5,v13.0-expansion,Batch 13,True,ACCEPTED
+P0611,P0611.py,Small Simulation and Rule-based Systems,"Next action of a robot vacuum from battery, bin and sensors",Complex conditional only,claude-opus-5.5,v13.0-expansion,Batch 13,True,ACCEPTED
+P0612,P0612.py,Scheduling and Resource Allocation,"Flag a project milestone at risk from workload, team size and blockers",Complex conditional only,claude-opus-5.5,v13.0-expansion,Batch 13,True,ACCEPTED
+P0613,P0613.py,String Processing & Text Analysis,Detect a shouted chat message from capital ratio and exclamation,Complex conditional only,claude-opus-5.5,v13.0-expansion,Batch 13,True,ACCEPTED
+P0614,P0614.py,Numerical Computation,"Validate step size, interval and order for a numerical ODE solver",Complex conditional only,claude-opus-5.5,v13.0-expansion,Batch 13,True,ACCEPTED
+P0615,P0615.py,Data Aggregation and Statistics,Count readings accumulated before a running total would pass a limit,Complex conditional only,claude-opus-5.5,v13.0-expansion,Batch 13,True,ACCEPTED
+P0616,P0616.py,Matrix & Grid Operations,Clear pixels that have no lit neighbour in their 3x3 window,Nested loop and complex conditional,claude-opus-5.5,v13.0-expansion,Batch 13,True,ACCEPTED
+P0617,P0617.py,Matrix & Grid Operations,Index pairs where a square matrix is not symmetric within tolerance,Nested loop and complex conditional,claude-opus-5.5,v13.0-expansion,Batch 13,True,ACCEPTED
+P0618,P0618.py,Matrix & Grid Operations,Local peaks reached by steepest-ascent hill climbing from start cells,Nested loop and complex conditional,claude-opus-5.5,v13.0-expansion,Batch 13,True,ACCEPTED
+P0619,P0619.py,Graph or Tree Traversal,Count start-to-goal paths in a DAG up to a maximum length,Nested loop and complex conditional,claude-opus-5.5,v13.0-expansion,Batch 13,True,ACCEPTED
+P0620,P0620.py,Graph or Tree Traversal,Two-colour an undirected graph by BFS or report it is not bipartite,Nested loop and complex conditional,claude-opus-5.5,v13.0-expansion,Batch 13,True,ACCEPTED
+P0621,P0621.py,Searching and Sorting,Pairs of distinct sorted values no further apart than a gap,Nested loop and complex conditional,claude-opus-5.5,v13.0-expansion,Batch 13,True,ACCEPTED
+P0622,P0622.py,Searching and Sorting,Staircase search for several targets in a row and column sorted matrix,Nested loop and complex conditional,claude-opus-5.5,v13.0-expansion,Batch 13,True,ACCEPTED
+P0623,P0623.py,"Lists, Tuples, Dictionaries, and Sets",Group cleaned words by first letter skipping banned and short words,Nested loop and complex conditional,claude-opus-5.5,v13.0-expansion,Batch 13,True,ACCEPTED
+P0624,P0624.py,"Lists, Tuples, Dictionaries, and Sets",Indexes of sets contained in another set of the list,Nested loop and complex conditional,claude-opus-5.5,v13.0-expansion,Batch 13,True,ACCEPTED
+P0625,P0625.py,Small Simulation and Rule-based Systems,One predation step where wolves eat sheep sharing their cell,Nested loop and complex conditional,claude-opus-5.5,v13.0-expansion,Batch 13,True,ACCEPTED
+P0626,P0626.py,Inventory and Record Management,Store batches close to expiry that still have stock to discount,Nested loop and complex conditional,claude-opus-5.5,v13.0-expansion,Batch 13,True,ACCEPTED
+P0627,P0627.py,Scheduling and Resource Allocation,Course pairs booked into the same room in a shared time slot,Nested loop and complex conditional,claude-opus-5.5,v13.0-expansion,Batch 13,True,ACCEPTED
+P0628,P0628.py,String Processing & Text Analysis,Line and position of every word containing a doubled letter,Nested loop and complex conditional,claude-opus-5.5,v13.0-expansion,Batch 13,True,ACCEPTED
+P0629,P0629.py,Numerical Computation,Numbers up to a limit written as a sum of two coprime squares,Nested loop and complex conditional,claude-opus-5.5,v13.0-expansion,Batch 13,True,ACCEPTED
+P0630,P0630.py,Data Aggregation and Statistics,Time steps where every monitored series exceeds its threshold,Nested loop and complex conditional,claude-opus-5.5,v13.0-expansion,Batch 13,True,ACCEPTED
+P0631,P0631.py,Matrix & Grid Operations,Row sums of the upper triangle of a square matrix,Nested loop only,claude-opus-5.5,v13.0-expansion,Batch 13,True,ACCEPTED
+P0632,P0632.py,Graph or Tree Traversal,Nodes of a tree grouped level by level from the root,Nested loop only,claude-opus-5.5,v13.0-expansion,Batch 13,True,ACCEPTED
+P0633,P0633.py,Searching and Sorting,Start and length of the longest strictly rising run in each list,Nested loop only,claude-opus-5.5,v13.0-expansion,Batch 13,True,ACCEPTED
+P0634,P0634.py,"Lists, Tuples, Dictionaries, and Sets",Every combination of option values as a list of dictionaries,Nested loop only,claude-opus-5.5,v13.0-expansion,Batch 13,True,ACCEPTED
+P0635,P0635.py,String Processing & Text Analysis,Counts of all character n-grams up to a maximum length,Nested loop only,claude-opus-5.5,v13.0-expansion,Batch 13,True,ACCEPTED
+P0636,P0636.py,Numerical Computation,Rows of Pascal's triangle reduced modulo a number,Nested loop only,claude-opus-5.5,v13.0-expansion,Batch 13,True,ACCEPTED
+P0637,P0637.py,Data Aggregation and Statistics,Histogram counts for values over fixed half-open bin edges,Nested loop only,claude-opus-5.5,v13.0-expansion,Batch 13,True,ACCEPTED
+P0638,P0638.py,Matrix & Grid Operations,Upscale a grid to double resolution by averaging corner pixels,Long statement and nested loop,claude-opus-5.5,v13.0-expansion,Batch 13,True,ACCEPTED
+P0639,P0639.py,Small Simulation and Rule-based Systems,"Populations after generations of migration, growth and mortality",Long statement and nested loop,claude-opus-5.5,v13.0-expansion,Batch 13,True,ACCEPTED
+P0640,P0640.py,Inventory and Record Management,"Landed cost per supplier including duty, freight and insurance",Long statement and nested loop,claude-opus-5.5,v13.0-expansion,Batch 13,True,ACCEPTED
+P0641,P0641.py,Scheduling and Resource Allocation,Per-shift machine utilisation net of setup and idle time,Long statement and nested loop,claude-opus-5.5,v13.0-expansion,Batch 13,True,ACCEPTED
+P0642,P0642.py,Graph or Tree Traversal,Normalised weighted degree centrality for each node,Long statement and nested loop,claude-opus-5.5,v13.0-expansion,Batch 13,True,ACCEPTED
+P0643,P0643.py,Searching and Sorting,Bucket sort over the value range with insertion sort per bucket,Long statement and nested loop,claude-opus-5.5,v13.0-expansion,Batch 13,True,ACCEPTED
+P0644,P0644.py,"Lists, Tuples, Dictionaries, and Sets",Merge owners' item queues into one list ordered by computed priority,Long statement and nested loop,claude-opus-5.5,v13.0-expansion,Batch 13,True,ACCEPTED
+P0645,P0645.py,Small Simulation and Rule-based Systems,"Month-end account balance with interest, overdraft rate and low-balance fee",Long statement only,claude-opus-5.5,v13.0-expansion,Batch 13,True,ACCEPTED
+P0646,P0646.py,Inventory and Record Management,"Order quantity from economic order size, weekly demand and stock",Long statement only,claude-opus-5.5,v13.0-expansion,Batch 13,True,ACCEPTED
+P0647,P0647.py,Scheduling and Resource Allocation,"Expected wait in a call queue from agents, handle time and abandonment",Long statement only,claude-opus-5.5,v13.0-expansion,Batch 13,True,ACCEPTED
+P0648,P0648.py,String Processing & Text Analysis,"Reading-ease score from sentence, word and vowel-group counts",Long statement only,claude-opus-5.5,v13.0-expansion,Batch 13,True,ACCEPTED
+P0649,P0649.py,Numerical Computation,Weighted sum over a filtered integer grid of index pairs,All three target issues,claude-opus-5.5,v13.0-expansion,Batch 13,True,ACCEPTED
+P0650,P0650.py,Data Aggregation and Statistics,Store weeks whose sales z-score exceeds a limit,All three target issues,claude-opus-5.5,v13.0-expansion,Batch 13,True,ACCEPTED
