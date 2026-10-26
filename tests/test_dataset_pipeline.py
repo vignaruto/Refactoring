@@ -309,6 +309,49 @@ class UniquenessCheckTests(unittest.TestCase):
         self.assertEqual(len(names), len(set(names)))
 
 
+class SimilarityGroupTests(unittest.TestCase):
+    def setUp(self):
+        import validate_corpus
+        self.similarity_groups = validate_corpus.similarity_groups
+        self._tmp = tempfile.TemporaryDirectory()
+        self.dir = Path(self._tmp.name)
+
+    def tearDown(self):
+        self._tmp.cleanup()
+
+    def write(self, pid, code):
+        path = self.dir / f"{pid}.py"
+        path.write_text(code, encoding="utf-8")
+        return path
+
+    def test_renamed_copies_share_the_smallest_id(self):
+        original = (PROJECT_DIR / "program_corpus" / "programs" / "P0265.py")
+        code = original.read_text()
+        renamed = code.replace("insertion_sort", "shift_sort")
+        renamed = renamed.replace("items", "seq").replace("values", "data")
+        files = [
+            self.write("P0002", renamed),
+            self.write("P0001", code),
+            self.write("P0003", "def f(x):\n    return x\n"),
+            self.write("P0004", "def broken(:\n"),
+        ]
+        groups = self.similarity_groups(files)
+        self.assertEqual(groups["P0001"], "P0001")
+        self.assertEqual(groups["P0002"], "P0001")
+        self.assertEqual(groups["P0003"], "P0003")
+        self.assertEqual(groups["P0004"], "P0004")
+
+    def test_corpus_groups_are_stable(self):
+        corpus = PROJECT_DIR / "program_corpus" / "programs"
+        groups = self.similarity_groups(sorted(corpus.glob("*.py")))
+        self.assertEqual(groups["P0231"], "P0131")
+        self.assertEqual(groups["P0246"], "P0196")
+        self.assertEqual(groups["P0301"], "P0301")
+        for pid, group in groups.items():
+            self.assertLessEqual(group, pid)
+            self.assertEqual(groups[group], group)
+
+
 class ManifestSafetyTests(ProjectCopyTestCase):
     def manifest_ids(self):
         with (self.copy / "program_corpus" / "manifest.csv").open(

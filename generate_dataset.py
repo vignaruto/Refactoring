@@ -4,6 +4,8 @@ import re
 import html
 from pathlib import Path
 
+from validate_corpus import similarity_groups
+
 
 # =========================================================
 # S7 PROJECT: CORPUS-WIDE DATASET GENERATION
@@ -79,6 +81,9 @@ SCOPE_STATEMENTS = (
 #   - enclosing_loop_depth is the number of For/While loops in the same
 #     function or class scope whose body contains the record. A loop's
 #     own header and its else block are not inside the loop body.
+#   - similarity_group is the program's near-duplicate group (see
+#     validate_corpus.similarity_groups). Split train and test data by
+#     this column, not by row or program_id.
 #
 # statement_id numbers records 1..n per program in source order, so IDs
 # are deterministic for a given corpus file.
@@ -616,6 +621,8 @@ def main():
         manifest_records, python_files
     )
 
+    groups = similarity_groups(python_files)
+
     all_rows = []
     syntax_errors = []
     docstrings_excluded = 0
@@ -664,6 +671,7 @@ def main():
             row = {
                 "program_id": program_id,
                 "filename": file_path.name,
+                "similarity_group": groups[program_id],
                 **{
                     field: manifest_record.get(field, "")
                     for field in metadata_fields
@@ -691,6 +699,7 @@ def main():
     fieldnames = [
         "program_id",
         "filename",
+        "similarity_group",
         *metadata_fields,
         "statement_id",
         "parent_statement_id",
@@ -727,6 +736,7 @@ def main():
     print("Python files processed:", len(python_files))
     print("Statement records:", len(all_rows))
     print("Docstrings excluded (not records):", docstrings_excluded)
+    print("Similarity groups:", len(set(groups.values())))
     print("Output file:", OUTPUT_FILE)
 
     print("\nRule-generated statement label distribution:")
