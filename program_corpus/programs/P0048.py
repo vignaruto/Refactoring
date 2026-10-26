@@ -16,5 +16,5 @@ def voxel_ray_intersect_filter(grid_layers: List[List[List[Dict[str, float]]]], 
     return hits
 
 if __name__ == "__main__":
-    vox = [[[[{"cx": 1.0, "cy": 1.0, "cz": 0.0, "solid": 1.0, "radius": 1.0, "reflectivity": 0.5, "absorptive": 0.0, "transparent": False}]]]]
+    vox = [[[{"cx": 1.0, "cy": 1.0, "cz": 0.0, "solid": 1.0, "radius": 1.0, "reflectivity": 0.5, "absorptive": 0.0, "transparent": False}]]]
     assert len(voxel_ray_intersect_filter(vox, (0.0, 0.0, 0.0), (1.0, 1.0, 0.0))) == 1

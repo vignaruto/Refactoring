@@ -11,4 +11,4 @@ def count_palindromic_substrings(tokens: list[str]) -> int:
     return total_palindromes
 
 if __name__ == "__main__":
-    assert count_palindromic_substrings(["racecar", "noon"]) == 8
+    assert count_palindromic_substrings(["racecar", "noon"]) == 5

@@ -6,13 +6,16 @@ in the corpus and are not rebuilt by this script.
 
 Reruns are safe: identical existing files and manifest rows are skipped, and
 any conflicting file or metadata stops the run before anything is written.
-New programs must not repeat an existing program (see check_uniqueness).
+New programs must not repeat an existing program (see check_uniqueness) and
+must fit the refactoring pipeline (see check_architecture_fit).
 """
 
 import ast
+import contextlib
 import csv
 import difflib
 import hashlib
+import io
 import re
 from pathlib import Path
 
@@ -37,6 +40,41 @@ MANIFEST_COLUMNS = [
 # other program are rejected as near-duplicates. Existing renamed copies in
 # the corpus (for example P0131/P0231) score 0.89-0.995.
 STRUCTURAL_SIMILARITY_LIMIT = 0.85
+
+# The rule-generated labels (generate_dataset.py) each intended_category must
+# produce, so manifest categories agree with dataset.csv.
+CATEGORY_LABELS = {
+    "None": set(),
+    "Long statement only": {"long_statement"},
+    "Nested loop only": {"nested_loop"},
+    "Complex conditional only": {"complex_conditional"},
+    "Long statement and nested loop": {"long_statement", "nested_loop"},
+    "Long statement and complex conditional": {
+        "long_statement", "complex_conditional",
+    },
+    "Nested loop and complex conditional": {
+        "nested_loop", "complex_conditional",
+    },
+    "All three target issues": {
+        "long_statement", "nested_loop", "complex_conditional",
+    },
+}
+
+DOMAINS = {
+    "Numerical Computation",
+    "String Processing & Text Analysis",
+    "Searching and Sorting",
+    "Lists, Tuples, Dictionaries, and Sets",
+    "Graph or Tree Traversal",
+    "Scheduling and Resource Allocation",
+    "Small Simulation and Rule-based Systems",
+    "Matrix & Grid Operations",
+    "Data Aggregation and Statistics",
+    "Inventory and Record Management",
+}
+
+# Names transformation.py introduces when it rewrites code.
+RESERVED_NAMES = {"_temp1", "_temp2", "_condition"}
 
 BATCH10_PROGRAMS = {
     # 1. NONE (8 programs: P0451 - P0458)
@@ -1209,6 +1247,74 @@ def check_uniqueness(new_programs, existing_manifest):
     return problems, closest
 
 
+def check_architecture_fit(pid, row, code):
+    """
+    Reasons a new program would not work in the refactoring pipeline:
+    - unknown domain or intended_category;
+    - the labels generate_dataset.py assigns differ from intended_category;
+    - two records start on the same line (main.py keys actions by line);
+    - it uses a name that transformation.py introduces;
+    - it has no assert-based self-test under __main__, or that test fails.
+    """
+    # Imported here: generate_dataset imports this module via validate_corpus.
+    from generate_dataset import extract_statements
+
+    problems = []
+    domain, category = row["domain"], row["intended_category"]
+
+    if domain not in DOMAINS:
+        problems.append(f"{pid} has unknown domain {domain!r}")
+
+    if category not in CATEGORY_LABELS:
+        problems.append(f"{pid} has unknown category {category!r}")
+
+    tree = ast.parse(code)
+    records = extract_statements(tree, code.splitlines(keepends=True))
+
+    labels = {
+        label
+        for record in records
+        for label in ("long_statement", "nested_loop", "complex_conditional")
+        if record[label]
+    }
+    expected = CATEGORY_LABELS.get(category)
+    if expected is not None and labels != expected:
+        problems.append(
+            f"{pid} is {category!r} but its rule labels are "
+            f"{sorted(labels) or 'none'}"
+        )
+
+    starts = [record["line_no"] for record in records]
+    shared = sorted({line for line in starts if starts.count(line) > 1})
+    if shared:
+        problems.append(f"{pid} has several statements on line(s) {shared}")
+
+    reserved = RESERVED_NAMES & {
+        node.id for node in ast.walk(tree) if isinstance(node, ast.Name)
+    }
+    if reserved:
+        problems.append(f"{pid} uses reserved name(s) {sorted(reserved)}")
+
+    has_self_test = any(
+        isinstance(node, ast.If)
+        and "__main__" in ast.unparse(node.test)
+        and any(isinstance(n, ast.Assert) for n in ast.walk(node))
+        for node in tree.body
+    )
+    if not has_self_test:
+        problems.append(f"{pid} has no assert-based __main__ self-test")
+    else:
+        try:
+            with contextlib.redirect_stdout(io.StringIO()):
+                exec(compile(code, f"{pid}.py", "exec"), {"__name__": "__main__"})
+        except Exception as error:
+            problems.append(
+                f"{pid} self-test failed: {type(error).__name__}: {error}"
+            )
+
+    return problems
+
+
 def main():
     existing_manifest = read_existing_manifest()
 
@@ -1238,6 +1344,19 @@ def main():
         for pid, filepath, code, row in planned
         if not filepath.exists()
     ]
+
+    fit_problems = [
+        problem
+        for pid, filepath, code, row in planned
+        if not filepath.exists()
+        for problem in check_architecture_fit(pid, row, code)
+    ]
+
+    if fit_problems:
+        raise SystemExit(
+            "Nothing was written. These new programs do not fit the "
+            "pipeline:\n- " + "\n- ".join(fit_problems)
+        )
 
     if new_programs:
         problems, closest = check_uniqueness(new_programs, existing_manifest)

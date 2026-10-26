@@ -1,0 +1,32 @@
+---
+description: Requirements every new program batch in build_corpus.py must meet so it works across the whole refactoring pipeline (dataset, model, localization, transformation, validation, metrics)
+alwaysApply: true
+---
+
+# Creating a new corpus batch (P####, 50 programs)
+
+Programs flow through: `build_corpus.py` -> `validate_corpus.py` -> `generate_dataset.py` (AST labels) -> `train_model.py` -> `localization.py` -> `recommendation.py` -> `transformation.py` -> `validation.py` -> `quality_metrics.py`. Each program must work at every stage.
+
+## Batch workflow
+- Replace the previous `BATCH<N>_PROGRAMS` dict with the new one; bump `batch_id`, `prompt_version` (`v<N>.0-expansion`), keep `model_id` accurate. Continue IDs from the last manifest row.
+- Run `python build_corpus.py`, which enforces `check_uniqueness` and `check_architecture_fit`. Then run `validate_corpus.py`, `generate_dataset.py`, `audit_dataset.py`, and `python -m unittest tests.test_dataset_pipeline`. Fix the programs; don't loosen the checks.
+
+## Labels must match `intended_category` exactly (rules in generate_dataset.py)
+- `long_statement`: a simple statement (Assign/AugAssign/AnnAssign/Expr/Return) whose stripped code is **> 60 chars**. Compound headers never count.
+- `nested_loop`: a for/while that contains another for/while (comprehensions don't count).
+- `complex_conditional`: an `if`/`elif`/`while` test with **>= 3 atomic conditions** (`0 <= x < n` = 2; `not` doesn't add; calls count 1).
+- Programs **without** long_statement must keep **every** simple statement <= 60 chars, including asserts in `__main__`, type-hinted signatures, and f-strings. This is the most common past mistake.
+- Rebalance the corpus: check the manifest's `intended_category` counts first and give more programs to the smallest categories (currently "Complex conditional only" and "Nested loop and complex conditional").
+
+## Make the downstream stages succeed
+- At least half of the long statements per batch should be `name = <a BinOp chain>` (only those are decomposable by `DECOMPOSE_EXPRESSION`). Put complex conditions mostly in `if`/`elif` (`EXTRACT_CONDITION` handles only `If`). Include a few `while` ones for coverage.
+- One statement per line; no `;`. Actions are keyed by line number.
+- Never use `_temp1`, `_temp2`, `_condition`.
+- Functions must be pure and deterministic, with positional args and comparable return values. No I/O, input(), randomness, time, network, globals mutation, or reliance on set iteration order.
+- Every program needs `if __name__ == "__main__":` with asserts that pass. Avoid bare `print` in function bodies.
+
+## Data quality for the model
+- Add hard negatives: simple statements of 50-60 chars, conditions with exactly 2 atoms, and loops whose body has a comprehension rather than a loop. Add hard positives just over the thresholds (61-70 chars, exactly 3 atoms).
+- Vary statement types for long statements (Return, AugAssign, call Expr), not only Assign.
+- Use only the 10 domains in `build_corpus.DOMAINS`, spread across the batch; realistic, varied tasks, 10-40 lines each.
+- Unique task description and top-level function names; AST structural similarity < 0.85 to every program (similarity_group must stay a singleton).

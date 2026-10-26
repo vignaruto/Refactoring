@@ -14,4 +14,4 @@ def extract_valid_entity_pairings(
     return results
 
 if __name__ == "__main__":
-    assert len(extract_valid_entity_pairings(["biology"], ["geology"], 2)) == 1
+    assert len(extract_valid_entity_pairings(["biology"], ["geology"], 1)) == 1

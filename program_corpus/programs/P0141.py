@@ -17,5 +17,5 @@ def detect_perilous_escarpments(
     return hazards
 
 if __name__ == "__main__":
-    grid = [[10.0, 10.0, 10.0], [10.0, 80.0, 10.0], [10.0, 10.0, 10.0]]
+    grid = [[10.0, 10.0, 10.0], [10.0, 120.0, 10.0], [10.0, 10.0, 10.0]]
     assert len(detect_perilous_escarpments(grid, 30.0)) == 1

@@ -9,4 +9,4 @@ def is_rk_step_admissible(
     return False
 
 if __name__ == "__main__":
-    assert is_rk_step_admissible(1e-7, 0.9, 0.01, False) is True
+    assert is_rk_step_admissible(1e-7, 0.96, 0.01, False) is True

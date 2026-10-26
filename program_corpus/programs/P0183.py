@@ -9,4 +9,4 @@ def evaluate_supersonic_shock_ratio(mach: float, wedge_angle_deg: float, gamma: 
     return 1.0
 
 if __name__ == "__main__":
-    assert evaluate_supersonic_shock_ratio(2.0, 10.0) > 1.0
+    assert evaluate_supersonic_shock_ratio(3.0, 10.0) > 1.0

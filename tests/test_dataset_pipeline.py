@@ -309,6 +309,57 @@ class UniquenessCheckTests(unittest.TestCase):
         self.assertEqual(len(names), len(set(names)))
 
 
+class ArchitectureFitTests(unittest.TestCase):
+    CODE = (
+        "def clamp_total(values: list[int], cap: int) -> int:\n"
+        "    total = sum(values)\n"
+        "    return min(total, cap)\n"
+        "\n"
+        "if __name__ == \"__main__\":\n"
+        "    assert clamp_total([1, 2], 2) == 2\n"
+    )
+
+    def setUp(self):
+        import build_corpus
+        self.bc = build_corpus
+
+    def problems_for(self, code, category="None",
+                     domain="Numerical Computation"):
+        row = {"domain": domain, "intended_category": category}
+        return self.bc.check_architecture_fit("P9999", row, code)
+
+    def test_fitting_program_passes(self):
+        self.assertEqual(self.problems_for(self.CODE), [])
+
+    def test_category_must_match_rule_labels(self):
+        problems = self.problems_for(self.CODE, "Nested loop only")
+        self.assertTrue(any("rule labels are none" in p for p in problems))
+
+    def test_pipeline_constraints(self):
+        code = self.CODE.replace(
+            "    total = sum(values)\n",
+            "    _temp1 = 0; total = sum(values)\n",
+        ).replace("== 2", "== 3")
+        problems = self.problems_for(code, domain="Matrix Operations")
+        for expected in ["unknown domain", "several statements",
+                         "reserved name", "self-test failed"]:
+            self.assertTrue(any(expected in p for p in problems), expected)
+
+    def test_self_test_is_required(self):
+        code = self.CODE.split("if __name__")[0]
+        problems = self.problems_for(code)
+        self.assertTrue(any("no assert-based" in p for p in problems))
+
+    def test_whole_corpus_fits(self):
+        manifest = self.bc.read_existing_manifest()
+        for pid, row in manifest.items():
+            code = (self.bc.PROGRAMS_DIR / row["filename"]).read_text()
+            with self.subTest(pid=pid):
+                self.assertEqual(
+                    self.bc.check_architecture_fit(pid, row, code), []
+                )
+
+
 class SimilarityGroupTests(unittest.TestCase):
     def setUp(self):
         import validate_corpus

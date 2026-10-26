@@ -14,4 +14,4 @@ def locate_phase_portrait_attractors(
     return attractors
 
 if __name__ == "__main__":
-    assert len(locate_phase_portrait_attractors([0.2], [1.5], 0.1)) == 1
+    assert len(locate_phase_portrait_attractors([0.1], [1.5], 0.1)) == 1

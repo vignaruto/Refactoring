@@ -8,5 +8,5 @@ def analyze_mineral_spectrogram_grid(tiles: list[list[dict[str, float]]], base_r
     return seams
 
 if __name__ == "__main__":
-    t = [[{"band_7": 0.8, "band_2": 0.1, "band_5": 0.9, "band_3": 0.2, "confidence": 0.9, "overburden_depth_m": 20.0, "qa_passed": True}]]
+    t = [[{"band_7": 1.5, "band_2": 0.1, "band_5": 0.9, "band_3": 0.2, "confidence": 0.9, "overburden_depth_m": 20.0, "qa_passed": True}]]
     assert len(analyze_mineral_spectrogram_grid(t, 0.3)) == 1

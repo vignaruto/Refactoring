@@ -16,4 +16,4 @@ def longest_common_substring(str1: str, str2: str) -> str:
     return str1[end_idx - max_len:end_idx]
 
 if __name__ == "__main__":
-    assert longest_common_substring("photograph", "tomography") == "tograph"
+    assert longest_common_substring("photograph", "tomography") == "ograph"

@@ -10,5 +10,5 @@ def calibrate_satellite_raster_bands(tiles: List[List[Dict[str, float]]], solar_
     return anomalies
 
 if __name__ == "__main__":
-    grid = [[{"digital_number": 200.0, "gain": 0.005, "bias": 0.1, "solar_irradiance": 1.5, "cloud_mask": 0.0, "thermal_kelvin": 250.0, "quality_flag": 1}]]
+    grid = [[{"digital_number": 240.0, "gain": 0.005, "bias": 0.1, "solar_irradiance": 1.5, "cloud_mask": 0.0, "thermal_kelvin": 250.0, "quality_flag": 1}]]
     assert len(calibrate_satellite_raster_bands(grid, 30.0)) == 1
