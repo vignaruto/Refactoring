@@ -449,3 +449,53 @@ P0447,P0447.py,Inventory and Record Management,Flag costly cycle-count variances
 P0448,P0448.py,Scheduling and Resource Allocation,Schedule EV charging into the cheapest hours under charger capacity,All three target issues,claude-opus-5.5,v9.0-expansion,Batch 9,True,ACCEPTED
 P0449,P0449.py,String Processing & Text Analysis,Report document pairs with high word-shingle Jaccard overlap,All three target issues,claude-opus-5.5,v9.0-expansion,Batch 9,True,ACCEPTED
 P0450,P0450.py,Graph or Tree Traversal,Critical path and project duration of a task precedence network,All three target issues,claude-opus-5.5,v9.0-expansion,Batch 9,True,ACCEPTED
+P0451,P0451.py,Numerical Computation,Count trailing zeros of n factorial using powers of five,None,claude-opus-5.5,v10.0-expansion,Batch 10,True,ACCEPTED
+P0452,P0452.py,String Processing & Text Analysis,Letters missing from a sentence for it to be a pangram,None,claude-opus-5.5,v10.0-expansion,Batch 10,True,ACCEPTED
+P0453,P0453.py,Searching and Sorting,First and last index of a value in a sorted list via bisection,None,claude-opus-5.5,v10.0-expansion,Batch 10,True,ACCEPTED
+P0454,P0454.py,"Lists, Tuples, Dictionaries, and Sets",Top k most frequent items with alphabetical tie breaking,None,claude-opus-5.5,v10.0-expansion,Batch 10,True,ACCEPTED
+P0455,P0455.py,Graph or Tree Traversal,Maximum depth of a rooted tree by recursion over child lists,None,claude-opus-5.5,v10.0-expansion,Batch 10,True,ACCEPTED
+P0456,P0456.py,Scheduling and Resource Allocation,First free gap of a given length in a day calendar,None,claude-opus-5.5,v10.0-expansion,Batch 10,True,ACCEPTED
+P0457,P0457.py,Small Simulation and Rule-based Systems,Traffic light colour at a given second of a fixed phase cycle,None,claude-opus-5.5,v10.0-expansion,Batch 10,True,ACCEPTED
+P0458,P0458.py,Inventory and Record Management,"Parse a warehouse bin location code into aisle, rack and level",None,claude-opus-5.5,v10.0-expansion,Batch 10,True,ACCEPTED
+P0459,P0459.py,Numerical Computation,Lorentz factor and relativistic to classical kinetic energy ratio,Long statement only,claude-opus-5.5,v10.0-expansion,Batch 10,True,ACCEPTED
+P0460,P0460.py,Data Aggregation and Statistics,Survey sample size for a proportion with finite population correction,Long statement only,claude-opus-5.5,v10.0-expansion,Batch 10,True,ACCEPTED
+P0461,P0461.py,String Processing & Text Analysis,Cosine similarity of character trigram profiles of two strings,Long statement only,claude-opus-5.5,v10.0-expansion,Batch 10,True,ACCEPTED
+P0462,P0462.py,Inventory and Record Management,Days of supply and projected shortfall over a replenishment lead time,Long statement only,claude-opus-5.5,v10.0-expansion,Batch 10,True,ACCEPTED
+P0463,P0463.py,Scheduling and Resource Allocation,Sprint capacity in story points from team availability and focus factor,Long statement only,claude-opus-5.5,v10.0-expansion,Batch 10,True,ACCEPTED
+P0464,P0464.py,Matrix & Grid Operations,Rotate and uniformly scale a 2D point about the origin,Long statement only,claude-opus-5.5,v10.0-expansion,Batch 10,True,ACCEPTED
+P0465,P0465.py,Matrix & Grid Operations,Boolean matrix product of two 0/1 adjacency matrices,Nested loop only,claude-opus-5.5,v10.0-expansion,Batch 10,True,ACCEPTED
+P0466,P0466.py,Searching and Sorting,Cycle sort that also counts memory writes,Nested loop only,claude-opus-5.5,v10.0-expansion,Batch 10,True,ACCEPTED
+P0467,P0467.py,Graph or Tree Traversal,Count simple paths between two nodes of a directed graph,Nested loop only,claude-opus-5.5,v10.0-expansion,Batch 10,True,ACCEPTED
+P0468,P0468.py,String Processing & Text Analysis,Pad table cells so columns line up in plain text,Nested loop only,claude-opus-5.5,v10.0-expansion,Batch 10,True,ACCEPTED
+P0469,P0469.py,Data Aggregation and Statistics,Histogram counts of values over half-open bin edges,Nested loop only,claude-opus-5.5,v10.0-expansion,Batch 10,True,ACCEPTED
+P0470,P0470.py,Small Simulation and Rule-based Systems,"Bank tellers serving a queue, each customer going to the earliest free teller",Nested loop only,claude-opus-5.5,v10.0-expansion,Batch 10,True,ACCEPTED
+P0471,P0471.py,String Processing & Text Analysis,Validate a 24-hour clock time written as HH:MM or HH:MM:SS,Complex conditional only,claude-opus-5.5,v10.0-expansion,Batch 10,True,ACCEPTED
+P0472,P0472.py,Inventory and Record Management,"Restocking fee rate for a customer return by age, receipt and category",Complex conditional only,claude-opus-5.5,v10.0-expansion,Batch 10,True,ACCEPTED
+P0473,P0473.py,Graph or Tree Traversal,Check the binary search tree property with recursive value bounds,Complex conditional only,claude-opus-5.5,v10.0-expansion,Batch 10,True,ACCEPTED
+P0474,P0474.py,Scheduling and Resource Allocation,Approve a shift swap between two workers under role and hour limits,Complex conditional only,claude-opus-5.5,v10.0-expansion,Batch 10,True,ACCEPTED
+P0475,P0475.py,Small Simulation and Rule-based Systems,"Chess castling legality from move history, path and attacked squares",Complex conditional only,claude-opus-5.5,v10.0-expansion,Batch 10,True,ACCEPTED
+P0476,P0476.py,Data Aggregation and Statistics,Screen a sample for normality using skewness and kurtosis z-scores,Complex conditional only,claude-opus-5.5,v10.0-expansion,Batch 10,True,ACCEPTED
+P0477,P0477.py,Matrix & Grid Operations,Matrix exponential by truncated Taylor series,Long statement and nested loop,claude-opus-5.5,v10.0-expansion,Batch 10,True,ACCEPTED
+P0478,P0478.py,Data Aggregation and Statistics,Gaussian kernel density estimate evaluated on a grid of points,Long statement and nested loop,claude-opus-5.5,v10.0-expansion,Batch 10,True,ACCEPTED
+P0479,P0479.py,Inventory and Record Management,Explode a multi-level bill of materials into total component quantities,Long statement and nested loop,claude-opus-5.5,v10.0-expansion,Batch 10,True,ACCEPTED
+P0480,P0480.py,Scheduling and Resource Allocation,Johnson's rule order and makespan for a two-machine flow shop,Long statement and nested loop,claude-opus-5.5,v10.0-expansion,Batch 10,True,ACCEPTED
+P0481,P0481.py,String Processing & Text Analysis,Smith-Waterman local alignment score of two sequences,Long statement and nested loop,claude-opus-5.5,v10.0-expansion,Batch 10,True,ACCEPTED
+P0482,P0482.py,Small Simulation and Rule-based Systems,DeGroot opinion averaging over a trust network for several rounds,Long statement and nested loop,claude-opus-5.5,v10.0-expansion,Batch 10,True,ACCEPTED
+P0483,P0483.py,Numerical Computation,Midspan deflection of a simply supported beam against a span ratio limit,Long statement and complex conditional,claude-opus-5.5,v10.0-expansion,Batch 10,True,ACCEPTED
+P0484,P0484.py,Data Aggregation and Statistics,Grubbs test for a single outlier against a critical G value,Long statement and complex conditional,claude-opus-5.5,v10.0-expansion,Batch 10,True,ACCEPTED
+P0485,P0485.py,String Processing & Text Analysis,"Build a URL slug from a title, trimmed at a word boundary",Long statement and complex conditional,claude-opus-5.5,v10.0-expansion,Batch 10,True,ACCEPTED
+P0486,P0486.py,Inventory and Record Management,"Warranty claim outcome of replace, repair or reject by depreciated value",Long statement and complex conditional,claude-opus-5.5,v10.0-expansion,Batch 10,True,ACCEPTED
+P0487,P0487.py,Scheduling and Resource Allocation,Book a computer lab within opening hours and price evening sessions,Long statement and complex conditional,claude-opus-5.5,v10.0-expansion,Batch 10,True,ACCEPTED
+P0488,P0488.py,Graph or Tree Traversal,End-to-end transfer time of a payload along a network path,Long statement and complex conditional,claude-opus-5.5,v10.0-expansion,Batch 10,True,ACCEPTED
+P0489,P0489.py,Matrix & Grid Operations,Minesweeper hint numbers for every safe cell of a board,Nested loop and complex conditional,claude-opus-5.5,v10.0-expansion,Batch 10,True,ACCEPTED
+P0490,P0490.py,"Lists, Tuples, Dictionaries, and Sets",Find likely duplicate contacts by email or phone suffix and initial,Nested loop and complex conditional,claude-opus-5.5,v10.0-expansion,Batch 10,True,ACCEPTED
+P0491,P0491.py,Graph or Tree Traversal,Find bridge edges by removing each edge and testing connectivity,Nested loop and complex conditional,claude-opus-5.5,v10.0-expansion,Batch 10,True,ACCEPTED
+P0492,P0492.py,String Processing & Text Analysis,Locate the expansion of each acronym among consecutive words,Nested loop and complex conditional,claude-opus-5.5,v10.0-expansion,Batch 10,True,ACCEPTED
+P0493,P0493.py,Scheduling and Resource Allocation,Students whose enrolled exams clash in the same timetable slot,Nested loop and complex conditional,claude-opus-5.5,v10.0-expansion,Batch 10,True,ACCEPTED
+P0494,P0494.py,Inventory and Record Management,First-expiry-first-out pick list skipping lots close to expiry,Nested loop and complex conditional,claude-opus-5.5,v10.0-expansion,Batch 10,True,ACCEPTED
+P0495,P0495.py,Matrix & Grid Operations,Minimum-energy vertical seam for seam carving with protected cells,All three target issues,claude-opus-5.5,v10.0-expansion,Batch 10,True,ACCEPTED
+P0496,P0496.py,Data Aggregation and Statistics,Rolling-window z-score anomalies in smart meter readings,All three target issues,claude-opus-5.5,v10.0-expansion,Batch 10,True,ACCEPTED
+P0497,P0497.py,Inventory and Record Management,Slot fast-moving SKUs into the nearest pick locations under weight limits,All three target issues,claude-opus-5.5,v10.0-expansion,Batch 10,True,ACCEPTED
+P0498,P0498.py,Scheduling and Resource Allocation,Sequence runway landings with wake separation and emergency priority,All three target issues,claude-opus-5.5,v10.0-expansion,Batch 10,True,ACCEPTED
+P0499,P0499.py,String Processing & Text Analysis,Spelling suggestions within one edit of dictionary words,All three target issues,claude-opus-5.5,v10.0-expansion,Batch 10,True,ACCEPTED
+P0500,P0500.py,Graph or Tree Traversal,Maximum flow between two nodes with the Edmonds-Karp algorithm,All three target issues,claude-opus-5.5,v10.0-expansion,Batch 10,True,ACCEPTED
