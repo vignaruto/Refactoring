@@ -699,3 +699,53 @@ P0697,P0697.py,String Processing & Text Analysis,Find accidentally doubled words
 P0698,P0698.py,"Lists, Tuples, Dictionaries, and Sets",Scalar settings shared with the same value by every config dictionary,Nested loop and complex conditional,claude-opus-5.5,v14.0-expansion,Batch 14,True,ACCEPTED
 P0699,P0699.py,Small Simulation and Rule-based Systems,Topple an abelian sandpile grid until every cell is stable,Nested loop and complex conditional,claude-opus-5.5,v14.0-expansion,Batch 14,True,ACCEPTED
 P0700,P0700.py,Matrix & Grid Operations,Count axis-aligned rectangles whose four corner cells hold equal values,Nested loop and complex conditional,claude-opus-5.5,v14.0-expansion,Batch 14,True,ACCEPTED
+P0701,P0701.py,Numerical Computation,Divisor counts by a multiples sieve and the highly composite numbers,Nested loop only,claude-opus-5.5,v15.0-expansion,Batch 15,True,ACCEPTED
+P0702,P0702.py,String Processing & Text Analysis,Letter-to-next-letter transition counts and the likeliest follower,Nested loop only,claude-opus-5.5,v15.0-expansion,Batch 15,True,ACCEPTED
+P0703,P0703.py,Graph or Tree Traversal,Set of nodes reachable from every node by breadth-first search,Nested loop only,claude-opus-5.5,v15.0-expansion,Batch 15,True,ACCEPTED
+P0704,P0704.py,Matrix & Grid Operations,Two-dimensional prefix-sum table and rectangle sums from it,Nested loop only,claude-opus-5.5,v15.0-expansion,Batch 15,True,ACCEPTED
+P0705,P0705.py,Data Aggregation and Statistics,"Total sales per region and quarter, then each region's best quarter",Nested loop only,claude-opus-5.5,v15.0-expansion,Batch 15,True,ACCEPTED
+P0706,P0706.py,Inventory and Record Management,Explode a bill of materials into raw part quantities,Nested loop only,claude-opus-5.5,v15.0-expansion,Batch 15,True,ACCEPTED
+P0707,P0707.py,Scheduling and Resource Allocation,Text Gantt chart rows showing the hours each task occupies,Nested loop only,claude-opus-5.5,v15.0-expansion,Batch 15,True,ACCEPTED
+P0708,P0708.py,String Processing & Text Analysis,Validate a CSS-style hex colour token such as #fa0 or #ffaa00,Complex conditional only,claude-opus-5.5,v15.0-expansion,Batch 15,True,ACCEPTED
+P0709,P0709.py,Searching and Sorting,Binary search for a value in a rotated sorted list,Complex conditional only,claude-opus-5.5,v15.0-expansion,Batch 15,True,ACCEPTED
+P0710,P0710.py,"Lists, Tuples, Dictionaries, and Sets",Fill blank fields of a primary contact from a secondary record,Complex conditional only,claude-opus-5.5,v15.0-expansion,Batch 15,True,ACCEPTED
+P0711,P0711.py,Scheduling and Resource Allocation,Whether a room can be booked for a slot given clashes and limits,Complex conditional only,claude-opus-5.5,v15.0-expansion,Batch 15,True,ACCEPTED
+P0712,P0712.py,Small Simulation and Rule-based Systems,Rebound heights of a dropped ball and the total distance travelled,Complex conditional only,claude-opus-5.5,v15.0-expansion,Batch 15,True,ACCEPTED
+P0713,P0713.py,Data Aggregation and Statistics,Decide whether a sample with gaps is usable for analysis,Complex conditional only,claude-opus-5.5,v15.0-expansion,Batch 15,True,ACCEPTED
+P0714,P0714.py,Inventory and Record Management,"Cycle-count frequency for an item from value, age of count and errors",Complex conditional only,claude-opus-5.5,v15.0-expansion,Batch 15,True,ACCEPTED
+P0715,P0715.py,Numerical Computation,Multiply polynomials and estimate a derivative with a five-point stencil,Long statement and nested loop,claude-opus-5.5,v15.0-expansion,Batch 15,True,ACCEPTED
+P0716,P0716.py,Searching and Sorting,Order words by length then alphabetically using length buckets,Long statement and nested loop,claude-opus-5.5,v15.0-expansion,Batch 15,True,ACCEPTED
+P0717,P0717.py,"Lists, Tuples, Dictionaries, and Sets",Item pair co-occurrence counts across baskets and their lift,Long statement and nested loop,claude-opus-5.5,v15.0-expansion,Batch 15,True,ACCEPTED
+P0718,P0718.py,Graph or Tree Traversal,Depth-weighted node scores summed level by level in a tree,Long statement and nested loop,claude-opus-5.5,v15.0-expansion,Batch 15,True,ACCEPTED
+P0719,P0719.py,Matrix & Grid Operations,Valid-mode convolution of a grid with a 2x2 kernel,Long statement and nested loop,claude-opus-5.5,v15.0-expansion,Batch 15,True,ACCEPTED
+P0720,P0720.py,Small Simulation and Rule-based Systems,Minute-by-minute ticket counter queue with several servers,Long statement and nested loop,claude-opus-5.5,v15.0-expansion,Batch 15,True,ACCEPTED
+P0721,P0721.py,Inventory and Record Management,Carrying cost of aged stock lots per warehouse with an old-stock surcharge,Long statement and nested loop,claude-opus-5.5,v15.0-expansion,Batch 15,True,ACCEPTED
+P0722,P0722.py,String Processing & Text Analysis,"Keyword hits with a short context snippet, skipping comment lines",All three target issues,claude-opus-5.5,v15.0-expansion,Batch 15,True,ACCEPTED
+P0723,P0723.py,Graph or Tree Traversal,Shortest walkable grid distance and its ratio to the Manhattan distance,All three target issues,claude-opus-5.5,v15.0-expansion,Batch 15,True,ACCEPTED
+P0724,P0724.py,Scheduling and Resource Allocation,"Place meetings into the smallest free room that fits, reporting drops",All three target issues,claude-opus-5.5,v15.0-expansion,Batch 15,True,ACCEPTED
+P0725,P0725.py,Matrix & Grid Operations,Rank of a matrix by Gaussian elimination with partial pivoting,All three target issues,claude-opus-5.5,v15.0-expansion,Batch 15,True,ACCEPTED
+P0726,P0726.py,Data Aggregation and Statistics,"Per-category mean with a finite-population margin, keeping stable groups",All three target issues,claude-opus-5.5,v15.0-expansion,Batch 15,True,ACCEPTED
+P0727,P0727.py,Numerical Computation,Bounded integer solutions of ax + by = c with even sum and x <= y,All three target issues,claude-opus-5.5,v15.0-expansion,Batch 15,True,ACCEPTED
+P0728,P0728.py,Small Simulation and Rule-based Systems,Deterministic ring-road traffic automaton and mean speed per step,All three target issues,claude-opus-5.5,v15.0-expansion,Batch 15,True,ACCEPTED
+P0729,P0729.py,Searching and Sorting,Index pairs within a distance whose distinct values sum into a range,Nested loop and complex conditional,claude-opus-5.5,v15.0-expansion,Batch 15,True,ACCEPTED
+P0730,P0730.py,"Lists, Tuples, Dictionaries, and Sets",Fields where duplicate-key records disagree with the first record,Nested loop and complex conditional,claude-opus-5.5,v15.0-expansion,Batch 15,True,ACCEPTED
+P0731,P0731.py,Graph or Tree Traversal,Known nodes reachable within k hops while avoiding blocked nodes,Nested loop and complex conditional,claude-opus-5.5,v15.0-expansion,Batch 15,True,ACCEPTED
+P0732,P0732.py,Matrix & Grid Operations,Free seats in a seat map whose left and right neighbours are also free,Nested loop and complex conditional,claude-opus-5.5,v15.0-expansion,Batch 15,True,ACCEPTED
+P0733,P0733.py,Small Simulation and Rule-based Systems,Round-robin rock-paper-scissors tournament points from move strings,Nested loop and complex conditional,claude-opus-5.5,v15.0-expansion,Batch 15,True,ACCEPTED
+P0734,P0734.py,String Processing & Text Analysis,"Dictionary words exactly one insert, delete or substitution away",Nested loop and complex conditional,claude-opus-5.5,v15.0-expansion,Batch 15,True,ACCEPTED
+P0735,P0735.py,Searching and Sorting,"Pick insertion, merge or heap sort from size, disorder and constraints",Long statement and complex conditional,claude-opus-5.5,v15.0-expansion,Batch 15,True,ACCEPTED
+P0736,P0736.py,"Lists, Tuples, Dictionaries, and Sets",Drop contacts whose email or phone digits were already seen,Long statement and complex conditional,claude-opus-5.5,v15.0-expansion,Batch 15,True,ACCEPTED
+P0737,P0737.py,Inventory and Record Management,Reorder urgency from projected stock after lead time and safety days,Long statement and complex conditional,claude-opus-5.5,v15.0-expansion,Batch 15,True,ACCEPTED
+P0738,P0738.py,Scheduling and Resource Allocation,"Weekly pay with premium rates for weekends, long days and overtime",Long statement and complex conditional,claude-opus-5.5,v15.0-expansion,Batch 15,True,ACCEPTED
+P0739,P0739.py,Numerical Computation,Numerically stable real roots of a quadratic equation,Long statement and complex conditional,claude-opus-5.5,v15.0-expansion,Batch 15,True,ACCEPTED
+P0740,P0740.py,Data Aggregation and Statistics,"Label a series rising, falling or flat from its least-squares slope",Long statement and complex conditional,claude-opus-5.5,v15.0-expansion,Batch 15,True,ACCEPTED
+P0741,P0741.py,Numerical Computation,Convert integers to any base up to 36 and back,None,claude-opus-5.5,v15.0-expansion,Batch 15,True,ACCEPTED
+P0742,P0742.py,String Processing & Text Analysis,Numeronym abbreviations such as i18n for long words and a reverse check,None,claude-opus-5.5,v15.0-expansion,Batch 15,True,ACCEPTED
+P0743,P0743.py,Searching and Sorting,Smallest ship capacity that moves ordered parcels within a day limit,None,claude-opus-5.5,v15.0-expansion,Batch 15,True,ACCEPTED
+P0744,P0744.py,Graph or Tree Traversal,Lowest common ancestor of two nodes from a child-to-parent map,None,claude-opus-5.5,v15.0-expansion,Batch 15,True,ACCEPTED
+P0745,P0745.py,Matrix & Grid Operations,"Mirror and invert a binary image, count set pixels and crop a window",None,claude-opus-5.5,v15.0-expansion,Batch 15,True,ACCEPTED
+P0746,P0746.py,"Lists, Tuples, Dictionaries, and Sets","Cart total with volume discount, coupon and small-order shipping",Long statement only,claude-opus-5.5,v15.0-expansion,Batch 15,True,ACCEPTED
+P0747,P0747.py,Scheduling and Resource Allocation,Critical ratio of each job and the resulting processing order,Long statement only,claude-opus-5.5,v15.0-expansion,Batch 15,True,ACCEPTED
+P0748,P0748.py,Small Simulation and Rule-based Systems,Drone battery energy left after each flight segment,Long statement only,claude-opus-5.5,v15.0-expansion,Batch 15,True,ACCEPTED
+P0749,P0749.py,Data Aggregation and Statistics,Plain and adjusted R-squared of fitted values against actuals,Long statement only,claude-opus-5.5,v15.0-expansion,Batch 15,True,ACCEPTED
+P0750,P0750.py,Inventory and Record Management,Warehouse pick list ordered by bin location with bulk-line tags,Long statement only,claude-opus-5.5,v15.0-expansion,Batch 15,True,ACCEPTED
