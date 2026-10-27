@@ -443,12 +443,8 @@ class SimilarityGroupTests(unittest.TestCase):
             self.assertEqual(groups[group], group)
 
 
-class ManifestSafetyTests(ProjectCopyTestCase):
-    def manifest_ids(self):
-        with (self.copy / "program_corpus" / "manifest.csv").open(
-            newline="", encoding="utf-8-sig"
-        ) as f:
-            return [row["program_id"] for row in csv.DictReader(f)]
+class CorpusCheckTests(ProjectCopyTestCase):
+    """build_corpus.py checks the finished corpus and never writes to it."""
 
     def snapshot(self):
         corpus = self.copy / "program_corpus"
@@ -458,81 +454,34 @@ class ManifestSafetyTests(ProjectCopyTestCase):
             if path.is_file()
         }
 
-    def test_rerun_is_a_no_op(self):
+    def test_finished_corpus_passes_without_changes(self):
         before = self.snapshot()
         result = self.run_script("build_corpus.py")
         self.assertEqual(result.returncode, 0, result.stderr)
-        self.assertIn("Appended 0 new manifest rows", result.stdout)
+        self.assertIn("Corpus OK: 800 programs", result.stdout)
         self.assertEqual(self.snapshot(), before)
 
-        ids = self.manifest_ids()
-        self.assertEqual(len(ids), len(set(ids)))
-
-    def test_differing_program_file_stops_without_writing(self):
+    def test_failing_self_test_is_reported(self):
         program = self.copy / "program_corpus" / "programs" / "P0751.py"
-        program.write_text(program.read_text() + "\n# edited\n")
-        before = self.snapshot()
-
+        program.write_text(program.read_text() + "    assert False\n")
         result = self.run_script("build_corpus.py")
         self.assertNotEqual(result.returncode, 0)
-        self.assertIn("P0751.py exists with different content", result.stderr)
-        self.assertEqual(self.snapshot(), before)
+        self.assertIn("P0751 self-test failed", result.stderr)
 
-    def test_conflicting_manifest_metadata_stops_without_writing(self):
-        manifest = self.copy / "program_corpus" / "manifest.csv"
-        with manifest.open(newline="", encoding="utf-8-sig") as f:
-            reader = csv.DictReader(f)
-            fields = reader.fieldnames
-            rows = list(reader)
-        for row in rows:
-            if row["program_id"] == "P0752":
-                row["intended_category"] = "Long statement only"
-        with manifest.open("w", newline="", encoding="utf-8") as f:
-            writer = csv.DictWriter(f, fieldnames=fields)
-            writer.writeheader()
-            writer.writerows(rows)
-        before = self.snapshot()
-
+    def test_missing_program_file_is_reported(self):
+        (self.copy / "program_corpus" / "programs" / "P0800.py").unlink()
         result = self.run_script("build_corpus.py")
         self.assertNotEqual(result.returncode, 0)
-        self.assertIn("P0752 is already in the manifest", result.stderr)
-        self.assertEqual(self.snapshot(), before)
+        self.assertIn("P0800.py is in the manifest but has no program file",
+                      result.stderr)
 
-    def test_malformed_manifest_row_stops_without_writing(self):
+    def test_malformed_manifest_row_is_reported(self):
         manifest = self.copy / "program_corpus" / "manifest.csv"
         with manifest.open("a", encoding="utf-8") as f:
             f.write("P9999,P9999.py,too,few\n")
-        before = self.snapshot()
-
         result = self.run_script("build_corpus.py")
         self.assertNotEqual(result.returncode, 0)
         self.assertIn("Malformed manifest row", result.stderr)
-        self.assertEqual(self.snapshot(), before)
-
-    def test_missing_rows_and_files_are_added_once(self):
-        removed = ["P0799", "P0800"]
-        manifest = self.copy / "program_corpus" / "manifest.csv"
-        lines = manifest.read_text(encoding="utf-8").splitlines(keepends=True)
-        kept = [
-            line for line in lines
-            if not any(line.startswith(pid + ",") for pid in removed)
-        ]
-        manifest.write_text("".join(kept), encoding="utf-8")
-        for pid in removed:
-            (self.copy / "program_corpus" / "programs" / f"{pid}.py").unlink()
-
-        for _ in range(2):
-            result = self.run_script("build_corpus.py")
-            self.assertEqual(result.returncode, 0, result.stderr)
-
-        ids = self.manifest_ids()
-        self.assertEqual(len(ids), len(set(ids)))
-        for pid in removed:
-            self.assertEqual(ids.count(pid), 1)
-            self.assertTrue(
-                (self.copy / "program_corpus" / "programs" / f"{pid}.py")
-                .is_file()
-            )
 
 
 if __name__ == "__main__":

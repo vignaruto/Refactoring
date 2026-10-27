@@ -7,9 +7,12 @@ alwaysApply: true
 
 Programs flow through: `build_corpus.py` -> `validate_corpus.py` -> `generate_dataset.py` (AST labels) -> `train_model.py` -> `localization.py` -> `recommendation.py` -> `transformation.py` -> `validation.py` -> `quality_metrics.py`. Each program must work at every stage.
 
-## Batch workflow
-- Replace the previous `BATCH<N>_PROGRAMS` dict with the new one; bump `batch_id`, `prompt_version` (`v<N>.0-expansion`), keep `model_id` accurate. Continue IDs from the last manifest row.
-- Run `python build_corpus.py`, which enforces `check_uniqueness` and `check_architecture_fit`. Then run `validate_corpus.py`, `generate_dataset.py`, `audit_dataset.py`, and `python -m unittest tests.test_dataset_pipeline`. Fix the programs; don't loosen the checks.
+## Corpus is frozen
+- The corpus is final at 800 programs (P0001-P0800, 100 per category). Don't add batches unless the user explicitly asks.
+- `build_corpus.py` no longer writes programs; `python build_corpus.py` only checks the finished corpus (files vs manifest, unique tasks and function names, `check_architecture_fit` incl. self-tests).
+- If a new batch is requested: restore the batch writer (`BATCHES`, `plan_program`, `write_planned`, writing `main`) from git commit `8feec42`, add a `BATCH<N>_PROGRAMS` dict, bump `batch_id`/`prompt_version` (`v<N>.0-expansion`), keep `model_id` accurate, and continue IDs from the last manifest row. New programs must pass `check_uniqueness` against the existing manifest and `check_architecture_fit`.
+- After any corpus change run `validate_corpus.py`, `generate_dataset.py`, `audit_dataset.py`, `build_corpus.py` and `python -m unittest tests.test_dataset_pipeline`. Fix the programs; don't loosen the checks.
+- The rules below apply to any program added to the corpus.
 
 ## Labels must match `intended_category` exactly (rules in generate_dataset.py)
 - `long_statement`: a simple statement (Assign/AugAssign/AnnAssign/Expr/Return) whose `statement_length` is **> 60 chars**, measured as if written on one line (splitting a statement across lines does not shorten it). Compound headers, `def` lines and `assert`s are not records and never count.
