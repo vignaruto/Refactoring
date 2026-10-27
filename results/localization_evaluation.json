@@ -1,0 +1,60 @@
+{
+  "statement_level": {
+    "long_statement": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "tp": 167,
+      "fp": 0,
+      "fn": 0
+    },
+    "nested_loop": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "tp": 100,
+      "fp": 0,
+      "fn": 0
+    },
+    "complex_conditional": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "tp": 85,
+      "fp": 0,
+      "fn": 0
+    }
+  },
+  "program_level": {
+    "long_statement": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "tp": 80,
+      "fp": 0,
+      "fn": 0
+    },
+    "nested_loop": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "tp": 80,
+      "fp": 0,
+      "fn": 0
+    },
+    "complex_conditional": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "tp": 80,
+      "fp": 0,
+      "fn": 0
+    }
+  },
+  "programs": 160,
+  "programs_localized_exactly": 160,
+  "errors": [],
+  "dropped_type_mismatches": 1,
+  "issue_statements": 352,
+  "issues": 352
+}

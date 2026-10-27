@@ -49,10 +49,7 @@ def recommend_refactorings(localized_issues):
         )
 
         results.append({
-            "statement_id": statement["statement_id"],
-            "line_no": statement["line_no"],
-            "code": statement["code"],
-            "detected_issues": statement["detected_issues"],
+            **statement,
             "recommendations": recommendations
         })
 

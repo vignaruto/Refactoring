@@ -1,12 +1,8 @@
 
 from pathlib import Path
 
-from train_model import (
-    train_model,
-    build_features,
-    LABEL_COLUMNS
-)
-from localization import localize_issues
+from train_model import train_model
+from localization import localize_file, localize_test_programs
 from recommendation import recommend_refactorings
 from transformation import transform_code
 from validation import validate_refactoring
@@ -34,17 +30,25 @@ def main():
     # --------------------------------------------------
     print("\n[2/6] Detecting and localizing issues...")
 
-    # Detection runs only on the held-out programs the model never saw.
-    test_data = data[test].reset_index(drop=True)
-    predictions = model.predict(build_features(test_data))
+    # Evaluation runs only on the held-out programs the model never saw.
+    _, _, evaluation = localize_test_programs(model, data, test)
 
-    localized_issues = localize_issues(
-        test_data,
-        predictions,
-        LABEL_COLUMNS
+    print("Held-out programs:", evaluation["programs"])
+    print("Issues localized:", evaluation["issues"])
+    for label, m in evaluation["statement_level"].items():
+        print(f"  {label}: P={m['precision']:.3f} "
+              f"R={m['recall']:.3f} F1={m['f1']:.3f}")
+    print(
+        "Programs localized exactly:",
+        f"{evaluation['programs_localized_exactly']}/{evaluation['programs']}"
     )
 
-    print("Localized issue records:", len(localized_issues))
+    # The remaining stages run on one file, so line numbers are unambiguous.
+    source_path = Path(__file__).resolve().parent / "examples.py"
+    localized_issues, _ = localize_file(model, source_path)
+
+    print(f"\nLocalized issue records in {source_path.name}:",
+          len(localized_issues))
 
     # --------------------------------------------------
     # Stage 3: Generate recommendations
@@ -89,14 +93,6 @@ def main():
     # Stage 4: Apply supported transformations
     # --------------------------------------------------
     print("\n[4/6] Applying transformations...")
-
-    source_path = Path("examples.py")
-
-    if not source_path.exists():
-        raise FileNotFoundError(
-            "examples.py was not found. "
-            "Run main.py from the S7_p directory."
-        )
 
     original_code = source_path.read_text(encoding="utf-8")
 
