@@ -1,0 +1,431 @@
+{
+  "detector_test_f1": {
+    "long_statement": 1.0,
+    "nested_loop": 0.995,
+    "complex_conditional": 1.0
+  },
+  "localization": {
+    "statement_level": {
+      "long_statement": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 167,
+        "fp": 0,
+        "fn": 0
+      },
+      "nested_loop": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 100,
+        "fp": 0,
+        "fn": 0
+      },
+      "complex_conditional": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 85,
+        "fp": 0,
+        "fn": 0
+      }
+    },
+    "program_level": {
+      "long_statement": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 80,
+        "fp": 0,
+        "fn": 0
+      },
+      "nested_loop": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 80,
+        "fp": 0,
+        "fn": 0
+      },
+      "complex_conditional": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 80,
+        "fp": 0,
+        "fn": 0
+      }
+    },
+    "programs": 160,
+    "programs_localized_exactly": 160,
+    "dropped_type_mismatches": 1,
+    "issue_statements": 352,
+    "issues": 352
+  },
+  "recommendation": {
+    "statements": 352,
+    "recommendations": 352,
+    "automatable": 195,
+    "in_main_guard": 49,
+    "by_issue": {
+      "long_statement": {
+        "count": 167,
+        "automatable": 84,
+        "actions": {
+          "DECOMPOSE_EXPRESSION": 61,
+          "EXTRACT_ELEMENTS": 46,
+          "DECOMPOSE_BOOLEAN": 31,
+          "EXTRACT_ARGUMENTS": 17,
+          "REPLACE_CONDITIONAL_EXPRESSION": 6,
+          "SIMPLIFY_COMPREHENSION": 6
+        }
+      },
+      "nested_loop": {
+        "count": 100,
+        "automatable": 30,
+        "actions": {
+          "EXTRACT_INNER_LOOP": 70,
+          "FLATTEN_WITH_PRODUCT": 30
+        }
+      },
+      "complex_conditional": {
+        "count": 85,
+        "automatable": 81,
+        "actions": {
+          "EXTRACT_CONDITION": 81,
+          "EXTRACT_PREDICATE": 4
+        }
+      }
+    },
+    "by_action": {
+      "EXTRACT_CONDITION": {
+        "count": 81,
+        "automatable": 81
+      },
+      "EXTRACT_INNER_LOOP": {
+        "count": 70,
+        "automatable": 0
+      },
+      "DECOMPOSE_EXPRESSION": {
+        "count": 61,
+        "automatable": 61
+      },
+      "EXTRACT_ELEMENTS": {
+        "count": 46,
+        "automatable": 0
+      },
+      "DECOMPOSE_BOOLEAN": {
+        "count": 31,
+        "automatable": 23
+      },
+      "FLATTEN_WITH_PRODUCT": {
+        "count": 30,
+        "automatable": 30
+      },
+      "EXTRACT_ARGUMENTS": {
+        "count": 17,
+        "automatable": 0
+      },
+      "REPLACE_CONDITIONAL_EXPRESSION": {
+        "count": 6,
+        "automatable": 0
+      },
+      "SIMPLIFY_COMPREHENSION": {
+        "count": 6,
+        "automatable": 0
+      },
+      "EXTRACT_PREDICATE": {
+        "count": 4,
+        "automatable": 0
+      }
+    }
+  },
+  "transformation": {
+    "programs_transformed": 114,
+    "targets": 195,
+    "status": {
+      "applied": 192,
+      "covered": 1,
+      "skipped": 2
+    },
+    "by_action": {
+      "DECOMPOSE_BOOLEAN": {
+        "applied": 23
+      },
+      "DECOMPOSE_EXPRESSION": {
+        "applied": 59,
+        "skipped": 2
+      },
+      "EXTRACT_CONDITION": {
+        "applied": 81
+      },
+      "FLATTEN_WITH_PRODUCT": {
+        "applied": 29,
+        "covered": 1
+      }
+    },
+    "skip_reasons": {
+      "the expression could not be split into shorter steps": 2
+    },
+    "long_statements_before": 111,
+    "long_statements_after": 58
+  },
+  "validation": {
+    "programs": 115,
+    "valid": 115,
+    "rejected": [],
+    "self_tests_passed": 115,
+    "differential_calls": 3467,
+    "differential_mismatches": 0,
+    "actions_applied": {
+      "DECOMPOSE_EXPRESSION": 59,
+      "FLATTEN_WITH_PRODUCT": 29,
+      "EXTRACT_CONDITION": 81,
+      "DECOMPOSE_BOOLEAN": 23
+    },
+    "actions_accepted": {
+      "DECOMPOSE_EXPRESSION": 59,
+      "FLATTEN_WITH_PRODUCT": 29,
+      "EXTRACT_CONDITION": 81,
+      "DECOMPOSE_BOOLEAN": 23
+    },
+    "rejection_reasons": {}
+  },
+  "funnel": {
+    "issues_detected": 352,
+    "in_main_guard_left_unchanged": 49,
+    "automatable": 195,
+    "applied": 192,
+    "merged_into_another_edit": 1,
+    "skipped_by_transformer": 2,
+    "accepted_by_validation": 192,
+    "programs_changed": 114
+  },
+  "issue_resolution": {
+    "long_statement": {
+      "before": 118,
+      "after": 65,
+      "resolved": 82,
+      "introduced": 29,
+      "resolution_rate": 0.695,
+      "detected_by_model_before": 118,
+      "detected_by_model_after": 65
+    },
+    "nested_loop": {
+      "before": 100,
+      "after": 70,
+      "resolved": 33,
+      "introduced": 3,
+      "resolution_rate": 0.33,
+      "detected_by_model_before": 100,
+      "detected_by_model_after": 70
+    },
+    "complex_conditional": {
+      "before": 85,
+      "after": 4,
+      "resolved": 81,
+      "introduced": 0,
+      "resolution_rate": 0.953,
+      "detected_by_model_before": 85,
+      "detected_by_model_after": 4
+    }
+  },
+  "metrics": {
+    "cyclomatic_complexity": {
+      "description": "sum of McCabe complexity over functions (radon)",
+      "higher_is_better": false,
+      "mean_before": 6.1,
+      "mean_after": 5.912,
+      "median_before": 6.0,
+      "median_after": 6.0,
+      "mean_change": -0.188,
+      "programs_better": 27,
+      "programs_worse": 0,
+      "programs_same": 133,
+      "wilcoxon_p_changed_programs": 4.3e-05
+    },
+    "max_cyclomatic_complexity": {
+      "description": "highest McCabe complexity of one function",
+      "higher_is_better": false,
+      "mean_before": 6.069,
+      "mean_after": 5.881,
+      "median_before": 6.0,
+      "median_after": 6.0,
+      "mean_change": -0.188,
+      "programs_better": 27,
+      "programs_worse": 0,
+      "programs_same": 133,
+      "wilcoxon_p_changed_programs": 4.3e-05
+    },
+    "cognitive_complexity": {
+      "description": "sum of cognitive complexity over functions",
+      "higher_is_better": false,
+      "mean_before": 6.463,
+      "mean_after": 7.194,
+      "median_before": 6.0,
+      "median_after": 6.0,
+      "mean_change": 0.731,
+      "programs_better": 19,
+      "programs_worse": 56,
+      "programs_same": 85,
+      "wilcoxon_p_changed_programs": 0.000205
+    },
+    "max_cognitive_complexity": {
+      "description": "highest cognitive complexity of one function",
+      "higher_is_better": false,
+      "mean_before": 6.456,
+      "mean_after": 7.188,
+      "median_before": 6.0,
+      "median_after": 6.0,
+      "mean_change": 0.731,
+      "programs_better": 19,
+      "programs_worse": 56,
+      "programs_same": 85,
+      "wilcoxon_p_changed_programs": 0.000205
+    },
+    "maintainability_index": {
+      "description": "radon maintainability index, 0-100",
+      "higher_is_better": true,
+      "mean_before": 65.861,
+      "mean_after": 63.291,
+      "median_before": 64.09,
+      "median_after": 61.915000000000006,
+      "mean_change": -2.569,
+      "programs_better": 9,
+      "programs_worse": 105,
+      "programs_same": 46,
+      "wilcoxon_p_changed_programs": 0.0
+    },
+    "halstead_volume": {
+      "description": "Halstead volume (radon)",
+      "higher_is_better": false,
+      "mean_before": 140.093,
+      "mean_after": 129.466,
+      "median_before": 114.655,
+      "median_after": 109.465,
+      "mean_change": -10.627,
+      "programs_better": 79,
+      "programs_worse": 7,
+      "programs_same": 74,
+      "wilcoxon_p_changed_programs": 0.0
+    },
+    "halstead_difficulty": {
+      "description": "Halstead difficulty (radon)",
+      "higher_is_better": false,
+      "mean_before": 3.252,
+      "mean_after": 3.291,
+      "median_before": 3.2,
+      "median_after": 3.24,
+      "mean_change": 0.039,
+      "programs_better": 15,
+      "programs_worse": 62,
+      "programs_same": 83,
+      "wilcoxon_p_changed_programs": 7e-06
+    },
+    "logical_lines": {
+      "description": "logical lines of code (radon lloc)",
+      "higher_is_better": false,
+      "mean_before": 10.55,
+      "mean_after": 13.931,
+      "median_before": 10.0,
+      "median_after": 13.0,
+      "mean_change": 3.381,
+      "programs_better": 2,
+      "programs_worse": 106,
+      "programs_same": 52,
+      "wilcoxon_p_changed_programs": 0.0
+    },
+    "max_nesting_depth": {
+      "description": "deepest nesting of compound statements in a function",
+      "higher_is_better": false,
+      "mean_before": 2.112,
+      "mean_after": 1.994,
+      "median_before": 2.0,
+      "median_after": 2.0,
+      "mean_change": -0.119,
+      "programs_better": 26,
+      "programs_worse": 10,
+      "programs_same": 124,
+      "wilcoxon_p_changed_programs": 0.020007
+    },
+    "max_statement_length": {
+      "description": "longest simple statement, measured on one line",
+      "higher_is_better": false,
+      "mean_before": 78.456,
+      "mean_after": 59.506,
+      "median_before": 58.5,
+      "median_after": 55.0,
+      "mean_change": -18.95,
+      "programs_better": 58,
+      "programs_worse": 32,
+      "programs_same": 70,
+      "wilcoxon_p_changed_programs": 5.6e-05
+    },
+    "mean_statement_length": {
+      "description": "mean simple-statement length",
+      "higher_is_better": false,
+      "mean_before": 38.511,
+      "mean_after": 31.928,
+      "median_before": 29.43,
+      "median_after": 30.585,
+      "mean_change": -6.583,
+      "programs_better": 62,
+      "programs_worse": 43,
+      "programs_same": 55,
+      "wilcoxon_p_changed_programs": 0.002577
+    },
+    "max_condition_atoms": {
+      "description": "most atomic conditions in one if/while test",
+      "higher_is_better": false,
+      "mean_before": 2.306,
+      "mean_after": 0.925,
+      "median_before": 2.5,
+      "median_after": 1.0,
+      "mean_change": -1.381,
+      "programs_better": 76,
+      "programs_worse": 0,
+      "programs_same": 84,
+      "wilcoxon_p_changed_programs": 0.0
+    },
+    "long_statements": {
+      "description": "long statements (rule)",
+      "higher_is_better": false,
+      "mean_before": 0.738,
+      "mean_after": 0.406,
+      "median_before": 0.0,
+      "median_after": 0.0,
+      "mean_change": -0.331,
+      "programs_better": 45,
+      "programs_worse": 6,
+      "programs_same": 109,
+      "wilcoxon_p_changed_programs": 0.0
+    },
+    "nested_loops": {
+      "description": "nested loop headers (rule)",
+      "higher_is_better": false,
+      "mean_before": 0.625,
+      "mean_after": 0.438,
+      "median_before": 0.5,
+      "median_after": 0.0,
+      "mean_change": -0.188,
+      "programs_better": 27,
+      "programs_worse": 0,
+      "programs_same": 133,
+      "wilcoxon_p_changed_programs": 4.3e-05
+    },
+    "complex_conditionals": {
+      "description": "complex conditionals (rule)",
+      "higher_is_better": false,
+      "mean_before": 0.531,
+      "mean_after": 0.025,
+      "median_before": 0.5,
+      "median_after": 0.0,
+      "mean_change": -0.506,
+      "programs_better": 76,
+      "programs_worse": 0,
+      "programs_same": 84,
+      "wilcoxon_p_changed_programs": 0.0
+    }
+  }
+}

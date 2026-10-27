@@ -1,186 +1,131 @@
+"""
+main.py
+Runs stages 5-10 of the pipeline once, on the held-out test programs,
+and prints a short report per stage.
 
+  5  train the detector on the training programs
+  6  detect and localize issues in the held-out programs
+  7  recommend a refactoring for each issue
+  8  apply the automatable refactorings
+  9  validate each refactored program (rejected ones keep their original)
+ 10  compare the programs before and after
+
+Writes results/validated_programs/ (the final programs) and
+results/pipeline_summary.json. Each stage's own script (train_model.py,
+localization.py, ..., quality_metrics.py) writes its detailed results.
+"""
+
+import json
 from pathlib import Path
 
-from train_model import train_model
-from localization import localize_file, localize_test_programs
-from recommendation import recommend_refactorings
-from transformation import automatable_targets, transform_source
-from validation import validate_program
-from quality_metrics import compare_metrics
+import quality_metrics
+import recommendation
+import transformation
+import validation
+from localization import localize_test_programs, program_source
+from train_model import LABEL_COLUMNS, build_features, label_metrics, train_model
+
+BASE_DIR = Path(__file__).resolve().parent
+RESULTS_DIR = BASE_DIR / "results"
+
+
+def heading(number, title):
+    print(f"\n[Stage {number}] {title}")
 
 
 def main():
-    print("\n" + "=" * 55)
-    print("LLM-GENERATED CODE REFACTORING PIPELINE")
-    print("=" * 55)
+    print("=" * 60)
+    print("REFACTORING PIPELINE FOR LLM-GENERATED CODE")
+    print("=" * 60)
 
-    # --------------------------------------------------
-    # Stage 1: Train the model
-    # --------------------------------------------------
-    print("\n[1/6] Training model...")
-
+    heading(5, "Training the issue detector")
     model, data, train, test = train_model()
+    test_rows = data[test]
+    detector = label_metrics(
+        test_rows[LABEL_COLUMNS].to_numpy(), model.predict(build_features(test_rows))
+    )
+    print(f"Training: {data.loc[train, 'program_id'].nunique()} programs, "
+          f"{int(train.sum())} statements")
+    print(f"Held out: {test_rows['program_id'].nunique()} programs, "
+          f"{int(test.sum())} statements")
+    for label, m in detector.items():
+        print(f"  {label:20s} F1 {m['f1']:.3f}")
 
-    print("Model training completed.")
-    print("Dataset rows:", len(data))
-    print("Training rows:", int(train.sum()))
+    heading(6, "Detecting and localizing issues")
+    issues, dropped, localization = localize_test_programs(model, data, test)
+    print(f"Issues localized: {localization['issues']} "
+          f"(type-mismatched predictions dropped: {len(dropped)})")
+    for label, m in localization["statement_level"].items():
+        print(f"  {label:20s} P {m['precision']:.3f}  R {m['recall']:.3f}")
+    print(f"Programs localized exactly: "
+          f"{localization['programs_localized_exactly']}/{localization['programs']}")
 
-    # --------------------------------------------------
-    # Stage 2: Detect and localize issues
-    # --------------------------------------------------
-    print("\n[2/6] Detecting and localizing issues...")
+    heading(7, "Recommending refactorings")
+    recommendations = recommendation.recommend_refactorings(issues)
+    recommended = recommendation.summarize(recommendations)
+    print(f"Recommendations: {recommended['recommendations']}, "
+          f"automatable: {recommended['automatable']}, "
+          f"in __main__ (left unchanged): {recommended['in_main_guard']}")
+    for action, counts in recommended["by_action"].items():
+        print(f"  {action:32s} {counts['count']:4d} ({counts['automatable']} automatable)")
 
-    # Evaluation runs only on the held-out programs the model never saw.
-    _, _, evaluation = localize_test_programs(model, data, test)
+    heading(8, "Applying refactorings")
+    transformations = transformation.transform_programs(recommendations, program_source)
+    transformed = transformation.summarize(transformations)
+    print(f"Programs transformed: {transformed['programs_transformed']}, "
+          f"outcomes: {transformed['status']}")
+    for reason, count in transformed["skip_reasons"].items():
+        print(f"  skipped {count}: {reason}")
 
-    print("Held-out programs:", evaluation["programs"])
-    print("Issues localized:", evaluation["issues"])
-    for label, m in evaluation["statement_level"].items():
-        print(f"  {label}: P={m['precision']:.3f} "
-              f"R={m['recall']:.3f} F1={m['f1']:.3f}")
-    print(
-        "Programs localized exactly:",
-        f"{evaluation['programs_localized_exactly']}/{evaluation['programs']}"
+    heading(9, "Validating refactored programs")
+    reports = validation.validate_programs(transformations)
+    validated = validation.summarize(reports)
+    print(f"Valid: {validated['valid']}/{validated['programs']}, "
+          f"self-tests passed: {validated['self_tests_passed']}, "
+          f"differential calls: {validated['differential_calls']}, "
+          f"mismatches: {validated['differential_mismatches']}")
+    for pid in validated["rejected"]:
+        print(f"  rejected {pid}: {'; '.join(reports[pid]['reasons'])}")
+
+    heading(10, "Comparing before and after")
+    before, after, changed = quality_metrics.final_programs(test_rows, transformations, reports)
+    table, resolution = quality_metrics.evaluate(model, before, after, changed)
+    stats = quality_metrics.metric_statistics(table)
+    funnel = quality_metrics.funnel(issues, recommendations, transformations, reports)
+    print("Target issues outside __main__ (before -> after):")
+    for label, r in resolution.items():
+        print(f"  {label:20s} {r['before']:4d} -> {r['after']:4d}  "
+              f"resolved {r['resolution_rate']:.0%}, introduced {r['introduced']}")
+    print("Quality metrics (mean before -> after, programs better / worse):")
+    for metric, s in stats.items():
+        print(f"  {metric:28s} {s['mean_before']:8.2f} -> {s['mean_after']:8.2f}  "
+              f"{s['programs_better']:3d} / {s['programs_worse']:3d}")
+
+    validation_dir = validation.VALIDATED_DIR
+    validation_dir.mkdir(parents=True, exist_ok=True)
+    for old in validation_dir.glob("*.py"):
+        old.unlink()
+    for pid, source in after.items():
+        (validation_dir / f"{pid}.py").write_text(source, encoding="utf-8")
+    summary = {
+        "detector_test_f1": {label: m["f1"] for label, m in detector.items()},
+        "localization": {k: v for k, v in localization.items() if k != "errors"},
+        "recommendation": recommended,
+        "transformation": transformed,
+        "validation": validated,
+        "funnel": funnel,
+        "issue_resolution": resolution,
+        "metrics": stats,
+    }
+    (RESULTS_DIR / "pipeline_summary.json").write_text(
+        json.dumps(summary, indent=2), encoding="utf-8"
     )
 
-    # The remaining stages run on one file, so line numbers are unambiguous.
-    source_path = Path(__file__).resolve().parent / "examples.py"
-    localized_issues, _ = localize_file(model, source_path)
-
-    print(f"\nLocalized issue records in {source_path.name}:",
-          len(localized_issues))
-
-    # --------------------------------------------------
-    # Stage 3: Generate recommendations
-    # --------------------------------------------------
-    print("\n[3/6] Generating recommendations...")
-
-    original_code = source_path.read_text(encoding="utf-8")
-    results = recommend_refactorings(
-        localized_issues, lambda issue: original_code
-    )
-
-    targets = []
-
-    for result in results:
-        print("\n" + "-" * 55)
-        print("Statement ID:", result["statement_id"])
-        print("Line:", result["line_no"])
-        print("Code:")
-        print(result["code"])
-
-        print("\nRecommended Actions:")
-
-        for recommendation in result["recommendations"]:
-            action = recommendation["action"]
-            severity = recommendation["severity"]
-
-            print(
-                f"  - {recommendation['issue']}: "
-                f"{recommendation['refactoring']} ({action})"
-            )
-            print(
-                f"    {severity['measure']} = {severity['value']} "
-                f"(flagged from {severity['flagged_at']})"
-            )
-
-            if not recommendation["automatable"]:
-                print(f"    Not automatic: {recommendation['reason']}")
-
-        targets += automatable_targets(result)
-
-    # --------------------------------------------------
-    # Stage 4: Apply supported transformations
-    # --------------------------------------------------
-    print("\n[4/6] Applying transformations...")
-
-    transformed_code, outcomes = transform_source(original_code, targets)
-    applied_actions = [o for o in outcomes if o["status"] == "applied"]
-
-    print("\n========== TRANSFORMATION OUTCOMES ==========")
-
-    for outcome in outcomes:
-        detail = f" ({outcome['detail']})" if outcome["detail"] else ""
-        print(f"- line {outcome['line_no']}: {outcome['action']} "
-              f"{outcome['status']}{detail}")
-
-    print("\n========== TRANSFORMATION SUMMARY ==========")
-    print("Automatable action entries:", len(targets))
-    print("Transformations applied:", len(applied_actions))
-
-    print("\n========== TRANSFORMED SOURCE CODE ==========")
-    print(transformed_code)
-
-    # --------------------------------------------------
-    # Stage 5: Validate transformed code
-    # --------------------------------------------------
-    print("\n[5/6] Validating transformed code...")
-
-    # examples.py has no self-test, so the calls to compare are given here;
-    # stage 9 adds edge-case variants of each.
-    validation_calls = [
-        ["long_statement_examples", [2, 3, 4, 5, 6, 7]],
-        ["long_statement_examples", [10, 8, 6, 4, 2, 1]],
-        ["conditional_examples", [2, 1, 0, -1, -2]],
-        ["conditional_examples", [1, 2, 3, 4, 5]],
-        ["nested_loop_examples", [3]],
-        ["multiple_issue_examples", [2, 3, 4, 5, 6, 7, 3]],
-        ["multiple_issue_examples", [5, 4, 3, 2, 1, 6, 2]],
-    ]
-
-    report = validate_program(
-        original_code, transformed_code, validation_calls
-    )
-    differential = report.get("differential", {})
-
-    print("Syntax valid:", not report["syntax_error"])
-    print("Safety problems:", report.get("safety_problems") or "none")
-    print("Calls compared (with edge-case variants):",
-          differential.get("calls", 0))
-    print("Mismatches:", len(differential.get("mismatches", [])))
-    for mismatch in differential.get("mismatches", [])[:5]:
-        print(f"  {mismatch['function']}{mismatch['args']}: "
-              f"original {mismatch['original']}, "
-              f"transformed {mismatch['transformed']}")
-
-    all_passed = report["valid"]
-
-    print(
-        "\nOverall result:",
-        "PASS" if all_passed else "FAIL"
-    )
-    for reason in report["reasons"]:
-        print("  -", reason)
-
-    # --------------------------------------------------
-    # Stage 6: Evaluate code quality
-    # --------------------------------------------------
-    print("\n[6/6] Evaluating code quality...")
-
-    compare_metrics(
-        original_code,
-        transformed_code
-    )
-
-    # --------------------------------------------------
-    # Final summary
-    # --------------------------------------------------
-    print("\n========== FINAL PIPELINE SUMMARY ==========")
-    print("Dataset rows:", len(data))
-    print("Localized issue records:", len(localized_issues))
-    print(
-        "Automatable action entries:",
-        len(targets)
-    )
-    print("Transformations applied:", len(applied_actions))
-    print(
-        "Behavioural validation:",
-        "PASS" if all_passed else "FAIL"
-    )
-
-    print("\n" + "=" * 55)
-    print("PIPELINE COMPLETED")
-    print("=" * 55)
+    print("\nPipeline funnel:")
+    for step, count in funnel.items():
+        print(f"  {step:32s} {count}")
+    print(f"\nFinal programs: {validation_dir.relative_to(BASE_DIR)}/ | "
+          f"summary: {(RESULTS_DIR / 'pipeline_summary.json').relative_to(BASE_DIR)}")
 
 
 if __name__ == "__main__":

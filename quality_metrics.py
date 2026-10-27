@@ -278,24 +278,25 @@ def funnel(issues, recommendations, transformations, reports):
     }
 
 
-def compare_metrics(original_code, transformed_code):
-    """Print a before/after metric table for one program."""
-    before = calculate_metrics(original_code)
-    after = calculate_metrics(transformed_code)
-    print("\n========== QUALITY METRICS ==========")
-    print(f"{'Metric':<28} {'Before':>10} {'After':>10}  Change")
-    print("-" * 60)
-    for metric, (_, higher_is_better) in METRICS.items():
-        delta = after[metric] - before[metric]
-        verdict = "same" if delta == 0 else (
-            "better" if (delta > 0) == higher_is_better else "worse"
-        )
-        print(f"{metric:<28} {before[metric]:>10} {after[metric]:>10}  {verdict}")
-    print("\n========== TARGET ISSUES ==========")
-    for label, counts in issue_changes(original_code, transformed_code).items():
-        print(f"{label:<20} before {counts['before']}, after {counts['after']} "
-              f"(resolved {counts['resolved']}, introduced {counts['introduced']})")
-    return before, after
+def final_programs(test_data, transformations, reports):
+    """
+    (before, after, changed) for the held-out programs: original sources,
+    final sources (transformed only if stage 9 accepted it) and the ids of
+    programs that changed.
+    """
+    from localization import program_source
+
+    before = {
+        row.program_id: program_source({"filename": row.filename})
+        for row in test_data.drop_duplicates("program_id").itertuples()
+    }
+    after = dict(before)
+    changed = set()
+    for pid, program in transformations.items():
+        if reports[pid]["valid"] and reports[pid]["changed"]:
+            after[pid] = program["transformed"]
+            changed.add(pid)
+    return before, after, changed
 
 
 def main():
@@ -311,18 +312,7 @@ def main():
     transformations = transform_programs(recommendations, program_source)
     reports = validate_programs(transformations)
 
-    test_programs = data[test].drop_duplicates("program_id")
-    before = {
-        row.program_id: program_source({"filename": row.filename})
-        for row in test_programs.itertuples()
-    }
-    after = dict(before)
-    changed = set()
-    for pid, program in transformations.items():
-        if reports[pid]["valid"] and reports[pid]["changed"]:
-            after[pid] = program["transformed"]
-            changed.add(pid)
-
+    before, after, changed = final_programs(data[test], transformations, reports)
     table, resolution = evaluate(model, before, after, changed)
     stats = metric_statistics(table)
     evaluation = {

@@ -28,7 +28,8 @@ an accumulation step dropped) and the share stage 9 rejects is reported.
 
 Outputs (written to results/):
   validation_report.json  per-program checks and verdicts
-  validated_programs/     final programs (transformed if valid, else original)
+  validated_programs/     final held-out programs (transformed if valid,
+                          else original)
 """
 
 import ast
@@ -631,9 +632,13 @@ def main():
     VALIDATED_DIR.mkdir(parents=True, exist_ok=True)
     for old in VALIDATED_DIR.glob("*.py"):
         old.unlink()
-    for pid, program in programs.items():
-        final = program["transformed"] if reports[pid]["valid"] else program["original"]
-        (VALIDATED_DIR / program["filename"]).write_text(final, encoding="utf-8")
+    for row in data[test].drop_duplicates("program_id").itertuples():
+        program = programs.get(row.program_id)
+        if program and reports[row.program_id]["valid"]:
+            final = program["transformed"]
+        else:
+            final = program_source({"filename": row.filename})
+        (VALIDATED_DIR / row.filename).write_text(final, encoding="utf-8")
     (RESULTS_DIR / "validation_report.json").write_text(
         json.dumps({**summary, "programs_detail": reports}, indent=2), encoding="utf-8"
     )
