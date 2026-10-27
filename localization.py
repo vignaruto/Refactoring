@@ -184,27 +184,38 @@ def evaluate_localization(data, issues, label_columns=LABEL_COLUMNS):
     }
 
 
-def statements_for_file(path):
-    """Statement records for any Python file, in dataset column format."""
-    path = Path(path)
-    source = path.read_text(encoding="utf-8")
+def statements_for_source(source, filename=""):
+    """Statement records for Python source, in dataset column format."""
     records = extract_statements(ast.parse(source), source.splitlines(keepends=True))
     data = pd.DataFrame(records)
     data["program_id"] = ""
-    data["filename"] = path.name
+    data["filename"] = filename
     return data
 
 
-def localize_file(model, path):
-    """Detect and localize issues in one Python file; return (issues, dropped)."""
-    data = statements_for_file(path)
+def statements_for_file(path):
+    """Statement records for any Python file, in dataset column format."""
+    path = Path(path)
+    return statements_for_source(path.read_text(encoding="utf-8"), path.name)
+
+
+def localize_source(model, source, filename=""):
+    """Detect and localize issues in Python source; return (issues, dropped)."""
+    data = statements_for_source(source, filename)
+    if data.empty:
+        return [], []
     predictions, probabilities = detect(model, data)
     issues, dropped = localize_issues(data, predictions, probabilities)
-    source = Path(path).read_text(encoding="utf-8")
     problems = verify_locations(issues, lambda issue: source)
     if problems:
         raise RuntimeError("Bad issue locations:\n" + "\n".join(problems))
     return issues, dropped
+
+
+def localize_file(model, path):
+    """Detect and localize issues in one Python file; return (issues, dropped)."""
+    path = Path(path)
+    return localize_source(model, path.read_text(encoding="utf-8"), path.name)
 
 
 def localize_test_programs(model, data, test):
