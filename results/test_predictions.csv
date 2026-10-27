@@ -1,0 +1,1738 @@
+program_id,statement_id,line_no,end_line,statement_type,in_main_guard,code,long_statement,nested_loop,complex_conditional,pred_long_statement,pred_nested_loop,pred_complex_conditional
+P0004,1,10,10,Assign,0,"portfolio_variance = sum(weights[i]**2 * variances[i] for i in range(len(weights))) + sum(2 * weights[i] * weights[j] * cov_matrix[i][j] * adjustment_factor for i in range(len(weights)) for j in range(i + 1, len(weights)))",1,0,0,1,0,0
+P0004,2,11,11,Return,0,"return math.sqrt(max(0.0, portfolio_variance))",0,0,0,0,0,0
+P0004,3,13,13,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0004,4,14,14,Assign,1,"w = [0.6, 0.4]",0,0,0,0,0,0
+P0004,5,15,15,Assign,1,"v = [0.04, 0.09]",0,0,0,0,0,0
+P0004,6,16,16,Assign,1,"cov = [[0.04, 0.015], [0.015, 0.09]]",0,0,0,0,0,0
+P0005,1,9,9,Assign,0,matches = [],0,0,0,0,0,0
+P0005,2,10,10,For,0,for item_a in warehouse_a:,0,1,0,0,1,0
+P0005,3,11,11,For,0,for item_b in warehouse_b:,0,0,0,0,0,0
+P0005,4,12,12,Assign,0,"combined_cost = item_a[""price""] + item_b[""price""] - (item_a.get(""discount"", 0.0) + item_b.get(""discount"", 0.0) + (item_a[""price""] * item_b[""price""] * 0.0005))",1,0,0,1,0,0
+P0005,5,13,13,If,0,if combined_cost <= target_price:,0,0,0,0,0,0
+P0005,6,14,14,Expr,0,"matches.append((item_a[""sku""], item_b[""sku""]))",0,0,0,0,0,0
+P0005,7,15,15,Return,0,return matches,0,0,0,0,0,0
+P0005,8,17,17,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0005,9,18,18,Assign,1,"w1 = [{""sku"": ""A1"", ""price"": 50.0, ""discount"": 5.0}]",0,0,0,0,0,0
+P0005,10,19,19,Assign,1,"w2 = [{""sku"": ""B1"", ""price"": 40.0, ""discount"": 2.0}]",0,0,0,0,0,0
+P0011,1,10,10,Assign,0,"cleaned = re.sub(r""[^\w\s]"", """", corpus.lower())",0,0,0,0,0,0
+P0011,2,11,11,Assign,0,tokens = cleaned.split(),0,0,0,0,0,0
+P0011,3,12,12,Assign,0,counts = {},0,0,0,0,0,0
+P0011,4,13,13,For,0,for token in tokens:,0,0,0,0,0,0
+P0011,5,14,14,Assign,0,"counts[token] = counts.get(token, 0) + 1",0,0,0,0,0,0
+P0011,6,15,15,Return,0,return counts,0,0,0,0,0,0
+P0011,7,17,17,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0011,8,18,18,Assign,1,"text = ""Data science with Python. Python is powerful!""",0,0,0,0,0,0
+P0011,9,19,19,Assign,1,res = extract_word_frequencies(text),0,0,0,0,0,0
+P0014,1,10,10,Assign,0,n = len(points),0,0,0,0,0,0
+P0014,2,11,11,Assign,0,dist_matrix = [[0.0] * n for _ in range(n)],0,0,0,0,0,0
+P0014,3,12,12,For,0,for i in range(n):,0,1,0,0,1,0
+P0014,4,13,13,For,0,for j in range(n):,0,0,0,0,0,0
+P0014,5,14,14,Assign,0,dx = points[i][0] - points[j][0],0,0,0,0,0,0
+P0014,6,15,15,Assign,0,dy = points[i][1] - points[j][1],0,0,0,0,0,0
+P0014,7,16,16,Assign,0,dist_matrix[i][j] = math.sqrt(dx * dx + dy * dy),0,0,0,0,0,0
+P0014,8,17,17,Return,0,return dist_matrix,0,0,0,0,0,0
+P0014,9,19,19,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0014,10,20,20,Assign,1,"pts = [(0.0, 0.0), (3.0, 4.0)]",0,0,0,0,0,0
+P0014,11,21,21,Assign,1,matrix = compute_distance_matrix(pts),0,0,0,0,0,0
+P0017,1,9,9,If,0,"if (task.get(""priority"") == ""HIGH"" and task.get(""latency_ms"", 0) > 500 and node_health.get(""cpu_load"", 0.0) > 0.85) or (task.get(""retries"", 0) >= 3 and task.get(""critical"") is True and not node_health.get(""is_standby"", False)) or (task.get(""tenant_tier"") == ""enterprise"" and task.get(""error_code"") == 503):",0,0,1,0,0,1
+P0017,2,10,10,Return,0,"return ""ESCALATE_INCIDENT""",0,0,0,0,0,0
+P0017,3,11,11,Return,0,"return ""PROCESS_NORMAL""",0,0,0,0,0,0
+P0017,4,13,13,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0017,5,14,14,Assign,1,"t = {""priority"": ""HIGH"", ""latency_ms"": 600, ""retries"": 1, ""critical"": False, ""tenant_tier"": ""standard""}",1,0,0,1,0,0
+P0017,6,15,15,Assign,1,"n = {""cpu_load"": 0.90, ""is_standby"": False}",0,0,0,0,0,0
+P0026,1,9,9,Assign,0,matches = 0,0,0,0,0,0,0
+P0026,2,10,10,For,0,for a in list_a:,0,1,0,0,1,0
+P0026,3,11,11,For,0,for b in list_b:,0,1,0,0,1,0
+P0026,4,12,12,For,0,for c in list_c:,0,0,0,0,0,0
+P0026,5,13,13,If,0,if a == b == c:,0,0,0,0,0,0
+P0026,6,14,14,AugAssign,0,matches += 1,0,0,0,0,0,0
+P0026,7,15,15,Return,0,return matches,0,0,0,0,0,0
+P0026,8,17,17,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0032,1,9,9,Assign,0,triangles = 0,0,0,0,0,0,0
+P0032,2,10,10,Assign,0,nodes = list(graph.keys()),0,0,0,0,0,0
+P0032,3,11,11,For,0,for u in nodes:,0,1,0,0,1,0
+P0032,4,12,12,For,0,"for v in graph.get(u, []):",0,1,0,0,1,0
+P0032,5,13,13,For,0,"for w in graph.get(v, []):",0,0,0,0,0,0
+P0032,6,14,14,If,0,"if u in graph.get(w, []):",0,0,0,0,0,0
+P0032,7,15,15,AugAssign,0,triangles += 1,0,0,0,0,0,0
+P0032,8,16,16,Return,0,return triangles // 6,0,0,0,0,0,0
+P0032,9,18,18,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0032,10,19,19,Assign,1,"g = {1: [2, 3], 2: [1, 3], 3: [1, 2]}",0,0,0,0,0,0
+P0035,1,9,9,Return,0,"return ((invoice[""gross_amount""] - invoice.get(""rebate"", 0.0)) * (1.0 + tax_rate)) + (invoice[""gross_amount""] * 0.0015 * max(0, delay_days - 10)) - (invoice.get(""early_payment_discount"", 0.0) if delay_days < 5 else 0.0)",1,0,0,1,0,0
+P0035,2,11,11,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0035,3,12,12,Assign,1,"inv = {""gross_amount"": 10000.0, ""rebate"": 500.0, ""early_payment_discount"": 200.0}",1,0,0,1,0,0
+P0036,1,7,7,While,0,while b != 0:,0,0,0,0,0,0
+P0036,2,8,8,Assign,0,"a, b = b, a % b",0,0,0,0,0,0
+P0036,3,9,9,Return,0,return abs(a),0,0,0,0,0,0
+P0036,4,11,11,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0039,1,9,9,Assign,0,result = {},0,0,0,0,0,0
+P0039,2,10,10,Assign,0,"tokens = tag_string.split("";"")",0,0,0,0,0,0
+P0039,3,11,11,For,0,for token in tokens:,0,0,0,0,0,0
+P0039,4,12,12,Assign,0,stripped = token.strip(),0,0,0,0,0,0
+P0039,5,13,13,If,0,"if ""="" in stripped:",0,0,0,0,0,0
+P0039,6,14,14,Assign,0,"key, val = stripped.split(""="", 1)",0,0,0,0,0,0
+P0039,7,15,15,Assign,0,result[key.strip()] = val.strip(),0,0,0,0,0,0
+P0039,8,16,16,Return,0,return result,0,0,0,0,0,0
+P0039,9,18,18,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0039,10,19,19,Assign,1,"raw = ""env=prod; debug=false; region=eu-central""",0,0,0,0,0,0
+P0039,11,20,20,Assign,1,parsed = parse_key_value_tags(raw),0,0,0,0,0,0
+P0045,1,9,9,Assign,0,reorder_requests = [],0,0,0,0,0,0
+P0045,2,10,10,For,0,for depot in depots:,0,1,0,0,1,0
+P0045,3,11,11,For,0,"for aisle in depot.get(""aisles"", []):",0,1,0,0,1,0
+P0045,4,12,12,For,0,"for shelf in aisle.get(""shelves"", []):",0,0,0,0,0,0
+P0045,5,13,13,Assign,0,"reorder_qty = ((safety_threshold * 2) - shelf.get(""qty"", 0)) + int(shelf.get(""forecast_demand"", 0) * 1.25) - int(shelf.get(""in_transit"", 0) * 0.8)",1,0,0,1,0,0
+P0045,6,14,14,If,0,"if (shelf.get(""qty"", 0) < safety_threshold and shelf.get(""reorder_locked"") is not True and depot.get(""status"") == ""OPEN"") or (shelf.get(""expiring_soon"") is True and shelf.get(""qty"", 0) > 0 and shelf.get(""essential"") is True and not aisle.get(""remodeling"", False)):",0,0,1,0,0,1
+P0045,7,15,15,Expr,0,"reorder_requests.append({""sku"": shelf[""sku""], ""amount"": max(1, reorder_qty)})",1,0,0,1,0,0
+P0045,8,16,16,Return,0,return reorder_requests,0,0,0,0,0,0
+P0045,9,18,18,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0045,10,19,19,Assign,1,"d = [{""status"": ""OPEN"", ""aisles"": [{""remodeling"": False, ""shelves"": [{""sku"": ""SKU1"", ""qty"": 2, ""forecast_demand"": 10, ""in_transit"": 0, ""reorder_locked"": False, ""essential"": True}]}]}]",1,0,0,1,0,0
+P0046,1,9,9,Assign,0,balances = [],0,0,0,0,0,0
+P0046,2,10,10,Assign,0,current_balance = principal,0,0,0,0,0,0
+P0046,3,11,11,For,0,for period in rates:,0,0,0,0,0,0
+P0046,4,12,12,Assign,0,"annual_rate = period[""rate""] + (default_spread if period.get(""high_risk"") and not period.get(""subsidized"") else 0.0)",1,0,0,1,0,0
+P0046,5,13,13,Assign,0,"current_balance = (current_balance * (1.0 + (annual_rate / 12.0) ** period.get(""compounds_per_month"", 1))) - period.get(""monthly_payment"", 0.0) + (period.get(""service_fee"", 0.0) * (1.05 if period.get(""late"") else 1.0))",1,0,0,1,0,0
+P0046,6,14,14,If,0,"if (current_balance > principal * 1.5 and not period.get(""notified"", False) and period.get(""tier"") == ""subprime"") or (period.get(""default_warning"") is True and current_balance > 0.0 and period.get(""grace_period_days"", 0) == 0):",0,0,1,0,0,1
+P0046,7,15,15,Expr,0,"balances.append(round(current_balance, 2))",0,0,0,0,0,0
+P0046,8,17,17,Expr,0,"balances.append(round(current_balance, 2))",0,0,0,0,0,0
+P0046,9,18,18,Return,0,return balances,0,0,0,0,0,0
+P0046,10,20,20,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0046,11,21,21,Assign,1,"p = [{""rate"": 0.05, ""compounds_per_month"": 1, ""monthly_payment"": 100.0, ""service_fee"": 5.0, ""high_risk"": False, ""subsidized"": True, ""tier"": ""prime""}]",1,0,0,1,0,0
+P0046,12,22,22,Assign,1,"res = compute_compound_balance_schedule(1000.0, p, 0.02)",0,0,0,0,0,0
+P0048,1,9,9,Assign,0,hits = [],0,0,0,0,0,0
+P0048,2,10,10,For,0,"for z, layer in enumerate(grid_layers):",0,1,0,0,1,0
+P0048,3,11,11,For,0,"for y, row in enumerate(layer):",0,1,0,0,1,0
+P0048,4,12,12,For,0,"for x, voxel in enumerate(row):",0,0,0,0,0,0
+P0048,5,13,13,Assign,0,"distance_to_ray = abs((voxel[""cx""] - ray_origin[0]) * ray_dir[1] - (voxel[""cy""] - ray_origin[1]) * ray_dir[0]) + abs((voxel[""cy""] - ray_origin[1]) * ray_dir[2] - (voxel[""cz""] - ray_origin[2]) * ray_dir[1])",1,0,0,1,0,0
+P0048,6,14,14,If,0,"if (voxel.get(""solid"") == 1.0 and distance_to_ray < voxel.get(""radius"", 0.5) and voxel.get(""reflectivity"", 0.0) > 0.1) or (voxel.get(""absorptive"") == 1.0 and not voxel.get(""transparent"", False) and distance_to_ray < 0.2):",0,0,1,0,0,1
+P0048,7,15,15,Expr,0,"hits.append((z, y, x))",0,0,0,0,0,0
+P0048,8,16,16,Return,0,return hits,0,0,0,0,0,0
+P0048,9,18,18,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0048,10,19,19,Assign,1,"vox = [[[{""cx"": 1.0, ""cy"": 1.0, ""cz"": 0.0, ""solid"": 1.0, ""radius"": 1.0, ""reflectivity"": 0.5, ""absorptive"": 0.0, ""transparent"": False}]]]",1,0,0,1,0,0
+P0052,1,4,4,If,0,if not sequence:,0,0,0,0,0,0
+P0052,2,5,5,Return,0,return [],0,0,0,0,0,0
+P0052,3,6,6,Assign,0,result = [],0,0,0,0,0,0
+P0052,4,7,7,Assign,0,current_val = sequence[0],0,0,0,0,0,0
+P0052,5,8,8,Assign,0,count = 1,0,0,0,0,0,0
+P0052,6,9,9,For,0,for item in sequence[1:]:,0,0,0,0,0,0
+P0052,7,10,10,If,0,if item == current_val:,0,0,0,0,0,0
+P0052,8,11,11,AugAssign,0,count += 1,0,0,0,0,0,0
+P0052,9,13,13,Expr,0,"result.append((current_val, count))",0,0,0,0,0,0
+P0052,10,14,14,Assign,0,current_val = item,0,0,0,0,0,0
+P0052,11,15,15,Assign,0,count = 1,0,0,0,0,0,0
+P0052,12,16,16,Expr,0,"result.append((current_val, count))",0,0,0,0,0,0
+P0052,13,17,17,Return,0,return result,0,0,0,0,0,0
+P0052,14,19,19,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0054,1,4,4,Assign,0,left = 0,0,0,0,0,0,0
+P0054,2,5,5,Assign,0,right = len(nums) - 1,0,0,0,0,0,0
+P0054,3,6,6,While,0,while left < right:,0,0,0,0,0,0
+P0054,4,7,7,Assign,0,mid = (left + right) // 2,0,0,0,0,0,0
+P0054,5,8,8,If,0,if nums[mid] > nums[mid + 1]:,0,0,0,0,0,0
+P0054,6,9,9,Assign,0,right = mid,0,0,0,0,0,0
+P0054,7,11,11,Assign,0,left = mid + 1,0,0,0,0,0,0
+P0054,8,12,12,Return,0,return left,0,0,0,0,0,0
+P0054,9,14,14,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0057,1,4,4,If,0,if node is None:,0,0,0,0,0,0
+P0057,2,5,5,Return,0,return 0,0,0,0,0,0,0
+P0057,3,6,6,Assign,0,"left_child = node.get(""left"")",0,0,0,0,0,0
+P0057,4,7,7,Assign,0,"right_child = node.get(""right"")",0,0,0,0,0,0
+P0057,5,8,8,If,0,if left_child is None and right_child is None:,0,0,0,0,0,0
+P0057,6,9,9,Return,0,return 1,0,0,0,0,0,0
+P0057,7,10,10,Return,0,return count_leaf_nodes(left_child) + count_leaf_nodes(right_child),1,0,0,1,0,0
+P0057,8,12,12,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0057,9,13,13,Assign,1,"tree = {""left"": {""left"": None, ""right"": None}, ""right"": None}",1,0,0,1,0,0
+P0059,1,4,4,Assign,0,cap_mass = density * ((math.pi * (cap_height ** 2) / 3.0) * (3.0 * radius - cap_height)) + (2.0 * math.pi * radius * cap_height * 0.05),1,0,0,1,0,0
+P0059,2,5,5,Return,0,return cap_mass,0,0,0,0,0,0
+P0059,3,7,7,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0063,1,4,4,Assign,0,"adjusted_overhead_kw = (telemetry[""cooling_kw""] * (1.0 + 0.02 * max(0.0, ambient_temp_c - 22.0))) + (telemetry[""ups_loss_kw""] * 1.05) + (telemetry[""lighting_kw""] * 0.95) + (telemetry[""switchgear_loss_kw""] * 1.02)",1,0,0,1,0,0
+P0063,2,5,5,Return,0,return adjusted_overhead_kw,0,0,0,0,0,0
+P0063,3,7,7,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0063,4,8,8,Assign,1,"t = {""cooling_kw"": 120.0, ""ups_loss_kw"": 15.0, ""lighting_kw"": 8.0, ""switchgear_loss_kw"": 5.0}",1,0,0,1,0,0
+P0066,1,4,4,Assign,0,arr = list(items),0,0,0,0,0,0
+P0066,2,5,5,Assign,0,n = len(arr),0,0,0,0,0,0
+P0066,3,6,6,Assign,0,gap = n // 2,0,0,0,0,0,0
+P0066,4,7,7,While,0,while gap > 0:,0,1,0,0,1,0
+P0066,5,8,8,For,0,"for i in range(gap, n):",0,1,0,0,1,0
+P0066,6,9,9,Assign,0,temp = arr[i],0,0,0,0,0,0
+P0066,7,10,10,Assign,0,j = i,0,0,0,0,0,0
+P0066,8,11,11,While,0,while j >= gap and arr[j - gap] > temp:,0,0,0,0,0,0
+P0066,9,12,12,Assign,0,arr[j] = arr[j - gap],0,0,0,0,0,0
+P0066,10,13,13,AugAssign,0,j -= gap,0,0,0,0,0,0
+P0066,11,14,14,Assign,0,arr[j] = temp,0,0,0,0,0,0
+P0066,12,15,15,AugAssign,0,gap //= 2,0,0,0,0,0,0
+P0066,13,16,16,Return,0,return arr,0,0,0,0,0,0
+P0066,14,18,18,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0078,1,5,5,Assign,0,influences = [],0,0,0,0,0,0
+P0078,2,6,6,For,0,for probe in probes:,0,1,0,0,1,0
+P0078,3,7,7,Assign,0,acc = 0.0,0,0,0,0,0,0
+P0078,4,8,8,For,0,for station in stations:,0,0,0,0,0,0
+P0078,5,9,9,AugAssign,0,"acc += station[""power""] / (1.0 + decay_rate * math.sqrt((station[""x""] - probe[""x""])**2 + (station[""y""] - probe[""y""])**2 + (station[""z""] - probe[""z""])**2))",1,0,0,1,0,0
+P0078,6,10,10,Expr,0,influences.append(acc),0,0,0,0,0,0
+P0078,7,11,11,Return,0,return influences,0,0,0,0,0,0
+P0078,8,13,13,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0078,9,14,14,Assign,1,"st = [{""power"": 100.0, ""x"": 0.0, ""y"": 0.0, ""z"": 0.0}]",0,0,0,0,0,0
+P0078,10,15,15,Assign,1,"pr = [{""x"": 3.0, ""y"": 4.0, ""z"": 0.0}]",0,0,0,0,0,0
+P0079,1,4,4,Assign,0,"h, w = len(image), len(image[0])",0,0,0,0,0,0
+P0079,2,5,5,Assign,0,filtered = [[0.0] * w for _ in range(h)],0,0,0,0,0,0
+P0079,3,6,6,For,0,"for r in range(1, h - 1):",0,1,0,0,1,0
+P0079,4,7,7,For,0,"for c in range(1, w - 1):",0,0,0,0,0,0
+P0079,5,8,8,Assign,0,filtered[r][c] = (image[r-1][c-1]*kernel_weights[0][0] + image[r-1][c]*kernel_weights[0][1] + image[r-1][c+1]*kernel_weights[0][2] + image[r][c-1]*kernel_weights[1][0] + image[r][c]*kernel_weights[1][1] + image[r][c+1]*kernel_weights[1][2] + image[r+1][c-1]*kernel_weights[2][0] + image[r+1][c]*kernel_weights[2][1] + image[r+1][c+1]*kernel_weights[2][2]) / divisor,1,0,0,1,0,0
+P0079,6,9,9,Return,0,return filtered,0,0,0,0,0,0
+P0079,7,11,11,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0079,8,12,12,Assign,1,img = [[1.0]*3 for _ in range(3)],0,0,0,0,0,0
+P0079,9,13,13,Assign,1,k = [[1.0]*3 for _ in range(3)],0,0,0,0,0,0
+P0086,1,4,4,Assign,0,"vulnerability_score = (subject[""age""] * 0.28) + (subject[""bmi""] * 0.45) + (subject[""blood_sugar""] * 0.15) + (subject[""smoking_pack_years""] * 1.85) - (subject[""physical_activity_hours_week""] * 3.5) + base_prevalence * 100.0",1,0,0,1,0,0
+P0086,2,5,5,If,0,"if (subject.get(""age"", 0.0) >= 60.0 and subject.get(""bmi"", 0.0) >= 30.0 and subject.get(""hypertension"") is True) or (subject.get(""immunocompromised"") is True and base_prevalence >= 0.05 and not subject.get(""vaccinated"", False)):",0,0,1,0,0,1
+P0086,3,6,6,Return,0,return vulnerability_score * 1.4,0,0,0,0,0,0
+P0086,4,7,7,Return,0,return vulnerability_score,0,0,0,0,0,0
+P0086,5,9,9,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0086,6,10,10,Assign,1,"sub = {""age"": 65.0, ""bmi"": 32.0, ""blood_sugar"": 110.0, ""smoking_pack_years"": 10.0, ""physical_activity_hours_week"": 2.0, ""hypertension"": True}",1,0,0,1,0,0
+P0090,1,7,7,Assign,0,matches = [],0,0,0,0,0,0
+P0090,2,8,8,For,0,for role in roles:,0,1,0,0,1,0
+P0090,3,9,9,For,0,for cand in candidates:,0,0,0,0,0,0
+P0090,4,10,10,Assign,0,"exp_ok = cand.get(""years_exp"", 0) >= role.get(""min_exp"", 0)",0,0,0,0,0,0
+P0090,5,11,11,Assign,0,"deg_ok = cand.get(""degree"") == role.get(""req_degree"")",0,0,0,0,0,0
+P0090,6,12,12,Assign,0,"loc_ok = cand.get(""location"") == role.get(""location"")",0,0,0,0,0,0
+P0090,7,13,13,Assign,0,"remote = role.get(""remote_ok"") is True",0,0,0,0,0,0
+P0090,8,14,14,Assign,0,"sal_ok = cand.get(""expected_sal"", 0) <= role.get(""max_sal"", 0)",1,0,0,1,0,0
+P0090,9,15,15,Assign,0,rule_std = exp_ok and sal_ok and (loc_ok or remote),0,0,0,0,0,0
+P0090,10,16,16,Assign,0,"rule_vet = deg_ok and exp_ok and cand.get(""veteran"") is True",0,0,0,0,0,0
+P0090,11,17,17,If,0,if rule_std or rule_vet:,0,0,0,0,0,0
+P0090,12,18,18,Expr,0,"matches.append({""role_id"": role[""id""], ""cand_id"": cand[""id""]})",1,0,0,1,0,0
+P0090,13,19,19,Return,0,return matches,0,0,0,0,0,0
+P0090,14,21,21,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0090,15,22,22,Assign,1,"r = [{""id"": ""R1"", ""min_exp"": 3, ""location"": ""NY"", ""remote_ok"": True, ""max_sal"": 100000}]",1,0,0,1,0,0
+P0090,16,23,23,Assign,1,"c = [{""id"": ""C1"", ""years_exp"": 4, ""location"": ""SF"", ""expected_sal"": 90000}]",1,0,0,1,0,0
+P0102,1,2,2,If,0,if not arr:,0,0,0,0,0,0
+P0102,2,3,3,Return,0,return 0,0,0,0,0,0,0
+P0102,3,4,4,Assign,0,write_idx = 1,0,0,0,0,0,0
+P0102,4,5,5,For,0,"for read_idx in range(1, len(arr)):",0,0,0,0,0,0
+P0102,5,6,6,If,0,if arr[read_idx] != arr[write_idx - 1]:,0,0,0,0,0,0
+P0102,6,7,7,Assign,0,arr[write_idx] = arr[read_idx],0,0,0,0,0,0
+P0102,7,8,8,AugAssign,0,write_idx += 1,0,0,0,0,0,0
+P0102,8,9,9,Return,0,return write_idx,0,0,0,0,0,0
+P0102,9,11,11,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0102,10,12,12,Assign,1,"nums = [1, 1, 2, 2, 3]",0,0,0,0,0,0
+P0102,11,13,13,Assign,1,length = remove_duplicates_sorted(nums),0,0,0,0,0,0
+P0103,1,2,2,Assign,0,words = text.split(),0,0,0,0,0,0
+P0103,2,3,3,If,0,if not words:,0,0,0,0,0,0
+P0103,3,4,4,Return,0,return [],0,0,0,0,0,0
+P0103,4,5,5,Assign,0,lines = [],0,0,0,0,0,0
+P0103,5,6,6,Assign,0,current_line = [words[0]],0,0,0,0,0,0
+P0103,6,7,7,Assign,0,current_len = len(words[0]),0,0,0,0,0,0
+P0103,7,8,8,For,0,for w in words[1:]:,0,0,0,0,0,0
+P0103,8,9,9,If,0,if current_len + 1 + len(w) <= line_width:,0,0,0,0,0,0
+P0103,9,10,10,Expr,0,current_line.append(w),0,0,0,0,0,0
+P0103,10,11,11,AugAssign,0,current_len += 1 + len(w),0,0,0,0,0,0
+P0103,11,13,13,Expr,0,"lines.append("" "".join(current_line))",0,0,0,0,0,0
+P0103,12,14,14,Assign,0,current_line = [w],0,0,0,0,0,0
+P0103,13,15,15,Assign,0,current_len = len(w),0,0,0,0,0,0
+P0103,14,16,16,Expr,0,"lines.append("" "".join(current_line))",0,0,0,0,0,0
+P0103,15,17,17,Return,0,return lines,0,0,0,0,0,0
+P0103,16,19,19,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0103,17,20,20,Assign,1,"wrapped = wrap_text_lines(""The quick brown fox jumps"", 10)",0,0,0,0,0,0
+P0107,1,4,4,Assign,0,remaining_req = req_qty,0,0,0,0,0,0
+P0107,2,5,5,Assign,0,total_cost = 0.0,0,0,0,0,0,0
+P0107,3,6,6,For,0,for b in batches:,0,0,0,0,0,0
+P0107,4,7,7,If,0,if remaining_req <= 0.0:,0,0,0,0,0,0
+P0107,5,9,9,Assign,0,"take = min(b[""qty""], remaining_req)",0,0,0,0,0,0
+P0107,6,10,10,AugAssign,0,"b[""qty""] -= take",0,0,0,0,0,0
+P0107,7,11,11,AugAssign,0,"total_cost += take * b[""cost""]",0,0,0,0,0,0
+P0107,8,12,12,AugAssign,0,remaining_req -= take,0,0,0,0,0,0
+P0107,9,13,13,Return,0,return total_cost,0,0,0,0,0,0
+P0107,10,15,15,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0107,11,16,16,Assign,1,"st = [{""qty"": 10.0, ""cost"": 2.0}, {""qty"": 10.0, ""cost"": 3.0}]",1,0,0,1,0,0
+P0107,12,17,17,Assign,1,"cost = deduct_stock_fifo(st, 15.0)",0,0,0,0,0,0
+P0109,1,4,4,Assign,0,option_value = (stock_price * 0.5 * (1.0 + math.erf(((math.log(stock_price / strike_price) + (rate + 0.5 * vol**2) * time_to_exp) / (vol * math.sqrt(time_to_exp))) / math.sqrt(2.0)))) - (strike_price * math.exp(-rate * time_to_exp) * 0.5 * (1.0 + math.erf((((math.log(stock_price / strike_price) + (rate + 0.5 * vol**2) * time_to_exp) / (vol * math.sqrt(time_to_exp))) - vol * math.sqrt(time_to_exp)) / math.sqrt(2.0)))),1,0,0,1,0,0
+P0109,2,5,5,Return,0,return option_value,0,0,0,0,0,0
+P0109,3,7,7,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0109,4,8,8,Assign,1,"val = black_scholes_call_approx(100.0, 100.0, 0.05, 0.2, 1.0)",1,0,0,1,0,0
+P0118,1,2,2,Assign,0,m = len(str1),0,0,0,0,0,0
+P0118,2,3,3,Assign,0,n = len(str2),0,0,0,0,0,0
+P0118,3,4,4,Assign,0,max_len = 0,0,0,0,0,0,0
+P0118,4,5,5,Assign,0,end_idx = 0,0,0,0,0,0,0
+P0118,5,6,6,Assign,0,dp = [[0] * (n + 1) for _ in range(m + 1)],0,0,0,0,0,0
+P0118,6,7,7,For,0,"for i in range(1, m + 1):",0,1,0,0,1,0
+P0118,7,8,8,For,0,"for j in range(1, n + 1):",0,0,0,0,0,0
+P0118,8,9,9,If,0,if str1[i - 1] == str2[j - 1]:,0,0,0,0,0,0
+P0118,9,10,10,Assign,0,dp[i][j] = dp[i - 1][j - 1] + 1,0,0,0,0,0,0
+P0118,10,11,11,If,0,if dp[i][j] > max_len:,0,0,0,0,0,0
+P0118,11,12,12,Assign,0,max_len = dp[i][j],0,0,0,0,0,0
+P0118,12,13,13,Assign,0,end_idx = i,0,0,0,0,0,0
+P0118,13,15,15,Assign,0,dp[i][j] = 0,0,0,0,0,0,0
+P0118,14,16,16,Return,0,return str1[end_idx - max_len:end_idx],0,0,0,0,0,0
+P0118,15,18,18,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0124,1,4,4,Assign,0,prime_cond = debt_to_income <= 0.35 and credit_utilization <= 0.30 and not bankruptcy_flag,1,0,0,1,0,0
+P0124,2,5,5,Assign,0,alt_cond = guarantor_present and debt_to_income <= 0.45 and credit_utilization <= 0.50,1,0,0,1,0,0
+P0124,3,6,6,If,0,if (prime_cond or alt_cond) and not (credit_utilization > 0.70 or bankruptcy_flag):,0,0,1,0,0,1
+P0124,4,7,7,Return,0,"return ""APPROVED""",0,0,0,0,0,0
+P0124,5,8,8,Return,0,"return ""DECLINED""",0,0,0,0,0,0
+P0124,6,10,10,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0124,7,11,11,Assign,1,"res = evaluate_debt_tolerance(0.30, 0.25, False, False)",0,0,0,0,0,0
+P0140,1,4,4,Assign,0,matches = [],0,0,0,0,0,0
+P0140,2,5,5,For,0,for tender in tenders:,0,1,0,0,1,0
+P0140,3,6,6,For,0,for contr in contractors:,0,0,0,0,0,0
+P0140,4,7,7,Assign,0,"price_ok = contr.get(""bid"", 0) <= tender.get(""max_budget"", 0)",1,0,0,1,0,0
+P0140,5,8,8,Assign,0,"rating_ok = contr.get(""safety_score"", 0) >= tender.get(""min_safety"", 0)",1,0,0,1,0,0
+P0140,6,9,9,Assign,0,"bonded = contr.get(""is_bonded"") is True",0,0,0,0,0,0
+P0140,7,10,10,Assign,0,"exp_ok = contr.get(""years_active"", 0) >= 5",0,0,0,0,0,0
+P0140,8,11,11,Assign,0,rule1 = price_ok and rating_ok and bonded,0,0,0,0,0,0
+P0140,9,12,12,Assign,0,"rule2 = exp_ok and price_ok and contr.get(""certified_green"") is True",1,0,0,1,0,0
+P0140,10,13,13,If,0,"if (rule1 or rule2) and not contr.get(""disqualified"", False):",0,0,1,0,0,1
+P0140,11,14,14,Expr,0,"matches.append({""tender_id"": tender[""id""], ""contractor_id"": contr[""id""]})",1,0,0,1,0,0
+P0140,12,15,15,Return,0,return matches,0,0,0,0,0,0
+P0140,13,17,17,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0140,14,18,18,Assign,1,"t = [{""id"": ""T1"", ""max_budget"": 50000, ""min_safety"": 80}]",0,0,0,0,0,0
+P0140,15,19,19,Assign,1,"c = [{""id"": ""C1"", ""bid"": 45000, ""safety_score"": 85, ""is_bonded"": True, ""disqualified"": False}]",1,0,0,1,0,0
+P0143,1,4,4,Assign,0,relays = [],0,0,0,0,0,0
+P0143,2,5,5,For,0,for na in subnets_a:,0,1,0,0,1,0
+P0143,3,6,6,For,0,for nb in subnets_b:,0,0,0,0,0,0
+P0143,4,7,7,Assign,0,"rtt = na.get(""ping_ms"", 100) + nb.get(""ping_ms"", 100)",0,0,0,0,0,0
+P0143,5,8,8,Assign,0,"enc_ok = na.get(""encrypted"") is True and nb.get(""encrypted"") is True",1,0,0,1,0,0
+P0143,6,9,9,Assign,0,"trust_a = na.get(""reputation"", 0.0) >= 0.8",0,0,0,0,0,0
+P0143,7,10,10,Assign,0,rule_alpha = rtt <= 60 and enc_ok and trust_a,0,0,0,0,0,0
+P0143,8,11,11,Assign,0,"rule_beta = na.get(""is_anchor"") is True and nb.get(""is_anchor"") is True",1,0,0,1,0,0
+P0143,9,12,12,If,0,"if (rule_alpha or rule_beta) and not na.get(""blacklisted"", False):",0,0,1,0,0,1
+P0143,10,13,13,Expr,0,"relays.append((na[""id""], nb[""id""]))",0,0,0,0,0,0
+P0143,11,14,14,Return,0,return relays,0,0,0,0,0,0
+P0143,12,16,16,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0143,13,17,17,Assign,1,"a = [{""id"": ""A1"", ""ping_ms"": 20, ""encrypted"": True, ""reputation"": 0.9, ""blacklisted"": False}]",1,0,0,1,0,0
+P0143,14,18,18,Assign,1,"b = [{""id"": ""B1"", ""ping_ms"": 25, ""encrypted"": True}]",0,0,0,0,0,0
+P0144,1,4,4,Assign,0,dispatch = [],0,0,0,0,0,0
+P0144,2,5,5,For,0,for inc in incidents:,0,1,0,0,1,0
+P0144,3,6,6,For,0,for amb in ambulances:,0,0,0,0,0,0
+P0144,4,7,7,Assign,0,"dist_km = amb.get(""eta_min"", 99)",0,0,0,0,0,0
+P0144,5,8,8,Assign,0,"als = amb.get(""has_paramedic"") is True",0,0,0,0,0,0
+P0144,6,9,9,Assign,0,"prio = inc.get(""severity"") == ""CODE_RED""",0,0,0,0,0,0
+P0144,7,10,10,Assign,0,c1 = prio and als and dist_km <= 15,0,0,0,0,0,0
+P0144,8,11,11,Assign,0,"c2 = not prio and dist_km <= 30 and not amb.get(""refueling"", False)",1,0,0,1,0,0
+P0144,9,12,12,If,0,"if (c1 or c2) and not amb.get(""assigned"", False) and amb.get(""status"") == ""IDLE"":",0,0,1,0,0,1
+P0144,10,13,13,Expr,0,"dispatch.append({""incident_id"": inc[""id""], ""ambulance_id"": amb[""id""]})",1,0,0,1,0,0
+P0144,11,14,14,Assign,0,"amb[""assigned""] = True",0,0,0,0,0,0
+P0144,12,15,15,Return,0,return dispatch,0,0,0,0,0,0
+P0144,13,17,17,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0144,14,18,18,Assign,1,"inc = [{""id"": ""INC1"", ""severity"": ""CODE_RED""}]",0,0,0,0,0,0
+P0144,15,19,22,Assign,1,"amb = [{
+        ""id"": ""AMB1"", ""eta_min"": 10, ""has_paramedic"": True,
+        ""refueling"": False, ""assigned"": False, ""status"": ""IDLE""
+    }]",1,0,0,1,0,0
+P0145,1,4,4,Assign,0,n = len(boids),0,0,0,0,0,0
+P0145,2,5,5,For,0,for i in range(n):,0,1,0,0,1,0
+P0145,3,6,6,For,0,for j in range(n):,0,0,0,0,0,0
+P0145,4,7,7,If,0,if i != j:,0,0,0,0,0,0
+P0145,5,8,8,Assign,0,"dist = math.sqrt((boids[i][""x""] - boids[j][""x""])**2 + (boids[i][""y""] - boids[j][""y""])**2) + 0.001",1,0,0,1,0,0
+P0145,6,9,9,Assign,0,"steer_acc = (boids[j][""vx""] * 0.45) + (boids[j][""vy""] * 0.45) - ((boids[i][""x""] - boids[j][""x""]) / dist * 12.5) + (boids[i].get(""cohesion_weight"", 1.0) * 0.8)",1,0,0,1,0,0
+P0145,7,10,10,If,0,"if ((dist < perception_radius and boids[j].get(""leader"") is True and not boids[i].get(""blinded"", False)) or (dist < 5.0 and boids[i][""vx""] > 10.0 and boids[j][""vx""] < 2.0)) and steer_acc > 0.0:",0,0,1,0,0,1
+P0145,8,11,11,AugAssign,0,"boids[i][""vx""] += steer_acc * 0.05",0,0,0,0,0,0
+P0145,9,12,12,Return,0,return boids,0,0,0,0,0,0
+P0145,10,14,14,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0145,11,15,15,Assign,1,"flock = [{""x"": 0.0, ""y"": 0.0, ""vx"": 5.0, ""vy"": 0.0, ""blinded"": False}, {""x"": 2.0, ""y"": 1.0, ""vx"": 6.0, ""vy"": 0.0, ""leader"": True}]",1,0,0,1,0,0
+P0145,12,16,16,Assign,1,"res = simulate_boids_flocking_step(flock, 10.0)",0,0,0,0,0,0
+P0153,1,2,2,If,0,if not text:,0,0,0,0,0,0
+P0153,2,3,3,Return,0,"return """"",0,0,0,0,0,0
+P0153,3,4,4,Assign,0,chunks = [],0,0,0,0,0,0
+P0153,4,5,5,Assign,0,curr = text[0],0,0,0,0,0,0
+P0153,5,6,6,Assign,0,count = 1,0,0,0,0,0,0
+P0153,6,7,7,For,0,for char in text[1:]:,0,0,0,0,0,0
+P0153,7,8,8,If,0,if char == curr:,0,0,0,0,0,0
+P0153,8,9,9,AugAssign,0,count += 1,0,0,0,0,0,0
+P0153,9,11,11,Expr,0,"chunks.append(f""{curr}{count}"")",0,0,0,0,0,0
+P0153,10,12,12,Assign,0,curr = char,0,0,0,0,0,0
+P0153,11,13,13,Assign,0,count = 1,0,0,0,0,0,0
+P0153,12,14,14,Expr,0,"chunks.append(f""{curr}{count}"")",0,0,0,0,0,0
+P0153,13,15,15,Return,0,"return """".join(chunks)",0,0,0,0,0,0
+P0153,14,17,17,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0154,1,2,2,Assign,0,low = 0,0,0,0,0,0,0
+P0154,2,3,3,Assign,0,high = len(arr) - 1,0,0,0,0,0,0
+P0154,3,4,4,While,0,while low <= high and target >= arr[low] and target <= arr[high]:,0,0,1,0,0,1
+P0154,4,5,5,If,0,if low == high:,0,0,0,0,0,0
+P0154,5,6,6,If,0,if arr[low] == target:,0,0,0,0,0,0
+P0154,6,7,7,Return,0,return low,0,0,0,0,0,0
+P0154,7,8,8,Return,0,return -1,0,0,0,0,0,0
+P0154,8,9,9,Assign,0,pos = low + int(((float(high - low) / (arr[high] - arr[low])) * (target - arr[low]))),1,0,0,1,0,0
+P0154,9,10,10,If,0,if arr[pos] == target:,0,0,0,0,0,0
+P0154,10,11,11,Return,0,return pos,0,0,0,0,0,0
+P0154,11,12,12,If,0,if arr[pos] < target:,0,0,0,0,0,0
+P0154,12,13,13,Assign,0,low = pos + 1,0,0,0,0,0,0
+P0154,13,15,15,Assign,0,high = pos - 1,0,0,0,0,0,0
+P0154,14,16,16,Return,0,return -1,0,0,0,0,0,0
+P0154,15,18,18,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0154,16,19,19,Assign,1,"data = [10, 20, 30, 40, 50, 60]",0,0,0,0,0,0
+P0158,1,4,4,Assign,0,current_time = 0,0,0,0,0,0,0
+P0158,2,5,5,Assign,0,total_tardiness = 0,0,0,0,0,0,0
+P0158,3,6,6,Assign,0,max_tardiness = 0,0,0,0,0,0,0
+P0158,4,7,7,For,0,for task in tasks:,0,0,0,0,0,0
+P0158,5,8,8,AugAssign,0,"current_time += task.get(""duration"", 0)",0,0,0,0,0,0
+P0158,6,9,9,Assign,0,"due = task.get(""deadline"", 0)",0,0,0,0,0,0
+P0158,7,10,10,Assign,0,"lateness = max(0, current_time - due)",0,0,0,0,0,0
+P0158,8,11,11,AugAssign,0,total_tardiness += lateness,0,0,0,0,0,0
+P0158,9,12,12,If,0,if lateness > max_tardiness:,0,0,0,0,0,0
+P0158,10,13,13,Assign,0,max_tardiness = lateness,0,0,0,0,0,0
+P0158,11,14,18,Return,0,"return {
+        ""makespan"": current_time,
+        ""total_tardiness"": total_tardiness,
+        ""max_tardiness"": max_tardiness
+    }",1,0,0,1,0,0
+P0158,12,20,20,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0158,13,21,21,Assign,1,"t = [{""duration"": 3, ""deadline"": 2}, {""duration"": 4, ""deadline"": 5}]",1,0,0,1,0,0
+P0158,14,22,22,Assign,1,res = compute_schedule_tardiness(t),0,0,0,0,0,0
+P0159,1,2,2,Assign,0,net_heat_flux = (5.670374e-8 * emissivity * area_sqm * view_factor * (temp_source**4 - temp_sink**4)) + (12.5 * area_sqm * (temp_source - temp_sink) * (1.0 + 0.002 * (temp_source - 293.15))),1,0,0,1,0,0
+P0159,2,3,3,Return,0,return net_heat_flux,0,0,0,0,0,0
+P0159,3,5,5,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0159,4,6,6,Assign,1,"q = compute_radiative_heat_transfer(500.0, 300.0, 0.85, 2.0, 0.9)",1,0,0,1,0,0
+P0164,1,2,2,Assign,0,head_loss = (friction_factor * (length_m / diameter_m) * (velocity_ms ** 2) / (2.0 * 9.80665)) + (0.5 * (velocity_ms ** 2) / (2.0 * 9.80665) * 1.5) + (length_m * 0.002),1,0,0,1,0,0
+P0164,2,3,3,Return,0,return head_loss,0,0,0,0,0,0
+P0164,3,5,5,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0164,4,6,6,Assign,1,"h = calculate_pipe_friction_head_loss(0.02, 500.0, 0.25, 2.5)",1,0,0,1,0,0
+P0170,1,2,2,Assign,0,h = len(forest),0,0,0,0,0,0
+P0170,2,3,3,Assign,0,w = len(forest[0]),0,0,0,0,0,0
+P0170,3,4,4,Assign,0,nxt = [row[:] for row in forest],0,0,0,0,0,0
+P0170,4,5,5,For,0,for r in range(h):,0,1,0,0,1,0
+P0170,5,6,6,For,0,for c in range(w):,0,1,0,0,1,0
+P0170,6,7,7,If,0,if forest[r][c] == 1:,0,0,0,0,1,0
+P0170,7,8,8,For,0,"for dr in (-1, 0, 1):",0,1,0,0,1,0
+P0170,8,9,9,For,0,"for dc in (-1, 0, 1):",0,0,0,0,0,0
+P0170,9,10,10,Assign,0,nr = r + dr,0,0,0,0,0,0
+P0170,10,11,11,Assign,0,nc = c + dc,0,0,0,0,0,0
+P0170,11,12,12,If,0,if 0 <= nr < h:,0,0,0,0,0,0
+P0170,12,13,13,If,0,if 0 <= nc < w:,0,0,0,0,0,0
+P0170,13,14,14,If,0,if forest[nr][nc] == 2:,0,0,0,0,0,0
+P0170,14,15,15,Assign,0,nxt[r][c] = 2,0,0,0,0,0,0
+P0170,15,16,16,If,0,elif forest[r][c] == 2:,0,0,0,0,0,0
+P0170,16,17,17,Assign,0,nxt[r][c] = 0,0,0,0,0,0,0
+P0170,17,18,18,Return,0,return nxt,0,0,0,0,0,0
+P0170,18,20,20,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0170,19,21,21,Assign,1,"f = [[1, 2], [1, 1]]",0,0,0,0,0,0
+P0170,20,22,22,Assign,1,res = step_wildfire_spread(f),0,0,0,0,0,0
+P0174,1,4,4,Assign,0,"hr = vitals.get(""heart_rate_bpm"", 75.0)",0,0,0,0,0,0
+P0174,2,5,5,Assign,0,"qt = vitals.get(""qt_interval_ms"", 400.0)",0,0,0,0,0,0
+P0174,3,6,6,Assign,0,"st = vitals.get(""st_elevation_mm"", 0.0)",0,0,0,0,0,0
+P0174,4,7,7,Assign,0,arrhythmia = (hr < 40.0 or hr > 160.0) and qt > 480.0,0,0,0,0,0,0
+P0174,5,8,8,Assign,0,"infarction = st >= 2.0 and vitals.get(""troponin_ug_l"", 0.0) > 0.04",1,0,0,1,0,0
+P0174,6,9,9,If,0,if (arrhythmia or infarction) and not (pacemaker_active and hr > 60.0) and false_alarm_history < 3:,0,0,1,0,0,1
+P0174,7,10,10,Return,0,return True,0,0,0,0,0,0
+P0174,8,11,11,Return,0,return False,0,0,0,0,0,0
+P0174,9,13,13,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0174,10,14,14,Assign,1,"v = {""heart_rate_bpm"": 170.0, ""qt_interval_ms"": 500.0, ""st_elevation_mm"": 2.5, ""troponin_ug_l"": 0.08}",1,0,0,1,0,0
+P0186,1,2,2,Assign,0,"esg_composite = ((sector_avg[""carbon_intensity""] / max(0.01, metrics[""carbon_intensity""])) * 35.0) + (metrics[""renewable_pct""] * 0.40) + (metrics[""water_recycled_pct""] * 0.25) - (metrics[""toxic_waste_tons""] * 1.5)",1,0,0,1,0,0
+P0186,2,3,3,Assign,0,"carbon_ok = metrics.get(""carbon_intensity"", 100.0) < sector_avg.get(""carbon_intensity"", 100.0)",1,0,0,1,0,0
+P0186,3,4,4,Assign,0,"renewable_ok = metrics.get(""renewable_pct"", 0.0) >= 40.0",0,0,0,0,0,0
+P0186,4,5,5,If,0,"if ((carbon_ok and renewable_ok and metrics.get(""board_diversity_pct"", 0.0) >= 30.0) or (metrics.get(""net_zero_pledge"") is True and renewable_ok)) and not metrics.get(""epa_penalties_active"", False):",0,0,1,0,0,1
+P0186,5,6,6,Return,0,return esg_composite,0,0,0,0,0,0
+P0186,6,7,7,Return,0,return 0.0,0,0,0,0,0,0
+P0186,7,9,9,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0186,8,10,10,Assign,1,"m = {""carbon_intensity"": 50.0, ""renewable_pct"": 60.0, ""water_recycled_pct"": 50.0, ""toxic_waste_tons"": 5.0, ""board_diversity_pct"": 40.0}",1,0,0,1,0,0
+P0186,9,11,11,Assign,1,"s = {""carbon_intensity"": 100.0}",0,0,0,0,0,0
+P0187,1,2,2,Assign,0,"repair_reserve = (claim[""parts_cost""] * (1.0 + policy.get(""markup_rate"", 0.15))) + (claim[""labor_hours""] * policy.get(""hourly_labor_rate"", 110.0)) + (claim.get(""towing_fee"", 0.0) * 0.9) - (claim.get(""customer_deductible"", 100.0))",1,0,0,1,0,0
+P0187,2,3,3,Assign,0,"odo_ok = claim.get(""odometer_miles"", 0.0) <= policy.get(""max_miles"", 60000.0)",1,0,0,1,0,0
+P0187,3,4,4,Assign,0,"months_ok = claim.get(""months_in_service"", 0.0) <= policy.get(""max_months"", 36.0)",1,0,0,1,0,0
+P0187,4,5,5,Assign,0,"powertrain = claim.get(""is_powertrain"") is True",0,0,0,0,0,0
+P0187,5,6,6,If,0,"if ((odo_ok and months_ok and not claim.get(""commercial_use"", False)) or (powertrain and claim.get(""odometer_miles"", 0.0) <= 100000.0 and months_ok)) and policy.get(""coverage_active"") is True:",0,0,1,0,0,1
+P0187,6,7,7,Return,0,return repair_reserve,0,0,0,0,0,0
+P0187,7,8,8,Return,0,return 0.0,0,0,0,0,0,0
+P0187,8,10,10,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0187,9,11,11,Assign,1,"cl = {""parts_cost"": 500.0, ""labor_hours"": 3.0, ""odometer_miles"": 25000.0, ""months_in_service"": 18.0, ""is_powertrain"": True}",1,0,0,1,0,0
+P0187,10,12,12,Assign,1,"pol = {""max_miles"": 60000.0, ""max_months"": 36.0, ""coverage_active"": True}",1,0,0,1,0,0
+P0188,1,2,2,Assign,0,"npsh_available = ((suction[""atm_pressure_pa""] - suction[""vapor_pressure_pa""]) / (suction[""fluid_density_kgm3""] * 9.80665)) + suction[""static_head_m""] - (suction[""friction_loss_m""] * 1.05) - 0.25",1,0,0,1,0,0
+P0188,2,3,3,Assign,0,"cavitation_margin = npsh_available - pump.get(""npsh_required_m"", 3.0)",1,0,0,1,0,0
+P0188,3,4,4,Assign,0,"temp_ok = suction.get(""temp_c"", 20.0) <= 85.0",0,0,0,0,0,0
+P0188,4,5,5,Assign,0,"flow_ok = suction.get(""flow_rate_m3h"", 50.0) <= pump.get(""max_rated_flow_m3h"", 120.0)",1,0,0,1,0,0
+P0188,5,6,6,If,0,"if ((cavitation_margin >= 1.5 and temp_ok and flow_ok) or (pump.get(""inducer_fitted"") is True and cavitation_margin >= 0.5)) and not suction.get(""entrained_air_detected"", False):",0,0,1,0,0,1
+P0188,6,7,7,Return,0,return npsh_available,0,0,0,0,0,0
+P0188,7,8,8,Return,0,return 0.0,0,0,0,0,0,0
+P0188,8,10,10,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0188,9,11,11,Assign,1,"s = {""atm_pressure_pa"": 101325.0, ""vapor_pressure_pa"": 2338.0, ""fluid_density_kgm3"": 998.0, ""static_head_m"": 2.0, ""friction_loss_m"": 0.5}",1,0,0,1,0,0
+P0188,10,12,12,Assign,1,"p = {""npsh_required_m"": 3.0}",0,0,0,0,0,0
+P0190,1,4,4,Assign,0,violations = [],0,0,0,0,0,0
+P0190,2,5,5,For,0,for p1 in aisle_a:,0,1,0,0,1,0
+P0190,3,6,6,For,0,for p2 in aisle_b:,0,0,0,0,0,0
+P0190,4,7,7,Assign,0,"c1 = p1.get(""class"") == ""OXIDIZER"" and p2.get(""class"") == ""FLAMMABLE""",1,0,0,1,0,0
+P0190,5,8,8,Assign,0,"c2 = p1.get(""class"") == ""CORROSIVE"" and p2.get(""class"") == ""TOXIC""",1,0,0,1,0,0
+P0190,6,9,9,Assign,0,"near = abs(p1.get(""bay_num"", 0) - p2.get(""bay_num"", 0)) <= 3",0,0,0,0,0,0
+P0190,7,10,10,Assign,0,"bund = p1.get(""has_spill_bund"") is True and p2.get(""has_spill_bund"") is True",1,0,0,1,0,0
+P0190,8,11,11,If,0,if (c1 or c2) and near and not bund:,0,0,1,0,0,1
+P0190,9,12,12,Expr,0,"violations.append((p1[""sku""], p2[""sku""]))",0,0,0,0,0,0
+P0190,10,13,13,Return,0,return violations,0,0,0,0,0,0
+P0190,11,15,15,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0190,12,16,16,Assign,1,"a = [{""sku"": ""OX1"", ""class"": ""OXIDIZER"", ""bay_num"": 10, ""has_spill_bund"": False}]",1,0,0,1,0,0
+P0190,13,17,17,Assign,1,"b = [{""sku"": ""FL1"", ""class"": ""FLAMMABLE"", ""bay_num"": 11, ""has_spill_bund"": False}]",1,0,0,1,0,0
+P0193,1,4,4,Assign,0,allowed = [],0,0,0,0,0,0
+P0193,2,5,5,For,0,for sa in services_a:,0,1,0,0,1,0
+P0193,3,6,6,For,0,for sb in services_b:,0,0,0,0,0,0
+P0193,4,7,7,Assign,0,"mtls = sa.get(""mtls_strict"") is True and sb.get(""mtls_strict"") is True",1,0,0,1,0,0
+P0193,5,8,8,Assign,0,"ns_match = sa.get(""namespace"") == sb.get(""namespace"")",0,0,0,0,0,0
+P0193,6,9,9,Assign,0,"c1 = mtls and ns_match and sa.get(""egress_open"") is True",0,0,0,0,0,0
+P0193,7,10,10,Assign,0,"c2 = sa.get(""is_gateway"") is True and mtls and sb.get(""public_facing"") is not True",1,0,0,1,0,0
+P0193,8,11,11,If,0,"if (c1 or c2) and not sa.get(""isolated"", False):",0,0,1,0,0,1
+P0193,9,12,12,Expr,0,"allowed.append((sa[""name""], sb[""name""]))",0,0,0,0,0,0
+P0193,10,13,13,Return,0,return allowed,0,0,0,0,0,0
+P0193,11,15,15,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0193,12,16,16,Assign,1,"s1 = [{""name"": ""auth"", ""mtls_strict"": True, ""namespace"": ""prod"", ""egress_open"": True}]",1,0,0,1,0,0
+P0193,13,17,17,Assign,1,"s2 = [{""name"": ""db"", ""mtls_strict"": True, ""namespace"": ""prod""}]",1,0,0,1,0,0
+P0194,1,4,4,Assign,0,schedule = [],0,0,0,0,0,0
+P0194,2,5,5,For,0,for flt in inbound_flights:,0,1,0,0,1,0
+P0194,3,6,6,For,0,for gate in airport_gates:,0,0,0,0,0,0
+P0194,4,7,7,Assign,0,"gauge_ok = flt.get(""gauge"") <= gate.get(""max_gauge"", 3)",0,0,0,0,0,0
+P0194,5,8,8,Assign,0,"int_ok = flt.get(""is_intl"") is True and gate.get(""has_customs"") is True",1,0,0,1,0,0
+P0194,6,9,9,Assign,0,"dom_ok = flt.get(""is_intl"") is not True and gate.get(""domestic_ok"") is True",1,0,0,1,0,0
+P0194,7,10,10,Assign,0,"c1 = gauge_ok and int_ok and not gate.get(""occupied"", False)",0,0,0,0,0,0
+P0194,8,11,11,Assign,0,"c2 = gauge_ok and dom_ok and not gate.get(""maintenance"", False)",1,0,0,1,0,0
+P0194,9,12,12,If,0,"if (c1 or c2) and not flt.get(""assigned"", False):",0,0,1,0,0,1
+P0194,10,13,13,Expr,0,"schedule.append({""flight"": flt[""id""], ""gate"": gate[""id""]})",0,0,0,0,0,0
+P0194,11,14,14,Assign,0,"flt[""assigned""] = True",0,0,0,0,0,0
+P0194,12,15,15,Return,0,return schedule,0,0,0,0,0,0
+P0194,13,17,17,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0194,14,18,18,Assign,1,"fl = [{""id"": ""AF101"", ""gauge"": 2, ""is_intl"": True, ""assigned"": False}]",1,0,0,1,0,0
+P0194,15,19,19,Assign,1,"gt = [{""id"": ""G1"", ""max_gauge"": 3, ""has_customs"": True, ""occupied"": False}]",1,0,0,1,0,0
+P0201,1,4,4,If,0,if n_intervals % 2 != 0:,0,0,0,0,0,0
+P0201,2,6,6,Assign,0,h = (b - a) / float(n_intervals),0,0,0,0,0,0
+P0201,3,8,8,Assign,0,val = 0.0,0,0,0,0,0,0
+P0201,4,9,9,For,0,"for p, c in enumerate(coeffs):",0,0,0,0,0,0
+P0201,5,10,10,AugAssign,0,val += c * (x ** p),0,0,0,0,0,0
+P0201,6,11,11,Return,0,return val,0,0,0,0,0,0
+P0201,7,12,12,Assign,0,total = poly(a) + poly(b),0,0,0,0,0,0
+P0201,8,13,13,For,0,"for i in range(1, n_intervals):",0,0,0,0,0,0
+P0201,9,14,14,Assign,0,xi = a + i * h,0,0,0,0,0,0
+P0201,10,15,15,If,0,if i % 2 == 1:,0,0,0,0,0,0
+P0201,11,16,16,AugAssign,0,total += 4.0 * poly(xi),0,0,0,0,0,0
+P0201,12,18,18,AugAssign,0,total += 2.0 * poly(xi),0,0,0,0,0,0
+P0201,13,19,19,Return,0,return total * (h / 3.0),0,0,0,0,0,0
+P0201,14,21,21,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0201,15,22,22,Assign,1,"area = simpsons_one_third_rule([0.0, 0.0, 1.0], 0.0, 3.0, 6)",0,0,0,0,0,0
+P0206,1,2,2,If,0,if len(data) < 4:,0,0,0,0,0,0
+P0206,2,4,4,Assign,0,sorted_d = sorted(data),0,0,0,0,0,0
+P0206,3,5,5,Assign,0,n = len(sorted_d),0,0,0,0,0,0
+P0206,4,6,6,Assign,0,q1 = sorted_d[n // 4],0,0,0,0,0,0
+P0206,5,7,7,Assign,0,q3 = sorted_d[(3 * n) // 4],0,0,0,0,0,0
+P0206,6,8,8,Assign,0,iqr = q3 - q1,0,0,0,0,0,0
+P0206,7,9,15,Return,0,"return {
+        ""q1"": q1,
+        ""q3"": q3,
+        ""iqr"": iqr,
+        ""lower_fence"": q1 - 1.5 * iqr,
+        ""upper_fence"": q3 + 1.5 * iqr
+    }",1,0,0,1,0,0
+P0206,8,17,17,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0206,9,18,18,Assign,1,"res = compute_iqr_fences([10.0, 12.0, 14.0, 15.0, 18.0, 20.0, 22.0, 50.0])",1,0,0,1,0,0
+P0215,1,4,4,Assign,0,n = len(matrix),0,0,0,0,0,0
+P0215,2,5,5,Assign,0,lower = [[0.0] * n for _ in range(n)],0,0,0,0,0,0
+P0215,3,6,6,Assign,0,upper = [[0.0] * n for _ in range(n)],0,0,0,0,0,0
+P0215,4,7,7,For,0,for i in range(n):,0,1,0,0,1,0
+P0215,5,8,8,Assign,0,lower[i][i] = 1.0,0,0,0,0,0,0
+P0215,6,9,9,For,0,"for k in range(i, n):",0,1,0,0,1,0
+P0215,7,10,10,Assign,0,sum_u = 0.0,0,0,0,0,0,0
+P0215,8,11,11,For,0,for j in range(i):,0,0,0,0,0,0
+P0215,9,12,12,AugAssign,0,sum_u += lower[i][j] * upper[j][k],0,0,0,0,0,0
+P0215,10,13,13,Assign,0,upper[i][k] = matrix[i][k] - sum_u,0,0,0,0,0,0
+P0215,11,14,14,For,0,"for k in range(i + 1, n):",0,1,0,0,1,0
+P0215,12,15,15,Assign,0,sum_l = 0.0,0,0,0,0,0,0
+P0215,13,16,16,For,0,for j in range(i):,0,0,0,0,0,0
+P0215,14,17,17,AugAssign,0,sum_l += lower[k][j] * upper[j][i],0,0,0,0,0,0
+P0215,15,18,18,Assign,0,lower[k][i] = (matrix[k][i] - sum_l) / upper[i][i],0,0,0,0,0,0
+P0215,16,19,19,Return,0,"return lower, upper",0,0,0,0,0,0
+P0215,17,21,21,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0215,18,22,22,Assign,1,"m = [[2.0, -1.0], [-4.0, 6.0]]",0,0,0,0,0,0
+P0215,19,23,23,Assign,1,"l, u = lu_decomposition_doolittle(m)",0,0,0,0,0,0
+P0216,1,2,2,Assign,0,arr = list(items),0,0,0,0,0,0
+P0216,2,3,3,Assign,0,curr_size = len(arr),0,0,0,0,0,0
+P0216,3,4,4,While,0,while curr_size > 1:,0,1,0,0,1,0
+P0216,4,5,5,Assign,0,max_idx = 0,0,0,0,0,0,0
+P0216,5,6,6,For,0,"for i in range(1, curr_size):",0,0,0,0,0,0
+P0216,6,7,7,If,0,if arr[i] > arr[max_idx]:,0,0,0,0,0,0
+P0216,7,8,8,Assign,0,max_idx = i,0,0,0,0,0,0
+P0216,8,9,9,If,0,if max_idx != curr_size - 1:,0,0,0,0,0,0
+P0216,9,10,10,Assign,0,arr[:max_idx + 1] = reversed(arr[:max_idx + 1]),0,0,0,0,0,0
+P0216,10,11,11,Assign,0,arr[:curr_size] = reversed(arr[:curr_size]),0,0,0,0,0,0
+P0216,11,12,12,AugAssign,0,curr_size -= 1,0,0,0,0,0,0
+P0216,12,13,13,Return,0,return arr,0,0,0,0,0,0
+P0216,13,15,15,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0218,1,2,2,Assign,0,m = len(str1),0,0,0,0,0,0
+P0218,2,3,3,Assign,0,n = len(str2),0,0,0,0,0,0
+P0218,3,4,4,Assign,0,dp = [[0] * (n + 1) for _ in range(m + 1)],0,0,0,0,0,0
+P0218,4,5,5,For,0,for i in range(m + 1):,0,1,0,0,1,0
+P0218,5,6,6,For,0,for j in range(n + 1):,0,0,0,0,0,0
+P0218,6,7,7,If,0,if i == 0:,0,0,0,0,0,0
+P0218,7,8,8,Assign,0,dp[i][j] = j,0,0,0,0,0,0
+P0218,8,9,9,If,0,elif j == 0:,0,0,0,0,0,0
+P0218,9,10,10,Assign,0,dp[i][j] = i,0,0,0,0,0,0
+P0218,10,11,11,If,0,elif str1[i - 1] == str2[j - 1]:,0,0,0,0,0,0
+P0218,11,12,12,Assign,0,dp[i][j] = 1 + dp[i - 1][j - 1],0,0,0,0,0,0
+P0218,12,14,14,Assign,0,"dp[i][j] = 1 + min(dp[i - 1][j], dp[i][j - 1])",0,0,0,0,0,0
+P0218,13,15,15,Return,0,return dp[m][n],0,0,0,0,0,0
+P0218,14,17,17,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0223,1,4,4,Assign,0,lower_uri = uri.lower(),0,0,0,0,0,0
+P0223,2,5,5,Assign,0,"is_http = lower_uri.startswith(""http://"")",0,0,0,0,0,0
+P0223,3,6,6,Assign,0,"is_https = lower_uri.startswith(""https://"")",0,0,0,0,0,0
+P0223,4,7,7,Assign,0,"is_loopback = ""localhost"" in lower_uri or ""127.0.0.1"" in lower_uri",1,0,0,1,0,0
+P0223,5,8,8,Assign,0,"is_internal = ""192.168."" in lower_uri or ""10."" in lower_uri",0,0,0,0,0,0
+P0223,6,9,9,If,0,if ((is_https or (is_http and not allow_https_only)) and not is_loopback) and not is_internal:,0,0,1,0,0,1
+P0223,7,10,10,Return,0,return True,0,0,0,0,0,0
+P0223,8,11,11,Return,0,return False,0,0,0,0,0,0
+P0223,9,13,13,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0225,1,4,4,Assign,0,"val = claim.get(""claimed_refund_usd"", 0.0)",0,0,0,0,0,0
+P0225,2,5,5,Assign,0,"re_export = claim.get(""re_exported_unchanged"") is True",0,0,0,0,0,0
+P0225,3,6,6,Assign,0,"has_cert = claim.get(""certificate_of_origin"") is True",0,0,0,0,0,0
+P0225,4,7,7,Assign,0,valid_window = days_since_export <= 1095 and val <= 250000.0,0,0,0,0,0,0
+P0225,5,8,8,If,0,if ((re_export and has_cert and valid_window) or (customs_verified and valid_window)) and val > 0.0:,0,0,1,0,0,1
+P0225,6,9,9,Return,0,return True,0,0,0,0,0,0
+P0225,7,10,10,Return,0,return False,0,0,0,0,0,0
+P0225,8,12,12,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0225,9,13,13,Assign,1,"cl = {""claimed_refund_usd"": 15000.0, ""re_exported_unchanged"": True, ""certificate_of_origin"": True}",1,0,0,1,0,0
+P0234,1,2,2,Assign,0,"total_fee = (assets[""aum_usd""] * 0.0075 * (1.0 - client.get(""loyalty_discount"", 0.05))) + (client.get(""trades_count"", 1) * 12.5) + (assets.get(""illiquid_private_equity"", 0.0) * 0.002) - 150.0",1,0,0,1,0,0
+P0234,2,3,3,Assign,0,"is_platinum = client.get(""tier"") == 3.0 and assets.get(""aum_usd"", 0.0) >= 5000000.0",1,0,0,1,0,0
+P0234,3,4,4,Assign,0,"is_gold = client.get(""tier"") == 2.0 and assets.get(""aum_usd"", 0.0) >= 1000000.0",1,0,0,1,0,0
+P0234,4,5,5,If,0,"if ((is_platinum and not client.get(""has_dispute"", False)) or (is_gold and client.get(""tenure_years"", 0) >= 5)) and not client.get(""frozen"", False):",0,0,1,0,0,1
+P0234,5,6,6,Return,0,"return max(0.0, total_fee * 0.85)",0,0,0,0,0,0
+P0234,6,7,7,Return,0,"return max(0.0, total_fee)",0,0,0,0,0,0
+P0234,7,9,9,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0234,8,10,10,Assign,1,"cl = {""tier"": 3.0, ""has_dispute"": False, ""frozen"": False}",0,0,0,0,0,0
+P0234,9,11,11,Assign,1,"ass = {""aum_usd"": 6000000.0, ""trades_count"": 10}",0,0,0,0,0,0
+P0236,1,2,2,Assign,0,"generation_revenue = (plant[""irradiance_wm2""] * plant[""collector_area_sqm""] * 0.185 * (1.0 - 0.004 * max(0.0, plant[""cell_temp_c""] - 25.0)) * 0.001) * plant[""tariff_usd_kwh""] * 8.0",1,0,0,1,0,0
+P0236,2,3,3,Assign,0,"irr_ok = plant.get(""irradiance_wm2"", 0.0) >= 150.0 and plant.get(""irradiance_wm2"", 0.0) <= 1200.0",1,0,0,1,0,0
+P0236,3,4,4,Assign,0,"temp_safe = plant.get(""cell_temp_c"", 25.0) <= 75.0",0,0,0,0,0,0
+P0236,4,5,5,If,0,"if ((irr_ok and temp_safe and not grid_status.get(""grid_overfrequency_trip"", False)) or (plant.get(""has_battery_storage"") is True and irr_ok)) and not plant.get(""inverter_fault"", False):",0,0,1,0,0,1
+P0236,5,6,6,Return,0,return generation_revenue,0,0,0,0,0,0
+P0236,6,7,7,Return,0,return 0.0,0,0,0,0,0,0
+P0236,7,9,9,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0236,8,10,10,Assign,1,"p = {""irradiance_wm2"": 850.0, ""collector_area_sqm"": 5000.0, ""cell_temp_c"": 45.0, ""tariff_usd_kwh"": 0.08}",1,0,0,1,0,0
+P0236,9,11,11,Assign,1,"g = {""grid_overfrequency_trip"": False}",0,0,0,0,0,0
+P0238,1,2,2,Assign,0,"flame_stability_margin = ((combustor[""burner_temp_c""] - 800.0) * 0.45) + (combustor[""inlet_pressure_bar""] * 8.2) - (combustor[""airflow_kg_s""] * 2.1) + (combustor.get(""methane_fuel_ratio"", 0.05) * 450.0)",1,0,0,1,0,0
+P0238,2,3,3,Assign,0,"temp_low = combustor.get(""burner_temp_c"", 1000.0) < 850.0",0,0,0,0,0,0
+P0238,3,4,4,Assign,0,"pressure_drop = combustor.get(""delta_p_bar"", 0.0) > 2.5",0,0,0,0,0,0
+P0238,4,5,5,If,0,"if ((temp_low and pressure_drop and not controller.get(""reignition_active"", False)) or (combustor.get(""optical_flame_lost"") is True and temp_low)) and not controller.get(""emergency_scram"", False):",0,0,1,0,0,1
+P0238,5,6,6,Return,0,return flame_stability_margin,0,0,0,0,0,0
+P0238,6,7,7,Return,0,return 0.0,0,0,0,0,0,0
+P0238,7,9,9,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0238,8,10,10,Assign,1,"c = {""burner_temp_c"": 820.0, ""inlet_pressure_bar"": 15.0, ""airflow_kg_s"": 25.0, ""delta_p_bar"": 3.0, ""optical_flame_lost"": True}",1,0,0,1,0,0
+P0238,9,11,11,Assign,1,"ctrl = {""reignition_active"": False, ""emergency_scram"": False}",1,0,0,1,0,0
+P0240,1,4,4,Assign,0,valid_pairs = [],0,0,0,0,0,0
+P0240,2,5,5,For,0,for c1 in group_a:,0,1,0,0,1,0
+P0240,3,6,6,For,0,for c2 in group_b:,0,0,0,0,0,0
+P0240,4,7,7,Assign,0,"weight_sum = c1.get(""weight_tons"", 0) + c2.get(""weight_tons"", 0)",1,0,0,1,0,0
+P0240,5,8,8,Assign,0,"same_dest = c1.get(""port"") == c2.get(""port"")",0,0,0,0,0,0
+P0240,6,9,9,Assign,0,"haz_conflict = c1.get(""is_hazardous"") is True and c2.get(""is_hazardous"") is True",1,0,0,1,0,0
+P0240,7,10,10,Assign,0,rule_std = weight_sum <= 45 and same_dest and not haz_conflict,1,0,0,1,0,0
+P0240,8,11,11,Assign,0,"rule_reefer = c1.get(""reefer"") is True and c2.get(""reefer"") is True and same_dest",1,0,0,1,0,0
+P0240,9,12,12,If,0,"if (rule_std or rule_reefer) and not c1.get(""hold_flag"", False):",0,0,1,0,0,1
+P0240,10,13,13,Expr,0,"valid_pairs.append((c1[""id""], c2[""id""]))",0,0,0,0,0,0
+P0240,11,14,14,Return,0,return valid_pairs,0,0,0,0,0,0
+P0240,12,16,16,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0240,13,17,17,Assign,1,"g1 = [{""id"": ""C1"", ""weight_tons"": 20, ""port"": ""ROT"", ""is_hazardous"": False}]",1,0,0,1,0,0
+P0240,14,18,18,Assign,1,"g2 = [{""id"": ""C2"", ""weight_tons"": 22, ""port"": ""ROT"", ""is_hazardous"": False}]",1,0,0,1,0,0
+P0241,1,4,4,Assign,0,stress_points = [],0,0,0,0,0,0
+P0241,2,5,5,Assign,0,h = len(nir_band),0,0,0,0,0,0
+P0241,3,6,6,Assign,0,w = len(nir_band[0]),0,0,0,0,0,0
+P0241,4,7,7,For,0,for r in range(h):,0,1,0,0,1,0
+P0241,5,8,8,For,0,for c in range(w):,0,0,0,0,0,0
+P0241,6,9,9,Assign,0,nir = nir_band[r][c],0,0,0,0,0,0
+P0241,7,10,10,Assign,0,red = red_band[r][c],0,0,0,0,0,0
+P0241,8,11,11,Assign,0,"ndvi = (nir - red) / max(0.01, nir + red)",0,0,0,0,0,0
+P0241,9,12,12,Assign,0,moist = soil_moisture[r][c],0,0,0,0,0,0
+P0241,10,13,13,Assign,0,c1 = ndvi < 0.25 and moist < 0.15 and nir > 0.1,0,0,0,0,0,0
+P0241,11,14,14,Assign,0,c2 = ndvi < 0.35 and moist < 0.10 and red > 0.2,0,0,0,0,0,0
+P0241,12,15,15,Assign,0,c3 = not (ndvi < 0.05 and moist > 0.5),0,0,0,0,0,0
+P0241,13,16,16,If,0,if (c1 or c2) and c3 and nir > 0.0:,0,0,1,0,0,1
+P0241,14,17,17,Expr,0,"stress_points.append((r, c))",0,0,0,0,0,0
+P0241,15,18,18,Return,0,return stress_points,0,0,0,0,0,0
+P0241,16,20,20,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0241,17,21,21,Assign,1,"nb = [[0.3, 0.4], [0.2, 0.1]]",0,0,0,0,0,0
+P0241,18,22,22,Assign,1,"rb = [[0.2, 0.1], [0.15, 0.2]]",0,0,0,0,0,0
+P0241,19,23,23,Assign,1,"sm = [[0.1, 0.3], [0.08, 0.05]]",0,0,0,0,0,0
+P0244,1,4,4,Assign,0,assignments = [],0,0,0,0,0,0
+P0244,2,5,5,For,0,for proc in procedures:,0,1,0,0,1,0
+P0244,3,6,6,For,0,for th in theaters:,0,0,0,0,0,0
+P0244,4,7,7,Assign,0,"specialty_ok = proc.get(""specialty"") == th.get(""specialty"")",0,0,0,0,0,0
+P0244,5,8,8,Assign,0,"duration_ok = proc.get(""duration_hours"", 2) <= th.get(""available_hours"", 8)",1,0,0,1,0,0
+P0244,6,9,9,Assign,0,"sterile_ok = th.get(""laminar_flow_active"") is True",0,0,0,0,0,0
+P0244,7,10,10,Assign,0,c1 = specialty_ok and duration_ok and sterile_ok,0,0,0,0,0,0
+P0244,8,11,11,Assign,0,"c2 = proc.get(""is_emergency"") is True and duration_ok and not th.get(""occupied"", False)",1,0,0,1,0,0
+P0244,9,12,12,If,0,"if (c1 or c2) and not proc.get(""scheduled"", False):",0,0,1,0,0,1
+P0244,10,13,13,Expr,0,"assignments.append({""proc_id"": proc[""id""], ""theater_id"": th[""id""]})",1,0,0,1,0,0
+P0244,11,14,14,Assign,0,"proc[""scheduled""] = True",0,0,0,0,0,0
+P0244,12,15,15,Return,0,return assignments,0,0,0,0,0,0
+P0244,13,17,17,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0244,14,18,18,Assign,1,"p = [{""id"": ""SURG-1"", ""specialty"": ""CARDIAC"", ""duration_hours"": 4, ""scheduled"": False}]",1,0,0,1,0,0
+P0244,15,19,19,Assign,1,"t = [{""id"": ""OR-4"", ""specialty"": ""CARDIAC"", ""available_hours"": 6, ""laminar_flow_active"": True}]",1,0,0,1,0,0
+P0255,1,2,2,AnnAssign,0,"groups: dict[str, list[str]] = {}",0,0,0,0,0,0
+P0255,2,3,3,For,0,for word in words:,0,0,0,0,0,0
+P0255,3,4,4,Assign,0,cleaned = word.strip().lower(),0,0,0,0,0,0
+P0255,4,5,5,If,0,if not cleaned:,0,0,0,0,0,0
+P0255,5,7,7,Expr,0,"groups.setdefault(cleaned[0], []).append(cleaned)",0,0,0,0,0,0
+P0255,6,8,8,Return,0,return groups,0,0,0,0,0,0
+P0255,7,10,10,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0262,1,4,4,Assign,0,safety_stock = service_z * math.sqrt(avg_lead_time_days * demand_sd ** 2 + (avg_daily_demand ** 2) * lead_time_sd ** 2),1,0,0,1,0,0
+P0262,2,5,5,Assign,0,cover_days = safety_stock / avg_daily_demand if avg_daily_demand > 0 else 0.0,1,0,0,1,0,0
+P0262,3,6,6,Return,0,"return round(safety_stock, 2), round(cover_days, 2)",0,0,0,0,0,0
+P0262,4,8,8,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0270,1,2,2,Assign,0,current = list(cells),0,0,0,0,0,0
+P0270,2,3,3,Assign,0,history = [current],0,0,0,0,0,0
+P0270,3,4,4,Assign,0,width = len(current),0,0,0,0,0,0
+P0270,4,5,5,For,0,for _ in range(generations):,0,1,0,0,1,0
+P0270,5,6,6,Assign,0,following = [],0,0,0,0,0,0
+P0270,6,7,7,For,0,for i in range(width):,0,0,0,0,0,0
+P0270,7,8,8,Assign,0,left = current[(i - 1) % width],0,0,0,0,0,0
+P0270,8,9,9,Assign,0,right = current[(i + 1) % width],0,0,0,0,0,0
+P0270,9,10,10,Assign,0,pattern = (left << 2) | (current[i] << 1) | right,0,0,0,0,0,0
+P0270,10,11,11,Expr,0,following.append((rule >> pattern) & 1),0,0,0,0,0,0
+P0270,11,12,12,Assign,0,current = following,0,0,0,0,0,0
+P0270,12,13,13,Expr,0,history.append(current),0,0,0,0,0,0
+P0270,13,14,14,Return,0,return history,0,0,0,0,0,0
+P0270,14,16,16,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0271,1,2,2,Assign,0,"parts = address.split(""."")",0,0,0,0,0,0
+P0271,2,3,3,If,0,if len(parts) != 4:,0,0,0,0,0,0
+P0271,3,4,4,Return,0,return False,0,0,0,0,0,0
+P0271,4,5,5,For,0,for part in parts:,0,0,0,0,0,0
+P0271,5,6,6,If,0,"if not part.isdigit() or (len(part) > 1 and part[0] == ""0"") or int(part) > 255:",0,0,1,0,0,1
+P0271,6,7,7,Return,0,return False,0,0,0,0,0,0
+P0271,7,8,8,Return,0,return True,0,0,0,0,0,0
+P0271,8,10,10,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0280,1,2,2,Assign,0,"jobs, machines = len(processing), len(processing[0])",0,0,0,0,0,0
+P0280,2,3,3,Assign,0,completion = [[0.0] * machines for _ in range(jobs)],0,0,0,0,0,0
+P0280,3,4,4,For,0,for i in range(jobs):,0,1,0,0,1,0
+P0280,4,5,5,For,0,for j in range(machines):,0,0,0,0,0,0
+P0280,5,6,6,Assign,0,previous_job_done = completion[i - 1][j] if i > 0 else 0.0,0,0,0,0,0,0
+P0280,6,7,7,Assign,0,previous_machine_done = completion[i][j - 1] if j > 0 else 0.0,1,0,0,1,0,0
+P0280,7,8,8,Assign,0,"completion[i][j] = max(previous_job_done + setup[i][j], previous_machine_done) + processing[i][j]",1,0,0,1,0,0
+P0280,8,9,9,Return,0,return completion,0,0,0,0,0,0
+P0280,9,11,11,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0282,1,4,4,Assign,0,dx = (x_max - x_min) / nx,0,0,0,0,0,0
+P0282,2,5,5,Assign,0,dy = (y_max - y_min) / ny,0,0,0,0,0,0
+P0282,3,6,6,Assign,0,total = 0.0,0,0,0,0,0,0
+P0282,4,7,7,For,0,for i in range(nx):,0,1,0,0,1,0
+P0282,5,8,8,Assign,0,x = x_min + (i + 0.5) * dx,0,0,0,0,0,0
+P0282,6,9,9,For,0,for j in range(ny):,0,0,0,0,0,0
+P0282,7,10,10,Assign,0,y = y_min + (j + 0.5) * dy,0,0,0,0,0,0
+P0282,8,11,11,AugAssign,0,total += (math.exp(-(x * x + y * y)) * (1.0 + 0.5 * math.cos(3.0 * x) * math.sin(2.0 * y)) + 0.1 * x * y) * dx * dy,1,0,0,1,0,0
+P0282,9,12,12,Return,0,return total,0,0,0,0,0,0
+P0282,10,14,14,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0285,1,2,2,Assign,0,"cache_control = headers.get(""cache-control"", """").lower()",0,0,0,0,0,0
+P0285,2,3,3,If,0,"if ""no-store"" in cache_control or (""private"" in cache_control and shared_cache) or status not in (200, 203, 204, 301, 404, 410):",0,0,1,0,0,1
+P0285,3,4,4,Return,0,return 0,0,0,0,0,0,0
+P0285,4,5,5,Assign,0,directives = {},0,0,0,0,0,0
+P0285,5,6,6,For,0,"for part in cache_control.split("",""):",0,0,0,0,0,0
+P0285,6,7,7,Assign,0,"key, _, value = part.strip().partition(""="")",0,0,0,0,0,0
+P0285,7,8,8,Assign,0,directives[key] = value,0,0,0,0,0,0
+P0285,8,9,9,If,0,"if shared_cache and ""s-maxage"" in directives:",0,0,0,0,0,0
+P0285,9,10,10,Assign,0,"lifetime = int(directives[""s-maxage""])",0,0,0,0,0,0
+P0285,10,11,11,If,0,"elif ""max-age"" in directives:",0,0,0,0,0,0
+P0285,11,12,12,Assign,0,"lifetime = int(directives[""max-age""])",0,0,0,0,0,0
+P0285,12,14,14,Assign,0,"lifetime = int(0.1 * max(0, int(headers.get(""date-epoch"", ""0"")) - int(headers.get(""last-modified-epoch"", ""0""))))",1,0,0,1,0,0
+P0285,13,15,15,Return,0,"return max(0, lifetime - response_age_s)",0,0,0,0,0,0
+P0285,14,17,17,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0290,1,2,2,Assign,0,pairs = [],0,0,0,0,0,0
+P0290,2,3,3,For,0,"for user, followed in follows.items():",0,1,0,0,1,0
+P0290,3,4,4,For,0,for other in followed:,0,0,0,0,0,0
+P0290,4,5,5,If,0,"if user < other and user in follows.get(other, []) and active.get(user) and active.get(other):",0,0,1,0,0,1
+P0290,5,6,6,Expr,0,"pairs.append((user, other))",0,0,0,0,0,0
+P0290,6,7,7,Return,0,return sorted(pairs),0,0,0,0,0,0
+P0290,7,9,9,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0291,1,2,2,Assign,0,conflicts = [],0,0,0,0,0,0
+P0291,2,3,3,For,0,for i in range(len(bookings)):,0,1,0,0,1,0
+P0291,3,4,4,For,0,"for j in range(i + 1, len(bookings)):",0,0,0,0,0,0
+P0291,4,5,5,Assign,0,"a, b = bookings[i], bookings[j]",0,0,0,0,0,0
+P0291,5,6,6,If,0,"if a[""room""] == b[""room""] and a[""start""] < b[""end""] and b[""start""] < a[""end""]:",0,0,1,0,0,1
+P0291,6,7,7,Expr,0,"conflicts.append((a[""id""], b[""id""]))",0,0,0,0,0,0
+P0291,7,8,8,Return,0,return conflicts,0,0,0,0,0,0
+P0291,8,10,10,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0297,1,2,2,Assign,0,assignments = {},0,0,0,0,0,0
+P0297,2,3,3,Assign,0,used = set(),0,0,0,0,0,0
+P0297,3,4,4,For,0,"for parcel in sorted(parcels, key=lambda p: -p[""priority""]):",0,1,0,0,1,0
+P0297,4,5,5,For,0,for drone in drones:,0,0,0,0,0,0
+P0297,5,6,6,If,0,"if drone[""id""] in used:",0,0,0,0,0,0
+P0297,6,8,8,Assign,0,"energy_wh = (drone[""base_wh_per_km""] + 0.8 * parcel[""mass_kg""]) * parcel[""distance_km""] * 2.0 * (1.0 + 0.04 * wind_ms)",1,0,0,1,0,0
+P0297,7,9,9,If,0,"if parcel[""mass_kg""] <= drone[""max_payload_kg""] and energy_wh <= drone[""battery_wh""] * 0.8 and not (wind_ms > 12.0 and parcel[""fragile""]):",0,0,1,0,0,1
+P0297,8,10,10,Assign,0,"assignments[parcel[""id""]] = drone[""id""]",0,0,0,0,0,0
+P0297,9,11,11,Expr,0,"used.add(drone[""id""])",0,0,0,0,0,0
+P0297,10,13,13,Return,0,return assignments,0,0,0,0,0,0
+P0297,11,15,15,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0297,12,16,16,Assign,1,"drones = [{""id"": ""D1"", ""base_wh_per_km"": 10.0, ""max_payload_kg"": 2.0, ""battery_wh"": 100.0}, {""id"": ""D2"", ""base_wh_per_km"": 15.0, ""max_payload_kg"": 5.0, ""battery_wh"": 400.0}]",1,0,0,1,0,0
+P0297,13,17,17,Assign,1,"parcels = [{""id"": ""P1"", ""mass_kg"": 3.0, ""distance_km"": 5.0, ""priority"": 2, ""fragile"": False}, {""id"": ""P2"", ""mass_kg"": 1.0, ""distance_km"": 2.0, ""priority"": 1, ""fragile"": False}]",1,0,0,1,0,0
+P0300,1,2,2,Assign,0,flagged = [],0,0,0,0,0,0
+P0300,2,3,3,For,0,for seller in sellers:,0,1,0,0,1,0
+P0300,3,4,4,Assign,0,"reviews = sorted(seller[""reviews""], key=lambda r: r[""hour""])",0,0,0,0,0,0
+P0300,4,5,5,Assign,0,burst_count = 0,0,0,0,0,0,0
+P0300,5,6,6,For,0,"for i, review in enumerate(reviews):",0,1,0,0,1,0
+P0300,6,7,7,For,0,for later in reviews[i + 1:]:,0,0,0,0,0,0
+P0300,7,8,8,If,0,"if later[""hour""] - review[""hour""] <= burst_window_hours and later[""rating""] == 5 and review[""rating""] == 5:",0,0,1,0,0,1
+P0300,8,9,9,AugAssign,0,burst_count += 1,0,0,0,0,0,0
+P0300,9,10,10,Assign,0,"unverified_share = sum(1 for r in reviews if not r[""verified_purchase""]) / max(1, len(reviews))",1,0,0,1,0,0
+P0300,10,11,11,Assign,0,"suspicion_score = 0.5 * min(1.0, burst_count / 10.0) + 0.3 * unverified_share + 0.2 * (1.0 if seller[""account_age_days""] < 30 else 0.0)",1,0,0,1,0,0
+P0300,11,12,12,If,0,if suspicion_score >= 0.5 or (burst_count >= 5 and unverified_share > 0.5):,0,0,1,0,0,1
+P0300,12,13,13,Expr,0,"flagged.append(seller[""id""])",0,0,0,0,0,0
+P0300,13,14,14,Return,0,return flagged,0,0,0,0,0,0
+P0300,14,16,16,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0300,15,17,17,Assign,1,"burst = [{""hour"": 0.1 * k, ""rating"": 5, ""verified_purchase"": False} for k in range(6)]",1,0,0,1,0,0
+P0300,16,18,18,Assign,1,"spaced = [{""hour"": 10.0 * k, ""rating"": 4, ""verified_purchase"": True} for k in range(3)]",1,0,0,1,0,0
+P0309,1,4,4,Assign,0,sat_kpa = 0.61078 * math.exp((17.27 * temp_c) / (temp_c + 237.3)),1,0,0,1,0,0
+P0309,2,5,5,Assign,0,actual_kpa = sat_kpa * (rel_humidity_pct / 100.0),0,0,0,0,0,0
+P0309,3,6,6,Assign,0,gamma = math.log(actual_kpa / 0.61078),0,0,0,0,0,0
+P0309,4,7,7,Assign,0,dew_point_c = (237.3 * gamma) / (17.27 - gamma),0,0,0,0,0,0
+P0309,5,8,8,Return,0,"return round(sat_kpa, 4), round(dew_point_c, 2)",0,0,0,0,0,0
+P0309,6,10,10,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0309,7,11,11,Assign,1,"sat, dew = saturation_and_dew_point(25.0, 50.0)",0,0,0,0,0,0
+P0311,1,4,4,Assign,0,k1 = 1.5,0,0,0,0,0,0
+P0311,2,5,5,Assign,0,b = 0.75,0,0,0,0,0,0
+P0311,3,6,6,Assign,0,idf = math.log(1.0 + (total_docs - docs_with_term + 0.5) / (docs_with_term + 0.5)),1,0,0,1,0,0
+P0311,4,7,7,Assign,0,tf_norm = (term_freq * (k1 + 1.0)) / (term_freq + k1 * (1.0 - b + b * (doc_len / avg_doc_len))),1,0,0,1,0,0
+P0311,5,8,8,Return,0,"return round(idf * tf_norm, 4)",0,0,0,0,0,0
+P0311,6,10,10,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0313,1,4,4,Assign,0,tau = thermal_res_cw * thermal_cap_jc,0,0,0,0,0,0
+P0313,2,5,5,Assign,0,steady_state_c = ambient_c + power_w * thermal_res_cw,0,0,0,0,0,0
+P0313,3,6,6,Assign,0,instantaneous_c = steady_state_c + (initial_c - steady_state_c) * math.exp(-elapsed_s / tau),1,0,0,1,0,0
+P0313,4,7,7,Return,0,"return round(instantaneous_c, 3)",0,0,0,0,0,0
+P0313,5,9,9,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0321,1,2,2,Assign,0,"core, sep, prerelease = version.partition(""-"")",0,0,0,0,0,0
+P0321,2,3,3,Assign,0,"parts = core.split(""."")",0,0,0,0,0,0
+P0321,3,4,4,If,0,"if len(parts) != 3 or (sep == ""-"" and not prerelease):",0,0,1,0,0,1
+P0321,4,5,5,Return,0,return False,0,0,0,0,0,0
+P0321,5,6,6,For,0,for num in parts:,0,0,0,0,0,0
+P0321,6,7,7,If,0,"if not num.isdigit() or (len(num) > 1 and num.startswith(""0"")):",0,0,1,0,0,1
+P0321,7,8,8,Return,0,return False,0,0,0,0,0,0
+P0321,8,9,9,If,0,if prerelease:,0,0,0,0,0,0
+P0321,9,10,10,For,0,"for ident in prerelease.split("".""):",0,0,0,0,0,0
+P0321,10,11,11,If,0,"if not ident or not ident.replace(""-"", """").isalnum():",0,0,0,0,0,0
+P0321,11,12,12,Return,0,return False,0,0,0,0,0,0
+P0321,12,13,13,If,0,"if ident.isdigit() and len(ident) > 1 and ident.startswith(""0""):",0,0,1,0,0,1
+P0321,13,14,14,Return,0,return False,0,0,0,0,0,0
+P0321,14,15,15,Return,0,return True,0,0,0,0,0,0
+P0321,15,17,17,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0330,1,4,4,Assign,0,utilities = [],0,0,0,0,0,0
+P0330,2,5,5,For,0,"for u, user_snrs in enumerate(snr_db_grid):",0,1,0,0,1,0
+P0330,3,6,6,Assign,0,row = [],0,0,0,0,0,0
+P0330,4,7,7,For,0,for snr_db in user_snrs:,0,0,0,0,0,0
+P0330,5,8,8,Assign,0,instantaneous_rate = bw_mhz * math.log2(1.0 + 10.0 ** (snr_db / 10.0)),1,0,0,1,0,0
+P0330,6,9,9,Expr,0,"row.append(round(instantaneous_rate / max(0.1, avg_rates_mbps[u]), 4))",1,0,0,1,0,0
+P0330,7,10,10,Expr,0,utilities.append(row),0,0,0,0,0,0
+P0330,8,11,11,Return,0,return utilities,0,0,0,0,0,0
+P0330,9,13,13,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0330,10,14,14,Assign,1,"grid = proportional_fair_utilities([[0.0, 10.0], [10.0, 0.0]], [1.0, 2.0], 1.0)",1,0,0,1,0,0
+P0332,1,4,4,Assign,0,n = len(signal),0,0,0,0,0,0
+P0332,2,5,5,Assign,0,smoothed = [],0,0,0,0,0,0
+P0332,3,6,6,For,0,for i in range(n):,0,1,0,0,1,0
+P0332,4,7,7,Assign,0,num = 0.0,0,0,0,0,0,0
+P0332,5,8,8,Assign,0,den = 0.0,0,0,0,0,0,0
+P0332,6,9,9,For,0,for j in range(n):,0,0,0,0,0,0
+P0332,7,10,10,Assign,0,weight = math.exp(-((i - j) ** 2) / (2.0 * sigma_spatial ** 2) - ((signal[i] - signal[j]) ** 2) / (2.0 * sigma_range ** 2)),1,0,0,1,0,0
+P0332,8,11,11,AugAssign,0,num += weight * signal[j],0,0,0,0,0,0
+P0332,9,12,12,AugAssign,0,den += weight,0,0,0,0,0,0
+P0332,10,13,13,Expr,0,"smoothed.append(round(num / den, 4))",0,0,0,0,0,0
+P0332,11,14,14,Return,0,return smoothed,0,0,0,0,0,0
+P0332,12,16,16,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0332,13,17,17,Assign,1,"out = bilateral_filter_1d([1.0, 1.0, 10.0, 10.0], 1.0, 0.5)",0,0,0,0,0,0
+P0341,1,2,2,Assign,0,conflicts = [],0,0,0,0,0,0
+P0341,2,3,3,For,0,for i in range(len(towers)):,0,1,0,0,1,0
+P0341,3,4,4,For,0,"for j in range(i + 1, len(towers)):",0,0,0,0,0,0
+P0341,4,5,5,Assign,0,"id_a, xa, ya, ra, ch_a, on_a = towers[i]",0,0,0,0,0,0
+P0341,5,6,6,Assign,0,"id_b, xb, yb, rb, ch_b, on_b = towers[j]",0,0,0,0,0,0
+P0341,6,7,7,Assign,0,dist_sq = (xa - xb) ** 2 + (ya - yb) ** 2,0,0,0,0,0,0
+P0341,7,8,8,Assign,0,limit_sq = (ra + rb) ** 2,0,0,0,0,0,0
+P0341,8,9,9,If,0,if on_a and on_b and abs(ch_a - ch_b) <= 1 and dist_sq < limit_sq:,0,0,1,0,0,1
+P0341,9,10,10,Expr,0,"conflicts.append((id_a, id_b))",0,0,0,0,0,0
+P0341,10,11,11,Return,0,return conflicts,0,0,0,0,0,0
+P0341,11,13,13,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0341,12,14,14,Assign,1,"t1 = (""T1"", 0.0, 0.0, 5.0, 6, True)",0,0,0,0,0,0
+P0341,13,15,15,Assign,1,"t2 = (""T2"", 3.0, 4.0, 2.0, 6, True)",0,0,0,0,0,0
+P0343,1,2,2,Assign,0,commands = [],0,0,0,0,0,0
+P0343,2,3,3,For,0,for lane in lanes:,0,1,0,0,1,0
+P0343,3,4,4,Assign,0,"lane_cmds = [""CRUISE""]",0,0,0,0,0,0
+P0343,4,5,5,For,0,"for idx in range(1, len(lane)):",0,0,0,0,0,0
+P0343,5,6,6,Assign,0,"lead_pos, lead_v, _ = lane[idx - 1]",0,0,0,0,0,0
+P0343,6,7,7,Assign,0,"fol_pos, fol_v, manual = lane[idx]",0,0,0,0,0,0
+P0343,7,8,8,Assign,0,gap = lead_pos - fol_pos,0,0,0,0,0,0
+P0343,8,9,9,If,0,if gap < safe_gap and fol_v > lead_v and not manual:,0,0,1,0,0,1
+P0343,9,10,10,Expr,0,"lane_cmds.append(""BRAKE"")",0,0,0,0,0,0
+P0343,10,11,11,If,0,elif gap > safe_gap * 2.0 and fol_v <= lead_v and not manual:,0,0,1,0,0,1
+P0343,11,12,12,Expr,0,"lane_cmds.append(""ACCEL"")",0,0,0,0,0,0
+P0343,12,14,14,Expr,0,"lane_cmds.append(""CRUISE"")",0,0,0,0,0,0
+P0343,13,15,15,Expr,0,commands.append(lane_cmds),0,0,0,0,0,0
+P0343,14,16,16,Return,0,return commands,0,0,0,0,0,0
+P0343,15,18,18,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0343,16,19,19,Assign,1,"cars = [(100.0, 20.0, False), (90.0, 25.0, False)]",0,0,0,0,0,0
+P0347,1,2,2,Assign,0,busy = set(),0,0,0,0,0,0
+P0347,2,3,3,Assign,0,berth_plan = {},0,0,0,0,0,0
+P0347,3,4,4,For,0,"for vessel in sorted(vessels, key=lambda v: -v[""tonnage""]):",0,1,0,0,1,0
+P0347,4,5,5,Assign,0,"required_pull_t = 0.0012 * vessel[""tonnage""] + 0.8 * vessel[""wind_area_m2""] * (vessel[""wind_kts""] / 20.0) ** 2",1,0,0,1,0,0
+P0347,5,6,6,For,0,for tug in tugs:,0,0,0,0,0,0
+P0347,6,7,7,If,0,"if tug[""id""] in busy:",0,0,0,0,0,0
+P0347,7,9,9,If,0,"if tug[""bollard_pull_t""] >= required_pull_t and vessel[""draft_m""] <= tug[""channel_depth_m""] + tide_m and (not vessel[""hazmat""] or tug[""firefighting""]):",0,0,1,0,0,1
+P0347,8,10,10,Assign,0,"berth_plan[vessel[""imo""]] = tug[""id""]",0,0,0,0,0,0
+P0347,9,11,11,Expr,0,"busy.add(tug[""id""])",0,0,0,0,0,0
+P0347,10,13,13,Return,0,return berth_plan,0,0,0,0,0,0
+P0347,11,15,15,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0347,12,16,16,Assign,1,"v = [{""imo"": ""V1"", ""tonnage"": 30000, ""wind_area_m2"": 500.0, ""wind_kts"": 10.0, ""draft_m"": 11.0, ""hazmat"": True}]",1,0,0,1,0,0
+P0347,13,17,17,Assign,1,"t = [{""id"": ""T1"", ""bollard_pull_t"": 150.0, ""channel_depth_m"": 10.0, ""firefighting"": True}]",1,0,0,1,0,0
+P0348,1,2,2,Assign,0,alerts = [],0,0,0,0,0,0
+P0348,2,3,3,For,0,for depot in depots:,0,1,0,0,1,0
+P0348,3,4,4,For,0,"for tank in depot[""tanks""]:",0,0,0,0,0,0
+P0348,4,5,5,Assign,0,"thermal_factor = 1.0 - 0.00085 * (tank[""temp_c""] - 15.0)",0,0,0,0,0,0
+P0348,5,6,6,Assign,0,"expected_liters = (tank[""opening_l""] + sum(tank[""receipts_l""]) - sum(tank[""dispensed_l""])) * thermal_factor",1,0,0,1,0,0
+P0348,6,7,7,Assign,0,"variance_pct = abs(tank[""strapped_l""] - expected_liters) / max(1.0, expected_liters) * 100.0",1,0,0,1,0,0
+P0348,7,8,8,If,0,"if variance_pct > max_loss_pct and tank[""water_bottom_mm""] < 25.0 and not tank.get(""meter_calibrating"", False):",0,0,1,0,0,1
+P0348,8,9,9,Expr,0,"alerts.append((depot[""code""], tank[""id""], round(variance_pct, 2)))",1,0,0,1,0,0
+P0348,9,10,10,Return,0,return alerts,0,0,0,0,0,0
+P0348,10,12,12,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0348,11,13,13,Assign,1,"tank = {""id"": ""TK1"", ""temp_c"": 15.0, ""opening_l"": 10000.0, ""receipts_l"": [2000.0], ""dispensed_l"": [1000.0], ""strapped_l"": 10500.0, ""water_bottom_mm"": 5.0}",1,0,0,1,0,0
+P0354,1,2,2,If,0,if not values:,0,0,0,0,0,0
+P0354,2,4,4,AnnAssign,0,"counts: dict[int, int] = {}",0,0,0,0,0,0
+P0354,3,5,5,For,0,for value in values:,0,0,0,0,0,0
+P0354,4,6,6,Assign,0,"counts[value] = counts.get(value, 0) + 1",0,0,0,0,0,0
+P0354,5,7,7,Assign,0,best_value = min(counts),0,0,0,0,0,0
+P0354,6,8,8,For,0,"for value, count in counts.items():",0,0,0,0,0,0
+P0354,7,9,9,If,0,if count > counts[best_value]:,0,0,0,0,0,0
+P0354,8,10,10,Assign,0,best_value = value,0,0,0,0,0,0
+P0354,9,11,11,If,0,elif count == counts[best_value] and value < best_value:,0,0,0,0,0,0
+P0354,10,12,12,Assign,0,best_value = value,0,0,0,0,0,0
+P0354,11,13,13,Return,0,return best_value,0,0,0,0,0,0
+P0354,12,15,15,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0359,1,4,4,Assign,0,mosteller_m2 = math.sqrt(height_cm * weight_kg / 3600.0),0,0,0,0,0,0
+P0359,2,5,5,Assign,0,dubois_m2 = 0.007184 * (weight_kg ** 0.425) * (height_cm ** 0.725),1,0,0,1,0,0
+P0359,3,6,6,Return,0,"return round(mosteller_m2, 3), round(dubois_m2, 3)",0,0,0,0,0,0
+P0359,4,8,8,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0359,5,9,9,Assign,1,"mosteller, dubois = body_surface_areas(180.0, 80.0)",0,0,0,0,0,0
+P0365,1,2,2,Assign,0,arr = list(values),0,0,0,0,0,0
+P0365,2,3,3,Assign,0,gap = len(arr),0,0,0,0,0,0
+P0365,3,4,4,Assign,0,swapped = True,0,0,0,0,0,0
+P0365,4,5,5,While,0,while gap > 1 or swapped:,0,1,0,0,1,0
+P0365,5,6,6,Assign,0,"gap = max(1, int(gap / 1.3))",0,0,0,0,0,0
+P0365,6,7,7,Assign,0,swapped = False,0,0,0,0,0,0
+P0365,7,8,8,For,0,for i in range(len(arr) - gap):,0,0,0,0,0,0
+P0365,8,9,9,If,0,if arr[i] > arr[i + gap]:,0,0,0,0,0,0
+P0365,9,10,10,Assign,0,"arr[i], arr[i + gap] = arr[i + gap], arr[i]",0,0,0,0,0,0
+P0365,10,11,11,Assign,0,swapped = True,0,0,0,0,0,0
+P0365,11,12,12,Return,0,return arr,0,0,0,0,0,0
+P0365,12,14,14,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0366,1,2,2,Assign,0,result = [],0,0,0,0,0,0
+P0366,2,3,3,If,0,if not matrix:,0,0,0,0,0,0
+P0366,3,4,4,Return,0,return result,0,0,0,0,0,0
+P0366,4,5,5,Assign,0,"top, bottom = 0, len(matrix) - 1",0,0,0,0,0,0
+P0366,5,6,6,Assign,0,"left, right = 0, len(matrix[0]) - 1",0,0,0,0,0,0
+P0366,6,7,7,While,0,while top <= bottom and left <= right:,0,1,0,0,1,0
+P0366,7,8,8,For,0,"for c in range(left, right + 1):",0,0,0,0,0,0
+P0366,8,9,9,Expr,0,result.append(matrix[top][c]),0,0,0,0,0,0
+P0366,9,10,10,AugAssign,0,top += 1,0,0,0,0,0,0
+P0366,10,11,11,For,0,"for r in range(top, bottom + 1):",0,0,0,0,0,0
+P0366,11,12,12,Expr,0,result.append(matrix[r][right]),0,0,0,0,0,0
+P0366,12,13,13,AugAssign,0,right -= 1,0,0,0,0,0,0
+P0366,13,14,14,If,0,if top <= bottom:,0,0,0,0,0,0
+P0366,14,15,15,For,0,"for c in range(right, left - 1, -1):",0,0,0,0,0,0
+P0366,15,16,16,Expr,0,result.append(matrix[bottom][c]),0,0,0,0,0,0
+P0366,16,17,17,AugAssign,0,bottom -= 1,0,0,0,0,0,0
+P0366,17,18,18,If,0,if left <= right:,0,0,0,0,0,0
+P0366,18,19,19,For,0,"for r in range(bottom, top - 1, -1):",0,0,0,0,0,0
+P0366,19,20,20,Expr,0,result.append(matrix[r][left]),0,0,0,0,0,0
+P0366,20,21,21,AugAssign,0,left += 1,0,0,0,0,0,0
+P0366,21,22,22,Return,0,return result,0,0,0,0,0,0
+P0366,22,24,24,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0367,1,2,2,If,0,if not words:,0,0,0,0,0,0
+P0367,2,3,3,Return,0,"return """"",0,0,0,0,0,0
+P0367,3,4,4,Assign,0,prefix = words[0],0,0,0,0,0,0
+P0367,4,5,5,For,0,for word in words[1:]:,0,1,0,0,1,0
+P0367,5,6,6,Assign,0,length = 0,0,0,0,0,0,0
+P0367,6,7,7,For,0,"for a, b in zip(prefix, word):",0,0,0,0,0,0
+P0367,7,8,8,If,0,if a != b:,0,0,0,0,0,0
+P0367,8,10,10,AugAssign,0,length += 1,0,0,0,0,0,0
+P0367,9,11,11,Assign,0,prefix = prefix[:length],0,0,0,0,0,0
+P0367,10,12,12,Return,0,return prefix,0,0,0,0,0,0
+P0367,11,14,14,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0368,1,4,4,Assign,0,best = {source: 0.0},0,0,0,0,0,0
+P0368,2,5,5,Assign,0,"heap = [(0.0, source)]",0,0,0,0,0,0
+P0368,3,6,6,While,0,while heap:,0,1,0,0,1,0
+P0368,4,7,7,Assign,0,"dist, node = heapq.heappop(heap)",0,0,0,0,0,0
+P0368,5,8,8,If,0,"if dist > best.get(node, float(""inf"")):",0,0,0,0,0,0
+P0368,6,10,10,For,0,"for neighbor, weight in graph.get(node, []):",0,0,0,0,0,0
+P0368,7,11,11,Assign,0,candidate = dist + weight,0,0,0,0,0,0
+P0368,8,12,12,If,0,"if candidate < best.get(neighbor, float(""inf"")):",0,0,0,0,0,0
+P0368,9,13,13,Assign,0,best[neighbor] = candidate,0,0,0,0,0,0
+P0368,10,14,14,Expr,0,"heapq.heappush(heap, (candidate, neighbor))",0,0,0,0,0,0
+P0368,11,15,15,Return,0,return best,0,0,0,0,0,0
+P0368,12,17,17,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0368,13,18,18,Assign,1,"g = {""a"": [(""b"", 4.0), (""c"", 1.0)], ""c"": [(""b"", 2.0)]}",0,0,0,0,0,0
+P0374,1,2,2,Assign,0,"limits = {""book"": 3, ""dvd"": 1, ""journal"": 0}",0,0,0,0,0,0
+P0374,2,3,3,Assign,0,"allowed = limits.get(item_type, 0)",0,0,0,0,0,0
+P0374,3,4,4,Assign,0,"blocked = fines_due > 10.0 and loan[""late""] > 0",0,0,0,0,0,0
+P0374,4,5,5,If,0,"if loan[""renewed""] >= allowed or loan[""holds""] > 0 or blocked:",0,0,1,0,0,1
+P0374,5,6,6,Return,0,"return False, ""denied""",0,0,0,0,0,0
+P0374,6,7,7,Assign,0,"new_due = loan[""due""] + (21 if item_type == ""book"" else 7)",0,0,0,0,0,0
+P0374,7,8,8,Return,0,"return True, f""day {new_due}""",0,0,0,0,0,0
+P0374,8,10,10,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0374,9,11,11,Assign,1,"loan = {""renewed"": 1, ""holds"": 0, ""late"": 0, ""due"": 10}",0,0,0,0,0,0
+P0379,1,2,2,Assign,0,temps = list(initial),0,0,0,0,0,0
+P0379,2,3,3,Assign,0,ratio = alpha * dt / (dx * dx),0,0,0,0,0,0
+P0379,3,4,4,For,0,for _ in range(steps):,0,1,0,0,1,0
+P0379,4,5,5,Assign,0,updated = list(temps),0,0,0,0,0,0
+P0379,5,6,6,For,0,"for i in range(1, len(temps) - 1):",0,0,0,0,0,0
+P0379,6,7,7,Assign,0,updated[i] = temps[i] + ratio * (temps[i - 1] - 2.0 * temps[i] + temps[i + 1]),1,0,0,1,0,0
+P0379,7,8,8,Assign,0,temps = updated,0,0,0,0,0,0
+P0379,8,9,9,Return,0,"return [round(value, 4) for value in temps]",0,0,0,0,0,0
+P0379,9,11,11,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0393,1,2,2,Assign,0,"rows, cols = len(grid), len(grid[0])",0,0,0,0,0,0
+P0393,2,3,3,Assign,0,nxt = [[0] * cols for _ in range(rows)],0,0,0,0,0,0
+P0393,3,4,4,For,0,for r in range(rows):,0,1,0,0,1,0
+P0393,4,5,5,For,0,for c in range(cols):,0,1,0,0,1,0
+P0393,5,6,6,Assign,0,state = grid[r][c],0,0,0,0,0,0
+P0393,6,7,7,If,0,if state == 1:,0,0,0,0,0,0
+P0393,7,8,8,Assign,0,nxt[r][c] = 2,0,0,0,0,0,0
+P0393,8,10,10,If,0,if state == 2:,0,0,0,0,0,0
+P0393,9,12,12,Assign,0,firing = 0,0,0,0,0,0,0
+P0393,10,13,13,For,0,"for dr in (-1, 0, 1):",0,1,0,0,1,0
+P0393,11,14,14,For,0,"for dc in (-1, 0, 1):",0,0,0,0,0,0
+P0393,12,15,15,Assign,0,"rr, cc = r + dr, c + dc",0,0,0,0,0,0
+P0393,13,16,16,If,0,if (dr or dc) and 0 <= rr < rows and 0 <= cc < cols:,0,0,1,0,0,1
+P0393,14,17,17,AugAssign,0,firing += grid[rr][cc] == 1,0,0,0,0,0,0
+P0393,15,18,18,If,0,if firing == 2:,0,0,0,0,0,0
+P0393,16,19,19,Assign,0,nxt[r][c] = 1,0,0,0,0,0,0
+P0393,17,20,20,Return,0,return nxt,0,0,0,0,0,0
+P0393,18,22,22,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0406,1,2,2,Assign,0,"order = sorted(jobs, key=lambda job: job[2])",0,0,0,0,0,0
+P0406,2,3,3,Assign,0,clock = 0,0,0,0,0,0,0
+P0406,3,4,4,Assign,0,worst = 0,0,0,0,0,0,0
+P0406,4,5,5,For,0,"for name, duration, due in order:",0,0,0,0,0,0
+P0406,5,6,6,AugAssign,0,clock += duration,0,0,0,0,0,0
+P0406,6,7,7,Assign,0,"worst = max(worst, clock - due)",0,0,0,0,0,0
+P0406,7,8,8,Return,0,"return [job[0] for job in order], worst",0,0,0,0,0,0
+P0406,8,10,10,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0406,9,11,11,Assign,1,"jobs = [(""A"", 3, 5), (""B"", 2, 3), (""C"", 4, 12)]",0,0,0,0,0,0
+P0411,1,4,4,Assign,0,tokens = [t.strip(string.punctuation).lower() for t in text.split() if t.strip(string.punctuation)],1,0,0,1,0,0
+P0411,2,5,5,If,0,if not tokens:,0,0,0,0,0,0
+P0411,3,6,6,Return,0,"return 0.0, 0.0",0,0,0,0,0,0
+P0411,4,7,7,Assign,0,frequencies = {token: tokens.count(token) for token in set(tokens)},1,0,0,1,0,0
+P0411,5,8,8,Assign,0,hapax_ratio = sum(1 for count in frequencies.values() if count == 1) / len(frequencies),1,0,0,1,0,0
+P0411,6,9,9,Return,0,"return round(len(frequencies) / len(tokens), 4), round(hapax_ratio, 4)",1,0,0,1,0,0
+P0411,7,11,11,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0418,1,2,2,Assign,0,hits = 0,0,0,0,0,0,0
+P0418,2,3,3,Assign,0,"columns = ["""".join(col) for col in zip(*rows)]",0,0,0,0,0,0
+P0418,3,4,4,For,0,for line in rows + columns:,0,1,0,0,1,0
+P0418,4,5,5,For,0,for start in range(len(line) - len(word) + 1):,0,0,0,0,0,0
+P0418,5,6,6,If,0,if line[start:start + len(word)] == word:,0,0,0,0,0,0
+P0418,6,7,7,AugAssign,0,hits += 1,0,0,0,0,0,0
+P0418,7,8,8,Return,0,return hits,0,0,0,0,0,0
+P0418,8,10,10,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0418,9,11,11,Assign,1,"grid = [""CATX"", ""AXXX"", ""TXXX""]",0,0,0,0,0,0
+P0426,1,2,2,Assign,0,change_due = credit - price,0,0,0,0,0,0
+P0426,2,3,3,If,0,if credit >= price and stock > 0 and not selection_locked:,0,0,1,0,0,1
+P0426,3,4,4,If,0,if change_due <= change_coins:,0,0,0,0,0,0
+P0426,4,5,5,Return,0,"return ""dispense"", change_due",0,0,0,0,0,0
+P0426,5,6,6,Return,0,"return ""exact change only"", credit",0,0,0,0,0,0
+P0426,6,7,7,Return,0,"return ""insufficient"", credit",0,0,0,0,0,0
+P0426,7,9,9,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0428,1,4,4,Assign,0,n = len(series),0,0,0,0,0,0
+P0428,2,5,5,Assign,0,mean = sum(series) / n,0,0,0,0,0,0
+P0428,3,6,6,Assign,0,variance = sum((x - mean) ** 2 for x in series),0,0,0,0,0,0
+P0428,4,7,7,Assign,0,profile = [],0,0,0,0,0,0
+P0428,5,8,8,For,0,"for lag in range(1, max_lag + 1):",0,1,0,0,1,0
+P0428,6,9,9,Assign,0,covariance = 0.0,0,0,0,0,0,0
+P0428,7,10,10,For,0,for t in range(n - lag):,0,0,0,0,0,0
+P0428,8,11,11,AugAssign,0,covariance += (series[t] - mean) * (series[t + lag] - mean),0,0,0,0,0,0
+P0428,9,12,12,Assign,0,r = covariance / variance,0,0,0,0,0,0
+P0428,10,13,13,Assign,0,"earlier = [rho for rho, _ in profile]",0,0,0,0,0,0
+P0428,11,14,14,Assign,0,bartlett_band = 1.96 * math.sqrt((1.0 + 2.0 * sum(rho * rho for rho in earlier)) / n),1,0,0,1,0,0
+P0428,12,15,15,Expr,0,"profile.append((round(r, 4), round(bartlett_band, 4)))",0,0,0,0,0,0
+P0428,13,16,16,Return,0,return profile,0,0,0,0,0,0
+P0428,14,18,18,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0428,15,19,19,Assign,1,"profile = autocorrelation_profile([1.0, 2.0, 3.0, 4.0, 5.0, 6.0], 2)",1,0,0,1,0,0
+P0452,1,4,4,Assign,0,present = set(text.lower()),0,0,0,0,0,0
+P0452,2,5,5,Assign,0,alphabet = set(string.ascii_lowercase),0,0,0,0,0,0
+P0452,3,6,6,Return,0,"return """".join(sorted(alphabet - present))",0,0,0,0,0,0
+P0452,4,8,8,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0452,5,9,9,Assign,1,"sentence = ""The quick brown fox jumps over the lazy dog""",0,0,0,0,0,0
+P0458,1,2,2,Assign,0,"parts = code.upper().split(""-"")",0,0,0,0,0,0
+P0458,2,3,3,If,0,if len(parts) != 3:,0,0,0,0,0,0
+P0458,3,5,5,Assign,0,"aisle, rack, level = parts",0,0,0,0,0,0
+P0458,4,6,6,Return,0,"return aisle, int(rack), int(level)",0,0,0,0,0,0
+P0458,5,8,8,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0464,1,4,4,Assign,0,theta = math.radians(angle_deg),0,0,0,0,0,0
+P0464,2,5,5,Assign,0,rotated_x = scale * (x * math.cos(theta) - y * math.sin(theta)),1,0,0,1,0,0
+P0464,3,6,6,Assign,0,rotated_y = scale * (x * math.sin(theta) + y * math.cos(theta)),1,0,0,1,0,0
+P0464,4,7,7,Return,0,"return round(rotated_x, 6), round(rotated_y, 6)",0,0,0,0,0,0
+P0464,5,9,9,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0475,1,2,2,Assign,0,"path_clear = all(piece == ""."" for _, piece in path)",0,0,0,0,0,0
+P0475,2,3,3,If,0,if king_moved or rook_moved or in_check or not path_clear:,0,0,1,0,0,1
+P0475,3,4,4,Return,0,return False,0,0,0,0,0,0
+P0475,4,5,5,Assign,0,"king_squares = [name for name, _ in path[:2]]",0,0,0,0,0,0
+P0475,5,6,6,Return,0,return not any(name in attacked for name in king_squares),0,0,0,0,0,0
+P0475,6,8,8,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0475,7,9,9,Assign,1,"path = [(""f1"", "".""), (""g1"", ""."")]",0,0,0,0,0,0
+P0477,1,2,2,Assign,0,size = len(matrix),0,0,0,0,0,0
+P0477,2,3,3,Assign,0,result = [[float(i == j) for j in range(size)] for i in range(size)],1,0,0,1,0,0
+P0477,3,4,4,Assign,0,term = [row[:] for row in result],0,0,0,0,0,0
+P0477,4,5,5,For,0,"for k in range(1, terms):",0,1,0,0,1,0
+P0477,5,6,6,Assign,0,term = [[sum(term[i][m] * matrix[m][j] for m in range(size)) / k for j in range(size)] for i in range(size)],1,0,0,1,0,0
+P0477,6,7,7,For,0,for i in range(size):,0,1,0,0,1,0
+P0477,7,8,8,For,0,for j in range(size):,0,0,0,0,0,0
+P0477,8,9,9,AugAssign,0,result[i][j] += term[i][j],0,0,0,0,0,0
+P0477,9,10,10,Return,0,"return [[round(v, 4) for v in row] for row in result]",0,0,0,0,0,0
+P0477,10,12,12,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0478,1,4,4,Assign,0,n = len(samples),0,0,0,0,0,0
+P0478,2,5,5,Assign,0,densities = [],0,0,0,0,0,0
+P0478,3,6,6,For,0,for x in grid:,0,1,0,0,1,0
+P0478,4,7,7,Assign,0,total = 0.0,0,0,0,0,0,0
+P0478,5,8,8,For,0,for s in samples:,0,0,0,0,0,0
+P0478,6,9,9,AugAssign,0,total += math.exp(-0.5 * ((x - s) / bandwidth) ** 2) / (bandwidth * math.sqrt(2.0 * math.pi)),1,0,0,1,0,0
+P0478,7,10,10,Expr,0,"densities.append(round(total / n, 4))",0,0,0,0,0,0
+P0478,8,11,11,Return,0,return densities,0,0,0,0,0,0
+P0478,9,13,13,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0484,1,4,4,Assign,0,mean = statistics.mean(values),0,0,0,0,0,0
+P0484,2,5,5,Assign,0,sd = statistics.stdev(values),0,0,0,0,0,0
+P0484,3,6,6,Assign,0,"suspect = max(values, key=lambda v: abs(v - mean))",0,0,0,0,0,0
+P0484,4,7,7,Assign,0,standardized_distance_of_suspect = abs(suspect - mean) / sd if sd > 0 else 0.0,1,0,0,1,0,0
+P0484,5,8,8,If,0,if len(values) >= 3 and sd > 0 and standardized_distance_of_suspect > critical_g:,0,0,1,0,0,1
+P0484,6,9,9,Return,0,return suspect,0,0,0,0,0,0
+P0484,7,10,10,Return,0,return None,0,0,0,0,0,0
+P0484,8,12,12,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0486,1,2,2,Assign,0,"depreciated_value = purchase_price * max(0.0, 1.0 - age_months / (warranty_months * 2.0))",1,0,0,1,0,0
+P0486,2,3,3,If,0,if age_months <= warranty_months and not physical_damage and repair_quote > 0.6 * depreciated_value:,0,0,1,0,0,1
+P0486,3,4,4,Return,0,"return ""replace"", round(depreciated_value, 2)",0,0,0,0,0,0
+P0486,4,5,5,If,0,if age_months <= warranty_months and not physical_damage:,0,0,0,0,0,0
+P0486,5,6,6,Return,0,"return ""repair"", round(repair_quote, 2)",0,0,0,0,0,0
+P0486,6,7,7,Return,0,"return ""reject"", 0.0",0,0,0,0,0,0
+P0486,7,9,9,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0489,1,2,2,Assign,0,"rows, cols = len(board), len(board[0])",0,0,0,0,0,0
+P0489,2,3,3,Assign,0,output = [],0,0,0,0,0,0
+P0489,3,4,4,For,0,for r in range(rows):,0,1,0,0,1,0
+P0489,4,5,5,Assign,0,"line = """"",0,0,0,0,0,0
+P0489,5,6,6,For,0,for c in range(cols):,0,1,0,0,1,0
+P0489,6,7,7,If,0,"if board[r][c] == ""*"":",0,0,0,0,0,0
+P0489,7,8,8,AugAssign,0,"line += ""*""",0,0,0,0,0,0
+P0489,8,10,10,Assign,0,count = 0,0,0,0,0,0,0
+P0489,9,11,11,For,0,"for dr in (-1, 0, 1):",0,1,0,0,1,0
+P0489,10,12,12,For,0,"for dc in (-1, 0, 1):",0,0,0,0,0,0
+P0489,11,13,13,Assign,0,"nr, nc = r + dr, c + dc",0,0,0,0,0,0
+P0489,12,14,14,If,0,"if 0 <= nr < rows and 0 <= nc < cols and board[nr][nc] == ""*"":",0,0,1,0,0,1
+P0489,13,15,15,AugAssign,0,count += 1,0,0,0,0,0,0
+P0489,14,16,16,AugAssign,0,"line += str(count) if count else "".""",0,0,0,0,0,0
+P0489,15,17,17,Expr,0,output.append(line),0,0,0,0,0,0
+P0489,16,18,18,Return,0,return output,0,0,0,0,0,0
+P0489,17,20,20,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0496,1,4,4,Assign,0,anomalies = {},0,0,0,0,0,0
+P0496,2,5,5,For,0,"for meter, readings in meters.items():",0,1,0,0,1,0
+P0496,3,6,6,Assign,0,flagged = [],0,0,0,0,0,0
+P0496,4,7,7,For,0,"for i in range(window, len(readings)):",0,0,0,0,0,0
+P0496,5,8,8,Assign,0,history = readings[i - window:i],0,0,0,0,0,0
+P0496,6,9,9,Assign,0,spread = statistics.pstdev(history),0,0,0,0,0,0
+P0496,7,10,10,Assign,0,z_score = (readings[i] - statistics.mean(history)) / spread if spread > 0 else 0.0,1,0,0,1,0,0
+P0496,8,11,11,If,0,if abs(z_score) > z_limit and readings[i] >= 0 and spread > 0:,0,0,1,0,0,1
+P0496,9,12,12,Expr,0,flagged.append(i),0,0,0,0,0,0
+P0496,10,13,13,Assign,0,anomalies[meter] = flagged,0,0,0,0,0,0
+P0496,11,14,14,Return,0,return anomalies,0,0,0,0,0,0
+P0496,12,16,16,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0496,13,17,17,Assign,1,"meters = {""m1"": [1.0, 2.0, 1.0, 2.0, 9.0], ""m2"": [1.0, 1.0, 1.0]}",1,0,0,1,0,0
+P0502,1,2,2,Assign,0,"limit = 8 if member[""tier""] == ""premium"" else 4",0,0,0,0,0,0
+P0502,2,3,3,Assign,0,"overdue = member.get(""overdue_days"", 0)",0,0,0,0,0,0
+P0502,3,4,4,If,0,"if item.get(""reference_only""):",0,0,0,0,0,0
+P0502,4,5,5,Return,0,return False,0,0,0,0,0,0
+P0502,5,6,6,If,0,"if member[""active""] and overdue == 0 and loans < limit:",0,0,1,0,0,1
+P0502,6,7,7,Return,0,return True,0,0,0,0,0,0
+P0502,7,8,8,If,0,"elif member[""active""] and overdue <= 3 and loans < 2 and item[""kind""] != ""dvd"":",0,0,1,0,0,1
+P0502,8,9,9,Return,0,return True,0,0,0,0,0,0
+P0502,9,10,10,Return,0,return False,0,0,0,0,0,0
+P0502,10,12,12,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0502,11,13,13,Assign,1,"m = {""tier"": ""basic"", ""active"": True}",0,0,0,0,0,0
+P0502,12,16,16,Assign,1,"late = {""tier"": ""basic"", ""active"": True, ""overdue_days"": 2}",0,0,0,0,0,0
+P0507,1,2,2,Assign,0,merged = dict(defaults),0,0,0,0,0,0
+P0507,2,3,3,For,0,"for key, value in overrides.items():",0,0,0,0,0,0
+P0507,3,4,4,Assign,0,known = key in defaults,0,0,0,0,0,0
+P0507,4,5,5,Assign,0,same_type = known and type(value) is type(defaults[key]),0,0,0,0,0,0
+P0507,5,6,6,If,0,if known and same_type and key not in locked:,0,0,1,0,0,1
+P0507,6,7,7,Assign,0,merged[key] = value,0,0,0,0,0,0
+P0507,7,8,8,Return,0,return merged,0,0,0,0,0,0
+P0507,8,10,10,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0507,9,11,11,Assign,1,"base = {""theme"": ""light"", ""font"": 12, ""beta"": False}",0,0,0,0,0,0
+P0507,10,12,12,Assign,1,"new = {""theme"": ""dark"", ""font"": ""big"", ""beta"": True}",0,0,0,0,0,0
+P0507,11,13,13,Assign,1,"expected = {""theme"": ""dark"", ""font"": 12, ""beta"": False}",0,0,0,0,0,0
+P0510,1,2,2,Assign,0,above = [r for r in requests if r > floor],0,0,0,0,0,0
+P0510,2,3,3,Assign,0,below = [r for r in requests if r < floor],0,0,0,0,0,0
+P0510,3,4,4,If,0,if not requests:,0,0,0,0,0,0
+P0510,4,5,5,Return,0,"return ""idle""",0,0,0,0,0,0
+P0510,5,6,6,If,0,if moving_up and above or not below and above:,0,0,1,0,0,1
+P0510,6,7,7,Return,0,"return ""up""",0,0,0,0,0,0
+P0510,7,8,8,If,0,if below:,0,0,0,0,0,0
+P0510,8,9,9,Return,0,"return ""down""",0,0,0,0,0,0
+P0510,9,10,10,Return,0,"return ""open""",0,0,0,0,0,0
+P0510,10,12,12,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0515,1,4,4,Assign,0,seen = {start: 0},0,0,0,0,0,0
+P0515,2,5,5,Assign,0,queue = deque([start]),0,0,0,0,0,0
+P0515,3,6,6,While,0,while queue:,0,1,0,0,1,0
+P0515,4,7,7,Assign,0,node = queue.popleft(),0,0,0,0,0,0
+P0515,5,8,8,For,0,"for nxt in graph.get(node, []):",0,0,0,0,0,0
+P0515,6,9,9,Assign,0,hops = seen[node] + 1,0,0,0,0,0,0
+P0515,7,10,10,If,0,if nxt not in seen and nxt not in blocked and hops <= max_hops:,0,0,1,0,0,1
+P0515,8,11,11,Assign,0,seen[nxt] = hops,0,0,0,0,0,0
+P0515,9,12,12,Expr,0,queue.append(nxt),0,0,0,0,0,0
+P0515,10,13,13,Return,0,return set(seen),0,0,0,0,0,0
+P0515,11,15,15,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0515,12,16,16,Assign,1,"g = {""a"": [""b"", ""c""], ""b"": [""d""], ""c"": [""d""], ""d"": [""e""]}",0,0,0,0,0,0
+P0516,1,2,2,Assign,0,found = [],0,0,0,0,0,0
+P0516,2,3,3,Assign,0,"stack = [(root, weight[root])]",0,0,0,0,0,0
+P0516,3,4,4,While,0,while stack:,0,1,0,0,1,0
+P0516,4,5,5,Assign,0,"node, total = stack.pop()",0,0,0,0,0,0
+P0516,5,6,6,Assign,0,"children = tree.get(node, [])",0,0,0,0,0,0
+P0516,6,7,7,If,0,if not children and low <= total <= high and node != root:,0,0,1,0,0,1
+P0516,7,8,8,Expr,0,found.append(node),0,0,0,0,0,0
+P0516,8,9,9,For,0,for child in children:,0,0,0,0,0,0
+P0516,9,10,10,Expr,0,"stack.append((child, total + weight[child]))",0,0,0,0,0,0
+P0516,10,11,11,Return,0,return sorted(found),0,0,0,0,0,0
+P0516,11,13,13,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0516,12,14,14,Assign,1,"t = {""r"": [""a"", ""b""], ""a"": [""c""]}",0,0,0,0,0,0
+P0516,13,15,15,Assign,1,"w = {""r"": 1, ""a"": 2, ""b"": 9, ""c"": 3}",0,0,0,0,0,0
+P0522,1,2,2,Assign,0,seen_in = {},0,0,0,0,0,0
+P0522,2,3,3,For,0,"for index, group in enumerate(groups):",0,1,0,0,1,0
+P0522,3,4,4,For,0,for tag in set(group):,0,0,0,0,0,0
+P0522,4,5,5,Assign,0,clean = tag.strip().lower(),0,0,0,0,0,0
+P0522,5,6,6,If,0,"if clean and clean not in banned and not clean.startswith(""#""):",0,0,1,0,0,1
+P0522,6,7,7,Expr,0,"seen_in.setdefault(clean, set()).add(index)",0,0,0,0,0,0
+P0522,7,8,8,Assign,0,"common = [t for t, ids in seen_in.items() if len(ids) > 1]",0,0,0,0,0,0
+P0522,8,9,9,Return,0,return sorted(common),0,0,0,0,0,0
+P0522,9,11,11,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0522,10,12,12,Assign,1,"groups = [[""Red"", ""blue""], [""red "", ""#x""]]",0,0,0,0,0,0
+P0522,11,13,13,Expr,1,"groups.append([""BLUE"", ""green""])",0,0,0,0,0,0
+P0531,1,4,4,If,0,if not parts or all(p == 0 for p in parts):,0,0,0,0,0,0
+P0531,2,5,5,Return,0,return list(parts),0,0,0,0,0,0
+P0531,3,6,6,Assign,0,common = 0,0,0,0,0,0,0
+P0531,4,7,7,For,0,for value in parts:,0,0,0,0,0,0
+P0531,5,8,8,Assign,0,"common = gcd(common, abs(value))",0,0,0,0,0,0
+P0531,6,9,9,Assign,0,sign = -1 if all(p <= 0 for p in parts) else 1,0,0,0,0,0,0
+P0531,7,10,10,Return,0,return [sign * p // common for p in parts],0,0,0,0,0,0
+P0531,8,12,12,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0532,1,2,2,Assign,0,"words = [w for w in name.strip(""_"").split(""_"") if w]",0,0,0,0,0,0
+P0532,2,3,3,Assign,0,titled = [],0,0,0,0,0,0
+P0532,3,4,4,For,0,for word in words:,0,0,0,0,0,0
+P0532,4,5,5,Assign,0,upper = word.upper(),0,0,0,0,0,0
+P0532,5,6,6,If,0,if upper in keep_upper:,0,0,0,0,0,0
+P0532,6,7,7,Expr,0,titled.append(upper),0,0,0,0,0,0
+P0532,7,9,9,Expr,0,titled.append(word.capitalize()),0,0,0,0,0,0
+P0532,8,10,10,Return,0,"return "" "".join(titled)",0,0,0,0,0,0
+P0532,9,12,12,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0551,1,3,3,Assign,0,self.stock = stock,0,0,0,0,0,0
+P0551,2,4,4,Assign,0,self.prices = prices,0,0,0,0,0,0
+P0551,3,5,5,Assign,0,self.credit = 0,0,0,0,0,0,0
+P0551,4,8,8,AugAssign,0,self.credit += coins,0,0,0,0,0,0
+P0551,5,11,11,Assign,0,price = self.prices.get(item),0,0,0,0,0,0
+P0551,6,12,12,If,0,if price is None:,0,0,0,0,0,0
+P0551,7,13,13,Return,0,"return ""unknown""",0,0,0,0,0,0
+P0551,8,14,14,If,0,"if self.stock.get(item, 0) > 0 and self.credit >= price and price > 0:",0,0,1,0,0,1
+P0551,9,15,15,AugAssign,0,self.stock[item] -= 1,0,0,0,0,0,0
+P0551,10,16,16,AugAssign,0,self.credit -= price,0,0,0,0,0,0
+P0551,11,17,17,Return,0,"return ""dispensed""",0,0,0,0,0,0
+P0551,12,18,18,Return,0,"return ""denied""",0,0,0,0,0,0
+P0551,13,20,20,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0551,14,21,21,Assign,1,"vm = VendingMachine({""cola"": 1}, {""cola"": 150})",0,0,0,0,0,0
+P0551,15,22,22,Expr,1,vm.insert(200),0,0,0,0,0,0
+P0560,1,2,2,If,0,if rain_mm > 5:,0,0,0,0,0,0
+P0560,2,3,3,Return,0,return 0,0,0,0,0,0,0
+P0560,3,4,4,If,0,if soil_moisture < 0.25 and temp_c > 30 and not 11 <= hour <= 16:,0,0,1,0,0,1
+P0560,4,5,5,Return,0,return 20,0,0,0,0,0,0
+P0560,5,6,6,If,0,if soil_moisture < 0.35 or temp_c > 35:,0,0,0,0,0,0
+P0560,6,7,7,Return,0,return 10,0,0,0,0,0,0
+P0560,7,8,8,Return,0,return 0,0,0,0,0,0,0
+P0560,8,10,10,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0561,1,2,2,For,0,"for bay_id, free, max_kw, fast in bays:",0,0,0,0,0,0
+P0561,2,3,3,If,0,if free and max_kw >= vehicle_kw and (fast or not needs_fast):,0,0,1,0,0,1
+P0561,3,4,4,Return,0,return bay_id,0,0,0,0,0,0
+P0561,4,5,5,Return,0,return None,0,0,0,0,0,0
+P0561,5,7,7,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0561,6,8,8,Assign,1,"bays = [(1, False, 50, True), (2, True, 22, False)]",0,0,0,0,0,0
+P0561,7,9,9,Expr,1,"bays.append((3, True, 150, True))",0,0,0,0,0,0
+P0566,1,2,2,If,0,if node is None:,0,0,0,0,0,0
+P0566,2,3,3,Return,0,return True,0,0,0,0,0,0
+P0566,3,4,4,Assign,0,"value, left, right = tree[node]",0,0,0,0,0,0
+P0566,4,5,5,If,0,if value is None or low is not None and value <= low or high is not None and value >= high:,0,0,1,0,0,1
+P0566,5,6,6,Return,0,return False,0,0,0,0,0,0
+P0566,6,7,7,If,0,"if not check_search_tree_order(tree, left, low, value):",0,0,0,0,0,0
+P0566,7,8,8,Return,0,return False,0,0,0,0,0,0
+P0566,8,9,9,Return,0,"return check_search_tree_order(tree, right, value, high)",0,0,0,0,0,0
+P0566,9,11,11,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0566,10,12,12,Assign,1,"t = {""r"": (8, ""a"", ""b""), ""a"": (3, None, None)}",0,0,0,0,0,0
+P0566,11,13,13,Assign,1,"t[""b""] = (10, ""c"", None)",0,0,0,0,0,0
+P0566,12,14,14,Assign,1,"t[""c""] = (9, None, None)",0,0,0,0,0,0
+P0566,13,16,16,Assign,1,"t[""c""] = (7, None, None)",0,0,0,0,0,0
+P0567,1,2,2,Assign,0,n = len(values),0,0,0,0,0,0
+P0567,2,3,3,For,0,for i in range(n):,0,0,0,0,0,0
+P0567,3,4,4,Assign,0,"left, right = 2 * i + 1, 2 * i + 2",0,0,0,0,0,0
+P0567,4,5,5,If,0,if left < n and values[left] < values[i] or right < n and values[right] < values[i]:,0,0,1,0,0,1
+P0567,5,6,6,Return,0,return False,0,0,0,0,0,0
+P0567,6,7,7,Return,0,return True,0,0,0,0,0,0
+P0567,7,9,9,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0572,1,2,2,Assign,0,total = 0,0,0,0,0,0,0
+P0572,2,3,3,For,0,for a in sorted(adj):,0,1,0,0,1,0
+P0572,3,4,4,For,0,for b in adj[a]:,0,1,0,0,1,0
+P0572,4,5,5,For,0,for c in adj[b]:,0,0,0,0,0,0
+P0572,5,6,6,If,0,if a < b < c and a in adj[c] and c != a:,0,0,1,0,0,1
+P0572,6,7,7,AugAssign,0,total += 1,0,0,0,0,0,0
+P0572,7,8,8,Return,0,return total,0,0,0,0,0,0
+P0572,8,10,10,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0572,9,11,11,Assign,1,"adj = {""a"": {""b"", ""c"", ""d""}, ""b"": {""a"", ""c""}}",0,0,0,0,0,0
+P0572,10,12,12,Assign,1,"adj[""c""] = {""a"", ""b""}",0,0,0,0,0,0
+P0572,11,13,13,Assign,1,"adj[""d""] = {""a""}",0,0,0,0,0,0
+P0579,1,2,2,Assign,0,solutions = [],0,0,0,0,0,0
+P0579,2,3,3,For,0,"for x in range(-bound, bound + 1):",0,1,0,0,1,0
+P0579,3,4,4,For,0,"for y in range(-bound, bound + 1):",0,0,0,0,0,0
+P0579,4,5,5,If,0,if a * x + b * y == c and x >= 0 and y >= 0:,0,0,1,0,0,1
+P0579,5,6,6,Expr,0,"solutions.append((x, y))",0,0,0,0,0,0
+P0579,6,7,7,Return,0,return solutions,0,0,0,0,0,0
+P0579,7,9,9,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0580,1,2,2,Assign,0,seen = {},0,0,0,0,0,0
+P0580,2,3,3,Assign,0,conflicts = set(),0,0,0,0,0,0
+P0580,3,4,4,For,0,"for name, items in warehouses.items():",0,1,0,0,1,0
+P0580,4,5,5,For,0,"for sku, qty in items.items():",0,0,0,0,0,0
+P0580,5,6,6,If,0,if sku in seen and seen[sku][1] != qty and seen[sku][0] != name:,0,0,1,0,0,1
+P0580,6,7,7,Expr,0,conflicts.add(sku),0,0,0,0,0,0
+P0580,7,8,8,Expr,0,"seen.setdefault(sku, (name, qty))",0,0,0,0,0,0
+P0580,8,9,9,Return,0,return sorted(conflicts),0,0,0,0,0,0
+P0580,9,11,11,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0580,10,12,12,Assign,1,"w = {""north"": {""a1"": 5, ""b2"": 3}}",0,0,0,0,0,0
+P0580,11,13,13,Assign,1,"w[""south""] = {""a1"": 5, ""b2"": 4, ""c3"": 1}",0,0,0,0,0,0
+P0591,1,2,2,Assign,0,"h, w = len(img), len(img[0])",0,0,0,0,0,0
+P0591,2,3,3,Assign,0,out = [[0] * w for _ in range(h)],0,0,0,0,0,0
+P0591,3,4,4,For,0,"for r in range(1, h - 1):",0,1,0,0,1,0
+P0591,4,5,5,For,0,"for c in range(1, w - 1):",0,0,0,0,0,0
+P0591,5,6,6,Assign,0,gx = img[r - 1][c + 1] + 2 * img[r][c + 1] + img[r + 1][c + 1] - img[r - 1][c - 1] - 2 * img[r][c - 1] - img[r + 1][c - 1],1,0,0,1,0,0
+P0591,6,7,7,Assign,0,gy = img[r + 1][c - 1] + 2 * img[r + 1][c] + img[r + 1][c + 1] - img[r - 1][c - 1] - 2 * img[r - 1][c] - img[r - 1][c + 1],1,0,0,1,0,0
+P0591,7,8,8,Assign,0,out[r][c] = abs(gx) + abs(gy),0,0,0,0,0,0
+P0591,8,9,9,Return,0,return out,0,0,0,0,0,0
+P0591,9,11,11,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0591,10,12,12,Assign,1,"edge = [[0, 0, 9], [0, 0, 9], [0, 0, 9]]",0,0,0,0,0,0
+P0598,1,2,2,Assign,0,"short = name if len(name) <= 16 else name[:15] + ""~""",0,0,0,0,0,0
+P0598,2,3,3,Assign,0,qty_text = str(qty).rjust(4),0,0,0,0,0,0
+P0598,3,4,4,Assign,0,"line = f""{sku:<8}{short:<16}{qty_text}""",0,0,0,0,0,0
+P0598,4,5,5,If,0,if bin_code:,0,0,0,0,0,0
+P0598,5,6,6,Assign,0,line = line[:width - 4] + bin_code[:4],0,0,0,0,0,0
+P0598,6,7,7,Return,0,return line[:width],0,0,0,0,0,0
+P0598,7,9,9,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0598,8,10,10,Assign,1,"label = label_line(""A1"", ""Widget"", 7, ""B3"")",0,0,0,0,0,0
+P0610,1,2,2,If,0,if not receipt and amount > 50:,0,0,0,0,0,0
+P0610,2,3,3,Return,0,"return ""deny""",0,0,0,0,0,0
+P0610,3,4,4,If,0,if days_since_purchase <= 30 and not opened and customer_refunds < 5:,0,0,1,0,0,1
+P0610,4,5,5,Return,0,"return ""full""",0,0,0,0,0,0
+P0610,5,6,6,If,0,if days_since_purchase <= 60 and customer_refunds < 5:,0,0,0,0,0,0
+P0610,6,7,7,Return,0,"return ""store_credit""",0,0,0,0,0,0
+P0610,7,8,8,Return,0,"return ""deny""",0,0,0,0,0,0
+P0610,8,10,10,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0613,1,2,2,Assign,0,letters = [ch for ch in message if ch.isalpha()],0,0,0,0,0,0
+P0613,2,3,3,If,0,if not letters:,0,0,0,0,0,0
+P0613,3,4,4,Return,0,return False,0,0,0,0,0,0
+P0613,4,5,5,Assign,0,ratio = sum(ch.isupper() for ch in letters) / len(letters),0,0,0,0,0,0
+P0613,5,6,6,If,0,"if ratio >= 0.8 and len(letters) >= 5 and message.count(""!"") >= 1:",0,0,1,0,0,1
+P0613,6,7,7,Return,0,return True,0,0,0,0,0,0
+P0613,7,8,8,Return,0,return False,0,0,0,0,0,0
+P0613,8,10,10,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0619,1,2,2,Assign,0,total = 0,0,0,0,0,0,0
+P0619,2,3,3,Assign,0,"stack = [(start, 0)]",0,0,0,0,0,0
+P0619,3,4,4,While,0,while stack:,0,1,0,0,1,0
+P0619,4,5,5,Assign,0,"node, length = stack.pop()",0,0,0,0,0,0
+P0619,5,6,6,If,0,if node == goal and length > 0:,0,0,0,0,0,0
+P0619,6,7,7,AugAssign,0,total += 1,0,0,0,0,0,0
+P0619,7,9,9,For,0,"for nxt in dag.get(node, []):",0,0,0,0,0,0
+P0619,8,10,10,If,0,"if length + 1 <= max_len and nxt != start and nxt not in ("""", None):",0,0,1,0,0,1
+P0619,9,11,11,Expr,0,"stack.append((nxt, length + 1))",0,0,0,0,0,0
+P0619,10,12,12,Return,0,return total,0,0,0,0,0,0
+P0619,11,14,14,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0619,12,15,15,Assign,1,"dag = {""s"": [""a"", ""b""], ""a"": [""t"", ""b""], ""b"": [""t""]}",0,0,0,0,0,0
+P0620,1,4,4,Assign,0,colour = {},0,0,0,0,0,0
+P0620,2,5,5,For,0,for start in sorted(adj):,0,1,0,0,1,0
+P0620,3,6,6,If,0,if start in colour:,0,0,0,0,0,0
+P0620,4,8,8,Assign,0,colour[start] = 0,0,0,0,0,0,0
+P0620,5,9,9,Assign,0,queue = deque([start]),0,0,0,0,0,0
+P0620,6,10,10,While,0,while queue:,0,1,0,0,1,0
+P0620,7,11,11,Assign,0,node = queue.popleft(),0,0,0,0,0,0
+P0620,8,12,12,For,0,for nb in adj[node]:,0,0,0,0,0,0
+P0620,9,13,13,If,0,if nb not in colour:,0,0,0,0,0,0
+P0620,10,14,14,Assign,0,colour[nb] = 1 - colour[node],0,0,0,0,0,0
+P0620,11,15,15,Expr,0,queue.append(nb),0,0,0,0,0,0
+P0620,12,16,16,If,0,elif colour[nb] == colour[node] and nb != node and adj[nb]:,0,0,1,0,0,1
+P0620,13,17,17,Return,0,return None,0,0,0,0,0,0
+P0620,14,18,18,Return,0,return colour,0,0,0,0,0,0
+P0620,15,20,20,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0620,16,21,21,Assign,1,"square = {""a"": [""b"", ""d""], ""b"": [""a"", ""c""]}",0,0,0,0,0,0
+P0620,17,22,22,Expr,1,"square.update({""c"": [""b"", ""d""], ""d"": [""c"", ""a""]})",0,0,0,0,0,0
+P0620,18,24,24,Assign,1,"tri = {""x"": [""y"", ""z""], ""y"": [""x"", ""z""], ""z"": [""x"", ""y""]}",0,0,0,0,0,0
+P0621,1,2,2,Assign,0,ordered = sorted(values),0,0,0,0,0,0
+P0621,2,3,3,Assign,0,pairs = [],0,0,0,0,0,0
+P0621,3,4,4,For,0,for i in range(len(ordered)):,0,1,0,0,1,0
+P0621,4,5,5,Assign,0,j = i + 1,0,0,0,0,0,0
+P0621,5,6,6,While,0,while j < len(ordered) and ordered[j] - ordered[i] <= max_gap and ordered[j] != ordered[i]:,0,0,1,0,0,1
+P0621,6,7,7,Expr,0,"pairs.append((ordered[i], ordered[j]))",0,0,0,0,0,0
+P0621,7,8,8,AugAssign,0,j += 1,0,0,0,0,0,0
+P0621,8,9,9,Return,0,return pairs,0,0,0,0,0,0
+P0621,9,11,11,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0627,1,2,2,Assign,0,conflicts = set(),0,0,0,0,0,0
+P0627,2,3,3,For,0,"for name_a, room_a, slots_a in courses:",0,1,0,0,1,0
+P0627,3,4,4,For,0,"for name_b, room_b, slots_b in courses:",0,0,0,0,0,0
+P0627,4,5,5,If,0,if name_a < name_b and room_a == room_b and set(slots_a) & set(slots_b):,0,0,1,0,0,1
+P0627,5,6,6,Expr,0,"conflicts.add((name_a, name_b))",0,0,0,0,0,0
+P0627,6,7,7,Return,0,return sorted(conflicts),0,0,0,0,0,0
+P0627,7,9,9,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0627,8,10,10,Assign,1,"courses = [(""algo"", ""R1"", [1, 2]), (""bio"", ""R1"", [2, 3])]",0,0,0,0,0,0
+P0627,9,11,11,Expr,1,"courses.append((""chem"", ""R2"", [1]))",0,0,0,0,0,0
+P0630,1,2,2,Assign,0,length = min(len(values) for values in series.values()),0,0,0,0,0,0
+P0630,2,3,3,Assign,0,hits = [],0,0,0,0,0,0
+P0630,3,4,4,For,0,for t in range(length):,0,1,0,0,1,0
+P0630,4,5,5,Assign,0,above = 0,0,0,0,0,0,0
+P0630,5,6,6,For,0,"for name, values in series.items():",0,0,0,0,0,0
+P0630,6,7,7,If,0,if name in thresholds and values[t] is not None and values[t] > thresholds[name]:,0,0,1,0,0,1
+P0630,7,8,8,AugAssign,0,above += 1,0,0,0,0,0,0
+P0630,8,9,9,If,0,if above == len(thresholds):,0,0,0,0,0,0
+P0630,9,10,10,Expr,0,hits.append(t),0,0,0,0,0,0
+P0630,10,11,11,Return,0,return hits,0,0,0,0,0,0
+P0630,11,13,13,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0630,12,14,14,Assign,1,"series = {""temp"": [30, 35, 36], ""hum"": [50, 80, None]}",0,0,0,0,0,0
+P0636,1,2,2,Assign,0,table = [[1]],0,0,0,0,0,0
+P0636,2,3,3,For,0,"for n in range(1, rows):",0,1,0,0,1,0
+P0636,3,4,4,Assign,0,prev = table[-1],0,0,0,0,0,0
+P0636,4,5,5,Assign,0,row = [1],0,0,0,0,0,0
+P0636,5,6,6,For,0,"for k in range(1, n):",0,0,0,0,0,0
+P0636,6,7,7,Expr,0,row.append((prev[k - 1] + prev[k]) % modulus),0,0,0,0,0,0
+P0636,7,8,8,Expr,0,row.append(1),0,0,0,0,0,0
+P0636,8,9,9,Expr,0,table.append(row),0,0,0,0,0,0
+P0636,9,10,10,Return,0,return table,0,0,0,0,0,0
+P0636,10,12,12,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0636,11,13,13,Assign,1,"table = pascal_mod_rows(5, 3)",0,0,0,0,0,0
+P0641,1,2,2,Assign,0,report = {},0,0,0,0,0,0
+P0641,2,3,3,For,0,"for machine, shifts in logs.items():",0,1,0,0,1,0
+P0641,3,4,4,Assign,0,rates = [],0,0,0,0,0,0
+P0641,4,5,5,For,0,"for run, setup, idle in shifts:",0,0,0,0,0,0
+P0641,5,6,6,Assign,0,utilisation = (run - 0.5 * setup) / (shift_minutes - idle) if shift_minutes > idle else 0.0,1,0,0,1,0,0
+P0641,6,7,7,Expr,0,"rates.append(round(utilisation, 3))",0,0,0,0,0,0
+P0641,7,8,8,Assign,0,report[machine] = rates,0,0,0,0,0,0
+P0641,8,9,9,Return,0,return report,0,0,0,0,0,0
+P0641,9,11,11,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0641,10,12,12,Assign,1,"logs = {""m1"": [(300, 40, 60), (100, 0, 480)]}",0,0,0,0,0,0
+P0642,1,2,2,Assign,0,strength = {n: 0.0 for n in nodes},0,0,0,0,0,0
+P0642,2,3,3,For,0,"for u, v, w in edges:",0,0,0,0,0,0
+P0642,3,4,4,AugAssign,0,strength[u] += w,0,0,0,0,0,0
+P0642,4,5,5,AugAssign,0,strength[v] += w,0,0,0,0,0,0
+P0642,5,6,6,Assign,0,scores = {},0,0,0,0,0,0
+P0642,6,7,7,For,0,for n in nodes:,0,1,0,0,1,0
+P0642,7,8,8,Assign,0,neighbours = 0,0,0,0,0,0,0
+P0642,8,9,9,For,0,"for u, v, _ in edges:",0,0,0,0,0,0
+P0642,9,10,10,AugAssign,0,neighbours += (u == n) + (v == n),0,0,0,0,0,0
+P0642,10,11,11,Assign,0,"scores[n] = round(strength[n] / max(1, neighbours) * neighbours / max(1, len(nodes) - 1), 3)",1,0,0,1,0,0
+P0642,11,12,12,Return,0,return scores,0,0,0,0,0,0
+P0642,12,14,14,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0642,13,15,15,Assign,1,"edges = [(""a"", ""b"", 2.0), (""b"", ""c"", 4.0)]",0,0,0,0,0,0
+P0642,14,16,16,Assign,1,"scores = weighted_centrality(edges, [""a"", ""b"", ""c""])",0,0,0,0,0,0
+P0647,1,2,2,If,0,if agents <= 0:,0,0,0,0,0,0
+P0647,2,3,3,Return,0,"return float(""inf"")",0,0,0,0,0,0
+P0647,3,4,4,Assign,0,expected = queue_length * (1 - abandon_rate) * avg_handle_minutes / agents + avg_handle_minutes / 2,1,0,0,1,0,0
+P0647,4,5,5,Return,0,"return round(expected, 1)",0,0,0,0,0,0
+P0647,5,7,7,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0656,1,5,5,Assign,0,ordered = sorted(scores),0,0,0,0,0,0
+P0656,2,6,6,Assign,0,n = len(ordered),0,0,0,0,0,0
+P0656,3,7,7,Assign,0,ranks = [],0,0,0,0,0,0
+P0656,4,8,8,For,0,for score in scores:,0,0,0,0,0,0
+P0656,5,9,9,Assign,0,"below = bisect_left(ordered, score)",0,0,0,0,0,0
+P0656,6,10,10,Assign,0,"equal = bisect_right(ordered, score) - below",0,0,0,0,0,0
+P0656,7,11,11,Expr,0,"ranks.append(round(100 * (below + 0.5 * equal) / n, 1))",0,0,0,0,0,0
+P0656,8,12,12,Return,0,return ranks,0,0,0,0,0,0
+P0656,9,15,15,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0656,10,16,16,Assign,1,"ranks = midrank_percentiles([50, 70, 70, 90])",0,0,0,0,0,0
+P0680,1,2,2,Assign,0,inside = 0.0,0,0,0,0,0,0
+P0680,2,3,3,Assign,0,crossing = 0.0,0,0,0,0,0,0
+P0680,3,4,4,For,0,"for node, edges in graph.items():",0,1,0,0,1,0
+P0680,4,5,5,For,0,"for neighbour, weight in edges:",0,0,0,0,0,0
+P0680,5,6,6,If,0,if cluster_of[node] == cluster_of[neighbour]:,0,0,0,0,0,0
+P0680,6,7,7,AugAssign,0,inside += weight,0,0,0,0,0,0
+P0680,7,9,9,AugAssign,0,crossing += weight,0,0,0,0,0,0
+P0680,8,10,10,Assign,0,cohesion = (inside - crossing) / (inside + crossing) if inside + crossing else 0.0,1,0,0,1,0,0
+P0680,9,11,11,Return,0,"return inside / 2, crossing / 2, round(cohesion, 3)",0,0,0,0,0,0
+P0680,10,13,13,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0680,11,14,14,Assign,1,"graph = {""a"": [(""b"", 1)], ""c"": [(""b"", 2)]}",0,0,0,0,0,0
+P0680,12,15,15,Assign,1,"graph[""b""] = [(""a"", 1), (""c"", 2)]",0,0,0,0,0,0
+P0680,13,16,16,Assign,1,"clusters = {""a"": 0, ""b"": 0, ""c"": 1}",0,0,0,0,0,0
+P0681,1,2,2,Assign,0,scored = [],0,0,0,0,0,0
+P0681,2,3,3,For,0,"for doc_id, title, body in docs:",0,1,0,0,1,0
+P0681,3,4,4,Assign,0,score = 0.0,0,0,0,0,0,0
+P0681,4,5,5,For,0,for term in query_terms:,0,0,0,0,0,0
+P0681,5,6,6,Assign,0,score = score + body.count(term) + title_boost * title.count(term) * len(term) / 4,1,0,0,1,0,0
+P0681,6,7,7,Expr,0,"scored.append((-score, doc_id))",0,0,0,0,0,0
+P0681,7,8,8,Return,0,"return [doc_id for _, doc_id in sorted(scored)]",0,0,0,0,0,0
+P0681,8,10,10,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0681,9,11,11,Assign,1,"docs = [(""d1"", ""cats"", ""cats and dogs"")]",0,0,0,0,0,0
+P0681,10,12,12,Expr,1,"docs.append((""d2"", ""dogs"", ""dogs dogs""))",0,0,0,0,0,0
+P0685,1,2,2,Assign,0,names = sorted(profiles),0,0,0,0,0,0
+P0685,2,3,3,Assign,0,scores = {},0,0,0,0,0,0
+P0685,3,4,4,For,0,"for i, a in enumerate(names):",0,1,0,0,1,0
+P0685,4,5,5,For,0,for b in names[i + 1:]:,0,0,0,0,0,0
+P0685,5,6,6,Assign,0,keys = profiles[a].keys() & profiles[b].keys(),0,0,0,0,0,0
+P0685,6,7,7,If,0,if not keys:,0,0,0,0,0,0
+P0685,7,9,9,Assign,0,agree = sum(profiles[a][k] == profiles[b][k] for k in keys),0,0,0,0,0,0
+P0685,8,10,10,Assign,0,score = agree / len(keys) * 0.7 + len(keys) / len(profiles[a].keys() | profiles[b].keys()) * 0.3,1,0,0,1,0,0
+P0685,9,11,11,Assign,0,"scores[(a, b)] = round(score, 3)",0,0,0,0,0,0
+P0685,10,12,12,Return,0,return scores,0,0,0,0,0,0
+P0685,11,14,14,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0685,12,15,15,Assign,1,"profiles = {""ann"": {""x"": 1, ""y"": 2}}",0,0,0,0,0,0
+P0685,13,16,16,Assign,1,"profiles[""bob""] = {""x"": 1, ""z"": 3}",0,0,0,0,0,0
+P0685,14,17,17,Assign,1,"profiles[""cy""] = {""q"": 0}",0,0,0,0,0,0
+P0687,1,2,2,Assign,0,"rows, cols = len(grid), len(grid[0])",0,0,0,0,0,0
+P0687,2,3,3,Assign,0,peaks = [],0,0,0,0,0,0
+P0687,3,4,4,For,0,for r in range(rows):,0,1,0,0,1,0
+P0687,4,5,5,Assign,0,row = grid[r],0,0,0,0,0,0
+P0687,5,6,6,For,0,for c in range(cols):,0,0,0,0,0,0
+P0687,6,7,7,Assign,0,h = row[c],0,0,0,0,0,0
+P0687,7,8,8,Assign,0,up = grid[r - 1][c] if r > 0 else -1,0,0,0,0,0,0
+P0687,8,9,9,Assign,0,down = grid[r + 1][c] if r < rows - 1 else -1,0,0,0,0,0,0
+P0687,9,10,10,Assign,0,left = row[c - 1] if c > 0 else -1,0,0,0,0,0,0
+P0687,10,11,11,Assign,0,right = row[c + 1] if c < cols - 1 else -1,0,0,0,0,0,0
+P0687,11,12,12,If,0,"if h >= min_height and h > max(up, down) and h > max(left, right):",0,0,1,0,0,1
+P0687,12,13,13,Assign,0,"score = (h - max(up, down, left, right, 0)) * 2 + (h - min_height) / max(h, 1)",1,0,0,1,0,0
+P0687,13,14,14,Expr,0,"peaks.append((r, c, round(score, 2)))",0,0,0,0,0,0
+P0687,14,15,15,Return,0,return peaks,0,0,0,0,0,0
+P0687,15,17,17,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0687,16,18,18,Assign,1,"grid = [[1, 2, 1], [2, 9, 2], [1, 2, 1]]",0,0,0,0,0,0
+P0689,1,2,2,Assign,0,results = {},0,0,0,0,0,0
+P0689,2,3,3,For,0,for query in queries:,0,1,0,0,1,0
+P0689,3,4,4,Assign,0,"lo, hi = 0, len(sorted_values) - 1",0,0,0,0,0,0
+P0689,4,5,5,Assign,0,results[query] = -1,0,0,0,0,0,0
+P0689,5,6,6,While,0,while lo <= hi and sorted_values[lo] <= query <= sorted_values[hi]:,0,0,1,0,0,1
+P0689,6,7,7,If,0,if sorted_values[hi] == sorted_values[lo]:,0,0,0,0,0,0
+P0689,7,8,8,Assign,0,probe = lo,0,0,0,0,0,0
+P0689,8,10,10,Assign,0,probe = lo + (query - sorted_values[lo]) * (hi - lo) // (sorted_values[hi] - sorted_values[lo]),1,0,0,1,0,0
+P0689,9,11,11,If,0,if sorted_values[probe] == query:,0,0,0,0,0,0
+P0689,10,12,12,Assign,0,results[query] = probe,0,0,0,0,0,0
+P0689,11,14,14,If,0,if sorted_values[probe] < query:,0,0,0,0,0,0
+P0689,12,15,15,Assign,0,lo = probe + 1,0,0,0,0,0,0
+P0689,13,17,17,Assign,0,hi = probe - 1,0,0,0,0,0,0
+P0689,14,18,18,Return,0,return results,0,0,0,0,0,0
+P0689,15,20,20,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0689,16,21,21,Assign,1,"values = [2, 4, 8, 16, 32, 64]",0,0,0,0,0,0
+P0689,17,22,22,Assign,1,"found = interpolation_lookup(values, [16, 5, 2, 64])",0,0,0,0,0,0
+P0694,1,2,2,Assign,0,"rows, cols = len(grid), len(grid[0])",0,0,0,0,0,0
+P0694,2,3,3,Assign,0,centres = [],0,0,0,0,0,0
+P0694,3,4,4,For,0,"for r in range(1, rows - 1):",0,1,0,0,1,0
+P0694,4,5,5,For,0,"for c in range(1, cols - 1):",0,0,0,0,0,0
+P0694,5,6,6,If,0,if grid[r][c] and grid[r - 1][c] and grid[r + 1][c]:,0,0,1,0,0,1
+P0694,6,7,7,If,0,if grid[r][c - 1] and grid[r][c + 1]:,0,0,0,0,0,0
+P0694,7,8,8,Expr,0,"centres.append((r, c))",0,0,0,0,0,0
+P0694,8,9,9,Return,0,return centres,0,0,0,0,0,0
+P0694,9,11,11,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0694,10,12,12,Assign,1,"plus = [[0, 1, 0], [1, 1, 1], [0, 1, 0]]",0,0,0,0,0,0
+P0694,11,13,13,Assign,1,"tee = [[0, 1, 0], [1, 1, 0], [0, 1, 0]]",0,0,0,0,0,0
+P0699,1,2,2,Assign,0,cells = [row[:] for row in grid],0,0,0,0,0,0
+P0699,2,3,3,Assign,0,"rows, cols = len(cells), len(cells[0])",0,0,0,0,0,0
+P0699,3,4,4,Assign,0,rounds = 0,0,0,0,0,0,0
+P0699,4,5,5,Assign,0,changed = True,0,0,0,0,0,0
+P0699,5,6,6,While,0,while changed:,0,1,0,0,1,0
+P0699,6,7,7,Assign,0,changed = False,0,0,0,0,0,0
+P0699,7,8,8,For,0,for r in range(rows):,0,1,0,0,1,0
+P0699,8,9,9,For,0,for c in range(cols):,0,1,0,0,1,0
+P0699,9,10,10,If,0,if cells[r][c] < 4:,0,0,0,0,0,0
+P0699,10,12,12,Assign,0,changed = True,0,0,0,0,0,0
+P0699,11,13,13,AugAssign,0,cells[r][c] -= 4,0,0,0,0,0,0
+P0699,12,14,14,For,0,"for dr, dc in ((1, 0), (-1, 0), (0, 1), (0, -1)):",0,0,0,0,0,0
+P0699,13,15,15,Assign,0,"nr, nc = r + dr, c + dc",0,0,0,0,0,0
+P0699,14,16,16,If,0,if 0 <= nr < rows and 0 <= nc < cols:,0,0,1,0,0,1
+P0699,15,17,17,AugAssign,0,cells[nr][nc] += 1,0,0,0,0,0,0
+P0699,16,18,18,AugAssign,0,rounds += 1,0,0,0,0,0,0
+P0699,17,19,19,Return,0,"return cells, rounds",0,0,0,0,0,0
+P0699,18,21,21,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0699,19,22,22,Assign,1,"grid = [[0, 0, 0], [0, 4, 0], [0, 0, 0]]",0,0,0,0,0,0
+P0699,20,23,23,Assign,1,"cells, rounds = topple_sandpile(grid)",0,0,0,0,0,0
+P0703,1,4,4,Assign,0,reach = {},0,0,0,0,0,0
+P0703,2,5,5,For,0,for start in graph:,0,1,0,0,1,0
+P0703,3,6,6,Assign,0,seen = {start},0,0,0,0,0,0
+P0703,4,7,7,Assign,0,queue = deque([start]),0,0,0,0,0,0
+P0703,5,8,8,While,0,while queue:,0,1,0,0,1,0
+P0703,6,9,9,Assign,0,node = queue.popleft(),0,0,0,0,0,0
+P0703,7,10,10,For,0,for nxt in graph[node]:,0,0,0,0,0,0
+P0703,8,11,11,If,0,if nxt not in seen:,0,0,0,0,0,0
+P0703,9,12,12,Expr,0,seen.add(nxt),0,0,0,0,0,0
+P0703,10,13,13,Expr,0,queue.append(nxt),0,0,0,0,0,0
+P0703,11,14,14,Assign,0,reach[start] = seen - {start},0,0,0,0,0,0
+P0703,12,15,15,Return,0,return reach,0,0,0,0,0,0
+P0703,13,17,17,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0703,14,18,18,Assign,1,"graph = {""a"": [""b""], ""b"": [""c""], ""c"": [], ""d"": [""a""]}",0,0,0,0,0,0
+P0703,15,19,19,Assign,1,reach = reachable_sets(graph),0,0,0,0,0,0
+P0705,1,2,2,Assign,0,totals = {},0,0,0,0,0,0
+P0705,2,3,3,For,0,"for region, quarters in sales.items():",0,1,0,0,1,0
+P0705,3,4,4,For,0,"for quarter, amounts in quarters.items():",0,0,0,0,0,0
+P0705,4,5,5,Assign,0,"totals[(region, quarter)] = sum(amounts)",0,0,0,0,0,0
+P0705,5,6,6,Assign,0,best = {},0,0,0,0,0,0
+P0705,6,7,7,For,0,"for (region, quarter), total in sorted(totals.items()):",0,0,0,0,0,0
+P0705,7,8,8,If,0,"if total > best.get(region, (None, -1))[1]:",0,0,0,0,0,0
+P0705,8,9,9,Assign,0,"best[region] = (quarter, total)",0,0,0,0,0,0
+P0705,9,10,10,Return,0,return best,0,0,0,0,0,0
+P0705,10,13,13,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0705,11,14,14,Assign,1,"sales = {""n"": {""q1"": [1, 2], ""q2"": [5]}, ""s"": {""q1"": [4]}}",0,0,0,0,0,0
+P0710,1,2,2,Assign,0,merged = dict(primary),0,0,0,0,0,0
+P0710,2,3,3,For,0,"for field, value in secondary.items():",0,0,0,0,0,0
+P0710,3,4,4,Assign,0,current = merged.get(field),0,0,0,0,0,0
+P0710,4,5,5,If,0,"if current is None or current == """" or isinstance(current, list) and not current:",0,0,1,0,0,1
+P0710,5,6,6,Assign,0,merged[field] = value,0,0,0,0,0,0
+P0710,6,7,7,Return,0,return merged,0,0,0,0,0,0
+P0710,7,10,10,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0710,8,11,11,Assign,1,"primary = {""name"": ""Ann"", ""phone"": """", ""tags"": []}",0,0,0,0,0,0
+P0710,9,12,12,Assign,1,"secondary = {""name"": ""A"", ""phone"": ""123"", ""tags"": [""vip""]}",0,0,0,0,0,0
+P0710,10,13,13,Assign,1,"secondary[""email""] = ""a@x.org""",0,0,0,0,0,0
+P0710,11,14,14,Assign,1,"merged = merge_contact(primary, secondary)",0,0,0,0,0,0
+P0711,1,2,2,Assign,0,busy = [b for b in bookings if b[0] < end and start < b[1]],0,0,0,0,0,0
+P0711,2,3,3,If,0,"if not busy and attendees <= room[""capacity""] and end - start <= room[""max_hours""]:",0,0,1,0,0,1
+P0711,3,4,4,Return,0,return True,0,0,0,0,0,0
+P0711,4,5,5,Return,0,return False,0,0,0,0,0,0
+P0711,5,7,7,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0711,6,8,8,Assign,1,"room = {""capacity"": 8, ""max_hours"": 2}",0,0,0,0,0,0
+P0711,7,9,9,Assign,1,"bookings = [(9, 10), (13, 14)]",0,0,0,0,0,0
+P0712,1,2,2,Assign,0,heights = [],0,0,0,0,0,0
+P0712,2,3,3,Assign,0,height = drop_height,0,0,0,0,0,0
+P0712,3,4,4,While,0,while height >= min_height and len(heights) < max_bounces and restitution < 1:,0,0,1,0,0,1
+P0712,4,5,5,Assign,0,"height = round(height * restitution, 4)",0,0,0,0,0,0
+P0712,5,6,6,Expr,0,heights.append(height),0,0,0,0,0,0
+P0712,6,7,7,Assign,0,distance = drop_height + 2 * sum(heights),0,0,0,0,0,0
+P0712,7,8,8,Return,0,"return heights, round(distance, 4)",0,0,0,0,0,0
+P0712,8,10,10,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0712,9,11,11,Assign,1,"heights, distance = bounce_heights(1.0, 0.5, 0.2)",0,0,0,0,0,0
+P0713,1,2,2,Assign,0,present = [v for v in values if v is not None],0,0,0,0,0,0
+P0713,2,3,3,Assign,0,missing = 1 - len(present) / len(values) if values else 1.0,0,0,0,0,0,0
+P0713,3,4,4,Assign,0,spread = max(present) - min(present) if present else 0,0,0,0,0,0,0
+P0713,4,5,5,If,0,if len(present) >= min_size and missing <= max_missing_share and spread > 0:,0,0,1,0,0,1
+P0713,5,6,6,Return,0,return True,0,0,0,0,0,0
+P0713,6,7,7,Return,0,return False,0,0,0,0,0,0
+P0713,7,9,9,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0718,1,2,2,Assign,0,totals = [],0,0,0,0,0,0
+P0718,2,3,3,Assign,0,level = [root],0,0,0,0,0,0
+P0718,3,4,4,Assign,0,depth = 0,0,0,0,0,0,0
+P0718,4,5,5,While,0,while level:,0,1,0,0,1,0
+P0718,5,6,6,Assign,0,level_total = 0.0,0,0,0,0,0,0
+P0718,6,7,7,Assign,0,nxt = [],0,0,0,0,0,0
+P0718,7,8,8,For,0,for node in level:,0,0,0,0,0,0
+P0718,8,9,9,Assign,0,"score = weights.get(node, 0) * (depth + 1) + bonus * len(children.get(node, []))",1,0,0,1,0,0
+P0718,9,10,10,AugAssign,0,level_total += score,0,0,0,0,0,0
+P0718,10,11,11,Expr,0,"nxt.extend(children.get(node, []))",0,0,0,0,0,0
+P0718,11,12,12,Expr,0,totals.append(level_total),0,0,0,0,0,0
+P0718,12,13,13,Assign,0,level = nxt,0,0,0,0,0,0
+P0718,13,14,14,AugAssign,0,depth += 1,0,0,0,0,0,0
+P0718,14,15,15,Return,0,return totals,0,0,0,0,0,0
+P0718,15,17,17,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0718,16,18,18,Assign,1,"children = {""r"": [""a"", ""b""], ""a"": [""c""]}",0,0,0,0,0,0
+P0718,17,19,19,Assign,1,"weights = {""r"": 1, ""a"": 2, ""b"": 3, ""c"": 4}",0,0,0,0,0,0
+P0721,1,2,2,Assign,0,report = {},0,0,0,0,0,0
+P0721,2,3,3,For,0,"for site, lots in warehouses.items():",0,1,0,0,1,0
+P0721,3,4,4,Assign,0,cost = 0.0,0,0,0,0,0,0
+P0721,4,5,5,For,0,"for qty, unit_cost, received_day in lots:",0,0,0,0,0,0
+P0721,5,6,6,Assign,0,age = today - received_day,0,0,0,0,0,0
+P0721,6,7,7,Assign,0,carrying = qty * unit_cost * holding_rate * age + qty * unit_cost * (age > 180) * 0.1,1,0,0,1,0,0
+P0721,7,8,8,AugAssign,0,cost += carrying,0,0,0,0,0,0
+P0721,8,9,9,Assign,0,"report[site] = round(cost, 2)",0,0,0,0,0,0
+P0721,9,10,10,Return,0,return report,0,0,0,0,0,0
+P0721,10,13,13,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0721,11,14,14,Assign,1,"lots = {""w1"": [(10, 5.0, 190)], ""w2"": [(1, 100.0, 0)]}",0,0,0,0,0,0
+P0724,1,2,2,Assign,0,"free_at = {name: 0 for name, _ in rooms}",0,0,0,0,0,0
+P0724,2,3,3,Assign,0,"placed, dropped = {}, []",0,0,0,0,0,0
+P0724,3,4,4,For,0,"for title, start, end, size in sorted(meetings, key=lambda m: (m[1], -m[3])):",0,1,0,0,1,0
+P0724,4,5,5,Assign,0,"chosen, chosen_cap = None, float(""inf"")",0,0,0,0,0,0
+P0724,5,6,6,For,0,"for name, capacity in rooms:",0,0,0,0,0,0
+P0724,6,7,7,If,0,if free_at[name] <= start and capacity >= size and capacity < chosen_cap:,0,0,1,0,0,1
+P0724,7,8,8,Assign,0,"chosen, chosen_cap = name, capacity",0,0,0,0,0,0
+P0724,8,9,9,If,0,if chosen is None:,0,0,0,0,0,0
+P0724,9,10,10,Expr,0,dropped.append(title),0,0,0,0,0,0
+P0724,10,12,12,Assign,0,free_at[chosen] = end,0,0,0,0,0,0
+P0724,11,13,13,Assign,0,placed[title] = chosen,0,0,0,0,0,0
+P0724,12,14,14,Return,0,"return placed, dropped, round(len(placed) / max(len(meetings), 1) * 100, 1)",1,0,0,1,0,0
+P0724,13,16,16,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0724,14,17,17,Assign,1,"rooms = [(""small"", 4), (""big"", 10)]",0,0,0,0,0,0
+P0724,15,18,18,Assign,1,"meetings = [(""standup"", 9, 10, 3), (""allhands"", 9, 11, 8)]",0,0,0,0,0,0
+P0724,16,19,19,Expr,1,"meetings.append((""sync"", 10, 11, 4))",0,0,0,0,0,0
+P0724,17,20,20,Expr,1,"meetings.append((""review"", 9, 10, 9))",0,0,0,0,0,0
+P0724,18,21,21,Assign,1,"placed, dropped, rate = allocate_rooms(meetings, rooms)",0,0,0,0,0,0
+P0726,1,2,2,Assign,0,groups = {},0,0,0,0,0,0
+P0726,2,3,3,For,0,"for category, value in rows:",0,0,0,0,0,0
+P0726,3,4,4,Expr,0,"groups.setdefault(category, []).append(value)",0,0,0,0,0,0
+P0726,4,5,5,Assign,0,summary = {},0,0,0,0,0,0
+P0726,5,6,6,For,0,"for category, values in sorted(groups.items()):",0,1,0,0,1,0
+P0726,6,7,7,Assign,0,n = len(values),0,0,0,0,0,0
+P0726,7,8,8,Assign,0,mean = sum(values) / n,0,0,0,0,0,0
+P0726,8,9,9,Assign,0,sq = 0.0,0,0,0,0,0,0
+P0726,9,10,10,For,0,for v in values:,0,0,0,0,0,0
+P0726,10,11,11,AugAssign,0,sq += (v - mean) ** 2,0,0,0,0,0,0
+P0726,11,12,12,Assign,0,std = (sq / n) ** 0.5,0,0,0,0,0,0
+P0726,12,13,13,Assign,0,"cv = std / mean if mean else float(""inf"")",0,0,0,0,0,0
+P0726,13,14,14,Assign,0,"margin = 1.96 * std / n ** 0.5 * ((population - n) / max(population - 1, 1)) ** 0.5",1,0,0,1,0,0
+P0726,14,15,15,If,0,if n >= min_count and cv <= max_cv and mean > 0:,0,0,1,0,0,1
+P0726,15,16,16,Assign,0,"summary[category] = (n, round(mean, 2), round(margin, 2))",0,0,0,0,0,0
+P0726,16,17,17,Return,0,return summary,0,0,0,0,0,0
+P0726,17,19,19,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0726,18,20,20,Assign,1,"rows = [(""a"", 10), (""a"", 12), (""b"", 5)]",0,0,0,0,0,0
+P0726,19,21,21,Expr,1,"rows.extend([(""c"", 1), (""c"", 100)])",0,0,0,0,0,0
+P0735,1,4,4,Assign,0,"log_n = math.log2(max(n, 2))",0,0,0,0,0,0
+P0735,2,5,5,Assign,0,insertion_cost = n + inversions,0,0,0,0,0,0
+P0735,3,6,6,Assign,0,merge_cost = n * log_n * 1.2 + memory_penalty * n * memory_limited,1,0,0,1,0,0
+P0735,4,7,7,Assign,0,heap_cost = n * log_n * 2.0,0,0,0,0,0,0
+P0735,5,8,8,If,0,if insertion_cost < merge_cost and n <= 5000 or inversions == 0:,0,0,1,0,0,1
+P0735,6,9,9,Return,0,"return ""insertion"", insertion_cost",0,0,0,0,0,0
+P0735,7,10,10,If,0,if stable_needed or not memory_limited:,0,0,0,0,0,0
+P0735,8,11,11,Return,0,"return ""merge"", round(merge_cost, 1)",0,0,0,0,0,0
+P0735,9,12,12,Return,0,"return ""heap"", round(heap_cost, 1)",0,0,0,0,0,0
+P0735,10,14,14,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0738,1,2,2,Assign,0,pay = 0.0,0,0,0,0,0,0
+P0738,2,3,3,Assign,0,total_hours = 0,0,0,0,0,0,0
+P0738,3,4,4,For,0,"for day, hours in hours_by_day.items():",0,0,0,0,0,0
+P0738,4,5,5,AugAssign,0,total_hours += hours,0,0,0,0,0,0
+P0738,5,6,6,Assign,0,weekend = day in weekend_days,0,0,0,0,0,0
+P0738,6,7,7,If,0,if weekend and hours > 0 or hours > 10 or total_hours > 40:,0,0,1,0,0,1
+P0738,7,8,8,AugAssign,0,pay += hours * rate * 1.5 + (hours - 8) * rate * 0.25 * (hours > 8),1,0,0,1,0,0
+P0738,8,10,10,AugAssign,0,pay += hours * rate,0,0,0,0,0,0
+P0738,9,11,11,Return,0,"return round(pay, 2)",0,0,0,0,0,0
+P0738,10,13,13,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0741,1,1,1,Assign,0,"DIGITS = ""0123456789abcdefghijklmnopqrstuvwxyz""",0,0,0,0,0,0
+P0741,2,5,5,If,0,if n == 0:,0,0,0,0,0,0
+P0741,3,6,6,Return,0,"return ""0""",0,0,0,0,0,0
+P0741,4,7,7,Assign,0,"sign = ""-"" if n < 0 else """"",0,0,0,0,0,0
+P0741,5,8,8,Assign,0,n = abs(n),0,0,0,0,0,0
+P0741,6,9,9,Assign,0,out = [],0,0,0,0,0,0
+P0741,7,10,10,While,0,while n:,0,0,0,0,0,0
+P0741,8,11,11,Assign,0,"n, r = divmod(n, base)",0,0,0,0,0,0
+P0741,9,12,12,Expr,0,out.append(DIGITS[r]),0,0,0,0,0,0
+P0741,10,13,13,Return,0,"return sign + """".join(reversed(out))",0,0,0,0,0,0
+P0741,11,17,17,Return,0,"return int(text, base)",0,0,0,0,0,0
+P0741,12,20,20,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0747,1,2,2,Assign,0,ratios = {},0,0,0,0,0,0
+P0747,2,3,3,For,0,"for name, due, remaining_hours, hours_per_day in jobs:",0,0,0,0,0,0
+P0747,3,4,4,Assign,0,days_of_work = remaining_hours / hours_per_day,0,0,0,0,0,0
+P0747,4,5,5,Assign,0,"ratios[name] = round((due - today) / days_of_work, 2)",0,0,0,0,0,0
+P0747,5,6,6,Return,0,"return sorted(ratios, key=lambda n: (ratios[n], n)), min(ratios.values(), default=None)",1,0,0,1,0,0
+P0747,6,8,8,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0747,7,9,9,Assign,1,"jobs = [(""a"", 20, 16, 8), (""b"", 12, 8, 8), (""c"", 15, 40, 8)]",0,0,0,0,0,0
+P0756,1,2,2,Assign,0,"times, clock = [], 0",0,0,0,0,0,0
+P0756,2,3,3,For,0,for d in durations:,0,0,0,0,0,0
+P0756,3,4,4,AugAssign,0,clock += d,0,0,0,0,0,0
+P0756,4,5,5,Expr,0,times.append(clock),0,0,0,0,0,0
+P0756,5,6,6,Return,0,return times,0,0,0,0,0,0
+P0756,6,10,10,Assign,0,order = sorted(jobs) if shortest_first else list(jobs),0,0,0,0,0,0
+P0756,7,11,11,Assign,0,finished = completion_times(order),0,0,0,0,0,0
+P0756,8,12,12,Return,0,return sum(finished) / len(finished) if finished else 0.0,0,0,0,0,0,0
+P0756,9,15,15,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0765,1,2,2,Assign,0,"best_len, best_end = 0, 0",0,0,0,0,0,0
+P0765,2,3,3,Assign,0,prev = [0] * (len(b) + 1),0,0,0,0,0,0
+P0765,3,4,4,For,0,"for i in range(1, len(a) + 1):",0,1,0,0,1,0
+P0765,4,5,5,Assign,0,cur = [0] * (len(b) + 1),0,0,0,0,0,0
+P0765,5,6,6,For,0,"for j in range(1, len(b) + 1):",0,0,0,0,0,0
+P0765,6,7,7,If,0,if a[i - 1] == b[j - 1]:,0,0,0,0,0,0
+P0765,7,8,8,Assign,0,cur[j] = prev[j - 1] + 1,0,0,0,0,0,0
+P0765,8,9,9,If,0,if cur[j] > best_len:,0,0,0,0,0,0
+P0765,9,10,10,Assign,0,"best_len, best_end = cur[j], i",0,0,0,0,0,0
+P0765,10,11,11,Assign,0,prev = cur,0,0,0,0,0,0
+P0765,11,12,12,Return,0,return a[best_end - best_len:best_end],0,0,0,0,0,0
+P0765,12,14,14,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0769,1,2,2,Assign,0,col_mins = [min(col) for col in zip(*matrix)],0,0,0,0,0,0
+P0769,2,3,3,Assign,0,points = [],0,0,0,0,0,0
+P0769,3,4,4,For,0,"for r, row in enumerate(matrix):",0,1,0,0,1,0
+P0769,4,5,5,Assign,0,row_max = max(row),0,0,0,0,0,0
+P0769,5,6,6,For,0,"for c, value in enumerate(row):",0,0,0,0,0,0
+P0769,6,7,7,If,0,if value == row_max and value == col_mins[c]:,0,0,0,0,0,0
+P0769,7,8,8,Expr,0,"points.append((r, c))",0,0,0,0,0,0
+P0769,8,9,9,Return,0,return points,0,0,0,0,0,0
+P0769,9,12,12,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0769,10,13,13,Assign,1,"matrix = [[9, 8, 7], [5, 3, 2], [6, 6, 7]]",0,0,0,0,0,0
+P0771,1,5,5,Assign,0,nearest = round(value) if math.isfinite(value) else 0,0,0,0,0,0,0
+P0771,2,6,6,If,0,if abs(value) < max_magnitude and abs(value - nearest) <= abs_tol and value == value:,0,0,1,0,0,1
+P0771,3,7,7,Return,0,return True,0,0,0,0,0,0
+P0771,4,8,8,Return,0,return False,0,0,0,0,0,0
+P0771,5,11,11,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0
+P0787,1,2,2,Assign,0,words = message.split(),0,0,0,0,0,0
+P0787,2,3,3,Assign,0,caps = sum(1 for w in words if len(w) > 2 and w.isupper()),0,0,0,0,0,0
+P0787,3,4,4,Assign,0,"exclaims = message.count(""!"")",0,0,0,0,0,0
+P0787,4,5,5,Assign,0,"cleaned = [w.lower().strip("".,!?"") for w in words]",0,0,0,0,0,0
+P0787,5,6,6,Assign,0,hits = sum(1 for w in cleaned if w in blocked_words),0,0,0,0,0,0
+P0787,6,7,7,Assign,0,score = hits * 3 + caps * 1.5 + exclaims * 0.5 + (len(message) > 200) * 2 - (len(words) > 50),1,0,0,1,0,0
+P0787,7,8,8,If,0,"if score >= 6 or hits >= 2 and exclaims > 2 or ""http"" in message and hits:",0,0,1,0,0,1
+P0787,8,9,9,Return,0,"return ""spam"", score",0,0,0,0,0,0
+P0787,9,10,10,Return,0,"return ""ham"", score",0,0,0,0,0,0
+P0787,10,13,13,If,1,"if __name__ == ""__main__"":",0,0,0,0,0,0

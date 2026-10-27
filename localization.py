@@ -60,14 +60,15 @@ def localize_issues(data, predictions, label_columns):
 if __name__ == "__main__":
     from train_model import (
         train_model,
-        FEATURE_COLUMNS,
+        build_features,
         LABEL_COLUMNS
     )
 
-    model, data = train_model()
-    predictions = model.predict(data[FEATURE_COLUMNS])
+    model, data, _, test = train_model()
+    test_data = data[test].reset_index(drop=True)
+    predictions = model.predict(build_features(test_data))
 
-    results = localize_issues(data, predictions, LABEL_COLUMNS)
+    results = localize_issues(test_data, predictions, LABEL_COLUMNS)
 
     for result in results:
         print("-" * 40)

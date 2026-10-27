@@ -1,0 +1,130 @@
+{
+  "dataset": {
+    "rows": 8358,
+    "programs": 800,
+    "similarity_groups": 766
+  },
+  "split": {
+    "method": "StratifiedGroupKFold fold 0 of 5 (groups = similarity_group, strata = intended_category)",
+    "train_programs": 640,
+    "test_programs": 160,
+    "train_rows": 6634,
+    "test_rows": 1724,
+    "test_programs_per_category": {
+      "All three target issues": 20,
+      "Complex conditional only": 20,
+      "Long statement and complex conditional": 20,
+      "Long statement and nested loop": 20,
+      "Long statement only": 20,
+      "Nested loop and complex conditional": 20,
+      "Nested loop only": 20,
+      "None": 20
+    }
+  },
+  "features": [
+    "statement_length",
+    "operator_count",
+    "operand_count",
+    "expression_depth",
+    "loop_depth",
+    "condition_count",
+    "logical_operator_count",
+    "enclosing_loop_depth",
+    "type_Assign",
+    "type_AnnAssign",
+    "type_AugAssign",
+    "type_Expr",
+    "type_Return",
+    "type_If",
+    "type_For",
+    "type_AsyncFor",
+    "type_While"
+  ],
+  "labels": [
+    "long_statement",
+    "nested_loop",
+    "complex_conditional"
+  ],
+  "test_set": {
+    "exact_match_accuracy": 0.9994,
+    "hamming_loss": 0.0002,
+    "macro_f1": 0.9983,
+    "micro_f1": 0.9986,
+    "per_label": {
+      "long_statement": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 167,
+        "tp": 167,
+        "fp": 0,
+        "fn": 0,
+        "tn": 1557
+      },
+      "nested_loop": {
+        "precision": 0.9901,
+        "recall": 1.0,
+        "f1": 0.995,
+        "support": 100,
+        "tp": 100,
+        "fp": 1,
+        "fn": 0,
+        "tn": 1623
+      },
+      "complex_conditional": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 85,
+        "tp": 85,
+        "fp": 0,
+        "fn": 0,
+        "tn": 1639
+      }
+    }
+  },
+  "grouped_cross_validation": {
+    "long_statement": {
+      "mean": 1.0,
+      "std": 0.0
+    },
+    "nested_loop": {
+      "mean": 0.999,
+      "std": 0.002
+    },
+    "complex_conditional": {
+      "mean": 0.9989,
+      "std": 0.0023
+    },
+    "macro_f1": {
+      "mean": 0.9993,
+      "std": 0.0009
+    }
+  },
+  "cross_model": {
+    "test_on_claude-opus-5.5": {
+      "test_rows": 5846,
+      "exact_match_accuracy": 0.9956,
+      "hamming_loss": 0.0017,
+      "macro_f1": 0.9849,
+      "micro_f1": 0.9855,
+      "per_label_f1": {
+        "long_statement": 0.99,
+        "nested_loop": 0.9956,
+        "complex_conditional": 0.969
+      }
+    },
+    "test_on_gemini-2.5-pro": {
+      "test_rows": 2512,
+      "exact_match_accuracy": 0.9996,
+      "hamming_loss": 0.0001,
+      "macro_f1": 0.999,
+      "micro_f1": 0.9992,
+      "per_label_f1": {
+        "long_statement": 1.0,
+        "nested_loop": 0.997,
+        "complex_conditional": 1.0
+      }
+    }
+  }
+}

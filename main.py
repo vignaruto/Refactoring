@@ -3,7 +3,7 @@ from pathlib import Path
 
 from train_model import (
     train_model,
-    FEATURE_COLUMNS,
+    build_features,
     LABEL_COLUMNS
 )
 from localization import localize_issues
@@ -23,20 +23,23 @@ def main():
     # --------------------------------------------------
     print("\n[1/6] Training model...")
 
-    model, data = train_model()
+    model, data, train, test = train_model()
 
     print("Model training completed.")
     print("Dataset rows:", len(data))
+    print("Training rows:", int(train.sum()))
 
     # --------------------------------------------------
     # Stage 2: Detect and localize issues
     # --------------------------------------------------
     print("\n[2/6] Detecting and localizing issues...")
 
-    predictions = model.predict(data[FEATURE_COLUMNS])
+    # Detection runs only on the held-out programs the model never saw.
+    test_data = data[test].reset_index(drop=True)
+    predictions = model.predict(build_features(test_data))
 
     localized_issues = localize_issues(
-        data,
+        test_data,
         predictions,
         LABEL_COLUMNS
     )
