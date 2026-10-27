@@ -1,0 +1,2086 @@
+{
+  "programs": 115,
+  "valid": 115,
+  "rejected": [],
+  "self_tests_passed": 115,
+  "differential_calls": 3467,
+  "differential_mismatches": 0,
+  "actions_applied": {
+    "DECOMPOSE_EXPRESSION": 59,
+    "FLATTEN_WITH_PRODUCT": 29,
+    "EXTRACT_CONDITION": 81,
+    "DECOMPOSE_BOOLEAN": 23
+  },
+  "actions_accepted": {
+    "DECOMPOSE_EXPRESSION": 59,
+    "FLATTEN_WITH_PRODUCT": 29,
+    "EXTRACT_CONDITION": 81,
+    "DECOMPOSE_BOOLEAN": 23
+  },
+  "rejection_reasons": {},
+  "mutation_check": {
+    "swap and/or": {
+      "mutants": 70,
+      "detected": 56,
+      "rate": 0.8
+    },
+    "change arithmetic operator": {
+      "mutants": 70,
+      "detected": 53,
+      "rate": 0.757
+    },
+    "negate extracted condition": {
+      "mutants": 82,
+      "detected": 69,
+      "rate": 0.841
+    },
+    "swap product iterables": {
+      "mutants": 21,
+      "detected": 17,
+      "rate": 0.81
+    },
+    "drop a step": {
+      "mutants": 43,
+      "detected": 42,
+      "rate": 0.977
+    },
+    "overall": {
+      "mutants": 286,
+      "detected": 237,
+      "rate": 0.829
+    }
+  },
+  "programs_detail": {
+    "P0004": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 46,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "DECOMPOSE_EXPRESSION"
+      ]
+    },
+    "P0005": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 17,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "FLATTEN_WITH_PRODUCT",
+        "DECOMPOSE_EXPRESSION"
+      ]
+    },
+    "P0014": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 10,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "FLATTEN_WITH_PRODUCT"
+      ]
+    },
+    "P0017": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 27,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0026": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 46,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "FLATTEN_WITH_PRODUCT"
+      ]
+    },
+    "P0035": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 33,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "DECOMPOSE_EXPRESSION"
+      ]
+    },
+    "P0045": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 12,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "DECOMPOSE_EXPRESSION",
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0046": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 18,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "DECOMPOSE_EXPRESSION",
+        "DECOMPOSE_EXPRESSION",
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0048": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 37,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "DECOMPOSE_EXPRESSION",
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0057": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 9,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "DECOMPOSE_EXPRESSION"
+      ]
+    },
+    "P0059": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 19,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "DECOMPOSE_EXPRESSION"
+      ]
+    },
+    "P0063": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 33,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "DECOMPOSE_EXPRESSION"
+      ]
+    },
+    "P0078": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 17,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "DECOMPOSE_EXPRESSION"
+      ]
+    },
+    "P0079": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 25,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "FLATTEN_WITH_PRODUCT",
+        "DECOMPOSE_EXPRESSION"
+      ]
+    },
+    "P0086": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 33,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "DECOMPOSE_EXPRESSION",
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0090": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 11,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "FLATTEN_WITH_PRODUCT"
+      ]
+    },
+    "P0109": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 31,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "DECOMPOSE_EXPRESSION"
+      ]
+    },
+    "P0118": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 5,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "FLATTEN_WITH_PRODUCT"
+      ]
+    },
+    "P0124": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 15,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "DECOMPOSE_BOOLEAN",
+        "DECOMPOSE_BOOLEAN",
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0140": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 11,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "FLATTEN_WITH_PRODUCT",
+        "DECOMPOSE_BOOLEAN",
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0143": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 11,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "FLATTEN_WITH_PRODUCT",
+        "DECOMPOSE_BOOLEAN",
+        "DECOMPOSE_BOOLEAN",
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0144": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 11,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "FLATTEN_WITH_PRODUCT",
+        "DECOMPOSE_BOOLEAN",
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0145": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 14,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "FLATTEN_WITH_PRODUCT",
+        "DECOMPOSE_EXPRESSION",
+        "DECOMPOSE_EXPRESSION",
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0154": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 22,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "DECOMPOSE_EXPRESSION"
+      ]
+    },
+    "P0159": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 31,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "DECOMPOSE_EXPRESSION"
+      ]
+    },
+    "P0164": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 25,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "DECOMPOSE_EXPRESSION"
+      ]
+    },
+    "P0170": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 10,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "FLATTEN_WITH_PRODUCT",
+        "FLATTEN_WITH_PRODUCT"
+      ]
+    },
+    "P0174": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 34,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "DECOMPOSE_BOOLEAN",
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0186": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 34,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "DECOMPOSE_EXPRESSION",
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0187": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 42,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "DECOMPOSE_EXPRESSION",
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0188": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 34,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "DECOMPOSE_EXPRESSION",
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0190": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 11,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "FLATTEN_WITH_PRODUCT",
+        "DECOMPOSE_BOOLEAN",
+        "DECOMPOSE_BOOLEAN",
+        "DECOMPOSE_BOOLEAN",
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0193": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 11,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "FLATTEN_WITH_PRODUCT",
+        "DECOMPOSE_BOOLEAN",
+        "DECOMPOSE_BOOLEAN",
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0194": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 11,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "FLATTEN_WITH_PRODUCT",
+        "DECOMPOSE_BOOLEAN",
+        "DECOMPOSE_BOOLEAN",
+        "DECOMPOSE_BOOLEAN",
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0218": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 5,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "FLATTEN_WITH_PRODUCT"
+      ]
+    },
+    "P0223": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 5,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "DECOMPOSE_BOOLEAN",
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0225": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 18,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0234": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 25,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "DECOMPOSE_EXPRESSION",
+        "DECOMPOSE_BOOLEAN",
+        "DECOMPOSE_BOOLEAN",
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0236": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 29,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "DECOMPOSE_EXPRESSION",
+        "DECOMPOSE_BOOLEAN",
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0238": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 31,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "DECOMPOSE_EXPRESSION",
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0240": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 11,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "FLATTEN_WITH_PRODUCT",
+        "DECOMPOSE_EXPRESSION",
+        "DECOMPOSE_BOOLEAN",
+        "DECOMPOSE_BOOLEAN",
+        "DECOMPOSE_BOOLEAN",
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0241": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 28,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "FLATTEN_WITH_PRODUCT",
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0244": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 11,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "FLATTEN_WITH_PRODUCT",
+        "DECOMPOSE_BOOLEAN",
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0262": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 62,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "DECOMPOSE_EXPRESSION"
+      ]
+    },
+    "P0271": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 12,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0280": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 38,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "FLATTEN_WITH_PRODUCT",
+        "DECOMPOSE_EXPRESSION"
+      ]
+    },
+    "P0282": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 37,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "DECOMPOSE_EXPRESSION"
+      ]
+    },
+    "P0285": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 54,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0290": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 20,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0291": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 8,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0297": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 21,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "DECOMPOSE_EXPRESSION",
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0300": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 14,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "EXTRACT_CONDITION",
+        "DECOMPOSE_EXPRESSION",
+        "DECOMPOSE_EXPRESSION",
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0309": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 13,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "DECOMPOSE_EXPRESSION"
+      ]
+    },
+    "P0311": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 62,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "DECOMPOSE_EXPRESSION"
+      ]
+    },
+    "P0313": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 74,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "DECOMPOSE_EXPRESSION"
+      ]
+    },
+    "P0321": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 9,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "EXTRACT_CONDITION",
+        "EXTRACT_CONDITION",
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0330": {
+      "changed": false,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 31,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": []
+    },
+    "P0341": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 10,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0343": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 13,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "EXTRACT_CONDITION",
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0347": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 17,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "DECOMPOSE_EXPRESSION",
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0348": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 12,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "DECOMPOSE_EXPRESSION",
+        "DECOMPOSE_EXPRESSION",
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0359": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 13,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "DECOMPOSE_EXPRESSION"
+      ]
+    },
+    "P0374": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 105,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0379": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 40,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "DECOMPOSE_EXPRESSION"
+      ]
+    },
+    "P0393": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 10,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "FLATTEN_WITH_PRODUCT",
+        "FLATTEN_WITH_PRODUCT",
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0411": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 6,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "DECOMPOSE_EXPRESSION"
+      ]
+    },
+    "P0426": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 78,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0428": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 22,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "DECOMPOSE_EXPRESSION"
+      ]
+    },
+    "P0464": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 25,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "DECOMPOSE_EXPRESSION",
+        "DECOMPOSE_EXPRESSION"
+      ]
+    },
+    "P0475": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 36,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0477": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 20,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "FLATTEN_WITH_PRODUCT"
+      ]
+    },
+    "P0478": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 25,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "DECOMPOSE_EXPRESSION"
+      ]
+    },
+    "P0484": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 44,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0486": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 78,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "DECOMPOSE_EXPRESSION",
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0489": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 8,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "FLATTEN_WITH_PRODUCT",
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0496": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 21,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0502": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 72,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "EXTRACT_CONDITION",
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0507": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 19,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0510": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 88,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0515": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 46,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0516": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 98,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0522": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 20,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0551": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 5,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0560": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 100,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0561": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 51,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0566": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 135,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0567": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 33,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0572": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 5,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0579": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 50,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "FLATTEN_WITH_PRODUCT",
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0580": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 7,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0591": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 20,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "FLATTEN_WITH_PRODUCT",
+        "DECOMPOSE_EXPRESSION",
+        "DECOMPOSE_EXPRESSION"
+      ]
+    },
+    "P0610": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 84,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0613": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 12,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0619": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 44,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0620": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 27,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0627": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 10,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "FLATTEN_WITH_PRODUCT",
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0630": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 23,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0647": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 50,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "DECOMPOSE_EXPRESSION"
+      ]
+    },
+    "P0681": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 30,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "DECOMPOSE_EXPRESSION"
+      ]
+    },
+    "P0685": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 8,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "DECOMPOSE_EXPRESSION"
+      ]
+    },
+    "P0687": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 32,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "EXTRACT_CONDITION",
+        "DECOMPOSE_EXPRESSION"
+      ]
+    },
+    "P0689": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 31,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "DECOMPOSE_EXPRESSION"
+      ]
+    },
+    "P0694": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 20,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "FLATTEN_WITH_PRODUCT",
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0699": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 10,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "FLATTEN_WITH_PRODUCT",
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0710": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 18,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0711": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 124,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0713": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 43,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0718": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 37,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "DECOMPOSE_EXPRESSION"
+      ]
+    },
+    "P0721": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 15,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "DECOMPOSE_EXPRESSION"
+      ]
+    },
+    "P0724": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 19,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0726": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 10,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "DECOMPOSE_EXPRESSION",
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0735": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 45,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "DECOMPOSE_EXPRESSION",
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0738": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 35,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "EXTRACT_CONDITION",
+        "DECOMPOSE_EXPRESSION"
+      ]
+    },
+    "P0771": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 28,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "EXTRACT_CONDITION"
+      ]
+    },
+    "P0787": {
+      "changed": true,
+      "syntax_error": "",
+      "self_test": "pass",
+      "safety_problems": [],
+      "differential": {
+        "recorded_calls_match": true,
+        "calls": 6,
+        "inconclusive": 0,
+        "mismatches": []
+      },
+      "valid": true,
+      "reasons": [],
+      "applied_actions": [
+        "DECOMPOSE_EXPRESSION",
+        "EXTRACT_CONDITION"
+      ]
+    }
+  }
+}

@@ -5,7 +5,7 @@ from train_model import train_model
 from localization import localize_file, localize_test_programs
 from recommendation import recommend_refactorings
 from transformation import automatable_targets, transform_source
-from validation import validate_refactoring
+from validation import validate_program
 from quality_metrics import compare_metrics
 
 
@@ -116,64 +116,41 @@ def main():
     # --------------------------------------------------
     print("\n[5/6] Validating transformed code...")
 
-    validation_cases = [
-        (
-            "long_statement_examples",
-            [
-                (2, 3, 4, 5, 6, 7),
-                (5, 4, 3, 2, 1, 6),
-                (1, 2, 3, 4, 5, 6),
-                (10, 8, 6, 4, 2, 1)
-            ]
-        ),
-        (
-            "conditional_examples",
-            [
-                (2, 1, 0, -1, -2),
-                (1, 2, 3, 4, 5),
-                (5, 4, 3, 2, 1)
-            ]
-        ),
-        (
-            "multiple_issue_examples",
-            [
-                (2, 3, 4, 5, 6, 7, 3),
-                (5, 4, 3, 2, 1, 6, 2),
-                (1, 2, 3, 4, 5, 6, 4)
-            ]
-        )
+    # examples.py has no self-test, so the calls to compare are given here;
+    # stage 9 adds edge-case variants of each.
+    validation_calls = [
+        ["long_statement_examples", [2, 3, 4, 5, 6, 7]],
+        ["long_statement_examples", [10, 8, 6, 4, 2, 1]],
+        ["conditional_examples", [2, 1, 0, -1, -2]],
+        ["conditional_examples", [1, 2, 3, 4, 5]],
+        ["nested_loop_examples", [3]],
+        ["multiple_issue_examples", [2, 3, 4, 5, 6, 7, 3]],
+        ["multiple_issue_examples", [5, 4, 3, 2, 1, 6, 2]],
     ]
 
-    validation_results = []
-
-    for function_name, test_inputs in validation_cases:
-        print("\n" + "#" * 55)
-        print("Validating function:", function_name)
-        print("#" * 55)
-
-        passed = validate_refactoring(
-            original_code,
-            transformed_code,
-            function_name,
-            test_inputs
-        )
-
-        validation_results.append((function_name, passed))
-
-    print("\n========== OVERALL VALIDATION SUMMARY ==========")
-
-    for function_name, passed in validation_results:
-        status = "PASS" if passed else "FAIL"
-        print(f"{function_name}: {status}")
-
-    all_passed = all(
-        passed for _, passed in validation_results
+    report = validate_program(
+        original_code, transformed_code, validation_calls
     )
+    differential = report.get("differential", {})
+
+    print("Syntax valid:", not report["syntax_error"])
+    print("Safety problems:", report.get("safety_problems") or "none")
+    print("Calls compared (with edge-case variants):",
+          differential.get("calls", 0))
+    print("Mismatches:", len(differential.get("mismatches", [])))
+    for mismatch in differential.get("mismatches", [])[:5]:
+        print(f"  {mismatch['function']}{mismatch['args']}: "
+              f"original {mismatch['original']}, "
+              f"transformed {mismatch['transformed']}")
+
+    all_passed = report["valid"]
 
     print(
         "\nOverall result:",
         "PASS" if all_passed else "FAIL"
     )
+    for reason in report["reasons"]:
+        print("  -", reason)
 
     # --------------------------------------------------
     # Stage 6: Evaluate code quality
