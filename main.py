@@ -55,7 +55,10 @@ def main():
     # --------------------------------------------------
     print("\n[3/6] Generating recommendations...")
 
-    results = recommend_refactorings(localized_issues)
+    original_code = source_path.read_text(encoding="utf-8")
+    results = recommend_refactorings(
+        localized_issues, lambda issue: original_code
+    )
 
     actions_by_line = {}
 
@@ -66,22 +69,26 @@ def main():
         print("Code:")
         print(result["code"])
 
-        print("\nDetected Issues:")
-
-        for issue in result["detected_issues"]:
-            print("  -", issue)
-
         print("\nRecommended Actions:")
 
         for recommendation in result["recommendations"]:
             action = recommendation["action"]
+            severity = recommendation["severity"]
 
             print(
-                f"  - {recommendation['refactoring']} "
-                f"({action})"
+                f"  - {recommendation['issue']}: "
+                f"{recommendation['refactoring']} ({action})"
+            )
+            print(
+                f"    {severity['measure']} = {severity['value']} "
+                f"(flagged from {severity['flagged_at']})"
             )
 
-            # Group recommended actions by original source line.
+            if not recommendation["automatable"]:
+                print(f"    Not automatic: {recommendation['reason']}")
+                continue
+
+            # Group automatable actions by original source line.
             line_no = int(result["line_no"])
 
             actions_by_line.setdefault(line_no, [])
@@ -93,8 +100,6 @@ def main():
     # Stage 4: Apply supported transformations
     # --------------------------------------------------
     print("\n[4/6] Applying transformations...")
-
-    original_code = source_path.read_text(encoding="utf-8")
 
     transformed_code, applied_actions = transform_code(
         original_code,
@@ -111,7 +116,7 @@ def main():
 
     print("\n========== TRANSFORMATION SUMMARY ==========")
     print(
-        "Recommended action entries:",
+        "Automatable action entries:",
         sum(len(actions) for actions in actions_by_line.values())
     )
     print("Transformations applied:", len(applied_actions))
@@ -200,7 +205,7 @@ def main():
     print("Dataset rows:", len(data))
     print("Localized issue records:", len(localized_issues))
     print(
-        "Recommended action entries:",
+        "Automatable action entries:",
         sum(len(actions) for actions in actions_by_line.values())
     )
     print("Transformations applied:", len(applied_actions))

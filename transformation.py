@@ -1,6 +1,12 @@
 
 import ast
 
+# (action, statement type) pairs RefactoringTransformer applies.
+SUPPORTED_ACTIONS = {
+    ("DECOMPOSE_EXPRESSION", "Assign"),
+    ("EXTRACT_CONDITION", "If"),
+}
+
 
 class RefactoringTransformer(ast.NodeTransformer):
 
