@@ -4,7 +4,7 @@ from pathlib import Path
 from train_model import train_model
 from localization import localize_file, localize_test_programs
 from recommendation import recommend_refactorings
-from transformation import transform_code
+from transformation import automatable_targets, transform_source
 from validation import validate_refactoring
 from quality_metrics import compare_metrics
 
@@ -60,7 +60,7 @@ def main():
         localized_issues, lambda issue: original_code
     )
 
-    actions_by_line = {}
+    targets = []
 
     for result in results:
         print("\n" + "-" * 55)
@@ -86,39 +86,26 @@ def main():
 
             if not recommendation["automatable"]:
                 print(f"    Not automatic: {recommendation['reason']}")
-                continue
 
-            # Group automatable actions by original source line.
-            line_no = int(result["line_no"])
-
-            actions_by_line.setdefault(line_no, [])
-
-            if action not in actions_by_line[line_no]:
-                actions_by_line[line_no].append(action)
+        targets += automatable_targets(result)
 
     # --------------------------------------------------
     # Stage 4: Apply supported transformations
     # --------------------------------------------------
     print("\n[4/6] Applying transformations...")
 
-    transformed_code, applied_actions = transform_code(
-        original_code,
-        actions_by_line
-    )
+    transformed_code, outcomes = transform_source(original_code, targets)
+    applied_actions = [o for o in outcomes if o["status"] == "applied"]
 
-    print("\n========== APPLIED TRANSFORMATIONS ==========")
+    print("\n========== TRANSFORMATION OUTCOMES ==========")
 
-    if applied_actions:
-        for action in applied_actions:
-            print("-", action)
-    else:
-        print("No supported transformations were applied.")
+    for outcome in outcomes:
+        detail = f" ({outcome['detail']})" if outcome["detail"] else ""
+        print(f"- line {outcome['line_no']}: {outcome['action']} "
+              f"{outcome['status']}{detail}")
 
     print("\n========== TRANSFORMATION SUMMARY ==========")
-    print(
-        "Automatable action entries:",
-        sum(len(actions) for actions in actions_by_line.values())
-    )
+    print("Automatable action entries:", len(targets))
     print("Transformations applied:", len(applied_actions))
 
     print("\n========== TRANSFORMED SOURCE CODE ==========")
@@ -206,7 +193,7 @@ def main():
     print("Localized issue records:", len(localized_issues))
     print(
         "Automatable action entries:",
-        sum(len(actions) for actions in actions_by_line.values())
+        len(targets)
     )
     print("Transformations applied:", len(applied_actions))
     print(

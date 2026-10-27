@@ -1,12 +1,12 @@
 {
   "statements": 352,
   "recommendations": 352,
-  "automatable": 136,
+  "automatable": 195,
   "in_main_guard": 49,
   "by_issue": {
     "long_statement": {
       "count": 167,
-      "automatable": 55,
+      "automatable": 84,
       "actions": {
         "DECOMPOSE_EXPRESSION": 61,
         "EXTRACT_ELEMENTS": 46,
@@ -18,10 +18,10 @@
     },
     "nested_loop": {
       "count": 100,
-      "automatable": 0,
+      "automatable": 30,
       "actions": {
-        "EXTRACT_INNER_LOOP": 72,
-        "FLATTEN_WITH_PRODUCT": 28
+        "EXTRACT_INNER_LOOP": 70,
+        "FLATTEN_WITH_PRODUCT": 30
       }
     },
     "complex_conditional": {
@@ -39,12 +39,12 @@
       "automatable": 81
     },
     "EXTRACT_INNER_LOOP": {
-      "count": 72,
+      "count": 70,
       "automatable": 0
     },
     "DECOMPOSE_EXPRESSION": {
       "count": 61,
-      "automatable": 55
+      "automatable": 61
     },
     "EXTRACT_ELEMENTS": {
       "count": 46,
@@ -52,11 +52,11 @@
     },
     "DECOMPOSE_BOOLEAN": {
       "count": 31,
-      "automatable": 0
+      "automatable": 23
     },
     "FLATTEN_WITH_PRODUCT": {
-      "count": 28,
-      "automatable": 0
+      "count": 30,
+      "automatable": 30
     },
     "EXTRACT_ARGUMENTS": {
       "count": 17,

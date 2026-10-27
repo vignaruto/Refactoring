@@ -64,8 +64,8 @@
               "flagged_at": 2
             },
             "confidence": 0.995,
-            "automatable": false,
-            "reason": "transformation.py does not implement FLATTEN_WITH_PRODUCT for For statements yet"
+            "automatable": true,
+            "reason": ""
           }
         ]
       },
@@ -131,8 +131,8 @@
               "flagged_at": 2
             },
             "confidence": 1.0,
-            "automatable": false,
-            "reason": "transformation.py does not implement FLATTEN_WITH_PRODUCT for For statements yet"
+            "automatable": true,
+            "reason": ""
           }
         ]
       }
@@ -234,8 +234,8 @@
               "flagged_at": 2
             },
             "confidence": 1.0,
-            "automatable": false,
-            "reason": "transformation.py does not implement FLATTEN_WITH_PRODUCT for For statements yet"
+            "automatable": true,
+            "reason": ""
           }
         ]
       },
@@ -265,8 +265,8 @@
               "flagged_at": 2
             },
             "confidence": 1.0,
-            "automatable": false,
-            "reason": "transformation.py does not implement FLATTEN_WITH_PRODUCT for For statements yet"
+            "automatable": true,
+            "reason": ""
           }
         ]
       }
@@ -294,7 +294,7 @@
             "refactoring": "Extract Inner Loop",
             "action": "EXTRACT_INNER_LOOP",
             "description": "Move the inner loop into a helper function.",
-            "pattern": "loop with a dependent or non-perfect inner loop",
+            "pattern": "inner loop is not perfectly nested, depends on the outer loop or is unsafe to merge",
             "severity": {
               "measure": "loop_depth",
               "value": 3,
@@ -302,7 +302,7 @@
             },
             "confidence": 0.995,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for For statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       },
@@ -325,7 +325,7 @@
             "refactoring": "Extract Inner Loop",
             "action": "EXTRACT_INNER_LOOP",
             "description": "Move the inner loop into a helper function.",
-            "pattern": "loop with a dependent or non-perfect inner loop",
+            "pattern": "inner loop is not perfectly nested, depends on the outer loop or is unsafe to merge",
             "severity": {
               "measure": "loop_depth",
               "value": 2,
@@ -333,7 +333,7 @@
             },
             "confidence": 0.98,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for For statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       }
@@ -368,8 +368,8 @@
               "flagged_at": 61
             },
             "confidence": 0.96,
-            "automatable": false,
-            "reason": "transformation.py does not implement DECOMPOSE_EXPRESSION for Return statements yet"
+            "automatable": true,
+            "reason": ""
           }
         ]
       },
@@ -428,7 +428,7 @@
             "refactoring": "Extract Inner Loop",
             "action": "EXTRACT_INNER_LOOP",
             "description": "Move the inner loop into a helper function.",
-            "pattern": "loop with a dependent or non-perfect inner loop",
+            "pattern": "inner loop is not perfectly nested, depends on the outer loop or is unsafe to merge",
             "severity": {
               "measure": "loop_depth",
               "value": 3,
@@ -436,7 +436,7 @@
             },
             "confidence": 1.0,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for For statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       },
@@ -459,7 +459,7 @@
             "refactoring": "Extract Inner Loop",
             "action": "EXTRACT_INNER_LOOP",
             "description": "Move the inner loop into a helper function.",
-            "pattern": "loop with a dependent or non-perfect inner loop",
+            "pattern": "inner loop is not perfectly nested, depends on the outer loop or is unsafe to merge",
             "severity": {
               "measure": "loop_depth",
               "value": 2,
@@ -467,7 +467,7 @@
             },
             "confidence": 1.0,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for For statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       },
@@ -560,7 +560,7 @@
             },
             "confidence": 0.96,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_ARGUMENTS for Expr statements yet"
+            "reason": "transformation.py does not implement EXTRACT_ARGUMENTS yet"
           }
         ]
       },
@@ -748,7 +748,7 @@
             "refactoring": "Extract Inner Loop",
             "action": "EXTRACT_INNER_LOOP",
             "description": "Move the inner loop into a helper function.",
-            "pattern": "loop with a dependent or non-perfect inner loop",
+            "pattern": "inner loop is not perfectly nested, depends on the outer loop or is unsafe to merge",
             "severity": {
               "measure": "loop_depth",
               "value": 3,
@@ -756,7 +756,7 @@
             },
             "confidence": 0.995,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for For statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       },
@@ -779,7 +779,7 @@
             "refactoring": "Extract Inner Loop",
             "action": "EXTRACT_INNER_LOOP",
             "description": "Move the inner loop into a helper function.",
-            "pattern": "loop with a dependent or non-perfect inner loop",
+            "pattern": "inner loop is not perfectly nested, depends on the outer loop or is unsafe to merge",
             "severity": {
               "measure": "loop_depth",
               "value": 2,
@@ -787,7 +787,7 @@
             },
             "confidence": 0.985,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for For statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       },
@@ -915,8 +915,8 @@
               "flagged_at": 61
             },
             "confidence": 0.795,
-            "automatable": false,
-            "reason": "transformation.py does not implement DECOMPOSE_EXPRESSION for Return statements yet"
+            "automatable": true,
+            "reason": ""
           }
         ]
       },
@@ -1086,7 +1086,7 @@
             },
             "confidence": 0.775,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for While statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       },
@@ -1109,7 +1109,7 @@
             "refactoring": "Extract Inner Loop",
             "action": "EXTRACT_INNER_LOOP",
             "description": "Move the inner loop into a helper function.",
-            "pattern": "loop with a dependent or non-perfect inner loop",
+            "pattern": "inner loop is not perfectly nested, depends on the outer loop or is unsafe to merge",
             "severity": {
               "measure": "loop_depth",
               "value": 2,
@@ -1117,7 +1117,7 @@
             },
             "confidence": 0.985,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for For statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       }
@@ -1145,7 +1145,7 @@
             "refactoring": "Extract Inner Loop",
             "action": "EXTRACT_INNER_LOOP",
             "description": "Move the inner loop into a helper function.",
-            "pattern": "loop with a dependent or non-perfect inner loop",
+            "pattern": "inner loop is not perfectly nested, depends on the outer loop or is unsafe to merge",
             "severity": {
               "measure": "loop_depth",
               "value": 2,
@@ -1153,7 +1153,7 @@
             },
             "confidence": 1.0,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for For statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       },
@@ -1183,8 +1183,8 @@
               "flagged_at": 61
             },
             "confidence": 1.0,
-            "automatable": false,
-            "reason": "transformation.py does not implement DECOMPOSE_EXPRESSION for AugAssign statements yet"
+            "automatable": true,
+            "reason": ""
           }
         ]
       }
@@ -1219,8 +1219,8 @@
               "flagged_at": 2
             },
             "confidence": 1.0,
-            "automatable": false,
-            "reason": "transformation.py does not implement FLATTEN_WITH_PRODUCT for For statements yet"
+            "automatable": true,
+            "reason": ""
           }
         ]
       },
@@ -1384,8 +1384,8 @@
               "flagged_at": 2
             },
             "confidence": 1.0,
-            "automatable": false,
-            "reason": "transformation.py does not implement FLATTEN_WITH_PRODUCT for For statements yet"
+            "automatable": true,
+            "reason": ""
           }
         ]
       },
@@ -1416,7 +1416,7 @@
             },
             "confidence": 0.86,
             "automatable": false,
-            "reason": "transformation.py does not implement DECOMPOSE_BOOLEAN for Assign statements yet"
+            "reason": "value is a Compare, not a BoolOp chain"
           }
         ]
       },
@@ -1447,7 +1447,7 @@
             },
             "confidence": 0.79,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_ARGUMENTS for Expr statements yet"
+            "reason": "transformation.py does not implement EXTRACT_ARGUMENTS yet"
           }
         ]
       },
@@ -1647,8 +1647,8 @@
               "flagged_at": 2
             },
             "confidence": 1.0,
-            "automatable": false,
-            "reason": "transformation.py does not implement FLATTEN_WITH_PRODUCT for For statements yet"
+            "automatable": true,
+            "reason": ""
           }
         ]
       }
@@ -1683,8 +1683,8 @@
               "flagged_at": 61
             },
             "confidence": 0.99,
-            "automatable": false,
-            "reason": "transformation.py does not implement DECOMPOSE_BOOLEAN for Assign statements yet"
+            "automatable": true,
+            "reason": ""
           }
         ]
       },
@@ -1714,8 +1714,8 @@
               "flagged_at": 61
             },
             "confidence": 0.99,
-            "automatable": false,
-            "reason": "transformation.py does not implement DECOMPOSE_BOOLEAN for Assign statements yet"
+            "automatable": true,
+            "reason": ""
           }
         ]
       },
@@ -1781,8 +1781,8 @@
               "flagged_at": 2
             },
             "confidence": 1.0,
-            "automatable": false,
-            "reason": "transformation.py does not implement FLATTEN_WITH_PRODUCT for For statements yet"
+            "automatable": true,
+            "reason": ""
           }
         ]
       },
@@ -1813,7 +1813,7 @@
             },
             "confidence": 0.79,
             "automatable": false,
-            "reason": "transformation.py does not implement DECOMPOSE_BOOLEAN for Assign statements yet"
+            "reason": "value is a Compare, not a BoolOp chain"
           }
         ]
       },
@@ -1844,7 +1844,7 @@
             },
             "confidence": 0.93,
             "automatable": false,
-            "reason": "transformation.py does not implement DECOMPOSE_BOOLEAN for Assign statements yet"
+            "reason": "value is a Compare, not a BoolOp chain"
           }
         ]
       },
@@ -1874,8 +1874,8 @@
               "flagged_at": 61
             },
             "confidence": 0.915,
-            "automatable": false,
-            "reason": "transformation.py does not implement DECOMPOSE_BOOLEAN for Assign statements yet"
+            "automatable": true,
+            "reason": ""
           }
         ]
       },
@@ -1937,7 +1937,7 @@
             },
             "confidence": 0.865,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_ARGUMENTS for Expr statements yet"
+            "reason": "transformation.py does not implement EXTRACT_ARGUMENTS yet"
           }
         ]
       },
@@ -2003,8 +2003,8 @@
               "flagged_at": 2
             },
             "confidence": 1.0,
-            "automatable": false,
-            "reason": "transformation.py does not implement FLATTEN_WITH_PRODUCT for For statements yet"
+            "automatable": true,
+            "reason": ""
           }
         ]
       },
@@ -2034,8 +2034,8 @@
               "flagged_at": 61
             },
             "confidence": 0.975,
-            "automatable": false,
-            "reason": "transformation.py does not implement DECOMPOSE_BOOLEAN for Assign statements yet"
+            "automatable": true,
+            "reason": ""
           }
         ]
       },
@@ -2065,8 +2065,8 @@
               "flagged_at": 61
             },
             "confidence": 0.98,
-            "automatable": false,
-            "reason": "transformation.py does not implement DECOMPOSE_BOOLEAN for Assign statements yet"
+            "automatable": true,
+            "reason": ""
           }
         ]
       },
@@ -2163,8 +2163,8 @@
               "flagged_at": 2
             },
             "confidence": 1.0,
-            "automatable": false,
-            "reason": "transformation.py does not implement FLATTEN_WITH_PRODUCT for For statements yet"
+            "automatable": true,
+            "reason": ""
           }
         ]
       },
@@ -2194,8 +2194,8 @@
               "flagged_at": 61
             },
             "confidence": 0.935,
-            "automatable": false,
-            "reason": "transformation.py does not implement DECOMPOSE_BOOLEAN for Assign statements yet"
+            "automatable": true,
+            "reason": ""
           }
         ]
       },
@@ -2257,7 +2257,7 @@
             },
             "confidence": 0.855,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_ARGUMENTS for Expr statements yet"
+            "reason": "transformation.py does not implement EXTRACT_ARGUMENTS yet"
           }
         ]
       },
@@ -2323,8 +2323,8 @@
               "flagged_at": 2
             },
             "confidence": 1.0,
-            "automatable": false,
-            "reason": "transformation.py does not implement FLATTEN_WITH_PRODUCT for For statements yet"
+            "automatable": true,
+            "reason": ""
           }
         ]
       },
@@ -2484,7 +2484,7 @@
             },
             "confidence": 0.995,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_PREDICATE for While statements yet"
+            "reason": "transformation.py does not implement EXTRACT_PREDICATE yet"
           }
         ]
       },
@@ -2551,7 +2551,7 @@
             },
             "confidence": 0.835,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_ELEMENTS for Return statements yet"
+            "reason": "transformation.py does not implement EXTRACT_ELEMENTS yet"
           }
         ]
       },
@@ -2751,8 +2751,8 @@
               "flagged_at": 2
             },
             "confidence": 1.0,
-            "automatable": false,
-            "reason": "transformation.py does not implement FLATTEN_WITH_PRODUCT for For statements yet"
+            "automatable": true,
+            "reason": ""
           }
         ]
       },
@@ -2775,7 +2775,7 @@
             "refactoring": "Extract Inner Loop",
             "action": "EXTRACT_INNER_LOOP",
             "description": "Move the inner loop into a helper function.",
-            "pattern": "loop with a dependent or non-perfect inner loop",
+            "pattern": "inner loop is not perfectly nested, depends on the outer loop or is unsafe to merge",
             "severity": {
               "measure": "loop_depth",
               "value": 3,
@@ -2783,7 +2783,7 @@
             },
             "confidence": 1.0,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for For statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       },
@@ -2813,8 +2813,8 @@
               "flagged_at": 2
             },
             "confidence": 0.99,
-            "automatable": false,
-            "reason": "transformation.py does not implement FLATTEN_WITH_PRODUCT for For statements yet"
+            "automatable": true,
+            "reason": ""
           }
         ]
       }
@@ -2849,8 +2849,8 @@
               "flagged_at": 61
             },
             "confidence": 0.965,
-            "automatable": false,
-            "reason": "transformation.py does not implement DECOMPOSE_BOOLEAN for Assign statements yet"
+            "automatable": true,
+            "reason": ""
           }
         ]
       },
@@ -2979,7 +2979,7 @@
             },
             "confidence": 1.0,
             "automatable": false,
-            "reason": "transformation.py does not implement DECOMPOSE_BOOLEAN for Assign statements yet"
+            "reason": "value is a Compare, not a BoolOp chain"
           }
         ]
       },
@@ -3108,7 +3108,7 @@
             },
             "confidence": 1.0,
             "automatable": false,
-            "reason": "transformation.py does not implement DECOMPOSE_BOOLEAN for Assign statements yet"
+            "reason": "value is a Compare, not a BoolOp chain"
           }
         ]
       },
@@ -3139,7 +3139,7 @@
             },
             "confidence": 1.0,
             "automatable": false,
-            "reason": "transformation.py does not implement DECOMPOSE_BOOLEAN for Assign statements yet"
+            "reason": "value is a Compare, not a BoolOp chain"
           }
         ]
       },
@@ -3330,7 +3330,7 @@
             },
             "confidence": 1.0,
             "automatable": false,
-            "reason": "transformation.py does not implement DECOMPOSE_BOOLEAN for Assign statements yet"
+            "reason": "value is a Compare, not a BoolOp chain"
           }
         ]
       },
@@ -3427,8 +3427,8 @@
               "flagged_at": 2
             },
             "confidence": 1.0,
-            "automatable": false,
-            "reason": "transformation.py does not implement FLATTEN_WITH_PRODUCT for For statements yet"
+            "automatable": true,
+            "reason": ""
           }
         ]
       },
@@ -3458,8 +3458,8 @@
               "flagged_at": 61
             },
             "confidence": 0.975,
-            "automatable": false,
-            "reason": "transformation.py does not implement DECOMPOSE_BOOLEAN for Assign statements yet"
+            "automatable": true,
+            "reason": ""
           }
         ]
       },
@@ -3489,8 +3489,8 @@
               "flagged_at": 61
             },
             "confidence": 0.96,
-            "automatable": false,
-            "reason": "transformation.py does not implement DECOMPOSE_BOOLEAN for Assign statements yet"
+            "automatable": true,
+            "reason": ""
           }
         ]
       },
@@ -3520,8 +3520,8 @@
               "flagged_at": 61
             },
             "confidence": 0.975,
-            "automatable": false,
-            "reason": "transformation.py does not implement DECOMPOSE_BOOLEAN for Assign statements yet"
+            "automatable": true,
+            "reason": ""
           }
         ]
       },
@@ -3649,8 +3649,8 @@
               "flagged_at": 2
             },
             "confidence": 1.0,
-            "automatable": false,
-            "reason": "transformation.py does not implement FLATTEN_WITH_PRODUCT for For statements yet"
+            "automatable": true,
+            "reason": ""
           }
         ]
       },
@@ -3680,8 +3680,8 @@
               "flagged_at": 61
             },
             "confidence": 0.98,
-            "automatable": false,
-            "reason": "transformation.py does not implement DECOMPOSE_BOOLEAN for Assign statements yet"
+            "automatable": true,
+            "reason": ""
           }
         ]
       },
@@ -3711,8 +3711,8 @@
               "flagged_at": 61
             },
             "confidence": 0.945,
-            "automatable": false,
-            "reason": "transformation.py does not implement DECOMPOSE_BOOLEAN for Assign statements yet"
+            "automatable": true,
+            "reason": ""
           }
         ]
       },
@@ -3840,8 +3840,8 @@
               "flagged_at": 2
             },
             "confidence": 1.0,
-            "automatable": false,
-            "reason": "transformation.py does not implement FLATTEN_WITH_PRODUCT for For statements yet"
+            "automatable": true,
+            "reason": ""
           }
         ]
       },
@@ -3871,8 +3871,8 @@
               "flagged_at": 61
             },
             "confidence": 0.98,
-            "automatable": false,
-            "reason": "transformation.py does not implement DECOMPOSE_BOOLEAN for Assign statements yet"
+            "automatable": true,
+            "reason": ""
           }
         ]
       },
@@ -3902,8 +3902,8 @@
               "flagged_at": 61
             },
             "confidence": 0.975,
-            "automatable": false,
-            "reason": "transformation.py does not implement DECOMPOSE_BOOLEAN for Assign statements yet"
+            "automatable": true,
+            "reason": ""
           }
         ]
       },
@@ -3933,8 +3933,8 @@
               "flagged_at": 61
             },
             "confidence": 0.855,
-            "automatable": false,
-            "reason": "transformation.py does not implement DECOMPOSE_BOOLEAN for Assign statements yet"
+            "automatable": true,
+            "reason": ""
           }
         ]
       },
@@ -4063,7 +4063,7 @@
             },
             "confidence": 0.92,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_ELEMENTS for Return statements yet"
+            "reason": "transformation.py does not implement EXTRACT_ELEMENTS yet"
           }
         ]
       },
@@ -4122,7 +4122,7 @@
             "refactoring": "Extract Inner Loop",
             "action": "EXTRACT_INNER_LOOP",
             "description": "Move the inner loop into a helper function.",
-            "pattern": "loop with a dependent or non-perfect inner loop",
+            "pattern": "inner loop is not perfectly nested, depends on the outer loop or is unsafe to merge",
             "severity": {
               "measure": "loop_depth",
               "value": 3,
@@ -4130,7 +4130,7 @@
             },
             "confidence": 1.0,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for For statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       },
@@ -4153,7 +4153,7 @@
             "refactoring": "Extract Inner Loop",
             "action": "EXTRACT_INNER_LOOP",
             "description": "Move the inner loop into a helper function.",
-            "pattern": "loop with a dependent or non-perfect inner loop",
+            "pattern": "inner loop is not perfectly nested, depends on the outer loop or is unsafe to merge",
             "severity": {
               "measure": "loop_depth",
               "value": 2,
@@ -4161,7 +4161,7 @@
             },
             "confidence": 0.98,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for For statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       },
@@ -4184,7 +4184,7 @@
             "refactoring": "Extract Inner Loop",
             "action": "EXTRACT_INNER_LOOP",
             "description": "Move the inner loop into a helper function.",
-            "pattern": "loop with a dependent or non-perfect inner loop",
+            "pattern": "inner loop is not perfectly nested, depends on the outer loop or is unsafe to merge",
             "severity": {
               "measure": "loop_depth",
               "value": 2,
@@ -4192,7 +4192,7 @@
             },
             "confidence": 1.0,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for For statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       }
@@ -4228,7 +4228,7 @@
             },
             "confidence": 0.815,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for While statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       }
@@ -4263,8 +4263,8 @@
               "flagged_at": 2
             },
             "confidence": 1.0,
-            "automatable": false,
-            "reason": "transformation.py does not implement FLATTEN_WITH_PRODUCT for For statements yet"
+            "automatable": true,
+            "reason": ""
           }
         ]
       }
@@ -4299,8 +4299,8 @@
               "flagged_at": 61
             },
             "confidence": 0.865,
-            "automatable": false,
-            "reason": "transformation.py does not implement DECOMPOSE_BOOLEAN for Assign statements yet"
+            "automatable": true,
+            "reason": ""
           }
         ]
       },
@@ -4464,8 +4464,8 @@
               "flagged_at": 61
             },
             "confidence": 0.985,
-            "automatable": false,
-            "reason": "transformation.py does not implement DECOMPOSE_BOOLEAN for Assign statements yet"
+            "automatable": true,
+            "reason": ""
           }
         ]
       },
@@ -4495,8 +4495,8 @@
               "flagged_at": 61
             },
             "confidence": 0.98,
-            "automatable": false,
-            "reason": "transformation.py does not implement DECOMPOSE_BOOLEAN for Assign statements yet"
+            "automatable": true,
+            "reason": ""
           }
         ]
       },
@@ -4593,8 +4593,8 @@
               "flagged_at": 61
             },
             "confidence": 1.0,
-            "automatable": false,
-            "reason": "transformation.py does not implement DECOMPOSE_BOOLEAN for Assign statements yet"
+            "automatable": true,
+            "reason": ""
           }
         ]
       },
@@ -4820,8 +4820,8 @@
               "flagged_at": 2
             },
             "confidence": 1.0,
-            "automatable": false,
-            "reason": "transformation.py does not implement FLATTEN_WITH_PRODUCT for For statements yet"
+            "automatable": true,
+            "reason": ""
           }
         ]
       },
@@ -4882,8 +4882,8 @@
               "flagged_at": 61
             },
             "confidence": 0.975,
-            "automatable": false,
-            "reason": "transformation.py does not implement DECOMPOSE_BOOLEAN for Assign statements yet"
+            "automatable": true,
+            "reason": ""
           }
         ]
       },
@@ -4913,8 +4913,8 @@
               "flagged_at": 61
             },
             "confidence": 0.73,
-            "automatable": false,
-            "reason": "transformation.py does not implement DECOMPOSE_BOOLEAN for Assign statements yet"
+            "automatable": true,
+            "reason": ""
           }
         ]
       },
@@ -4944,8 +4944,8 @@
               "flagged_at": 61
             },
             "confidence": 0.945,
-            "automatable": false,
-            "reason": "transformation.py does not implement DECOMPOSE_BOOLEAN for Assign statements yet"
+            "automatable": true,
+            "reason": ""
           }
         ]
       },
@@ -5073,8 +5073,8 @@
               "flagged_at": 2
             },
             "confidence": 1.0,
-            "automatable": false,
-            "reason": "transformation.py does not implement FLATTEN_WITH_PRODUCT for For statements yet"
+            "automatable": true,
+            "reason": ""
           }
         ]
       },
@@ -5140,8 +5140,8 @@
               "flagged_at": 2
             },
             "confidence": 1.0,
-            "automatable": false,
-            "reason": "transformation.py does not implement FLATTEN_WITH_PRODUCT for For statements yet"
+            "automatable": true,
+            "reason": ""
           }
         ]
       },
@@ -5172,7 +5172,7 @@
             },
             "confidence": 0.935,
             "automatable": false,
-            "reason": "transformation.py does not implement DECOMPOSE_BOOLEAN for Assign statements yet"
+            "reason": "value is a Compare, not a BoolOp chain"
           }
         ]
       },
@@ -5202,8 +5202,8 @@
               "flagged_at": 61
             },
             "confidence": 0.945,
-            "automatable": false,
-            "reason": "transformation.py does not implement DECOMPOSE_BOOLEAN for Assign statements yet"
+            "automatable": true,
+            "reason": ""
           }
         ]
       },
@@ -5265,7 +5265,7 @@
             },
             "confidence": 0.84,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_ARGUMENTS for Expr statements yet"
+            "reason": "transformation.py does not implement EXTRACT_ARGUMENTS yet"
           }
         ]
       },
@@ -5394,7 +5394,7 @@
             },
             "confidence": 0.98,
             "automatable": false,
-            "reason": "transformation.py does not implement REPLACE_CONDITIONAL_EXPRESSION for Assign statements yet"
+            "reason": "transformation.py does not implement REPLACE_CONDITIONAL_EXPRESSION yet"
           }
         ]
       }
@@ -5422,7 +5422,7 @@
             "refactoring": "Extract Inner Loop",
             "action": "EXTRACT_INNER_LOOP",
             "description": "Move the inner loop into a helper function.",
-            "pattern": "loop with a dependent or non-perfect inner loop",
+            "pattern": "inner loop is not perfectly nested, depends on the outer loop or is unsafe to merge",
             "severity": {
               "measure": "loop_depth",
               "value": 2,
@@ -5430,7 +5430,7 @@
             },
             "confidence": 1.0,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for For statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       }
@@ -5501,8 +5501,8 @@
               "flagged_at": 2
             },
             "confidence": 1.0,
-            "automatable": false,
-            "reason": "transformation.py does not implement FLATTEN_WITH_PRODUCT for For statements yet"
+            "automatable": true,
+            "reason": ""
           }
         ]
       },
@@ -5533,7 +5533,7 @@
             },
             "confidence": 0.885,
             "automatable": false,
-            "reason": "transformation.py does not implement REPLACE_CONDITIONAL_EXPRESSION for Assign statements yet"
+            "reason": "transformation.py does not implement REPLACE_CONDITIONAL_EXPRESSION yet"
           }
         ]
       },
@@ -5592,7 +5592,7 @@
             "refactoring": "Extract Inner Loop",
             "action": "EXTRACT_INNER_LOOP",
             "description": "Move the inner loop into a helper function.",
-            "pattern": "loop with a dependent or non-perfect inner loop",
+            "pattern": "inner loop is not perfectly nested, depends on the outer loop or is unsafe to merge",
             "severity": {
               "measure": "loop_depth",
               "value": 2,
@@ -5600,7 +5600,7 @@
             },
             "confidence": 1.0,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for For statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       },
@@ -5630,8 +5630,8 @@
               "flagged_at": 61
             },
             "confidence": 1.0,
-            "automatable": false,
-            "reason": "transformation.py does not implement DECOMPOSE_EXPRESSION for AugAssign statements yet"
+            "automatable": true,
+            "reason": ""
           }
         ]
       }
@@ -5698,7 +5698,7 @@
             },
             "confidence": 0.97,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_ARGUMENTS for Assign statements yet"
+            "reason": "transformation.py does not implement EXTRACT_ARGUMENTS yet"
           }
         ]
       }
@@ -5726,7 +5726,7 @@
             "refactoring": "Extract Inner Loop",
             "action": "EXTRACT_INNER_LOOP",
             "description": "Move the inner loop into a helper function.",
-            "pattern": "loop with a dependent or non-perfect inner loop",
+            "pattern": "inner loop is not perfectly nested, depends on the outer loop or is unsafe to merge",
             "severity": {
               "measure": "loop_depth",
               "value": 2,
@@ -5734,7 +5734,7 @@
             },
             "confidence": 1.0,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for For statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       },
@@ -5793,7 +5793,7 @@
             "refactoring": "Extract Inner Loop",
             "action": "EXTRACT_INNER_LOOP",
             "description": "Move the inner loop into a helper function.",
-            "pattern": "loop with a dependent or non-perfect inner loop",
+            "pattern": "inner loop is not perfectly nested, depends on the outer loop or is unsafe to merge",
             "severity": {
               "measure": "loop_depth",
               "value": 2,
@@ -5801,7 +5801,7 @@
             },
             "confidence": 1.0,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for For statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       },
@@ -5860,7 +5860,7 @@
             "refactoring": "Extract Inner Loop",
             "action": "EXTRACT_INNER_LOOP",
             "description": "Move the inner loop into a helper function.",
-            "pattern": "loop with a dependent or non-perfect inner loop",
+            "pattern": "inner loop is not perfectly nested, depends on the outer loop or is unsafe to merge",
             "severity": {
               "measure": "loop_depth",
               "value": 2,
@@ -5868,7 +5868,7 @@
             },
             "confidence": 0.97,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for For statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       },
@@ -6020,7 +6020,7 @@
             "refactoring": "Extract Inner Loop",
             "action": "EXTRACT_INNER_LOOP",
             "description": "Move the inner loop into a helper function.",
-            "pattern": "loop with a dependent or non-perfect inner loop",
+            "pattern": "inner loop is not perfectly nested, depends on the outer loop or is unsafe to merge",
             "severity": {
               "measure": "loop_depth",
               "value": 3,
@@ -6028,7 +6028,7 @@
             },
             "confidence": 1.0,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for For statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       },
@@ -6051,7 +6051,7 @@
             "refactoring": "Extract Inner Loop",
             "action": "EXTRACT_INNER_LOOP",
             "description": "Move the inner loop into a helper function.",
-            "pattern": "loop with a dependent or non-perfect inner loop",
+            "pattern": "inner loop is not perfectly nested, depends on the outer loop or is unsafe to merge",
             "severity": {
               "measure": "loop_depth",
               "value": 2,
@@ -6059,7 +6059,7 @@
             },
             "confidence": 0.99,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for For statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       },
@@ -6317,7 +6317,7 @@
             },
             "confidence": 0.985,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_ARGUMENTS for Assign statements yet"
+            "reason": "transformation.py does not implement EXTRACT_ARGUMENTS yet"
           }
         ]
       },
@@ -6510,7 +6510,7 @@
             "refactoring": "Extract Inner Loop",
             "action": "EXTRACT_INNER_LOOP",
             "description": "Move the inner loop into a helper function.",
-            "pattern": "loop with a dependent or non-perfect inner loop",
+            "pattern": "inner loop is not perfectly nested, depends on the outer loop or is unsafe to merge",
             "severity": {
               "measure": "loop_depth",
               "value": 2,
@@ -6518,7 +6518,7 @@
             },
             "confidence": 1.0,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for For statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       },
@@ -6580,7 +6580,7 @@
             },
             "confidence": 0.865,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_ARGUMENTS for Expr statements yet"
+            "reason": "transformation.py does not implement EXTRACT_ARGUMENTS yet"
           }
         ]
       },
@@ -6639,7 +6639,7 @@
             "refactoring": "Extract Inner Loop",
             "action": "EXTRACT_INNER_LOOP",
             "description": "Move the inner loop into a helper function.",
-            "pattern": "loop with a dependent or non-perfect inner loop",
+            "pattern": "inner loop is not perfectly nested, depends on the outer loop or is unsafe to merge",
             "severity": {
               "measure": "loop_depth",
               "value": 2,
@@ -6647,7 +6647,7 @@
             },
             "confidence": 1.0,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for For statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       },
@@ -6678,7 +6678,7 @@
             },
             "confidence": 1.0,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_ARGUMENTS for Assign statements yet"
+            "reason": "transformation.py does not implement EXTRACT_ARGUMENTS yet"
           }
         ]
       }
@@ -6706,7 +6706,7 @@
             "refactoring": "Extract Inner Loop",
             "action": "EXTRACT_INNER_LOOP",
             "description": "Move the inner loop into a helper function.",
-            "pattern": "loop with a dependent or non-perfect inner loop",
+            "pattern": "inner loop is not perfectly nested, depends on the outer loop or is unsafe to merge",
             "severity": {
               "measure": "loop_depth",
               "value": 2,
@@ -6714,7 +6714,7 @@
             },
             "confidence": 1.0,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for For statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       },
@@ -6773,7 +6773,7 @@
             "refactoring": "Extract Inner Loop",
             "action": "EXTRACT_INNER_LOOP",
             "description": "Move the inner loop into a helper function.",
-            "pattern": "loop with a dependent or non-perfect inner loop",
+            "pattern": "inner loop is not perfectly nested, depends on the outer loop or is unsafe to merge",
             "severity": {
               "measure": "loop_depth",
               "value": 2,
@@ -6781,7 +6781,7 @@
             },
             "confidence": 1.0,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for For statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       },
@@ -6871,7 +6871,7 @@
             "refactoring": "Extract Inner Loop",
             "action": "EXTRACT_INNER_LOOP",
             "description": "Move the inner loop into a helper function.",
-            "pattern": "loop with a dependent or non-perfect inner loop",
+            "pattern": "inner loop is not perfectly nested, depends on the outer loop or is unsafe to merge",
             "severity": {
               "measure": "loop_depth",
               "value": 2,
@@ -6879,7 +6879,7 @@
             },
             "confidence": 0.965,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for For statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       },
@@ -7031,7 +7031,7 @@
             "refactoring": "Extract Inner Loop",
             "action": "EXTRACT_INNER_LOOP",
             "description": "Move the inner loop into a helper function.",
-            "pattern": "loop with a dependent or non-perfect inner loop",
+            "pattern": "inner loop is not perfectly nested, depends on the outer loop or is unsafe to merge",
             "severity": {
               "measure": "loop_depth",
               "value": 2,
@@ -7039,7 +7039,7 @@
             },
             "confidence": 1.0,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for For statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       },
@@ -7163,7 +7163,7 @@
             },
             "confidence": 0.835,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_ARGUMENTS for Expr statements yet"
+            "reason": "transformation.py does not implement EXTRACT_ARGUMENTS yet"
           }
         ]
       },
@@ -7266,7 +7266,7 @@
             },
             "confidence": 0.95,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for While statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       }
@@ -7302,7 +7302,7 @@
             },
             "confidence": 0.82,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for While statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       }
@@ -7330,7 +7330,7 @@
             "refactoring": "Extract Inner Loop",
             "action": "EXTRACT_INNER_LOOP",
             "description": "Move the inner loop into a helper function.",
-            "pattern": "loop with a dependent or non-perfect inner loop",
+            "pattern": "inner loop is not perfectly nested, depends on the outer loop or is unsafe to merge",
             "severity": {
               "measure": "loop_depth",
               "value": 2,
@@ -7338,7 +7338,7 @@
             },
             "confidence": 0.97,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for For statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       }
@@ -7374,7 +7374,7 @@
             },
             "confidence": 0.995,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for While statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       }
@@ -7438,7 +7438,7 @@
             "refactoring": "Extract Inner Loop",
             "action": "EXTRACT_INNER_LOOP",
             "description": "Move the inner loop into a helper function.",
-            "pattern": "loop with a dependent or non-perfect inner loop",
+            "pattern": "inner loop is not perfectly nested, depends on the outer loop or is unsafe to merge",
             "severity": {
               "measure": "loop_depth",
               "value": 2,
@@ -7446,7 +7446,7 @@
             },
             "confidence": 1.0,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for For statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       },
@@ -7502,18 +7502,18 @@
         "recommendations": [
           {
             "issue": "nested_loop",
-            "refactoring": "Extract Inner Loop",
-            "action": "EXTRACT_INNER_LOOP",
-            "description": "Move the inner loop into a helper function.",
-            "pattern": "loop with a dependent or non-perfect inner loop",
+            "refactoring": "Flatten Nested Loop",
+            "action": "FLATTEN_WITH_PRODUCT",
+            "description": "Replace the perfectly nested loops with one loop over itertools.product.",
+            "pattern": "perfectly nested independent for-loops",
             "severity": {
               "measure": "loop_depth",
               "value": 4,
               "flagged_at": 2
             },
             "confidence": 1.0,
-            "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for For statements yet"
+            "automatable": true,
+            "reason": ""
           }
         ]
       },
@@ -7536,7 +7536,7 @@
             "refactoring": "Extract Inner Loop",
             "action": "EXTRACT_INNER_LOOP",
             "description": "Move the inner loop into a helper function.",
-            "pattern": "loop with a dependent or non-perfect inner loop",
+            "pattern": "inner loop is not perfectly nested, depends on the outer loop or is unsafe to merge",
             "severity": {
               "measure": "loop_depth",
               "value": 3,
@@ -7544,7 +7544,7 @@
             },
             "confidence": 1.0,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for For statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       },
@@ -7574,8 +7574,8 @@
               "flagged_at": 2
             },
             "confidence": 0.99,
-            "automatable": false,
-            "reason": "transformation.py does not implement FLATTEN_WITH_PRODUCT for For statements yet"
+            "automatable": true,
+            "reason": ""
           }
         ]
       },
@@ -7642,7 +7642,7 @@
             },
             "confidence": 1.0,
             "automatable": false,
-            "reason": "transformation.py does not implement SIMPLIFY_COMPREHENSION for Assign statements yet"
+            "reason": "transformation.py does not implement SIMPLIFY_COMPREHENSION yet"
           }
         ]
       },
@@ -7673,7 +7673,7 @@
             },
             "confidence": 0.985,
             "automatable": false,
-            "reason": "transformation.py does not implement SIMPLIFY_COMPREHENSION for Assign statements yet"
+            "reason": "transformation.py does not implement SIMPLIFY_COMPREHENSION yet"
           }
         ]
       },
@@ -7735,7 +7735,7 @@
             },
             "confidence": 0.96,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_ELEMENTS for Return statements yet"
+            "reason": "transformation.py does not implement EXTRACT_ELEMENTS yet"
           }
         ]
       }
@@ -7763,7 +7763,7 @@
             "refactoring": "Extract Inner Loop",
             "action": "EXTRACT_INNER_LOOP",
             "description": "Move the inner loop into a helper function.",
-            "pattern": "loop with a dependent or non-perfect inner loop",
+            "pattern": "inner loop is not perfectly nested, depends on the outer loop or is unsafe to merge",
             "severity": {
               "measure": "loop_depth",
               "value": 2,
@@ -7771,7 +7771,7 @@
             },
             "confidence": 0.975,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for For statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       }
@@ -7835,7 +7835,7 @@
             "refactoring": "Extract Inner Loop",
             "action": "EXTRACT_INNER_LOOP",
             "description": "Move the inner loop into a helper function.",
-            "pattern": "loop with a dependent or non-perfect inner loop",
+            "pattern": "inner loop is not perfectly nested, depends on the outer loop or is unsafe to merge",
             "severity": {
               "measure": "loop_depth",
               "value": 2,
@@ -7843,7 +7843,7 @@
             },
             "confidence": 0.995,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for For statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       },
@@ -8044,7 +8044,7 @@
             },
             "confidence": 0.945,
             "automatable": false,
-            "reason": "transformation.py does not implement SIMPLIFY_COMPREHENSION for Assign statements yet"
+            "reason": "transformation.py does not implement SIMPLIFY_COMPREHENSION yet"
           }
         ]
       },
@@ -8067,7 +8067,7 @@
             "refactoring": "Extract Inner Loop",
             "action": "EXTRACT_INNER_LOOP",
             "description": "Move the inner loop into a helper function.",
-            "pattern": "loop with a dependent or non-perfect inner loop",
+            "pattern": "inner loop is not perfectly nested, depends on the outer loop or is unsafe to merge",
             "severity": {
               "measure": "loop_depth",
               "value": 3,
@@ -8075,7 +8075,7 @@
             },
             "confidence": 1.0,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for For statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       },
@@ -8106,7 +8106,7 @@
             },
             "confidence": 0.99,
             "automatable": false,
-            "reason": "transformation.py does not implement SIMPLIFY_COMPREHENSION for Assign statements yet"
+            "reason": "transformation.py does not implement SIMPLIFY_COMPREHENSION yet"
           }
         ]
       },
@@ -8136,8 +8136,8 @@
               "flagged_at": 2
             },
             "confidence": 1.0,
-            "automatable": false,
-            "reason": "transformation.py does not implement FLATTEN_WITH_PRODUCT for For statements yet"
+            "automatable": true,
+            "reason": ""
           }
         ]
       }
@@ -8165,7 +8165,7 @@
             "refactoring": "Extract Inner Loop",
             "action": "EXTRACT_INNER_LOOP",
             "description": "Move the inner loop into a helper function.",
-            "pattern": "loop with a dependent or non-perfect inner loop",
+            "pattern": "inner loop is not perfectly nested, depends on the outer loop or is unsafe to merge",
             "severity": {
               "measure": "loop_depth",
               "value": 2,
@@ -8173,7 +8173,7 @@
             },
             "confidence": 0.99,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for For statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       },
@@ -8203,8 +8203,8 @@
               "flagged_at": 61
             },
             "confidence": 1.0,
-            "automatable": false,
-            "reason": "transformation.py does not implement DECOMPOSE_EXPRESSION for AugAssign statements yet"
+            "automatable": true,
+            "reason": ""
           }
         ]
       }
@@ -8240,7 +8240,7 @@
             },
             "confidence": 0.97,
             "automatable": false,
-            "reason": "transformation.py does not implement REPLACE_CONDITIONAL_EXPRESSION for Assign statements yet"
+            "reason": "transformation.py does not implement REPLACE_CONDITIONAL_EXPRESSION yet"
           }
         ]
       },
@@ -8366,7 +8366,7 @@
             "refactoring": "Extract Inner Loop",
             "action": "EXTRACT_INNER_LOOP",
             "description": "Move the inner loop into a helper function.",
-            "pattern": "loop with a dependent or non-perfect inner loop",
+            "pattern": "inner loop is not perfectly nested, depends on the outer loop or is unsafe to merge",
             "severity": {
               "measure": "loop_depth",
               "value": 4,
@@ -8374,7 +8374,7 @@
             },
             "confidence": 1.0,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for For statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       },
@@ -8397,7 +8397,7 @@
             "refactoring": "Extract Inner Loop",
             "action": "EXTRACT_INNER_LOOP",
             "description": "Move the inner loop into a helper function.",
-            "pattern": "loop with a dependent or non-perfect inner loop",
+            "pattern": "inner loop is not perfectly nested, depends on the outer loop or is unsafe to merge",
             "severity": {
               "measure": "loop_depth",
               "value": 3,
@@ -8405,7 +8405,7 @@
             },
             "confidence": 1.0,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for For statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       },
@@ -8435,8 +8435,8 @@
               "flagged_at": 2
             },
             "confidence": 0.99,
-            "automatable": false,
-            "reason": "transformation.py does not implement FLATTEN_WITH_PRODUCT for For statements yet"
+            "automatable": true,
+            "reason": ""
           }
         ]
       },
@@ -8495,7 +8495,7 @@
             "refactoring": "Extract Inner Loop",
             "action": "EXTRACT_INNER_LOOP",
             "description": "Move the inner loop into a helper function.",
-            "pattern": "loop with a dependent or non-perfect inner loop",
+            "pattern": "inner loop is not perfectly nested, depends on the outer loop or is unsafe to merge",
             "severity": {
               "measure": "loop_depth",
               "value": 2,
@@ -8503,7 +8503,7 @@
             },
             "confidence": 1.0,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for For statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       },
@@ -8534,7 +8534,7 @@
             },
             "confidence": 0.95,
             "automatable": false,
-            "reason": "transformation.py does not implement REPLACE_CONDITIONAL_EXPRESSION for Assign statements yet"
+            "reason": "transformation.py does not implement REPLACE_CONDITIONAL_EXPRESSION yet"
           }
         ]
       },
@@ -8771,7 +8771,7 @@
             },
             "confidence": 1.0,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for While statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       },
@@ -8838,7 +8838,7 @@
             },
             "confidence": 1.0,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for While statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       },
@@ -8897,7 +8897,7 @@
             "refactoring": "Extract Inner Loop",
             "action": "EXTRACT_INNER_LOOP",
             "description": "Move the inner loop into a helper function.",
-            "pattern": "loop with a dependent or non-perfect inner loop",
+            "pattern": "inner loop is not perfectly nested, depends on the outer loop or is unsafe to merge",
             "severity": {
               "measure": "loop_depth",
               "value": 2,
@@ -8905,7 +8905,7 @@
             },
             "confidence": 0.995,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for For statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       },
@@ -9144,7 +9144,7 @@
             "refactoring": "Extract Inner Loop",
             "action": "EXTRACT_INNER_LOOP",
             "description": "Move the inner loop into a helper function.",
-            "pattern": "loop with a dependent or non-perfect inner loop",
+            "pattern": "inner loop is not perfectly nested, depends on the outer loop or is unsafe to merge",
             "severity": {
               "measure": "loop_depth",
               "value": 3,
@@ -9152,7 +9152,7 @@
             },
             "confidence": 1.0,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for For statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       },
@@ -9175,7 +9175,7 @@
             "refactoring": "Extract Inner Loop",
             "action": "EXTRACT_INNER_LOOP",
             "description": "Move the inner loop into a helper function.",
-            "pattern": "loop with a dependent or non-perfect inner loop",
+            "pattern": "inner loop is not perfectly nested, depends on the outer loop or is unsafe to merge",
             "severity": {
               "measure": "loop_depth",
               "value": 2,
@@ -9183,7 +9183,7 @@
             },
             "confidence": 0.98,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for For statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       },
@@ -9249,8 +9249,8 @@
               "flagged_at": 2
             },
             "confidence": 1.0,
-            "automatable": false,
-            "reason": "transformation.py does not implement FLATTEN_WITH_PRODUCT for For statements yet"
+            "automatable": true,
+            "reason": ""
           }
         ]
       },
@@ -9309,7 +9309,7 @@
             "refactoring": "Extract Inner Loop",
             "action": "EXTRACT_INNER_LOOP",
             "description": "Move the inner loop into a helper function.",
-            "pattern": "loop with a dependent or non-perfect inner loop",
+            "pattern": "inner loop is not perfectly nested, depends on the outer loop or is unsafe to merge",
             "severity": {
               "measure": "loop_depth",
               "value": 2,
@@ -9317,7 +9317,7 @@
             },
             "confidence": 1.0,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for For statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       },
@@ -9383,8 +9383,8 @@
               "flagged_at": 2
             },
             "confidence": 1.0,
-            "automatable": false,
-            "reason": "transformation.py does not implement FLATTEN_WITH_PRODUCT for For statements yet"
+            "automatable": true,
+            "reason": ""
           }
         ]
       },
@@ -9554,7 +9554,7 @@
             },
             "confidence": 1.0,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for While statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       },
@@ -9613,7 +9613,7 @@
             "refactoring": "Extract Inner Loop",
             "action": "EXTRACT_INNER_LOOP",
             "description": "Move the inner loop into a helper function.",
-            "pattern": "loop with a dependent or non-perfect inner loop",
+            "pattern": "inner loop is not perfectly nested, depends on the outer loop or is unsafe to merge",
             "severity": {
               "measure": "loop_depth",
               "value": 3,
@@ -9621,7 +9621,7 @@
             },
             "confidence": 0.99,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for For statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       },
@@ -9652,7 +9652,7 @@
             },
             "confidence": 0.995,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for While statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       },
@@ -9711,7 +9711,7 @@
             "refactoring": "Extract Inner Loop",
             "action": "EXTRACT_INNER_LOOP",
             "description": "Move the inner loop into a helper function.",
-            "pattern": "loop with a dependent or non-perfect inner loop",
+            "pattern": "inner loop is not perfectly nested, depends on the outer loop or is unsafe to merge",
             "severity": {
               "measure": "loop_depth",
               "value": 2,
@@ -9719,7 +9719,7 @@
             },
             "confidence": 1.0,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for For statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       },
@@ -9750,7 +9750,7 @@
             },
             "confidence": 0.945,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_PREDICATE for While statements yet"
+            "reason": "transformation.py does not implement EXTRACT_PREDICATE yet"
           }
         ]
       }
@@ -9785,8 +9785,8 @@
               "flagged_at": 2
             },
             "confidence": 0.995,
-            "automatable": false,
-            "reason": "transformation.py does not implement FLATTEN_WITH_PRODUCT for For statements yet"
+            "automatable": true,
+            "reason": ""
           }
         ]
       },
@@ -9845,7 +9845,7 @@
             "refactoring": "Extract Inner Loop",
             "action": "EXTRACT_INNER_LOOP",
             "description": "Move the inner loop into a helper function.",
-            "pattern": "loop with a dependent or non-perfect inner loop",
+            "pattern": "inner loop is not perfectly nested, depends on the outer loop or is unsafe to merge",
             "severity": {
               "measure": "loop_depth",
               "value": 2,
@@ -9853,7 +9853,7 @@
             },
             "confidence": 1.0,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for For statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       },
@@ -9912,7 +9912,7 @@
             "refactoring": "Extract Inner Loop",
             "action": "EXTRACT_INNER_LOOP",
             "description": "Move the inner loop into a helper function.",
-            "pattern": "loop with a dependent or non-perfect inner loop",
+            "pattern": "inner loop is not perfectly nested, depends on the outer loop or is unsafe to merge",
             "severity": {
               "measure": "loop_depth",
               "value": 2,
@@ -9920,7 +9920,7 @@
             },
             "confidence": 1.0,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for For statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       }
@@ -9948,7 +9948,7 @@
             "refactoring": "Extract Inner Loop",
             "action": "EXTRACT_INNER_LOOP",
             "description": "Move the inner loop into a helper function.",
-            "pattern": "loop with a dependent or non-perfect inner loop",
+            "pattern": "inner loop is not perfectly nested, depends on the outer loop or is unsafe to merge",
             "severity": {
               "measure": "loop_depth",
               "value": 2,
@@ -9956,7 +9956,7 @@
             },
             "confidence": 1.0,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for For statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       },
@@ -9987,7 +9987,7 @@
             },
             "confidence": 0.995,
             "automatable": false,
-            "reason": "transformation.py does not implement REPLACE_CONDITIONAL_EXPRESSION for Assign statements yet"
+            "reason": "transformation.py does not implement REPLACE_CONDITIONAL_EXPRESSION yet"
           }
         ]
       }
@@ -10015,7 +10015,7 @@
             "refactoring": "Extract Inner Loop",
             "action": "EXTRACT_INNER_LOOP",
             "description": "Move the inner loop into a helper function.",
-            "pattern": "loop with a dependent or non-perfect inner loop",
+            "pattern": "inner loop is not perfectly nested, depends on the outer loop or is unsafe to merge",
             "severity": {
               "measure": "loop_depth",
               "value": 2,
@@ -10023,7 +10023,7 @@
             },
             "confidence": 0.975,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for For statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       },
@@ -10054,7 +10054,7 @@
             },
             "confidence": 1.0,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_ARGUMENTS for Assign statements yet"
+            "reason": "transformation.py does not implement EXTRACT_ARGUMENTS yet"
           }
         ]
       }
@@ -10118,7 +10118,7 @@
             "refactoring": "Extract Inner Loop",
             "action": "EXTRACT_INNER_LOOP",
             "description": "Move the inner loop into a helper function.",
-            "pattern": "loop with a dependent or non-perfect inner loop",
+            "pattern": "inner loop is not perfectly nested, depends on the outer loop or is unsafe to merge",
             "severity": {
               "measure": "loop_depth",
               "value": 2,
@@ -10126,7 +10126,7 @@
             },
             "confidence": 0.995,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for For statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       },
@@ -10157,7 +10157,7 @@
             },
             "confidence": 0.985,
             "automatable": false,
-            "reason": "transformation.py does not implement REPLACE_CONDITIONAL_EXPRESSION for Assign statements yet"
+            "reason": "transformation.py does not implement REPLACE_CONDITIONAL_EXPRESSION yet"
           }
         ]
       }
@@ -10185,7 +10185,7 @@
             "refactoring": "Extract Inner Loop",
             "action": "EXTRACT_INNER_LOOP",
             "description": "Move the inner loop into a helper function.",
-            "pattern": "loop with a dependent or non-perfect inner loop",
+            "pattern": "inner loop is not perfectly nested, depends on the outer loop or is unsafe to merge",
             "severity": {
               "measure": "loop_depth",
               "value": 2,
@@ -10193,7 +10193,7 @@
             },
             "confidence": 1.0,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for For statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       },
@@ -10252,7 +10252,7 @@
             "refactoring": "Extract Inner Loop",
             "action": "EXTRACT_INNER_LOOP",
             "description": "Move the inner loop into a helper function.",
-            "pattern": "loop with a dependent or non-perfect inner loop",
+            "pattern": "inner loop is not perfectly nested, depends on the outer loop or is unsafe to merge",
             "severity": {
               "measure": "loop_depth",
               "value": 2,
@@ -10260,7 +10260,7 @@
             },
             "confidence": 1.0,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for For statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       },
@@ -10319,7 +10319,7 @@
             "refactoring": "Extract Inner Loop",
             "action": "EXTRACT_INNER_LOOP",
             "description": "Move the inner loop into a helper function.",
-            "pattern": "loop with a dependent or non-perfect inner loop",
+            "pattern": "inner loop is not perfectly nested, depends on the outer loop or is unsafe to merge",
             "severity": {
               "measure": "loop_depth",
               "value": 2,
@@ -10327,7 +10327,7 @@
             },
             "confidence": 1.0,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for For statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       },
@@ -10417,7 +10417,7 @@
             "refactoring": "Extract Inner Loop",
             "action": "EXTRACT_INNER_LOOP",
             "description": "Move the inner loop into a helper function.",
-            "pattern": "loop with a dependent or non-perfect inner loop",
+            "pattern": "inner loop is not perfectly nested, depends on the outer loop or is unsafe to merge",
             "severity": {
               "measure": "loop_depth",
               "value": 2,
@@ -10425,7 +10425,7 @@
             },
             "confidence": 1.0,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for For statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       },
@@ -10456,7 +10456,7 @@
             },
             "confidence": 0.595,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_PREDICATE for While statements yet"
+            "reason": "transformation.py does not implement EXTRACT_PREDICATE yet"
           }
         ]
       },
@@ -10522,8 +10522,8 @@
               "flagged_at": 2
             },
             "confidence": 1.0,
-            "automatable": false,
-            "reason": "transformation.py does not implement FLATTEN_WITH_PRODUCT for For statements yet"
+            "automatable": true,
+            "reason": ""
           }
         ]
       },
@@ -10590,7 +10590,7 @@
             },
             "confidence": 1.0,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for While statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       },
@@ -10610,18 +10610,18 @@
         "recommendations": [
           {
             "issue": "nested_loop",
-            "refactoring": "Extract Inner Loop",
-            "action": "EXTRACT_INNER_LOOP",
-            "description": "Move the inner loop into a helper function.",
-            "pattern": "loop with a dependent or non-perfect inner loop",
+            "refactoring": "Flatten Nested Loop",
+            "action": "FLATTEN_WITH_PRODUCT",
+            "description": "Replace the perfectly nested loops with one loop over itertools.product.",
+            "pattern": "perfectly nested independent for-loops",
             "severity": {
               "measure": "loop_depth",
               "value": 3,
               "flagged_at": 2
             },
             "confidence": 1.0,
-            "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for For statements yet"
+            "automatable": true,
+            "reason": ""
           }
         ]
       },
@@ -10644,7 +10644,7 @@
             "refactoring": "Extract Inner Loop",
             "action": "EXTRACT_INNER_LOOP",
             "description": "Move the inner loop into a helper function.",
-            "pattern": "loop with a dependent or non-perfect inner loop",
+            "pattern": "inner loop is not perfectly nested, depends on the outer loop or is unsafe to merge",
             "severity": {
               "measure": "loop_depth",
               "value": 2,
@@ -10652,7 +10652,7 @@
             },
             "confidence": 0.97,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for For statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       },
@@ -10711,7 +10711,7 @@
             "refactoring": "Extract Inner Loop",
             "action": "EXTRACT_INNER_LOOP",
             "description": "Move the inner loop into a helper function.",
-            "pattern": "loop with a dependent or non-perfect inner loop",
+            "pattern": "inner loop is not perfectly nested, depends on the outer loop or is unsafe to merge",
             "severity": {
               "measure": "loop_depth",
               "value": 3,
@@ -10719,7 +10719,7 @@
             },
             "confidence": 1.0,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for For statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       },
@@ -10750,7 +10750,7 @@
             },
             "confidence": 0.995,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for While statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       }
@@ -10778,7 +10778,7 @@
             "refactoring": "Extract Inner Loop",
             "action": "EXTRACT_INNER_LOOP",
             "description": "Move the inner loop into a helper function.",
-            "pattern": "loop with a dependent or non-perfect inner loop",
+            "pattern": "inner loop is not perfectly nested, depends on the outer loop or is unsafe to merge",
             "severity": {
               "measure": "loop_depth",
               "value": 2,
@@ -10786,7 +10786,7 @@
             },
             "confidence": 1.0,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for For statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       }
@@ -10894,7 +10894,7 @@
             },
             "confidence": 0.965,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_PREDICATE for While statements yet"
+            "reason": "transformation.py does not implement EXTRACT_PREDICATE yet"
           }
         ]
       }
@@ -10966,7 +10966,7 @@
             },
             "confidence": 1.0,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for While statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       },
@@ -11025,7 +11025,7 @@
             "refactoring": "Extract Inner Loop",
             "action": "EXTRACT_INNER_LOOP",
             "description": "Move the inner loop into a helper function.",
-            "pattern": "loop with a dependent or non-perfect inner loop",
+            "pattern": "inner loop is not perfectly nested, depends on the outer loop or is unsafe to merge",
             "severity": {
               "measure": "loop_depth",
               "value": 2,
@@ -11033,7 +11033,7 @@
             },
             "confidence": 1.0,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for For statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       },
@@ -11092,7 +11092,7 @@
             "refactoring": "Extract Inner Loop",
             "action": "EXTRACT_INNER_LOOP",
             "description": "Move the inner loop into a helper function.",
-            "pattern": "loop with a dependent or non-perfect inner loop",
+            "pattern": "inner loop is not perfectly nested, depends on the outer loop or is unsafe to merge",
             "severity": {
               "measure": "loop_depth",
               "value": 2,
@@ -11100,7 +11100,7 @@
             },
             "confidence": 0.95,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for For statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       },
@@ -11162,7 +11162,7 @@
             },
             "confidence": 0.99,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_ELEMENTS for Return statements yet"
+            "reason": "transformation.py does not implement EXTRACT_ELEMENTS yet"
           }
         ]
       }
@@ -11190,7 +11190,7 @@
             "refactoring": "Extract Inner Loop",
             "action": "EXTRACT_INNER_LOOP",
             "description": "Move the inner loop into a helper function.",
-            "pattern": "loop with a dependent or non-perfect inner loop",
+            "pattern": "inner loop is not perfectly nested, depends on the outer loop or is unsafe to merge",
             "severity": {
               "measure": "loop_depth",
               "value": 2,
@@ -11198,7 +11198,7 @@
             },
             "confidence": 0.965,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for For statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       },
@@ -11393,8 +11393,8 @@
               "flagged_at": 61
             },
             "confidence": 0.965,
-            "automatable": false,
-            "reason": "transformation.py does not implement DECOMPOSE_EXPRESSION for AugAssign statements yet"
+            "automatable": true,
+            "reason": ""
           }
         ]
       }
@@ -11430,7 +11430,7 @@
             },
             "confidence": 0.935,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_ELEMENTS for Return statements yet"
+            "reason": "transformation.py does not implement EXTRACT_ELEMENTS yet"
           }
         ]
       }
@@ -11458,7 +11458,7 @@
             "refactoring": "Extract Inner Loop",
             "action": "EXTRACT_INNER_LOOP",
             "description": "Move the inner loop into a helper function.",
-            "pattern": "loop with a dependent or non-perfect inner loop",
+            "pattern": "inner loop is not perfectly nested, depends on the outer loop or is unsafe to merge",
             "severity": {
               "measure": "loop_depth",
               "value": 2,
@@ -11466,7 +11466,7 @@
             },
             "confidence": 0.985,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for For statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       }
@@ -11494,7 +11494,7 @@
             "refactoring": "Extract Inner Loop",
             "action": "EXTRACT_INNER_LOOP",
             "description": "Move the inner loop into a helper function.",
-            "pattern": "loop with a dependent or non-perfect inner loop",
+            "pattern": "inner loop is not perfectly nested, depends on the outer loop or is unsafe to merge",
             "severity": {
               "measure": "loop_depth",
               "value": 2,
@@ -11502,7 +11502,7 @@
             },
             "confidence": 1.0,
             "automatable": false,
-            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP for For statements yet"
+            "reason": "transformation.py does not implement EXTRACT_INNER_LOOP yet"
           }
         ]
       }

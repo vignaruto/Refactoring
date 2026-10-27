@@ -1,0 +1,1627 @@
+{
+  "programs_transformed": 114,
+  "targets": 195,
+  "status": {
+    "applied": 192,
+    "covered": 1,
+    "skipped": 2
+  },
+  "by_action": {
+    "DECOMPOSE_BOOLEAN": {
+      "applied": 23
+    },
+    "DECOMPOSE_EXPRESSION": {
+      "applied": 59,
+      "skipped": 2
+    },
+    "EXTRACT_CONDITION": {
+      "applied": 81
+    },
+    "FLATTEN_WITH_PRODUCT": {
+      "applied": 29,
+      "covered": 1
+    }
+  },
+  "skip_reasons": {
+    "the expression could not be split into shorter steps": 2
+  },
+  "long_statements_before": 111,
+  "long_statements_after": 58,
+  "outcomes": {
+    "P0004": [
+      {
+        "line_no": 10,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_EXPRESSION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0005": [
+      {
+        "line_no": 10,
+        "statement_type": "For",
+        "action": "FLATTEN_WITH_PRODUCT",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 12,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_EXPRESSION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0014": [
+      {
+        "line_no": 12,
+        "statement_type": "For",
+        "action": "FLATTEN_WITH_PRODUCT",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0017": [
+      {
+        "line_no": 9,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0026": [
+      {
+        "line_no": 10,
+        "statement_type": "For",
+        "action": "FLATTEN_WITH_PRODUCT",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 11,
+        "statement_type": "For",
+        "action": "FLATTEN_WITH_PRODUCT",
+        "status": "covered",
+        "detail": "merged into the loop at line 10"
+      }
+    ],
+    "P0035": [
+      {
+        "line_no": 9,
+        "statement_type": "Return",
+        "action": "DECOMPOSE_EXPRESSION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0045": [
+      {
+        "line_no": 13,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_EXPRESSION",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 14,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0046": [
+      {
+        "line_no": 12,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_EXPRESSION",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 13,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_EXPRESSION",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 14,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0048": [
+      {
+        "line_no": 13,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_EXPRESSION",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 14,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0057": [
+      {
+        "line_no": 10,
+        "statement_type": "Return",
+        "action": "DECOMPOSE_EXPRESSION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0059": [
+      {
+        "line_no": 4,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_EXPRESSION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0063": [
+      {
+        "line_no": 4,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_EXPRESSION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0078": [
+      {
+        "line_no": 9,
+        "statement_type": "AugAssign",
+        "action": "DECOMPOSE_EXPRESSION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0079": [
+      {
+        "line_no": 6,
+        "statement_type": "For",
+        "action": "FLATTEN_WITH_PRODUCT",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 8,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_EXPRESSION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0086": [
+      {
+        "line_no": 4,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_EXPRESSION",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 5,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0090": [
+      {
+        "line_no": 8,
+        "statement_type": "For",
+        "action": "FLATTEN_WITH_PRODUCT",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0109": [
+      {
+        "line_no": 4,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_EXPRESSION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0118": [
+      {
+        "line_no": 7,
+        "statement_type": "For",
+        "action": "FLATTEN_WITH_PRODUCT",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0124": [
+      {
+        "line_no": 4,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_BOOLEAN",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 5,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_BOOLEAN",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 6,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0140": [
+      {
+        "line_no": 5,
+        "statement_type": "For",
+        "action": "FLATTEN_WITH_PRODUCT",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 12,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_BOOLEAN",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 13,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0143": [
+      {
+        "line_no": 5,
+        "statement_type": "For",
+        "action": "FLATTEN_WITH_PRODUCT",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 8,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_BOOLEAN",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 11,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_BOOLEAN",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 12,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0144": [
+      {
+        "line_no": 5,
+        "statement_type": "For",
+        "action": "FLATTEN_WITH_PRODUCT",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 11,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_BOOLEAN",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 12,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0145": [
+      {
+        "line_no": 5,
+        "statement_type": "For",
+        "action": "FLATTEN_WITH_PRODUCT",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 8,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_EXPRESSION",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 9,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_EXPRESSION",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 10,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0154": [
+      {
+        "line_no": 9,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_EXPRESSION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0159": [
+      {
+        "line_no": 2,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_EXPRESSION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0164": [
+      {
+        "line_no": 2,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_EXPRESSION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0170": [
+      {
+        "line_no": 5,
+        "statement_type": "For",
+        "action": "FLATTEN_WITH_PRODUCT",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 8,
+        "statement_type": "For",
+        "action": "FLATTEN_WITH_PRODUCT",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0174": [
+      {
+        "line_no": 8,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_BOOLEAN",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 9,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0186": [
+      {
+        "line_no": 2,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_EXPRESSION",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 5,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0187": [
+      {
+        "line_no": 2,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_EXPRESSION",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 6,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0188": [
+      {
+        "line_no": 2,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_EXPRESSION",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 3,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_EXPRESSION",
+        "status": "skipped",
+        "detail": "the expression could not be split into shorter steps"
+      },
+      {
+        "line_no": 6,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0190": [
+      {
+        "line_no": 5,
+        "statement_type": "For",
+        "action": "FLATTEN_WITH_PRODUCT",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 7,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_BOOLEAN",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 8,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_BOOLEAN",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 10,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_BOOLEAN",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 11,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0193": [
+      {
+        "line_no": 5,
+        "statement_type": "For",
+        "action": "FLATTEN_WITH_PRODUCT",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 7,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_BOOLEAN",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 10,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_BOOLEAN",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 11,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0194": [
+      {
+        "line_no": 5,
+        "statement_type": "For",
+        "action": "FLATTEN_WITH_PRODUCT",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 8,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_BOOLEAN",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 9,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_BOOLEAN",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 11,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_BOOLEAN",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 12,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0218": [
+      {
+        "line_no": 5,
+        "statement_type": "For",
+        "action": "FLATTEN_WITH_PRODUCT",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0223": [
+      {
+        "line_no": 7,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_BOOLEAN",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 9,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0225": [
+      {
+        "line_no": 8,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0234": [
+      {
+        "line_no": 2,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_EXPRESSION",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 3,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_BOOLEAN",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 4,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_BOOLEAN",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 5,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0236": [
+      {
+        "line_no": 2,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_EXPRESSION",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 3,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_BOOLEAN",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 5,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0238": [
+      {
+        "line_no": 2,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_EXPRESSION",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 5,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0240": [
+      {
+        "line_no": 5,
+        "statement_type": "For",
+        "action": "FLATTEN_WITH_PRODUCT",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 7,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_EXPRESSION",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 9,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_BOOLEAN",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 10,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_BOOLEAN",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 11,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_BOOLEAN",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 12,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0241": [
+      {
+        "line_no": 7,
+        "statement_type": "For",
+        "action": "FLATTEN_WITH_PRODUCT",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 16,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0244": [
+      {
+        "line_no": 5,
+        "statement_type": "For",
+        "action": "FLATTEN_WITH_PRODUCT",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 11,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_BOOLEAN",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 12,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0262": [
+      {
+        "line_no": 4,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_EXPRESSION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0271": [
+      {
+        "line_no": 6,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0280": [
+      {
+        "line_no": 4,
+        "statement_type": "For",
+        "action": "FLATTEN_WITH_PRODUCT",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 8,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_EXPRESSION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0282": [
+      {
+        "line_no": 11,
+        "statement_type": "AugAssign",
+        "action": "DECOMPOSE_EXPRESSION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0285": [
+      {
+        "line_no": 3,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0290": [
+      {
+        "line_no": 5,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0291": [
+      {
+        "line_no": 6,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0297": [
+      {
+        "line_no": 8,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_EXPRESSION",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 9,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0300": [
+      {
+        "line_no": 8,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 10,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_EXPRESSION",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 11,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_EXPRESSION",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 12,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0309": [
+      {
+        "line_no": 4,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_EXPRESSION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0311": [
+      {
+        "line_no": 7,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_EXPRESSION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0313": [
+      {
+        "line_no": 6,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_EXPRESSION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0321": [
+      {
+        "line_no": 4,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 7,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 13,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0330": [
+      {
+        "line_no": 8,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_EXPRESSION",
+        "status": "skipped",
+        "detail": "the expression could not be split into shorter steps"
+      }
+    ],
+    "P0341": [
+      {
+        "line_no": 9,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0343": [
+      {
+        "line_no": 9,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 11,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0347": [
+      {
+        "line_no": 5,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_EXPRESSION",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 9,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0348": [
+      {
+        "line_no": 6,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_EXPRESSION",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 7,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_EXPRESSION",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 8,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0359": [
+      {
+        "line_no": 5,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_EXPRESSION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0374": [
+      {
+        "line_no": 5,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0379": [
+      {
+        "line_no": 7,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_EXPRESSION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0393": [
+      {
+        "line_no": 4,
+        "statement_type": "For",
+        "action": "FLATTEN_WITH_PRODUCT",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 13,
+        "statement_type": "For",
+        "action": "FLATTEN_WITH_PRODUCT",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 16,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0411": [
+      {
+        "line_no": 8,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_EXPRESSION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0426": [
+      {
+        "line_no": 3,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0428": [
+      {
+        "line_no": 14,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_EXPRESSION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0464": [
+      {
+        "line_no": 5,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_EXPRESSION",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 6,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_EXPRESSION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0475": [
+      {
+        "line_no": 3,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0477": [
+      {
+        "line_no": 7,
+        "statement_type": "For",
+        "action": "FLATTEN_WITH_PRODUCT",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0478": [
+      {
+        "line_no": 9,
+        "statement_type": "AugAssign",
+        "action": "DECOMPOSE_EXPRESSION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0484": [
+      {
+        "line_no": 8,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0486": [
+      {
+        "line_no": 2,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_EXPRESSION",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 3,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0489": [
+      {
+        "line_no": 11,
+        "statement_type": "For",
+        "action": "FLATTEN_WITH_PRODUCT",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 14,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0496": [
+      {
+        "line_no": 11,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0502": [
+      {
+        "line_no": 6,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 8,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0507": [
+      {
+        "line_no": 6,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0510": [
+      {
+        "line_no": 6,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0515": [
+      {
+        "line_no": 10,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0516": [
+      {
+        "line_no": 7,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0522": [
+      {
+        "line_no": 6,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0551": [
+      {
+        "line_no": 14,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0560": [
+      {
+        "line_no": 4,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0561": [
+      {
+        "line_no": 3,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0566": [
+      {
+        "line_no": 5,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0567": [
+      {
+        "line_no": 5,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0572": [
+      {
+        "line_no": 6,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0579": [
+      {
+        "line_no": 3,
+        "statement_type": "For",
+        "action": "FLATTEN_WITH_PRODUCT",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 5,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0580": [
+      {
+        "line_no": 6,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0591": [
+      {
+        "line_no": 4,
+        "statement_type": "For",
+        "action": "FLATTEN_WITH_PRODUCT",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 6,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_EXPRESSION",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 7,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_EXPRESSION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0610": [
+      {
+        "line_no": 4,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0613": [
+      {
+        "line_no": 6,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0619": [
+      {
+        "line_no": 10,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0620": [
+      {
+        "line_no": 16,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0627": [
+      {
+        "line_no": 3,
+        "statement_type": "For",
+        "action": "FLATTEN_WITH_PRODUCT",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 5,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0630": [
+      {
+        "line_no": 7,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0647": [
+      {
+        "line_no": 4,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_EXPRESSION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0681": [
+      {
+        "line_no": 6,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_EXPRESSION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0685": [
+      {
+        "line_no": 10,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_EXPRESSION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0687": [
+      {
+        "line_no": 12,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 13,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_EXPRESSION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0689": [
+      {
+        "line_no": 10,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_EXPRESSION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0694": [
+      {
+        "line_no": 4,
+        "statement_type": "For",
+        "action": "FLATTEN_WITH_PRODUCT",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 6,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0699": [
+      {
+        "line_no": 8,
+        "statement_type": "For",
+        "action": "FLATTEN_WITH_PRODUCT",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 16,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0710": [
+      {
+        "line_no": 5,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0711": [
+      {
+        "line_no": 3,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0713": [
+      {
+        "line_no": 5,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0718": [
+      {
+        "line_no": 9,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_EXPRESSION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0721": [
+      {
+        "line_no": 7,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_EXPRESSION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0724": [
+      {
+        "line_no": 7,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0726": [
+      {
+        "line_no": 14,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_EXPRESSION",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 15,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0735": [
+      {
+        "line_no": 6,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_EXPRESSION",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 8,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0738": [
+      {
+        "line_no": 7,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 8,
+        "statement_type": "AugAssign",
+        "action": "DECOMPOSE_EXPRESSION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0771": [
+      {
+        "line_no": 6,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ],
+    "P0787": [
+      {
+        "line_no": 7,
+        "statement_type": "Assign",
+        "action": "DECOMPOSE_EXPRESSION",
+        "status": "applied",
+        "detail": ""
+      },
+      {
+        "line_no": 8,
+        "statement_type": "If",
+        "action": "EXTRACT_CONDITION",
+        "status": "applied",
+        "detail": ""
+      }
+    ]
+  }
+}

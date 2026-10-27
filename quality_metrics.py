@@ -1,7 +1,7 @@
 
 import ast
 
-from transformation import transform_code
+from transformation import transform_source
 
 
 # --------------------------------------------------
@@ -135,16 +135,16 @@ def example(a, b, c, d, e, f):
 '''
 
     # These line numbers match the original_code above.
-    actions_by_line = {
-        3: ["DECOMPOSE_EXPRESSION"],
-        5: ["EXTRACT_CONDITION"]
-    }
+    targets = [
+        {"line_no": 3, "statement_type": "Assign",
+         "action": "DECOMPOSE_EXPRESSION"},
+        {"line_no": 5, "statement_type": "If",
+         "action": "EXTRACT_CONDITION"},
+    ]
 
-    transformed_code, applied_actions = transform_code(
-        original_code,
-        actions_by_line
-    )
+    transformed_code, outcomes = transform_source(original_code, targets)
 
-    print("Applied transformations:", applied_actions)
+    print("Applied transformations:",
+          [o["action"] for o in outcomes if o["status"] == "applied"])
 
     compare_metrics(original_code, transformed_code)

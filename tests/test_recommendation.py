@@ -48,7 +48,8 @@ class LongStatementActionTests(unittest.TestCase):
 
 class NestedLoopActionTests(unittest.TestCase):
     def action(self, source):
-        return rec.nested_loop_action(statement(source))[0]
+        tree = ast.parse(textwrap.dedent(source))
+        return rec.nested_loop_action(tree.body[0], rec.parents_of(tree))[0]
 
     def test_independent_perfect_nesting_flattens(self):
         self.assertEqual(self.action("""

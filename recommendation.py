@@ -31,7 +31,7 @@ from generate_dataset import (
     statement_length,
 )
 from localization import program_source
-from transformation import SUPPORTED_ACTIONS
+from transformation import applicability, parents_of, product_levels
 
 BASE_DIR = Path(__file__).resolve().parent
 RESULTS_DIR = BASE_DIR / "results"
@@ -106,10 +106,6 @@ def find_statement(tree, issue):
     )
 
 
-def names_in(node):
-    return {n.id for n in ast.walk(node) if isinstance(n, ast.Name)}
-
-
 def long_statement_action(node):
     value = node.value
     if isinstance(value, ast.BinOp):
@@ -129,30 +125,12 @@ def long_statement_action(node):
     return "INTRODUCE_EXPLAINING_VARIABLE", type(value).__name__
 
 
-def can_flatten_with_product(node):
-    """
-    True for `for a in X: for b in Y: body` where Y does not use a and
-    nothing changes the iteration (no break/continue/else), so the pair
-    of loops visits exactly the pairs in itertools.product(X, Y).
-    """
-    if not isinstance(node, ast.For) or node.orelse or len(node.body) != 1:
-        return False
-    inner = node.body[0]
-    if not isinstance(inner, ast.For) or inner.orelse:
-        return False
-    if names_in(node.target) & names_in(inner.iter):
-        return False
-    return not any(
-        isinstance(n, (ast.Break, ast.Continue)) for n in ast.walk(inner)
-    )
-
-
-def nested_loop_action(node):
-    if can_flatten_with_product(node):
+def nested_loop_action(node, parents):
+    if isinstance(node, ast.For) and len(product_levels(node, parents)) > 1:
         return "FLATTEN_WITH_PRODUCT", "perfectly nested independent for-loops"
     if isinstance(node, ast.While):
         return "EXTRACT_INNER_LOOP", "while loop containing a loop"
-    return "EXTRACT_INNER_LOOP", "loop with a dependent or non-perfect inner loop"
+    return "EXTRACT_INNER_LOOP", "inner loop is not perfectly nested, depends on the outer loop or is unsafe to merge"
 
 
 def complex_conditional_action(node):
@@ -177,20 +155,20 @@ ACTION_CHOOSERS = {
 }
 
 
-def recommend(issue, label, node):
-    action, pattern = ACTION_CHOOSERS[label](node)
+def recommend(issue, label, node, tree, source_lines, parents):
+    chooser = ACTION_CHOOSERS[label]
+    if label == "nested_loop":
+        action, pattern = chooser(node, parents)
+    else:
+        action, pattern = chooser(node)
     name, description = REFACTORINGS[action]
     measure, value, threshold = severity(label, issue, node)
 
     if issue["in_main_guard"]:
         automatable, reason = False, "in the __main__ self-test block; leave unchanged"
-    elif (action, issue["statement_type"]) in SUPPORTED_ACTIONS:
-        automatable, reason = True, ""
     else:
-        automatable, reason = False, (
-            f"transformation.py does not implement {action} "
-            f"for {issue['statement_type']} statements yet"
-        )
+        reason = applicability(action, node, tree, source_lines, parents)
+        automatable = not reason
 
     return {
         "issue": label,
@@ -207,17 +185,21 @@ def recommend(issue, label, node):
 
 def recommend_refactorings(localized_issues, source_for=program_source):
     """Attach recommendations to each localized issue."""
-    trees = {}
+    parsed = {}
     results = []
     for issue in localized_issues:
         key = issue["program_id"] or issue["filename"]
-        if key not in trees:
-            trees[key] = ast.parse(source_for(issue))
-        node = find_statement(trees[key], issue)
+        if key not in parsed:
+            source = source_for(issue)
+            tree = ast.parse(source)
+            parsed[key] = tree, source.splitlines(keepends=True), parents_of(tree)
+        tree, source_lines, parents = parsed[key]
+        node = find_statement(tree, issue)
         results.append({
             **issue,
             "recommendations": [
-                recommend(issue, label, node) for label in issue["detected_issues"]
+                recommend(issue, label, node, tree, source_lines, parents)
+                for label in issue["detected_issues"]
             ],
         })
     return results
